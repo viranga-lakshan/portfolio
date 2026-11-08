@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Viranga Lakshan | Senior Software Engineer & Full Stack Developer</title>
-  <meta name="description" content="Portfolio of Viranga Lakshan - Senior Software Engineer with 5+ years experience building enterprise web applications, headless CMS platforms (Sitecore & Umbraco), and Spring Boot / Node.js microservices.">
+  <title>Viranga Lakshan | Senior Software Engineer</title>
+  <meta name="description" content="Senior Software Engineer & Full Stack Developer with 5+ years of experience specializing in Java 21 / Spring Boot 3 microservices, React/Next.js, and enterprise headless CMS architectures (Sitecore & Umbraco).">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -19,31 +19,24 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
-            primary: {
-              50: '#eff6ff',
-              100: '#dbeafe',
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
               400: '#60a5fa',
               500: '#3b82f6',
               600: '#2563eb',
               700: '#1d4ed8',
             },
-            accent: {
-              cyan: '#06b6d4',
-              emerald: '#10b981',
-              amber: '#f59e0b',
-              purple: '#8b5cf6',
-            },
-            dark: {
-              900: '#030712',
-              850: '#0b0f19',
-              800: '#0f172a',
-              750: '#151f38',
-              700: '#1e293b',
-              600: '#334155',
+            surface: {
+              DEFAULT: '#0b0c10',
+              raised: '#12141a',
+              card: '#161821',
+              border: 'rgba(255, 255, 255, 0.08)',
+              borderHover: 'rgba(255, 255, 255, 0.18)',
             }
           }
         }
@@ -52,465 +45,345 @@
   </script>
 
   <style>
-    /* Custom glow and backdrop effects */
-    .glass-card {
-      background: rgba(15, 23, 42, 0.7);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+    /* Premium subtle grid & backdrop */
+    body {
+      background-color: #08090c;
+      color: #e2e8f0;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.08) 0%, transparent 60%),
+        linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 64px 64px, 64px 64px;
+    }
+    
+    .card-clean {
+      background: #101218;
       border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .glass-card:hover {
-      border-color: rgba(96, 165, 250, 0.3);
-      box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.2);
+    .card-clean:hover {
+      border-color: rgba(255, 255, 255, 0.16);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.6);
     }
-    .gradient-text {
-      background: linear-gradient(135deg, #ffffff 30%, #93c5fd 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+
+    .badge-subtle {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
     }
-    .gradient-text-accent {
-      background: linear-gradient(135deg, #60a5fa 0%, #06b6d4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+
+    .tab-btn {
+      transition: all 0.15s ease;
     }
-    .hero-glow {
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      border-radius: 50%;
-      filter: blur(140px);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .nav-blur {
-      background: rgba(3, 7, 18, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    /* Tab active styles */
-    .filter-btn.active {
-      background: #2563eb;
+    .tab-btn.active {
+      background: #1e2230;
       color: #ffffff;
-      border-color: #3b82f6;
+      border-color: rgba(255, 255, 255, 0.15);
     }
   </style>
 </head>
-<body class="bg-dark-900 text-slate-200 font-sans antialiased selection:bg-primary-600 selection:text-white">
+<body class="selection:bg-blue-600 selection:text-white antialiased">
 
-  <!-- Background decorative glows -->
-  <div class="hero-glow bg-blue-600/15 top-0 left-1/4"></div>
-  <div class="hero-glow bg-cyan-500/10 top-96 right-10"></div>
-  <div class="hero-glow bg-emerald-500/10 bottom-96 left-10"></div>
-
-  <!-- ==================== NAVIGATION ==================== -->
-  <header class="fixed top-0 left-0 right-0 z-50 nav-blur">
-    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3 group">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary-600 to-accent-cyan flex items-center justify-center font-extrabold text-white text-lg shadow-lg shadow-primary-600/30 group-hover:scale-105 transition-transform">
+  <!-- ==================== HEADER ==================== -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-[#08090c]/85 backdrop-blur-md border-b border-white/[0.06]">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      
+      <!-- Brand / Logo -->
+      <a href="#" class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center font-mono font-bold text-sm text-white">
           VL
         </div>
-        <div>
-          <span class="font-bold text-lg text-white tracking-tight block">Viranga Lakshan</span>
-          <span class="text-xs text-primary-400 font-medium block">Senior Software Engineer</span>
-        </div>
+        <span class="font-semibold text-sm tracking-tight text-white hover:text-blue-400 transition-colors">
+          Viranga Lakshan
+        </span>
       </a>
 
-      <!-- Desktop Nav -->
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+      <!-- Navigation -->
+      <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-slate-400">
         <a href="#about" class="hover:text-white transition-colors">About</a>
-        <a href="#cms-work" class="hover:text-accent-cyan transition-colors flex items-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-accent-cyan animate-pulse"></span>
-          CMS Case Studies
-        </a>
-        <a href="#enterprise-projects" class="hover:text-white transition-colors">Enterprise Systems</a>
-        <a href="#personal-projects" class="hover:text-white transition-colors">GitHub Projects</a>
+        <a href="#cms-work" class="hover:text-white transition-colors">CMS Case Studies</a>
+        <a href="#enterprise-work" class="hover:text-white transition-colors">Enterprise Work</a>
+        <a href="#github-projects" class="hover:text-white transition-colors">Open Source</a>
         <a href="#skills" class="hover:text-white transition-colors">Skills</a>
       </nav>
 
-      <div class="hidden md:flex items-center gap-3">
-        <a href="https://drive.google.com/file/d/1dNXU_Ig0WMNT2lwEaoSZ6P8O1Xx1EKxu/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-lg text-xs font-semibold bg-dark-700 hover:bg-dark-600 text-white border border-slate-700 flex items-center gap-2 transition-all">
-          <svg class="w-4 h-4 text-accent-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-          View CV
+      <!-- Action Links -->
+      <div class="flex items-center gap-3">
+        <a href="https://drive.google.com/file/d/1dNXU_Ig0WMNT2lwEaoSZ6P8O1Xx1EKxu/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] transition-all flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+          CV
         </a>
-        <a href="#contact" class="px-5 py-2.5 rounded-lg text-xs font-bold bg-primary-600 hover:bg-primary-500 text-white shadow-lg shadow-primary-600/30 transition-all">
-          Contact Me
+        <a href="#contact" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white text-black hover:bg-slate-200 transition-all">
+          Contact
         </a>
       </div>
 
-      <!-- Mobile Menu Button -->
-      <button id="mobile-menu-btn" class="md:hidden text-slate-400 hover:text-white p-2">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-      </button>
-    </div>
-
-    <!-- Mobile Nav Drawer -->
-    <div id="mobile-menu" class="hidden md:hidden px-6 pt-3 pb-6 bg-dark-900 border-b border-dark-700 space-y-3">
-      <a href="#about" class="block py-2 text-slate-300 hover:text-white">About</a>
-      <a href="#cms-work" class="block py-2 text-accent-cyan font-semibold">CMS Case Studies (Live Sites)</a>
-      <a href="#enterprise-projects" class="block py-2 text-slate-300 hover:text-white">Enterprise Systems</a>
-      <a href="#personal-projects" class="block py-2 text-slate-300 hover:text-white">GitHub Projects</a>
-      <a href="#skills" class="block py-2 text-slate-300 hover:text-white">Skills</a>
-      <div class="pt-3 flex gap-3">
-        <a href="https://drive.google.com/file/d/1dNXU_Ig0WMNT2lwEaoSZ6P8O1Xx1EKxu/view?usp=sharing" target="_blank" class="flex-1 py-2 text-center text-xs font-semibold bg-dark-750 text-white border border-dark-600 rounded-lg">View CV</a>
-        <a href="#contact" class="flex-1 py-2 text-center text-xs font-bold bg-primary-600 text-white rounded-lg">Contact Me</a>
-      </div>
     </div>
   </header>
 
   <!-- ==================== HERO SECTION ==================== -->
-  <section class="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
+  <section class="pt-32 pb-20 md:pt-40 md:pb-28">
+    <div class="max-w-6xl mx-auto px-6">
       
-      <!-- Top Tag -->
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary-600/10 border border-primary-500/30 text-primary-400 text-xs font-semibold mb-6">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        5+ Years Industry Experience · Arimac Digital & SLT Digital Lab
+      <!-- Status Pill -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-slate-300 text-xs font-medium mb-8">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        Senior Software Engineer · 5 Years Industry Experience
       </div>
 
-      <!-- Main Headline -->
-      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6">
-        Architecting <span class="gradient-text-accent">Enterprise Web Systems</span> & Headless CMS Platforms.
+      <!-- Headline -->
+      <h1 class="text-4xl sm:text-6xl font-bold tracking-tight text-white leading-[1.12] mb-6 max-w-4xl">
+        Engineering high-concurrency microservices, modern frontends, and enterprise CMS architectures.
       </h1>
 
-      <p class="text-lg sm:text-xl text-slate-400 max-w-3xl leading-relaxed mb-10 font-normal">
-        Hi, I'm <strong class="text-white font-semibold">Viranga Lakshan</strong>. I specialize in building robust microservices architectures with <strong>Java 21 / Spring Boot 3</strong> & <strong>Node.js</strong>, paired with high-performance <strong>React / Next.js</strong> frontends and multi-site enterprise CMS platforms on <strong>Sitecore</strong> & <strong>Umbraco</strong>.
+      <p class="text-base sm:text-lg text-slate-400 max-w-2xl leading-relaxed mb-10 font-normal">
+        Based at <strong>Arimac Lanka</strong> and previously <strong>SLT Digital Lab</strong>. I specialize in backend microservices with <strong>Java 21 / Spring Boot 3</strong> and <strong>Node.js</strong>, responsive client applications with <strong>React & Next.js</strong>, and multi-site headless CMS platforms with <strong>Sitecore</strong> and <strong>Umbraco</strong>.
       </p>
 
-      <!-- Action Buttons -->
-      <div class="flex flex-wrap items-center gap-4 mb-16">
-        <a href="#cms-work" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-primary-600 to-accent-cyan text-white font-bold text-sm shadow-xl shadow-primary-600/25 hover:opacity-95 transition-all flex items-center gap-2">
-          <span>Explore Live CMS Work</span>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+      <!-- CTA Row -->
+      <div class="flex flex-wrap items-center gap-3 mb-16">
+        <a href="#cms-work" class="px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition-all flex items-center gap-1.5 shadow-sm">
+          <span>View CMS Case Studies</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
         </a>
-        <a href="https://drive.google.com/file/d/1dNXU_Ig0WMNT2lwEaoSZ6P8O1Xx1EKxu/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 rounded-xl bg-dark-800 hover:bg-dark-750 text-white font-semibold text-sm border border-slate-700/80 transition-all flex items-center gap-2">
-          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-          <span>Download / View Official CV</span>
+        <a href="https://drive.google.com/file/d/1dNXU_Ig0WMNT2lwEaoSZ6P8O1Xx1EKxu/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] transition-all flex items-center gap-2">
+          <span>Official CV (Google Drive)</span>
+          <svg class="w-3 h-3 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
         </a>
-        <a href="https://www.linkedin.com/in/viranga-lakshan-869515279" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-xl bg-dark-800 hover:bg-dark-750 text-slate-300 hover:text-white border border-slate-700/80 transition-all" title="LinkedIn Profile">
-          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        <a href="https://www.linkedin.com/in/viranga-lakshan-869515279" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-lg text-slate-400 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] transition-all" title="LinkedIn">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
         </a>
-        <a href="https://github.com/viranga-lakshan" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-xl bg-dark-800 hover:bg-dark-750 text-slate-300 hover:text-white border border-slate-700/80 transition-all" title="GitHub Profile">
-          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        <a href="https://github.com/viranga-lakshan" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-lg text-slate-400 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] transition-all" title="GitHub">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
         </a>
       </div>
 
-      <!-- Quick Metrics Grid -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="glass-card rounded-2xl p-5 border border-slate-800">
-          <div class="text-3xl font-extrabold text-white mb-1">5+ Years</div>
-          <div class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Industry Experience</div>
+      <!-- Quick Metrics Strip -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.08] border border-white/[0.08] rounded-xl overflow-hidden">
+        <div class="bg-[#0f1117] p-5">
+          <div class="text-2xl font-bold text-white tracking-tight">5+ Years</div>
+          <div class="text-xs text-slate-500 mt-1 font-medium">Software Engineering</div>
         </div>
-        <div class="glass-card rounded-2xl p-5 border border-slate-800">
-          <div class="text-3xl font-extrabold text-accent-cyan mb-1">3 Global</div>
-          <div class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Live CMS Sites</div>
+        <div class="bg-[#0f1117] p-5">
+          <div class="text-2xl font-bold text-white tracking-tight">3 Global</div>
+          <div class="text-xs text-slate-500 mt-1 font-medium">Live CMS Architectures</div>
         </div>
-        <div class="glass-card rounded-2xl p-5 border border-slate-800">
-          <div class="text-3xl font-extrabold text-accent-emerald mb-1">Spring & Node</div>
-          <div class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Enterprise Microservices</div>
+        <div class="bg-[#0f1117] p-5">
+          <div class="text-2xl font-bold text-white tracking-tight">Java & Node</div>
+          <div class="text-xs text-slate-500 mt-1 font-medium">Microservices Backend</div>
         </div>
-        <div class="glass-card rounded-2xl p-5 border border-slate-800">
-          <div class="text-3xl font-extrabold text-accent-purple mb-1">Next.js & React</div>
-          <div class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Modern Frontend UX</div>
+        <div class="bg-[#0f1117] p-5">
+          <div class="text-2xl font-bold text-white tracking-tight">Next.js & React</div>
+          <div class="text-xs text-slate-500 mt-1 font-medium">TypeScript Interfaces</div>
         </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== ABOUT & CAREER TIMELINE ==================== -->
-  <section id="about" class="py-20 border-t border-dark-700 bg-dark-850/50">
-    <div class="max-w-7xl mx-auto px-6">
-      
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4">
-        <div>
-          <span class="text-xs font-bold uppercase tracking-widest text-primary-400">Background & Track Record</span>
-          <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-2">Professional Experience & Education</h2>
-        </div>
-        <p class="text-slate-400 text-sm max-w-md">
-          Collaborating across Agile teams throughout the software development lifecycle to deliver scalable solutions for international corporations.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        
-        <!-- Experience Column -->
-        <div class="space-y-6">
-          <h3 class="text-lg font-bold text-white flex items-center gap-2">
-            <svg class="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-            Industry Software Experience
-          </h3>
-
-          <!-- Role 1 -->
-          <div class="glass-card rounded-2xl p-6 border-l-4 border-l-primary-500">
-            <div class="flex justify-between items-start mb-2">
-              <div>
-                <h4 class="font-bold text-white text-base">Associate Software Engineer</h4>
-                <div class="text-sm font-semibold text-primary-400">Arimac Lanka (Pvt) Ltd</div>
-              </div>
-              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-primary-900/50 text-primary-300 border border-primary-700/50">DEC 11, 2025 – PRESENT</span>
-            </div>
-            <p class="text-xs text-slate-300 leading-relaxed mt-3">
-              Delivering high-concurrency microservices, headless CMS integrations (Sitecore & Umbraco), and cloud solutions for international clients across Kuwait, UAE, and Sri Lanka. Building Node.js BFF architectures, Java 21 / Spring Boot 3 services, and Next.js / TypeScript frontends.
-            </p>
-          </div>
-
-          <!-- Role 2 -->
-          <div class="glass-card rounded-2xl p-6 border-l-4 border-l-cyan-500">
-            <div class="flex justify-between items-start mb-2">
-              <div>
-                <h4 class="font-bold text-white text-base">Full Stack Developer Intern</h4>
-                <div class="text-sm font-semibold text-cyan-400">SLT Digital Lab</div>
-              </div>
-              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-cyan-900/50 text-cyan-300 border border-cyan-700/50">JUNE 24, 2024 – SEPT 24, 2025</span>
-            </div>
-            <p class="text-xs text-slate-300 leading-relaxed mt-3">
-              Developed full-stack web platforms, RESTful APIs, and database solutions. Collaborated with Agile development teams on enterprise software deployment and automated testing.
-            </p>
-          </div>
-        </div>
-
-        <!-- Education Column -->
-        <div class="space-y-6">
-          <h3 class="text-lg font-bold text-white flex items-center gap-2">
-            <svg class="w-5 h-5 text-accent-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
-            Education & Certifications
-          </h3>
-
-          <!-- Degree -->
-          <div class="glass-card rounded-2xl p-6 border-l-4 border-l-emerald-500">
-            <div class="flex justify-between items-start mb-1">
-              <h4 class="font-bold text-white text-base">BSc (Hons) Computing (Part-time)</h4>
-              <span class="text-xs font-semibold text-emerald-400">DEC 2024 – OCT 2026</span>
-            </div>
-            <div class="text-xs font-semibold text-slate-300 mb-2">Coventry University, United Kingdom</div>
-            <p class="text-xs text-slate-400">Focus on Advanced Software Engineering, Cloud Architecture, and Distributed Systems.</p>
-          </div>
-
-          <!-- Higher Diploma -->
-          <div class="glass-card rounded-2xl p-6 border-l-4 border-l-amber-500">
-            <div class="flex justify-between items-start mb-1">
-              <h4 class="font-bold text-white text-base">Higher National Diploma in Software Engineering</h4>
-              <span class="text-xs font-semibold text-amber-400">NOV 2023 – DEC 2024</span>
-            </div>
-            <div class="text-xs font-semibold text-slate-300 mb-2">National Institute of Business Management (NIBM)</div>
-            <p class="text-xs text-slate-400">Comprehensive study in Object-Oriented Design, Algorithms, Database Systems, and Web Engineering.</p>
-          </div>
-
-          <!-- Diploma -->
-          <div class="glass-card rounded-2xl p-6 border-l-4 border-l-purple-500">
-            <div class="flex justify-between items-start mb-1">
-              <h4 class="font-bold text-white text-base">Diploma in Software Engineering</h4>
-              <span class="text-xs font-semibold text-purple-400">OCT 2022 – NOV 2023</span>
-            </div>
-            <div class="text-xs font-semibold text-slate-300">National Institute of Business Management (NIBM)</div>
-          </div>
-        </div>
-
       </div>
 
     </div>
   </section>
 
-  <!-- ==================== FEATURED: CMS WORK SAMPLES (SITECORE & UMBRACO) ==================== -->
-  <section id="cms-work" class="py-24 border-t border-dark-700 relative">
-    <div class="max-w-7xl mx-auto px-6">
+  <!-- ==================== FEATURED: CMS WORK SAMPLES ==================== -->
+  <section id="cms-work" class="py-24 border-t border-white/[0.06] bg-[#0c0d12]">
+    <div class="max-w-6xl mx-auto px-6">
       
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan text-xs font-bold uppercase tracking-wider mb-4">
-          ⭐ Featured Enterprise Specialization
-        </div>
-        <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
-          CMS Work Samples: <span class="gradient-text-accent">Sitecore & Umbraco</span>
+      <!-- Section Header -->
+      <div class="mb-12">
+        <div class="text-xs font-semibold uppercase tracking-wider text-blue-400 mb-2">Technical Demonstration</div>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+          Enterprise CMS Implementations: Sitecore & Umbraco
         </h2>
-        <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
-          Hands-on enterprise CMS engineering across live international platforms. Built and maintained by <strong>Viranga Lakshan</strong> with zero proprietary credentials exposed—ready to be demonstrated live during an interview.
+        <p class="text-sm text-slate-400 mt-2 max-w-3xl leading-relaxed">
+          Hands-on CMS architecture delivered for live international platforms. Demonstrating real backoffice structure, templating models, headless layout services, and multilingual content without exposing proprietary credentials.
         </p>
       </div>
 
-      <!-- Live Client Website Badges -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-14">
+      <!-- Live Client Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
         
         <!-- Live Site 1: Holsten Arabia -->
-        <a href="https://holstenarabia.me/en/" target="_blank" rel="noopener noreferrer" class="glass-card rounded-2xl p-6 border border-emerald-500/30 hover:border-emerald-400 transition-all group relative overflow-hidden">
-          <div class="flex justify-between items-start mb-3">
-            <span class="px-2.5 py-1 rounded-md text-[11px] font-extrabold bg-emerald-500/20 text-emerald-300 uppercase tracking-wider">Umbraco CMS</span>
-            <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
-              Live Website ↗
-            </span>
+        <div class="card-clean rounded-xl p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-xs text-slate-400 mb-3">
+              <span class="font-mono text-slate-400">Umbraco CMS</span>
+              <a href="https://holstenarabia.me/en/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 inline-flex items-center gap-1 font-medium">
+                Live Site ↗
+              </a>
+            </div>
+            <h3 class="text-base font-bold text-white">Holsten Arabia</h3>
+            <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+              Global beverage brand. Umbraco headless content structure, Block List and Block Grid properties, custom Razor views, and English/Arabic multilingual layout.
+            </p>
           </div>
-          <h3 class="text-xl font-bold text-white group-hover:text-emerald-300 transition-colors">Holsten Arabia</h3>
-          <p class="text-xs text-slate-400 mt-2 line-clamp-2">Global beverage brand. Umbraco CMS content structure, Block List / Block Grid, Razor templates & English/Arabic multilingual layout.</p>
-          <div class="mt-4 text-xs font-mono text-emerald-400/80 truncate">holstenarabia.me/en/</div>
-        </a>
+          <div class="mt-4 pt-3 border-t border-white/[0.06] font-mono text-[11px] text-slate-500 truncate">
+            holstenarabia.me/en/
+          </div>
+        </div>
 
         <!-- Live Site 2: Al Ain Museum -->
-        <a href="https://www.alainmuseum.ae/en" target="_blank" rel="noopener noreferrer" class="glass-card rounded-2xl p-6 border border-amber-500/30 hover:border-amber-400 transition-all group relative overflow-hidden">
-          <div class="flex justify-between items-start mb-3">
-            <span class="px-2.5 py-1 rounded-md text-[11px] font-extrabold bg-amber-500/20 text-amber-300 uppercase tracking-wider">Sitecore Headless</span>
-            <span class="text-xs font-semibold text-amber-400 flex items-center gap-1 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
-              Live Website ↗
-            </span>
+        <div class="card-clean rounded-xl p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-xs text-slate-400 mb-3">
+              <span class="font-mono text-slate-400">Sitecore Headless</span>
+              <a href="https://www.alainmuseum.ae/en" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 inline-flex items-center gap-1 font-medium">
+                Live Site ↗
+              </a>
+            </div>
+            <h3 class="text-base font-bold text-white">Al Ain Museum</h3>
+            <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+              UAE national cultural landmark. Headless Sitecore backend paired with Next.js, Sitecore Helix renderings, and Layout Service content resolution.
+            </p>
           </div>
-          <h3 class="text-xl font-bold text-white group-hover:text-amber-300 transition-colors">Al Ain Museum</h3>
-          <p class="text-xs text-slate-400 mt-2 line-clamp-2">UAE Government national landmark. Headless Sitecore backend, Next.js frontend, Sitecore Helix renderings, and Layout Service integration.</p>
-          <div class="mt-4 text-xs font-mono text-amber-400/80 truncate">alainmuseum.ae/en</div>
-        </a>
+          <div class="mt-4 pt-3 border-t border-white/[0.06] font-mono text-[11px] text-slate-500 truncate">
+            alainmuseum.ae/en
+          </div>
+        </div>
 
         <!-- Live Site 3: Natural History Museum Abu Dhabi -->
-        <a href="https://www.nhmad.ae/" target="_blank" rel="noopener noreferrer" class="glass-card rounded-2xl p-6 border border-cyan-500/30 hover:border-cyan-400 transition-all group relative overflow-hidden">
-          <div class="flex justify-between items-start mb-3">
-            <span class="px-2.5 py-1 rounded-md text-[11px] font-extrabold bg-cyan-500/20 text-cyan-300 uppercase tracking-wider">Sitecore Enterprise</span>
-            <span class="text-xs font-semibold text-cyan-400 flex items-center gap-1 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
-              Live Website ↗
-            </span>
+        <div class="card-clean rounded-xl p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-xs text-slate-400 mb-3">
+              <span class="font-mono text-slate-400">Sitecore Enterprise</span>
+              <a href="https://www.nhmad.ae/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 inline-flex items-center gap-1 font-medium">
+                Live Site ↗
+              </a>
+            </div>
+            <h3 class="text-base font-bold text-white">Natural History Museum</h3>
+            <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+              Abu Dhabi museum ecosystem. Multi-lingual digital experience, component datasource architecture, and enterprise content delivery.
+            </p>
           </div>
-          <h3 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">Natural History Museum</h3>
-          <p class="text-xs text-slate-400 mt-2 line-clamp-2">Abu Dhabi prestigious museum ecosystem. Sitecore architecture, multi-lingual digital experience, and enterprise content integration.</p>
-          <div class="mt-4 text-xs font-mono text-cyan-400/80 truncate">nhmad.ae</div>
-        </a>
+          <div class="mt-4 pt-3 border-t border-white/[0.06] font-mono text-[11px] text-slate-500 truncate">
+            nhmad.ae
+          </div>
+        </div>
 
       </div>
 
-      <!-- In-Depth Technical Breakdown Tabs -->
-      <div class="glass-card rounded-3xl p-6 sm:p-10 border border-slate-700/80">
+      <!-- In-Depth Technical Case Study Tabs -->
+      <div class="card-clean rounded-xl p-6 sm:p-8">
         
         <!-- Toggle Tabs -->
-        <div class="flex flex-wrap gap-3 pb-6 border-b border-dark-700">
-          <button onclick="switchCmsTab('umbraco')" id="tab-btn-umbraco" class="px-6 py-2.5 rounded-xl text-xs font-bold bg-primary-600 text-white transition-all flex items-center gap-2">
-            <span>🌿 Part 1 — Umbraco: Holsten Arabia</span>
+        <div class="flex flex-wrap gap-2 pb-6 border-b border-white/[0.08]">
+          <button onclick="showCmsTab('umbraco')" id="tab-btn-umbraco" class="tab-btn active px-4 py-2 rounded-lg text-xs font-semibold border border-white/[0.08] text-white">
+            Part 1 — Umbraco: Holsten Arabia
           </button>
-          <button onclick="switchCmsTab('sitecore')" id="tab-btn-sitecore" class="px-6 py-2.5 rounded-xl text-xs font-bold bg-dark-800 text-slate-300 hover:text-white transition-all flex items-center gap-2">
-            <span>🏛️ Part 2 — Sitecore: Al Ain Museum & NHMAD</span>
+          <button onclick="showCmsTab('sitecore')" id="tab-btn-sitecore" class="tab-btn px-4 py-2 rounded-lg text-xs font-semibold border border-transparent text-slate-400 hover:text-white">
+            Part 2 — Sitecore: Al Ain Museum & NHMAD
           </button>
         </div>
 
-        <!-- UMBRACO CONTENT -->
-        <div id="cms-content-umbraco" class="pt-8 space-y-8">
-          <div>
-            <div class="flex items-center gap-3 mb-2">
-              <h3 class="text-2xl font-bold text-white">Holsten Arabia — Umbraco CMS Implementation</h3>
-              <a href="https://holstenarabia.me/en/" target="_blank" class="text-xs font-semibold text-emerald-400 hover:underline">Visit Live Site ↗</a>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Holsten is a globally recognised beverage brand. This is the Umbraco CMS implementation for its Arabia-region website, where I handle the CMS build — content structure, Document Types, Block List/Block Grid, templating, forms, and multilingual content.
-            </p>
+        <!-- UMBRACO CASE STUDY -->
+        <div id="panel-umbraco" class="pt-6 space-y-6">
+          <div class="text-xs text-slate-400 leading-relaxed">
+            Umbraco implementation for the Holsten Arabia regional web presence. Responsible for the CMS build including content trees, Document Type definitions, Block List properties, Razor views, Umbraco Forms, and bilingual English/Arabic localization.
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             
-            <div class="bg-dark-800/80 rounded-xl p-5 border border-slate-800">
-              <div class="text-emerald-400 font-mono text-xs font-bold mb-2">1.1 Content Structure</div>
-              <h4 class="text-sm font-bold text-white mb-2">Tree Architecture</h4>
+            <div class="bg-[#0b0d12] border border-white/[0.06] rounded-lg p-4">
+              <div class="text-[11px] font-mono text-blue-400 mb-1">1.1 Content Structure</div>
+              <div class="text-xs font-semibold text-white mb-2">Tree Architecture</div>
               <p class="text-xs text-slate-400 leading-relaxed">
-                The content tree reflects how the site is organised in practice — Home, News, TopNavigation, Footer, ContactBanner, Privacy Policies, FAQs, Venue Listing, Enquiries/forms pages, Terms & Conditions, Cookies handling, and SEO settings, each managed as an independent node.
+                Organized into independent nodes: Home, News, TopNavigation, Footer, ContactBanner, Privacy Policies, FAQs, Venue Listing, Enquiries, Terms, and SEO settings.
               </p>
             </div>
 
-            <div class="bg-dark-800/80 rounded-xl p-5 border border-slate-800">
-              <div class="text-emerald-400 font-mono text-xs font-bold mb-2">1.2 Document Type Library</div>
-              <h4 class="text-sm font-bold text-white mb-2">Reusable Element Types</h4>
+            <div class="bg-[#0b0d12] border border-white/[0.06] rounded-lg p-4">
+              <div class="text-[11px] font-mono text-blue-400 mb-1">1.2 Document Types</div>
+              <div class="text-xs font-semibold text-white mb-2">Reusable Element Types</div>
               <p class="text-xs text-slate-400 leading-relaxed">
-                Page types such as FAQs, News, and Home sit alongside composition/element types like <code class="text-emerald-300">FAQCard</code>, <code class="text-emerald-300">FlavoursCardGrid</code>, <code class="text-emerald-300">HeroBanner</code>, and <code class="text-emerald-300">NewsCardGrid</code> — the building blocks used inside Block List and Block Grid properties.
+                Page types sit alongside composition and element types like <code class="text-slate-300">FAQCard</code>, <code class="text-slate-300">FlavoursCardGrid</code>, <code class="text-slate-300">HeroBanner</code>, and <code class="text-slate-300">NewsCardGrid</code> used within Block Lists.
               </p>
             </div>
 
-            <div class="bg-dark-800/80 rounded-xl p-5 border border-slate-800">
-              <div class="text-emerald-400 font-mono text-xs font-bold mb-2">1.3 Block List & Block Grid</div>
-              <h4 class="text-sm font-bold text-white mb-2">Modular Editor UI</h4>
+            <div class="bg-[#0b0d12] border border-white/[0.06] rounded-lg p-4">
+              <div class="text-[11px] font-mono text-blue-400 mb-1">1.3 Block List / Grid</div>
+              <div class="text-xs font-semibold text-white mb-2">Dynamic Section Editor</div>
               <p class="text-xs text-slate-400 leading-relaxed">
-                Block List Property Editor configuration for the Home page's "sections" property — StoreCardGrid, FlavoursCardGrid, NewsCardGrid, VenuesCardGrid, FAQCard, and HeroBanner are registered, letting content editors add and reorder blocks dynamically.
+                Block List Property Editor configuration for page sections allows editors to assemble and reorder components dynamically rather than following rigid static templates.
               </p>
             </div>
 
-            <div class="bg-dark-800/80 rounded-xl p-5 border border-slate-800">
-              <div class="text-emerald-400 font-mono text-xs font-bold mb-2">1.4 Templating (Razor Views)</div>
-              <h4 class="text-sm font-bold text-white mb-2">Home.cshtml Pipeline</h4>
+            <div class="bg-[#0b0d12] border border-white/[0.06] rounded-lg p-4">
+              <div class="text-[11px] font-mono text-blue-400 mb-1">1.4 Templating (Razor)</div>
+              <div class="text-xs font-semibold text-white mb-2">Home.cshtml Pipeline</div>
               <p class="text-xs text-slate-400 leading-relaxed">
-                Pulls shared content (TopNavigation, ContactBanner, Footer) from the root, reads the Block List model, handles culture/RTL logic for Arabic, resolves media crops for favicon/OG images, and prepares SEO metadata working directly against Umbraco content models.
+                Resolves shared content from roots, reads the Block List model, handles Arabic RTL logic, processes media crops for favicon/OG tags, and configures SEO metadata.
               </p>
             </div>
 
-            <div class="bg-dark-800/80 rounded-xl p-5 border border-slate-800">
-              <div class="text-emerald-400 font-mono text-xs font-bold mb-2">1.5 Umbraco Forms</div>
-              <h4 class="text-sm font-bold text-white mb-2">Bilingual Enquiries</h4>
+            <div class="bg-[#0b0d12] border border-white/[0.06] rounded-lg p-4">
+              <div class="text-[11px] font-mono text-blue-400 mb-1">1.5 Umbraco Forms</div>
+              <div class="text-xs font-semibold text-white mb-2">Bilingual Workflows</div>
               <p class="text-xs text-slate-400 leading-relaxed">
-                Forms such as the Business Enquiry form are built and maintained through Umbraco Forms, including field-level validation, custom workflows, and separate Arabic and English variants to serve the region's diverse audience.
+                Business Enquiry forms configured with field-level validation, custom submit workflows, and separate Arabic and English variants for regional visitors.
               </p>
             </div>
 
-            <div class="bg-dark-800/80 rounded-xl p-5 border border-slate-800">
-              <div class="text-emerald-400 font-mono text-xs font-bold mb-2">1.6 Multilingual (EN / AR)</div>
-              <h4 class="text-sm font-bold text-white mb-2">RTL & Language Switching</h4>
+            <div class="bg-[#0b0d12] border border-white/[0.06] rounded-lg p-4">
+              <div class="text-[11px] font-mono text-blue-400 mb-1">1.6 Multilingual (EN / AR)</div>
+              <div class="text-xs font-semibold text-white mb-2">Right-to-Left Layout</div>
               <p class="text-xs text-slate-400 leading-relaxed">
-                Fully bilingual setup with separate English and Arabic variants per node. Editors switch languages directly inside the Content Editor, maintaining distinct Block List sections that support right-to-left Arabic layouts on the frontend.
+                Bilingual setup with distinct English and Arabic content variants per node. Language switching directly in the backoffice drives the responsive RTL layout on the frontend.
               </p>
             </div>
 
           </div>
         </div>
 
-        <!-- SITECORE CONTENT -->
-        <div id="cms-content-sitecore" class="hidden pt-8 space-y-8">
-          <div>
-            <div class="flex items-center gap-3 mb-2">
-              <h3 class="text-2xl font-bold text-white">Al Ain Museum & NHMAD — Sitecore Headless Architecture</h3>
-              <a href="https://www.alainmuseum.ae/en" target="_blank" class="text-xs font-semibold text-amber-400 hover:underline">Visit Live Al Ain Museum ↗</a>
-              <span class="text-slate-600">·</span>
-              <a href="https://www.nhmad.ae/" target="_blank" class="text-xs font-semibold text-cyan-400 hover:underline">Visit Live NHMAD ↗</a>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Al Ain Museum (UAE Government project) and Natural History Museum Abu Dhabi are built on a headless Sitecore + Next.js architecture. I work on the Sitecore backend — content structure, templates, renderings, GraphQL and Layout Service integration, and multilingual content.
-            </p>
+        <!-- SITECORE CASE STUDY -->
+        <div id="panel-sitecore" class="hidden pt-6 space-y-6">
+          <div class="text-xs text-slate-400 leading-relaxed">
+            Headless Sitecore implementation for Al Ain Museum and Natural History Museum Abu Dhabi. Architecting the Sitecore backend, item templates, Helix renderings, Layout Service integrations, and Next.js frontend communication.
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             
-            <div class="bg-dark-800/80 rounded-xl p-5 border border-slate-800">
-              <div class="text-amber-400 font-mono text-xs font-bold mb-2">2.1 Content Tree Overview</div>
-              <h4 class="text-sm font-bold text-white mb-2">V1 & V2 Root Isolation</h4>
+            <div class="bg-[#0b0d12] border border-white/[0.06] rounded-lg p-4">
+              <div class="text-[11px] font-mono text-blue-400 mb-1">2.1 Content Tree Overview</div>
+              <div class="text-xs font-semibold text-white mb-2">V1 & V2 Root Isolation</div>
               <p class="text-xs text-slate-400 leading-relaxed">
-                Both live Version 1 (<code class="text-amber-300">alain-site-core-nextjs</code>) and in-development Version 2 sit under the same Content root, each with its own home node, Components, Content, Data, and Dictionary items cleanly isolated.
+                Both live Version 1 (<code class="text-slate-300">alain-site-core-nextjs</code>) and in-development Version 2 sit under the same Content root with cleanly isolated Data, Dictionary, and Component items.
               </p>
             </div>
 
-            <div class="bg-dark-800/80 rounded-xl p-5 border border-slate-800">
-              <div class="text-amber-400 font-mono text-xs font-bold mb-2">2.2 Page Structure</div>
-              <h4 class="text-sm font-bold text-white mb-2">Next.js Route Mapping</h4>
+            <div class="bg-[#0b0d12] border border-white/[0.06] rounded-lg p-4">
+              <div class="text-[11px] font-mono text-blue-400 mb-1">2.2 Page Structure</div>
+              <div class="text-xs font-semibold text-white mb-2">Next.js Route Mapping</div>
               <p class="text-xs text-slate-400 leading-relaxed">
-                Each public page is represented as its own item under the home node (Privacy, Cookie policy, FAQs, Contact Us, Exhibitions & Events, The Museum) mapping directly to routing on the Next.js frontend.
+                Public pages (Privacy, FAQs, Contact Us, Exhibitions & Events, The Museum) are represented as discrete items mapping directly to file-based routing on the Next.js frontend.
               </p>
             </div>
 
-            <div class="bg-dark-800/80 rounded-xl p-5 border border-slate-800">
-              <div class="text-amber-400 font-mono text-xs font-bold mb-2">2.3 Reusable Components</div>
-              <h4 class="text-sm font-bold text-white mb-2">Datasource Architecture</h4>
+            <div class="bg-[#0b0d12] border border-white/[0.06] rounded-lg p-4">
+              <div class="text-[11px] font-mono text-blue-400 mb-1">2.3 Reusable Components</div>
+              <div class="text-xs font-semibold text-white mb-2">Datasource Architecture</div>
               <p class="text-xs text-slate-400 leading-relaxed">
-                Shared components (Navigation, Footer, TopNavigation, ContentBlock) are stored in dedicated Datasource folders, reused across multiple pages without content duplication.
+                Dedicated Datasource folders hold items for shared pieces (Navigation, Footer, TopNavigation, ContentBlock) preventing data duplication across multi-page views.
               </p>
             </div>
 
-            <div class="bg-dark-800/80 rounded-xl p-5 border border-slate-800">
-              <div class="text-amber-400 font-mono text-xs font-bold mb-2">2.4 Renderings & Templates</div>
-              <h4 class="text-sm font-bold text-white mb-2">Sitecore Helix Principles</h4>
+            <div class="bg-[#0b0d12] border border-white/[0.06] rounded-lg p-4">
+              <div class="text-[11px] font-mono text-blue-400 mb-1">2.4 Renderings & Templates</div>
+              <div class="text-xs font-semibold text-white mb-2">Sitecore Helix Conventions</div>
               <p class="text-xs text-slate-400 leading-relaxed">
-                Renderings and Templates strictly follow Sitecore's Foundation/Feature convention. Built and maintained item templates behind banners, columns, contact forms, FAQs, galleries, and sliders.
+                Strict adherence to Foundation/Feature modularity. Maintained item templates for banners, columns, galleries, sliders, and museum collection features.
               </p>
             </div>
 
-            <div class="bg-dark-800/80 rounded-xl p-5 border border-slate-800">
-              <div class="text-amber-400 font-mono text-xs font-bold mb-2">2.5 Version 1: GraphQL</div>
-              <h4 class="text-sm font-bold text-white mb-2">Nested Children Queries</h4>
+            <div class="bg-[#0b0d12] border border-white/[0.06] rounded-lg p-4">
+              <div class="text-[11px] font-mono text-blue-400 mb-1">2.5 Version 1: GraphQL</div>
+              <div class="text-xs font-semibold text-white mb-2">Nested Children Queries</div>
               <p class="text-xs text-slate-400 leading-relaxed">
-                Sections like CollectionHighlights hold SlideItem children. Version 1 resolves this through native Sitecore GraphQL using inline fragments on SlideItem to pull fields in a single query.
+                Parent components like CollectionHighlights with SlideItem children resolved through native Sitecore GraphQL using inline fragments to fetch all fields in a single query.
               </p>
             </div>
 
-            <div class="bg-dark-800/80 rounded-xl p-5 border border-slate-800">
-              <div class="text-amber-400 font-mono text-xs font-bold mb-2">2.6 Version 2: Layout Service</div>
-              <h4 class="text-sm font-bold text-white mb-2">No Extra GraphQL Round-Trip</h4>
+            <div class="bg-[#0b0d12] border border-white/[0.06] rounded-lg p-4">
+              <div class="text-[11px] font-mono text-blue-400 mb-1">2.6 Version 2: Layout Service</div>
+              <div class="text-xs font-semibold text-white mb-2">Optimized Rendering Resolver</div>
               <p class="text-xs text-slate-400 leading-relaxed">
-                Version 2 resolves nested children directly through the Layout Service response via a custom <code class="text-amber-300">RenderingContentsResolver</code>, eliminating the extra request. Managed via Sitecore config patches.
+                Version 2 resolves nested children directly in the Layout Service response via a custom <code class="text-slate-300">RenderingContentsResolver</code>, removing the extra GraphQL round-trip.
               </p>
             </div>
 
@@ -522,124 +395,78 @@
     </div>
   </section>
 
-  <!-- ==================== ENTERPRISE SOFTWARE PROJECTS (ARIMAC DIGITAL) ==================== -->
-  <section id="enterprise-projects" class="py-24 border-t border-dark-700 bg-dark-850/40">
-    <div class="max-w-7xl mx-auto px-6">
+  <!-- ==================== ENTERPRISE SOFTWARE SYSTEMS (ARIMAC) ==================== -->
+  <section id="enterprise-work" class="py-24 border-t border-white/[0.06]">
+    <div class="max-w-6xl mx-auto px-6">
       
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
-        <div>
-          <span class="text-xs font-bold uppercase tracking-widest text-primary-400">Enterprise Track Record</span>
-          <h2 class="text-3xl md:text-5xl font-extrabold text-white mt-2">Mission-Critical Company Projects</h2>
-        </div>
-        <p class="text-slate-400 text-sm max-w-md">
-          Built at <strong>Arimac Digital</strong> for international corporate clients in Kuwait, UAE, and Sri Lanka.
+      <div class="mb-12">
+        <div class="text-xs font-semibold uppercase tracking-wider text-blue-400 mb-2">Production Experience</div>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Enterprise Company Projects</h2>
+        <p class="text-sm text-slate-400 mt-2 max-w-2xl">
+          Mission-critical distributed systems and backend microservices delivered at <strong>Arimac Digital</strong> for corporate clients in Kuwait, UAE, and Sri Lanka.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 
-        <!-- Project 1: DIMO Gate Pass -->
-        <div class="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col justify-between">
+        <!-- DIMO Gate Pass -->
+        <div class="card-clean rounded-xl p-6 flex flex-col justify-between">
           <div>
-            <div class="flex justify-between items-start mb-3">
-              <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold bg-blue-500/20 text-blue-300 uppercase">Java 21 · Spring Boot 3</span>
-              <span class="text-xs font-semibold text-slate-400">Client: DIMO Lanka</span>
+            <div class="flex items-center justify-between text-xs text-slate-500 mb-3 font-mono">
+              <span>Java 21 · Spring Boot 3</span>
+              <span>DIMO Lanka</span>
             </div>
-            <h3 class="text-xl font-bold text-white mb-2">DIMO Gate Pass Management System</h3>
-            <p class="text-xs text-slate-300 leading-relaxed mb-4">
-              Vehicle dispatch and gate-pass platform built as two Spring Boot microservices. Developed BFF gateway handling Keycloak OAuth2/JWT auth, Kafka audit events, and SAP / Azure AD / AWS S3 integrations.
+            <h3 class="text-base font-bold text-white mb-2">DIMO Gate Pass Management System</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              Two Spring Boot microservices managing enterprise vehicle dispatch. Handled Keycloak OAuth2/JWT security, role-based approval workflows, Kafka audit events, and integrations with SAP, Azure AD, and AWS S3 with ClamAV.
             </p>
           </div>
-          <div class="flex flex-wrap gap-1.5 pt-4 border-t border-dark-700">
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">Java 21</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">Spring Boot 3.4.5</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">Spring Kafka</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">Flyway</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">Keycloak</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">Docker</span>
+          <div class="flex flex-wrap gap-1.5 pt-4 border-t border-white/[0.06]">
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Spring Boot 3.4.5</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Kafka</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Flyway</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Keycloak</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">MySQL</span>
           </div>
         </div>
 
-        <!-- Project 2: Adrik News & Media -->
-        <div class="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col justify-between">
+        <!-- Adrik Kuwait -->
+        <div class="card-clean rounded-xl p-6 flex flex-col justify-between">
           <div>
-            <div class="flex justify-between items-start mb-3">
-              <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold bg-cyan-500/20 text-cyan-300 uppercase">Node.js · Kubernetes</span>
-              <span class="text-xs font-semibold text-slate-400">Client: Adrik, Kuwait</span>
+            <div class="flex items-center justify-between text-xs text-slate-500 mb-3 font-mono">
+              <span>Node.js · Kubernetes</span>
+              <span>Adrik, Kuwait</span>
             </div>
-            <h3 class="text-xl font-bold text-white mb-2">Adrik News & Media Platform</h3>
-            <p class="text-xs text-slate-300 leading-relaxed mb-4">
-              Bilingual news platform with paid subscriptions, mobile app BFF APIs, Keycloak OAuth2/JWT auth, OneSignal push notifications, SMS gateway delivery, and Kubernetes deployments.
+            <h3 class="text-base font-bold text-white mb-2">Adrik News & Media Platform</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              BFF architecture connecting web, mobile, and admin portals for a high-traffic bilingual publication. Integrated Keycloak auth, OneSignal push notifications, SMS delivery, and Kubernetes containerized deployments.
             </p>
           </div>
-          <div class="flex flex-wrap gap-1.5 pt-4 border-t border-dark-700">
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">Node.js</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">Express BFF</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">OneSignal</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">Kubernetes</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">Keycloak</span>
+          <div class="flex flex-wrap gap-1.5 pt-4 border-t border-white/[0.06]">
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Node.js BFF</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">OneSignal</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Kubernetes</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Docker</span>
           </div>
         </div>
 
-        <!-- Project 3: Multi-Tenant E-Commerce -->
-        <div class="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col justify-between">
+        <!-- Multi-Tenant E-Commerce -->
+        <div class="card-clean rounded-xl p-6 flex flex-col justify-between">
           <div>
-            <div class="flex justify-between items-start mb-3">
-              <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold bg-purple-500/20 text-purple-300 uppercase">Microservices · PHP & Node</span>
-              <span class="text-xs font-semibold text-slate-400">Arimac Digital</span>
+            <div class="flex items-center justify-between text-xs text-slate-500 mb-3 font-mono">
+              <span>PHP 8 & Node.js</span>
+              <span>Arimac Digital</span>
             </div>
-            <h3 class="text-xl font-bold text-white mb-2">Multi-Tenant E-Commerce Platform</h3>
-            <p class="text-xs text-slate-300 leading-relaxed mb-4">
-              Microservices-based multi-tenant e-commerce platform. Developed Node.js BFF orchestration, Laravel Lumen domain services, Strapi headless CMS, and centralized Keycloak authentication.
+            <h3 class="text-base font-bold text-white mb-2">Multi-Tenant E-Commerce Platform</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              Microservices platform with Node.js BFF orchestration and Laravel Lumen domain microservices (orders, payments, products, tenant isolation). Integrated Strapi CMS and Keycloak authentication.
             </p>
           </div>
-          <div class="flex flex-wrap gap-1.5 pt-4 border-t border-dark-700">
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">Node.js BFF</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">PHP 8 Lumen</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">Strapi CMS</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">Keycloak</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">Docker</span>
-          </div>
-        </div>
-
-        <!-- Project 4: Al Ain Museum V2 -->
-        <div class="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col justify-between">
-          <div>
-            <div class="flex justify-between items-start mb-3">
-              <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold bg-amber-500/20 text-amber-300 uppercase">Sitecore Helix · Next.js</span>
-              <span class="text-xs font-semibold text-slate-400">Client: Al Ain Museum, UAE</span>
-            </div>
-            <h3 class="text-xl font-bold text-white mb-2">Al Ain Museum V2 (Headless Rebuild)</h3>
-            <p class="text-xs text-slate-300 leading-relaxed mb-4">
-              Rebuilding a multi-site Sitecore ecosystem for UAE's national cultural landmark. Next.js and React frontend, REST API retrieval engine, and customized C#/.NET components.
-            </p>
-          </div>
-          <div class="flex flex-wrap gap-1.5 pt-4 border-t border-dark-700">
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">Sitecore</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">Next.js</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">React</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">TypeScript</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">C# / .NET</span>
-          </div>
-        </div>
-
-        <!-- Project 5: Holsten Arabia -->
-        <div class="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col justify-between">
-          <div>
-            <div class="flex justify-between items-start mb-3">
-              <span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold bg-emerald-500/20 text-emerald-300 uppercase">Umbraco CMS · Next.js</span>
-              <span class="text-xs font-semibold text-slate-400">Client: Holsten Arabia</span>
-            </div>
-            <h3 class="text-xl font-bold text-white mb-2">Holsten Arabia Multilingual Platform</h3>
-            <p class="text-xs text-slate-300 leading-relaxed mb-4">
-              Headless CMS web platform for a global beverage brand. Responsive Next.js frontend, Umbraco Block List components, and custom C#/.NET data delivery pipelines.
-            </p>
-          </div>
-          <div class="flex flex-wrap gap-1.5 pt-4 border-t border-dark-700">
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">Umbraco</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">Next.js</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">TypeScript</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-dark-700 text-slate-300">C# / .NET</span>
+          <div class="flex flex-wrap gap-1.5 pt-4 border-t border-white/[0.06]">
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Laravel Lumen</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Node.js</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Strapi CMS</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">GitLab CI/CD</span>
           </div>
         </div>
 
@@ -648,113 +475,103 @@
     </div>
   </section>
 
-  <!-- ==================== PERSONAL PROJECTS & OPEN SOURCE (GITHUB) ==================== -->
-  <section id="personal-projects" class="py-24 border-t border-dark-700">
-    <div class="max-w-7xl mx-auto px-6">
+  <!-- ==================== OPEN SOURCE & GITHUB REPOSITORIES ==================== -->
+  <section id="github-projects" class="py-24 border-t border-white/[0.06] bg-[#0c0d12]">
+    <div class="max-w-6xl mx-auto px-6">
       
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
         <div>
-          <span class="text-xs font-bold uppercase tracking-widest text-primary-400">Open Source & Personal Systems</span>
-          <h2 class="text-3xl md:text-5xl font-extrabold text-white mt-2">Public GitHub Repositories</h2>
+          <div class="text-xs font-semibold uppercase tracking-wider text-blue-400 mb-2">Public Repositories</div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Open Source & Personal Systems</h2>
         </div>
-        <a href="https://github.com/viranga-lakshan" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-primary-400 hover:text-primary-300 flex items-center gap-1.5">
-          View all repositories on GitHub →
+        <a href="https://github.com/viranga-lakshan" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-slate-400 hover:text-white transition-colors flex items-center gap-1">
+          github.com/viranga-lakshan ↗
         </a>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
         <!-- NexWare Frontend -->
-        <div class="glass-card rounded-2xl p-7 border border-slate-800 flex flex-col justify-between">
+        <div class="card-clean rounded-xl p-6 flex flex-col justify-between">
           <div>
-            <div class="flex justify-between items-center mb-3">
-              <span class="px-3 py-1 rounded-md text-[11px] font-bold bg-primary-600/20 text-primary-300 border border-primary-500/30">Next.js 14 · React · TypeScript</span>
-              <a href="https://github.com/viranga-lakshan/nexware-frontend" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-slate-300 hover:text-white flex items-center gap-1">
-                GitHub ↗
-              </a>
+            <div class="flex items-center justify-between text-xs text-slate-400 mb-2 font-mono">
+              <span>Next.js 14 · React · TypeScript</span>
+              <a href="https://github.com/viranga-lakshan/nexware-frontend" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300">GitHub ↗</a>
             </div>
-            <h3 class="text-2xl font-bold text-white mb-2">NexWare Enterprise Frontend</h3>
-            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
-              Modern warehouse/distribution dashboard with JWT authentication, role-based routing, TanStack Query, Zustand state management, and Zod validation. Deployed on Vercel with GitHub Actions CI.
+            <h3 class="text-base font-bold text-white mb-2">NexWare Enterprise Frontend</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              Distribution and warehouse management dashboard with JWT auth, role-based routing, TanStack Query, Zustand state, and Zod validation. Deployed on Vercel with GitHub Actions CI.
             </p>
           </div>
-          <div class="flex flex-wrap gap-2 pt-4 border-t border-dark-700">
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">Next.js</span>
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">Tailwind CSS</span>
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">Zustand</span>
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">TanStack Query</span>
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">Vercel</span>
+          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/[0.06]">
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Next.js</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Tailwind CSS</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Zustand</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Vercel</span>
           </div>
         </div>
 
         <!-- NexWare Backend -->
-        <div class="glass-card rounded-2xl p-7 border border-slate-800 flex flex-col justify-between">
+        <div class="card-clean rounded-xl p-6 flex flex-col justify-between">
           <div>
-            <div class="flex justify-between items-center mb-3">
-              <span class="px-3 py-1 rounded-md text-[11px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Java 21 · Spring Boot 3 · Kafka</span>
-              <a href="https://github.com/viranga-lakshan/nexware-backend" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-slate-300 hover:text-white flex items-center gap-1">
-                GitHub ↗
-              </a>
+            <div class="flex items-center justify-between text-xs text-slate-400 mb-2 font-mono">
+              <span>Java 21 · Spring Boot 3 · Kafka</span>
+              <a href="https://github.com/viranga-lakshan/nexware-backend" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300">GitHub ↗</a>
             </div>
-            <h3 class="text-2xl font-bold text-white mb-2">NexWare Modular Monolith Backend</h3>
-            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
+            <h3 class="text-base font-bold text-white mb-2">NexWare Modular Monolith Backend</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
               Modular monolith REST API built with Spring Modulith, Spring Security, JPA/Hibernate, PostgreSQL, Flyway, Redis, and Kafka event streaming. Deployed on AWS EC2 with Docker & CI/CD.
             </p>
           </div>
-          <div class="flex flex-wrap gap-2 pt-4 border-t border-dark-700">
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">Java 21</span>
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">Spring Boot 3</span>
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">Kafka</span>
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">Redis</span>
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">PostgreSQL</span>
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">AWS EC2</span>
+          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/[0.06]">
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Spring Boot 3</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Spring Modulith</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">PostgreSQL</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Kafka</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">AWS EC2</span>
           </div>
         </div>
 
-        <!-- NexCart Full Stack E-Commerce -->
-        <div class="glass-card rounded-2xl p-7 border border-slate-800 flex flex-col justify-between">
+        <!-- NexCart Full Stack -->
+        <div class="card-clean rounded-xl p-6 flex flex-col justify-between">
           <div>
-            <div class="flex justify-between items-center mb-3">
-              <span class="px-3 py-1 rounded-md text-[11px] font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">React · Node.js · Prisma</span>
-              <div class="flex items-center gap-3">
-                <a href="https://github.com/viranga-lakshan/nexcart-web" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-slate-300 hover:text-white">Web ↗</a>
-                <a href="https://github.com/viranga-lakshan/nexcart-api" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-slate-300 hover:text-white">API ↗</a>
+            <div class="flex items-center justify-between text-xs text-slate-400 mb-2 font-mono">
+              <span>React · TypeScript · Node.js · Prisma</span>
+              <div class="flex gap-2">
+                <a href="https://github.com/viranga-lakshan/nexcart-web" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300">Web ↗</a>
+                <a href="https://github.com/viranga-lakshan/nexcart-api" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300">API ↗</a>
               </div>
             </div>
-            <h3 class="text-2xl font-bold text-white mb-2">NexCart Full Stack E-Commerce</h3>
-            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
-              Full-stack platform with Redux Toolkit, RTK Query, Prisma ORM, and PostgreSQL. Storefront, cart, checkout, seller inventory, and admin modules with Docker Compose.
+            <h3 class="text-base font-bold text-white mb-2">NexCart Full Stack E-Commerce</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              Full-stack application with Redux Toolkit, RTK Query, Prisma ORM, and PostgreSQL. Storefront, cart, checkout, seller inventory, and admin modules with Docker Compose.
             </p>
           </div>
-          <div class="flex flex-wrap gap-2 pt-4 border-t border-dark-700">
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">React</span>
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">Node.js</span>
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">Prisma</span>
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">PostgreSQL</span>
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">Docker</span>
+          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/[0.06]">
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">React</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Node.js</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Prisma</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Docker</span>
           </div>
         </div>
 
-        <!-- TukTuk GPS Tracking API -->
-        <div class="glass-card rounded-2xl p-7 border border-slate-800 flex flex-col justify-between">
+        <!-- TukTuk GPS API -->
+        <div class="card-clean rounded-xl p-6 flex flex-col justify-between">
           <div>
-            <div class="flex justify-between items-center mb-3">
-              <span class="px-3 py-1 rounded-md text-[11px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">Java 21 · Telemetry · Kafka</span>
-              <a href="https://github.com/viranga-lakshan/tuktuk-tracking-api" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-slate-300 hover:text-white flex items-center gap-1">
-                GitHub ↗
-              </a>
+            <div class="flex items-center justify-between text-xs text-slate-400 mb-2 font-mono">
+              <span>Java 21 · Telemetry · Redis</span>
+              <a href="https://github.com/viranga-lakshan/tuktuk-tracking-api" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300">GitHub ↗</a>
             </div>
-            <h3 class="text-2xl font-bold text-white mb-2">Police Tuk-Tuk Real-Time GPS API</h3>
-            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
-              High-throughput REST API for fleet GPS tracking with dual authentication (JWT + device API keys), geographic RBAC, Kafka streaming, Redis caching, and 28+ secure endpoints.
+            <h3 class="text-base font-bold text-white mb-2">Police Tuk-Tuk Real-Time GPS Tracking</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              High-throughput REST API for fleet GPS telemetry with dual authentication (JWT + device API keys), geographic RBAC, Kafka streaming, Redis caching, and 28+ endpoints.
             </p>
           </div>
-          <div class="flex flex-wrap gap-2 pt-4 border-t border-dark-700">
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">Java 21</span>
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">Spring Boot 3</span>
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">Kafka</span>
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">Redis</span>
-            <span class="px-2.5 py-1 rounded text-xs font-mono bg-dark-700 text-slate-300">AWS EC2</span>
+          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/[0.06]">
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Java 21</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Kafka</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Redis</span>
+            <span class="badge-subtle px-2 py-0.5 rounded text-[11px] font-mono">Flyway</span>
           </div>
         </div>
 
@@ -763,80 +580,56 @@
     </div>
   </section>
 
-  <!-- ==================== SKILLS & STACK MATRIX ==================== -->
-  <section id="skills" class="py-24 border-t border-dark-700 bg-dark-850/30">
-    <div class="max-w-7xl mx-auto px-6">
+  <!-- ==================== SKILLS GRID ==================== -->
+  <section id="skills" class="py-24 border-t border-white/[0.06]">
+    <div class="max-w-6xl mx-auto px-6">
       
-      <div class="text-center max-w-2xl mx-auto mb-16">
-        <span class="text-xs font-bold uppercase tracking-widest text-primary-400">Technical Competencies</span>
-        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-2">Comprehensive Tech Stack</h2>
+      <div class="mb-12">
+        <div class="text-xs font-semibold uppercase tracking-wider text-blue-400 mb-2">Proficiencies</div>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Technical Stack & Tools</h2>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-        <!-- Backend -->
-        <div class="glass-card rounded-2xl p-6 border border-slate-800">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-9 h-9 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-base">☕</div>
-            <h3 class="font-bold text-white text-base">Backend & Microservices</h3>
-          </div>
+        <div class="card-clean rounded-xl p-5">
+          <div class="text-xs font-bold text-white uppercase tracking-wider mb-2">Backend & Microservices</div>
           <p class="text-xs text-slate-400 leading-relaxed">
             Java 21, Spring Boot 3, Spring Security, Spring Modulith, Spring Data JPA, Spring Kafka, Node.js, Express.js, PHP 8, Laravel Lumen, RESTful APIs, OpenAPI/Swagger.
           </p>
         </div>
 
-        <!-- Frontend -->
-        <div class="glass-card rounded-2xl p-6 border border-slate-800">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-9 h-9 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-base">⚛️</div>
-            <h3 class="font-bold text-white text-base">Frontend & Modern UX</h3>
-          </div>
+        <div class="card-clean rounded-xl p-5">
+          <div class="text-xs font-bold text-white uppercase tracking-wider mb-2">Frontend & Modern UX</div>
           <p class="text-xs text-slate-400 leading-relaxed">
             React.js, Next.js 14, TypeScript, JavaScript (ES6+), Tailwind CSS, Redux Toolkit, RTK Query, Zustand, TanStack Query, React Hook Form, Zod.
           </p>
         </div>
 
-        <!-- CMS Platforms -->
-        <div class="glass-card rounded-2xl p-6 border border-slate-800">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-9 h-9 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-base">🌐</div>
-            <h3 class="font-bold text-white text-base">Enterprise CMS Platforms</h3>
-          </div>
+        <div class="card-clean rounded-xl p-5">
+          <div class="text-xs font-bold text-white uppercase tracking-wider mb-2">Enterprise CMS Platforms</div>
           <p class="text-xs text-slate-400 leading-relaxed">
             Sitecore (JSS, Helix, GraphQL, Layout Service), Umbraco (Headless, Block List/Grid, Razor), Strapi Headless CMS, Multilingual English/Arabic RTL.
           </p>
         </div>
 
-        <!-- Databases -->
-        <div class="glass-card rounded-2xl p-6 border border-slate-800">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-base">🗄️</div>
-            <h3 class="font-bold text-white text-base">Databases & Streaming</h3>
-          </div>
+        <div class="card-clean rounded-xl p-5">
+          <div class="text-xs font-bold text-white uppercase tracking-wider mb-2">Databases & Streaming</div>
           <p class="text-xs text-slate-400 leading-relaxed">
-            PostgreSQL, MySQL, Redis, MongoDB, Firebase, Flyway Database Schema Migrations, Apache Kafka Event Streaming.
+            PostgreSQL, MySQL, Redis, MongoDB, Flyway Schema Migrations, Apache Kafka Event Streaming.
           </p>
         </div>
 
-        <!-- Cloud & DevOps -->
-        <div class="glass-card rounded-2xl p-6 border border-slate-800">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-9 h-9 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-base">☁️</div>
-            <h3 class="font-bold text-white text-base">Cloud, DevOps & Quality</h3>
-          </div>
+        <div class="card-clean rounded-xl p-5">
+          <div class="text-xs font-bold text-white uppercase tracking-wider mb-2">Cloud, DevOps & Quality</div>
           <p class="text-xs text-slate-400 leading-relaxed">
             Docker, Kubernetes, AWS (EC2, S3), GitLab CI/CD, GitHub Actions, Jenkins, Linux, Nginx, SonarQube, JaCoCo, JUnit 5.
           </p>
         </div>
 
-        <!-- Security & Identity -->
-        <div class="glass-card rounded-2xl p-6 border border-slate-800">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-9 h-9 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-base">🔒</div>
-            <h3 class="font-bold text-white text-base">Security & Practices</h3>
-          </div>
+        <div class="card-clean rounded-xl p-5">
+          <div class="text-xs font-bold text-white uppercase tracking-wider mb-2">Security & Identity</div>
           <p class="text-xs text-slate-400 leading-relaxed">
-            Keycloak (OAuth2, OIDC, JWT), Role-Based Access Control (RBAC), ClamAV scanning, Agile/Scrum, Git, Jira.
+            Keycloak (OAuth2, OIDC, JWT), Role-Based Access Control (RBAC), ClamAV scanning, Agile/Scrum, Git.
           </p>
         </div>
 
@@ -846,80 +639,70 @@
   </section>
 
   <!-- ==================== CONTACT / FOOTER ==================== -->
-  <section id="contact" class="py-24 border-t border-dark-700 relative overflow-hidden">
-    <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
+  <section id="contact" class="py-24 border-t border-white/[0.06] bg-[#0c0d12]">
+    <div class="max-w-4xl mx-auto px-6 text-center">
       
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold mb-6">
-        ⚡ Open to New Opportunities & Contracts
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium mb-6">
+        Open for Senior Contracts & Opportunities
       </div>
 
-      <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-6">
-        Let's Build Something Exceptional Together
+      <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-4">
+        Let's Discuss Your Next Architecture
       </h2>
 
-      <p class="text-slate-400 text-base max-w-2xl mx-auto mb-10 leading-relaxed">
-        Whether you are seeking an experienced full-stack engineer for a long-term enterprise project, or a CMS specialist for Sitecore / Umbraco, I'd love to connect.
+      <p class="text-sm text-slate-400 max-w-xl mx-auto mb-10 leading-relaxed">
+        Whether you are seeking a full-stack engineer for a high-concurrency microservices system or an experienced developer for Sitecore or Umbraco, let's connect.
       </p>
 
-      <!-- Contact Info Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto mb-12">
-        <a href="mailto:virangalakshanz@gmail.com" class="glass-card rounded-xl p-5 border border-slate-800 hover:border-primary-500 transition-all block">
-          <div class="text-primary-400 text-lg mb-1">📧 Email</div>
-          <div class="text-sm font-semibold text-white truncate">virangalakshanz@gmail.com</div>
+      <!-- Contact Items -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl mx-auto mb-10 text-left">
+        <a href="mailto:virangalakshanz@gmail.com" class="card-clean rounded-lg p-4 block hover:border-blue-500/50">
+          <div class="text-[11px] font-mono text-slate-500 mb-1">Email</div>
+          <div class="text-xs font-semibold text-white truncate">virangalakshanz@gmail.com</div>
         </a>
-        <a href="tel:+94713781359" class="glass-card rounded-xl p-5 border border-slate-800 hover:border-accent-cyan transition-all block">
-          <div class="text-accent-cyan text-lg mb-1">📱 Phone</div>
-          <div class="text-sm font-semibold text-white">+94 71 378 1359</div>
+        <a href="tel:+94713781359" class="card-clean rounded-lg p-4 block hover:border-blue-500/50">
+          <div class="text-[11px] font-mono text-slate-500 mb-1">Phone</div>
+          <div class="text-xs font-semibold text-white">+94 71 378 1359</div>
         </a>
-        <a href="https://www.linkedin.com/in/viranga-lakshan-869515279" target="_blank" rel="noopener noreferrer" class="glass-card rounded-xl p-5 border border-slate-800 hover:border-accent-emerald transition-all block">
-          <div class="text-accent-emerald text-lg mb-1">🔗 LinkedIn</div>
-          <div class="text-sm font-semibold text-white">viranga-lakshan</div>
+        <a href="https://www.linkedin.com/in/viranga-lakshan-869515279" target="_blank" rel="noopener noreferrer" class="card-clean rounded-lg p-4 block hover:border-blue-500/50">
+          <div class="text-[11px] font-mono text-slate-500 mb-1">LinkedIn</div>
+          <div class="text-xs font-semibold text-white">viranga-lakshan ↗</div>
         </a>
       </div>
 
-      <!-- Live CV Action -->
-      <a href="https://drive.google.com/file/d/1dNXU_Ig0WMNT2lwEaoSZ6P8O1Xx1EKxu/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-primary-600 to-accent-cyan text-white font-bold text-sm shadow-xl shadow-primary-600/30 hover:scale-[1.02] transition-transform">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-        <span>Open Viranga Lakshan CV (Google Drive)</span>
+      <a href="https://drive.google.com/file/d/1dNXU_Ig0WMNT2lwEaoSZ6P8O1Xx1EKxu/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs transition-all shadow-sm">
+        <span>Download Official CV (Google Drive)</span>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
       </a>
 
-      <div class="mt-20 pt-8 border-t border-slate-800 text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div>© 2026 Viranga Lakshan. All rights reserved.</div>
-        <div class="font-mono text-slate-400">Built with modern HTML, Tailwind CSS & JavaScript for GitHub Pages.</div>
+      <div class="mt-20 pt-8 border-t border-white/[0.06] text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>© 2026 Viranga Lakshan</div>
+        <div class="font-mono text-slate-600">Built with semantic HTML & Tailwind CSS</div>
       </div>
 
     </div>
   </section>
 
-  <!-- Interactive Tab Switcher Script -->
+  <!-- Tab switcher script -->
   <script>
-    // Tab switching for CMS section
-    function switchCmsTab(tab) {
-      const umbracoContent = document.getElementById('cms-content-umbraco');
-      const sitecoreContent = document.getElementById('cms-content-sitecore');
-      const umbracoBtn = document.getElementById('tab-btn-umbraco');
-      const sitecoreBtn = document.getElementById('tab-btn-sitecore');
+    function showCmsTab(tab) {
+      const panelUmbraco = document.getElementById('panel-umbraco');
+      const panelSitecore = document.getElementById('panel-sitecore');
+      const btnUmbraco = document.getElementById('tab-btn-umbraco');
+      const btnSitecore = document.getElementById('tab-btn-sitecore');
 
       if (tab === 'umbraco') {
-        umbracoContent.classList.remove('hidden');
-        sitecoreContent.classList.add('hidden');
-        umbracoBtn.className = 'px-6 py-2.5 rounded-xl text-xs font-bold bg-primary-600 text-white transition-all flex items-center gap-2';
-        sitecoreBtn.className = 'px-6 py-2.5 rounded-xl text-xs font-bold bg-dark-800 text-slate-300 hover:text-white transition-all flex items-center gap-2';
+        panelUmbraco.classList.remove('hidden');
+        panelSitecore.classList.add('hidden');
+        btnUmbraco.className = 'tab-btn active px-4 py-2 rounded-lg text-xs font-semibold border border-white/[0.08] text-white';
+        btnSitecore.className = 'tab-btn px-4 py-2 rounded-lg text-xs font-semibold border border-transparent text-slate-400 hover:text-white';
       } else {
-        sitecoreContent.classList.remove('hidden');
-        umbracoContent.classList.add('hidden');
-        sitecoreBtn.className = 'px-6 py-2.5 rounded-xl text-xs font-bold bg-primary-600 text-white transition-all flex items-center gap-2';
-        umbracoBtn.className = 'px-6 py-2.5 rounded-xl text-xs font-bold bg-dark-800 text-slate-300 hover:text-white transition-all flex items-center gap-2';
+        panelSitecore.classList.remove('hidden');
+        panelUmbraco.classList.add('hidden');
+        btnSitecore.className = 'tab-btn active px-4 py-2 rounded-lg text-xs font-semibold border border-white/[0.08] text-white';
+        btnUmbraco.className = 'tab-btn px-4 py-2 rounded-lg text-xs font-semibold border border-transparent text-slate-400 hover:text-white';
       }
     }
-
-    // Mobile menu toggle
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    mobileMenuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
   </script>
 </body>
 </html>
-
