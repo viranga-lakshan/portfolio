@@ -1,0 +1,1135 @@
+import os
+import subprocess
+from pypdf import PdfReader
+
+# Directory setup
+work_dir = r"C:\Users\Viranga\Downloads\upwrok new\WealthWisdom_WordPress"
+html_path = os.path.join(work_dir, "proposal_v2.html")
+pdf_path = os.path.join(work_dir, "WealthWisdom_Client_Portal_Proposal_Viranga_Lakshan.pdf")
+wireframe_img = os.path.join(work_dir, "wireframe_clean.png").replace("\\", "/")
+
+html_content = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Wealth Wisdom — Client Portal, LMS &amp; Financial Dashboard Proposal</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+    @page {{
+      size: A4 portrait;
+      margin: 0;
+    }}
+
+    * {{
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }}
+
+    body {{
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #1e293b;
+      background: #ffffff;
+      font-size: 8.8pt;
+      line-height: 1.45;
+    }}
+
+    .page {{
+      width: 210mm;
+      height: 297mm;
+      max-height: 297mm;
+      overflow: hidden;
+      position: relative;
+      background: #ffffff;
+      padding: 14mm 16mm 12mm 16mm;
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }}
+
+    /* Top Running Header */
+    .running-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #cbd5e1;
+      padding-bottom: 5px;
+      margin-bottom: 9px;
+      font-size: 7.5pt;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }}
+
+    .running-header .doc-tag {{
+      color: #0e8f6b;
+      font-weight: 700;
+    }}
+
+    /* Running Footer */
+    .running-footer {{
+      border-top: 1px solid #cbd5e1;
+      padding-top: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 7.5pt;
+      color: #64748b;
+    }}
+
+    .running-footer a {{
+      color: #0f2a47;
+      text-decoration: none;
+      font-weight: 600;
+    }}
+
+    .page-number {{
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: #0f2a47;
+    }}
+
+    /* Letterhead on Page 1 */
+    .letterhead {{
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid #0f2a47;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }}
+
+    .lh-title h1 {{
+      font-size: 17pt;
+      font-weight: 800;
+      color: #0f2a47;
+      letter-spacing: -0.4px;
+      line-height: 1.1;
+    }}
+
+    .lh-title .subtitle {{
+      font-size: 8.8pt;
+      font-weight: 600;
+      color: #0e8f6b;
+      margin-top: 2px;
+    }}
+
+    .lh-meta {{
+      text-align: right;
+      font-size: 7.8pt;
+      color: #475569;
+      line-height: 1.4;
+    }}
+
+    .lh-meta a {{
+      color: #0f2a47;
+      text-decoration: none;
+      font-weight: 600;
+    }}
+
+    /* Target Box */
+    .target-bar {{
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-left: 3.5px solid #0e8f6b;
+      border-radius: 3px;
+      padding: 6px 10px;
+      margin-bottom: 9px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 8pt;
+    }}
+
+    .target-bar .client-name {{
+      font-weight: 700;
+      color: #0f2a47;
+    }}
+
+    .target-bar .client-sub {{
+      color: #64748b;
+      font-size: 7.5pt;
+    }}
+
+    .target-badge {{
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }}
+
+    /* Headings */
+    h2.sec-heading {{
+      font-size: 9.8pt;
+      font-weight: 800;
+      color: #0f2a47;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 3px;
+      margin-top: 6px;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      letter-spacing: -0.2px;
+    }}
+
+    h2.sec-heading .num {{
+      font-family: 'JetBrains Mono', monospace;
+      color: #0e8f6b;
+      font-size: 9pt;
+      font-weight: 700;
+    }}
+
+    h3.sub-heading {{
+      font-size: 8.8pt;
+      font-weight: 700;
+      color: #0f2a47;
+      margin-top: 5px;
+      margin-bottom: 3px;
+    }}
+
+    p {{
+      color: #334155;
+      margin-bottom: 5px;
+      text-align: justify;
+    }}
+
+    /* Callout & Summary Strip */
+    .summary-strip {{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin: 7px 0 9px 0;
+    }}
+
+    .strip-item {{
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 3px;
+      padding: 5px 7px;
+      border-top: 2.5px solid #0f2a47;
+    }}
+
+    .strip-item:nth-child(2) {{ border-top-color: #0e8f6b; }}
+    .strip-item:nth-child(3) {{ border-top-color: #0369a1; }}
+    .strip-item:nth-child(4) {{ border-top-color: #64748b; }}
+
+    .strip-label {{
+      font-size: 6.8pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #64748b;
+      letter-spacing: 0.3px;
+    }}
+
+    .strip-val {{
+      font-size: 8.5pt;
+      font-weight: 800;
+      color: #0f2a47;
+      margin-top: 1px;
+    }}
+
+    .callout-box {{
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-left: 3.5px solid #0e8f6b;
+      border-radius: 3px;
+      padding: 6px 9px;
+      margin: 6px 0;
+      font-size: 8pt;
+      color: #14532d;
+      line-height: 1.4;
+    }}
+
+    .callout-box.navy {{
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 3.5px solid #0f2a47;
+      color: #0f2a47;
+    }}
+
+    .callout-box strong {{
+      color: #0f2a47;
+    }}
+
+    /* Tables */
+    table.data-table {{
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 7.8pt;
+      margin: 5px 0 7px 0;
+    }}
+
+    table.data-table th {{
+      background: #f1f5f9;
+      color: #0f2a47;
+      font-weight: 700;
+      text-align: left;
+      padding: 4px 6px;
+      border-top: 1px solid #cbd5e1;
+      border-bottom: 1.5px solid #cbd5e1;
+      font-size: 7.4pt;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }}
+
+    table.data-table td {{
+      padding: 4.5px 6px;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: top;
+      color: #334155;
+      line-height: 1.35;
+    }}
+
+    table.data-table tr:nth-child(even) td {{
+      background: #fafafa;
+    }}
+
+    .tag-badge {{
+      display: inline-block;
+      padding: 1px 4px;
+      border-radius: 2px;
+      font-size: 6.8pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2px;
+    }}
+
+    .tag-custom {{ background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }}
+    .tag-plugin {{ background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }}
+    .tag-opt {{ background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }}
+
+    /* Wireframe split layout */
+    .wf-section {{
+      display: grid;
+      grid-template-columns: 145px 1fr;
+      gap: 10px;
+      align-items: start;
+      margin: 6px 0;
+    }}
+
+    .wf-img-box {{
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      padding: 3px;
+      background: #f8fafc;
+      text-align: center;
+    }}
+
+    .wf-img-box img {{
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 2px;
+    }}
+
+    .wf-caption {{
+      font-size: 6.8pt;
+      color: #64748b;
+      margin-top: 3px;
+      font-weight: 600;
+    }}
+
+    /* Architecture diagram SVG box */
+    .arch-box {{
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      padding: 6px 8px;
+      margin: 6px 0;
+      text-align: center;
+    }}
+
+    /* Timeline Grid */
+    .milestone-grid {{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin: 5px 0;
+    }}
+
+    .ms-card {{
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 3px;
+      padding: 6px 8px;
+      border-left: 3px solid #0f2a47;
+    }}
+
+    .ms-card:nth-child(2) {{ border-left-color: #0e8f6b; }}
+    .ms-card:nth-child(3) {{ border-left-color: #0369a1; }}
+    .ms-card:nth-child(4) {{ border-left-color: #d97706; }}
+
+    .ms-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 2px;
+      margin-bottom: 3px;
+    }}
+
+    .ms-title {{
+      font-size: 8pt;
+      font-weight: 700;
+      color: #0f2a47;
+    }}
+
+    .ms-dur {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.2pt;
+      font-weight: 600;
+      color: #0e8f6b;
+      background: #ecfdf5;
+      padding: 1px 4px;
+      border-radius: 2px;
+    }}
+
+    .ms-card ul {{
+      list-style: none;
+      font-size: 7.4pt;
+      color: #475569;
+    }}
+
+    .ms-card ul li {{
+      position: relative;
+      padding-left: 8px;
+      margin-bottom: 1px;
+      line-height: 1.3;
+    }}
+
+    .ms-card ul li::before {{
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #0e8f6b;
+      font-weight: bold;
+    }}
+
+    /* Q&A list */
+    .qa-list {{
+      list-style: none;
+      margin: 4px 0;
+    }}
+
+    .qa-list li {{
+      position: relative;
+      padding-left: 14px;
+      margin-bottom: 3px;
+      font-size: 7.8pt;
+      color: #334155;
+      line-height: 1.35;
+    }}
+
+    .qa-list li .q-num {{
+      position: absolute;
+      left: 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: #0e8f6b;
+      font-size: 7.4pt;
+    }}
+
+    /* Next Steps Banner */
+    .next-steps-banner {{
+      background: #0f2a47;
+      color: #ffffff;
+      border-radius: 3px;
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+    }}
+
+    .ns-left h4 {{
+      font-size: 8.8pt;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 1px;
+    }}
+
+    .ns-left p {{
+      font-size: 7.5pt;
+      color: #cbd5e1;
+      margin: 0;
+    }}
+
+    .ns-right {{
+      text-align: right;
+      font-size: 7.8pt;
+      color: #e2e8f0;
+      line-height: 1.35;
+      white-space: nowrap;
+    }}
+
+    .ns-right strong {{
+      color: #38bdf8;
+    }}
+  </style>
+</head>
+<body>
+
+  <!-- ============================== PAGE 1 ============================== -->
+  <div class="page">
+    <div>
+      <div class="running-header">
+        <span>Wealth Wisdom · Client Portal, LMS &amp; Financial Dashboard</span>
+        <span class="doc-tag">Technical Bid &amp; Delivery Strategy</span>
+      </div>
+
+      <!-- Letterhead -->
+      <div class="letterhead">
+        <div class="lh-title">
+          <h1>Viranga Lakshan</h1>
+          <div class="subtitle">Senior Software Engineer &amp; Platform Architect</div>
+        </div>
+        <div class="lh-meta">
+          <div>Location: Sri Lanka (UTC+5:30 · 3.5 hrs ahead of South Africa)</div>
+          <div>Email: <strong>virangalakshanz@gmail.com</strong> · Tel: <strong>+94 71 378 1359</strong></div>
+          <div>Portfolio: <a href="https://viranga-lakshan.github.io/portfolio/">viranga-lakshan.github.io/portfolio/</a> · CV: <a href="https://drive.google.com/file/d/1dNXU_Ig0WMNT2lwEaoSZ6P8O1Xx1EKxu/view?usp=sharing">View Full CV</a></div>
+        </div>
+      </div>
+
+      <!-- Recipient Strip -->
+      <div class="target-bar">
+        <div>
+          <span class="client-name">To: Leadership Team &amp; Founders, Wealth Wisdom</span>
+          <span class="client-sub"> &nbsp;|&nbsp; Web: wealthwisdom.co.za &nbsp;|&nbsp; South Africa</span>
+        </div>
+        <div class="target-badge">Formal Technical Proposal</div>
+      </div>
+
+      <!-- Section: Understanding -->
+      <h2 class="sec-heading"><span class="num">01.</span> Project Understanding &amp; Technical Objective</h2>
+      <p>
+        Wealth Wisdom provides dedicated financial coaching programmes, requiring a unified digital client hub that combines structured six-week course delivery, interactive assignments, and long-term personal financial tracking. Your existing foundation uses WordPress, WooCommerce, and PayPal. Your objective is to expand this into a secure, intuitive Client Portal, LMS, and Financial Snapshot Dashboard that coaches can manage independently without technical friction, while ensuring sensitive client balance sheets remain strictly protected and preserved.
+      </p>
+
+      <!-- Approach in Brief -->
+      <h3 class="sub-heading">My Architectural Approach in Brief:</h3>
+      <p style="margin-bottom: 2px;">
+        • <strong>Lean WordPress Ecosystem:</strong> Combine LearnDash LMS with your existing WooCommerce and PayPal setup for automated enrolment, deliberately avoiding secondary membership plugins to eliminate conflicting access rules.<br>
+        • <strong>Single Custom Engine:</strong> Build one lightweight plugin (<em>Wealth Wisdom Portal</em>) handling the customized client dashboard, private document downloads, and the dedicated financial snapshot tracking engine.<br>
+        • <strong>Permanent Financial Data Layer:</strong> Client financial snapshots and learning histories are gated strictly by user authentication, never by course access expiry. Expired clients retain full access to their balance sheets and can log in to renew anytime.
+      </p>
+
+      <!-- Background Paragraph (Honest, Transferable) -->
+      <h3 class="sub-heading" style="margin-top: 5px;">Background &amp; Transferable Competencies:</h3>
+      <p>
+        My recent production builds were engineered on other enterprise platforms—including the Holsten Arabia multilingual portal on Umbraco CMS, a multi-tenant e-commerce backend with per-tenant data isolation on PHP 8 and Laravel Lumen, and an enterprise gate-pass platform on Java and Spring Boot for DIMO Lanka. The core architectural disciplines required for Wealth Wisdom—strict per-user data isolation, subscription and access lifecycle enforcement, role separation, audit logging, and historical data preservation—transfer directly to this WordPress build. This specific implementation will be built entirely within native WordPress standards. To eliminate technical risk, I am prepared to demonstrate a working proof-of-concept of the financial snapshot module on a staging site before contract sign-off.
+      </p>
+
+      <!-- Summary Strip -->
+      <div class="summary-strip">
+        <div class="strip-item">
+          <div class="strip-label">Earliest Start</div>
+          <div class="strip-val">10 Nov 2026</div>
+        </div>
+        <div class="strip-item">
+          <div class="strip-label">Working Prototype</div>
+          <div class="strip-val">1 Dec 2026</div>
+        </div>
+        <div class="strip-item">
+          <div class="strip-label">Full Handover Target</div>
+          <div class="strip-val">16 Jan 2027</div>
+        </div>
+        <div class="strip-item">
+          <div class="strip-label">Commercial Quotes</div>
+          <div class="strip-val">Within 1 Day of Call</div>
+        </div>
+      </div>
+
+      <!-- Section: Wireframe Mapping -->
+      <h2 class="sec-heading"><span class="num">02.</span> Understanding &amp; Architectural Mapping of Your Wireframe</h2>
+      <p>
+        I have analyzed your <em>"My Wealth Dashboard"</em> wireframe. Below is the exact implementation mapping for each interface component:
+      </p>
+
+      <div class="wf-section">
+        <div class="wf-img-box">
+          <img src="{wireframe_img}" alt="My Wealth Dashboard Wireframe">
+          <div class="wf-caption">Client Wireframe Concept</div>
+        </div>
+        <div>
+          <table class="data-table" style="margin: 0;">
+            <thead>
+              <tr>
+                <th style="width: 28%;">Wireframe Block</th>
+                <th style="width: 24%;">Delivery Mechanism</th>
+                <th style="width: 48%;">Technical Realization &amp; Logic</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Net Worth &amp; Monthly Surplus</strong></td>
+                <td><span class="tag-badge tag-custom">Custom Plugin</span></td>
+                <td>Dynamic calculation: Assets minus Liabilities (780,000 - 355,000 = 425,000) and Income minus Expenses (42,000 - 36,800 = 5,200). Change indicator compares latest against preceding snapshot.</td>
+              </tr>
+              <tr>
+                <td><strong>"Keep Going" Course Banner</strong></td>
+                <td><span class="tag-badge tag-plugin">LearnDash API</span></td>
+                <td>Reads active enrolment, progress percentage (Week 2 of 6), and resolves next uncompleted topic link (Module 3 - Your Financial Priorities).</td>
+              </tr>
+              <tr>
+                <td><strong>My Financial Snapshot</strong></td>
+                <td><span class="tag-badge tag-custom">Custom Plugin</span></td>
+                <td>Summary card with timestamped date. "Update" creates an immutable snapshot entry. "Progress" renders historical comparison tables and trend charts.</td>
+              </tr>
+              <tr>
+                <td><strong>My Finances &amp; My Learning</strong></td>
+                <td><span class="tag-badge tag-plugin">LearnDash + Endpoint</span></td>
+                <td>My Finances links to the detailed snapshot comparison module. My Learning opens enrolled LearnDash courses, lessons, and video modules.</td>
+              </tr>
+              <tr>
+                <td><strong>My Resources &amp; Documents</strong></td>
+                <td><span class="tag-badge tag-custom">Custom Endpoint</span></td>
+                <td>My Resources displays worksheets and exercises assigned by coaches. My Documents serves private client files via access-checked PHP stream.</td>
+              </tr>
+              <tr>
+                <td><strong>My Coaching &amp; Explore</strong></td>
+                <td><span class="tag-badge tag-opt">Phase 1 / Phase 2</span></td>
+                <td>Base Scope: Coach notes and custom action plan lists. Explore links to WooCommerce course catalog. Interactive calendar booking is an optional add-on.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="running-footer">
+      <span>Viranga Lakshan · virangalakshanz@gmail.com</span>
+      <span>Wealth Wisdom Client Portal Proposal</span>
+      <span class="page-number">Page 1 of 4</span>
+    </div>
+  </div>
+
+  <!-- ============================== PAGE 2 ============================== -->
+  <div class="page">
+    <div>
+      <div class="running-header">
+        <span>Wealth Wisdom · Client Portal, LMS &amp; Financial Dashboard</span>
+        <span class="doc-tag">Technical Architecture</span>
+      </div>
+
+      <!-- Section: Recommended Approach -->
+      <h2 class="sec-heading"><span class="num">03.</span> Recommended Technical Approach &amp; Lean Stack</h2>
+      <p>
+        The core architectural principle for this system is: <strong>fewest possible plugins, single source of truth for user access, and one dedicated custom plugin for business logic that standard tools cannot fulfill.</strong>
+      </p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width: 22%;">System Layer</th>
+            <th style="width: 25%;">Recommended Tool</th>
+            <th style="width: 53%;">Architectural Rationale &amp; Operational Mechanics</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>LMS Core</strong></td>
+            <td><strong>LearnDash LMS</strong><br><span style="font-size: 7pt; color: #64748b;">(Tutor LMS evaluated)</span></td>
+            <td>While Tutor LMS is viable, LearnDash is recommended due to its deep WooCommerce integration, robust group management, and mature assignment review pipelines. Coaches utilize the LearnDash Group Leader role to review and approve submitted worksheets without needing full administrator access.</td>
+          </tr>
+          <tr>
+            <td><strong>Payments &amp; Access</strong></td>
+            <td><strong>WooCommerce + LearnDash Integration</strong></td>
+            <td>Native WooCommerce integration links purchases directly to course enrolment via PayPal. We deliberately avoid secondary membership plugins to prevent dual-system synchronization failures and access state conflicts.</td>
+          </tr>
+          <tr>
+            <td><strong>Cohort Access Control</strong></td>
+            <td><strong>Custom Cohort Handler</strong><br><span style="font-size: 7pt; color: #64748b;">(Custom Extension)</span></td>
+            <td>LearnDash calculates course expiry from enrolment timestamp by default. We introduce a custom hook enabling access to run for 10 weeks calculated from an agreed programme cohort start date, supporting scheduled group intakes.</td>
+          </tr>
+          <tr>
+            <td><strong>Subscription Extensions</strong></td>
+            <td><strong>Option A vs. Option B</strong><br><span style="font-size: 7pt; color: #64748b;">(Two Viable Paths)</span></td>
+            <td><strong>Option A:</strong> WooCommerce Subscriptions extension enabling automated monthly recurring billing via PayPal.<br><strong>Option B (Recommended for Launch):</strong> Standard one-time "Access Extension" products where clients renew on demand, adding automated recurring billing later. This avoids complex recurring subscription overhead on day one.</td>
+          </tr>
+          <tr>
+            <td><strong>Portal &amp; Financials</strong></td>
+            <td><strong>Custom Plugin:</strong><br><em>Wealth Wisdom Portal</em></td>
+            <td>Custom WooCommerce My-Account endpoint rendering the wireframe dashboard. Financial tracking utilizes dedicated custom database tables (<code>ww_financial_snapshots</code>) storing timestamped, immutable financial balance sheets. Data is gated solely by login, ensuring client records remain intact after course expiry.</td>
+          </tr>
+          <tr>
+            <td><strong>Private Documents</strong></td>
+            <td><strong>Protected Storage Handler</strong></td>
+            <td>Client documents and coach assignments are stored outside public media paths, served exclusively through an authenticated PHP gateway (<code>readfile()</code> with strict permission checks), preventing direct URL indexing.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- SVG Architecture Flowchart -->
+      <div class="arch-box">
+        <svg viewBox="0 0 680 82" width="100%" height="82" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Inter', sans-serif;">
+          <!-- Node 1: Checkout -->
+          <rect x="5" y="16" width="130" height="50" rx="4" fill="#f8fafc" stroke="#0f2a47" stroke-width="1.5"/>
+          <text x="70" y="36" text-anchor="middle" font-size="9" font-weight="700" fill="#0f2a47">WooCommerce + PayPal</text>
+          <text x="70" y="52" text-anchor="middle" font-size="7.5" fill="#475569">Course Checkout</text>
+
+          <!-- Arrow 1 -->
+          <line x1="135" y1="41" x2="165" y2="41" stroke="#0e8f6b" stroke-width="1.5" marker-end="url(#arrow)"/>
+          <polygon points="165,41 157,37 157,45" fill="#0e8f6b"/>
+
+          <!-- Node 2: LMS -->
+          <rect x="168" y="16" width="145" height="50" rx="4" fill="#ecfdf5" stroke="#0e8f6b" stroke-width="1.5"/>
+          <text x="240" y="36" text-anchor="middle" font-size="9" font-weight="700" fill="#065f46">LearnDash LMS</text>
+          <text x="240" y="52" text-anchor="middle" font-size="7.5" fill="#047857">10-Week Time-Limited Access</text>
+
+          <!-- Arrow 2 -->
+          <line x1="313" y1="41" x2="343" y2="41" stroke="#0e8f6b" stroke-width="1.5"/>
+          <polygon points="343,41 335,37 335,45" fill="#0e8f6b"/>
+
+          <!-- Node 3: Custom Plugin -->
+          <rect x="346" y="16" width="150" height="50" rx="4" fill="#f8fafc" stroke="#0f2a47" stroke-width="1.5"/>
+          <text x="421" y="34" text-anchor="middle" font-size="9" font-weight="700" fill="#0f2a47">Wealth Wisdom Portal</text>
+          <text x="421" y="47" text-anchor="middle" font-size="7.5" fill="#475569">Wireframe Tile Dashboard</text>
+          <text x="421" y="58" text-anchor="middle" font-size="7" font-weight="600" fill="#0e8f6b">My Account Endpoint</text>
+
+          <!-- Arrow 3 -->
+          <line x1="496" y1="41" x2="526" y2="41" stroke="#0e8f6b" stroke-width="1.5"/>
+          <polygon points="526,41 518,37 518,45" fill="#0e8f6b"/>
+
+          <!-- Node 4: Permanent Data -->
+          <rect x="529" y="10" width="146" height="62" rx="4" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+          <text x="602" y="27" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1e40af">Permanent Financial Layer</text>
+          <text x="602" y="41" text-anchor="middle" font-size="7.5" fill="#1e3a8a">Immutable Snapshots</text>
+          <text x="602" y="54" text-anchor="middle" font-size="7" font-weight="700" fill="#b91c1c">Login-Gated (Never Expires)</text>
+          <text x="602" y="65" text-anchor="middle" font-size="6.8" fill="#475569">Append-Only Versioning</text>
+        </svg>
+      </div>
+
+      <!-- Access & Role Matrix -->
+      <h3 class="sub-heading">Roles &amp; Access Governance Matrix:</h3>
+      <table class="data-table" style="margin-bottom: 6px;">
+        <thead>
+          <tr>
+            <th style="width: 20%;">User Role</th>
+            <th style="width: 26%;">Learning &amp; Course Materials</th>
+            <th style="width: 27%;">Client Financial Records</th>
+            <th style="width: 27%;">Resource &amp; Document Management</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Client</strong></td>
+            <td>Access enrolled course during active 10-week window; upload assignments.</td>
+            <td>Full edit and view rights to own balance sheet; historical snapshot comparison.</td>
+            <td>View assigned worksheets; download and upload to private personal folder.</td>
+          </tr>
+          <tr>
+            <td><strong>Coach (Group Leader)</strong></td>
+            <td>Review and grade submitted assignments for assigned cohort clients.</td>
+            <td>View financial summaries for assigned clients only (if authorized by client).</td>
+            <td>Assign specific library resources to individual clients or assigned groups.</td>
+          </tr>
+          <tr>
+            <td><strong>Administrator</strong></td>
+            <td>Create and edit courses, lessons, topics, quizzes, and pricing products.</td>
+            <td>System administration; access to client financial records is logged for audit.</td>
+            <td>Central library management; full administrative override and export rights.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Section: Custom Dev Breakdown -->
+      <h2 class="sec-heading"><span class="num">04.</span> Features Requiring Custom Development vs. Plugin Configuration</h2>
+      <table class="data-table" style="margin: 0;">
+        <thead>
+          <tr>
+            <th style="width: 26%;">System Component</th>
+            <th style="width: 24%;">Implementation Type</th>
+            <th style="width: 50%;">Detailed Technical Scope &amp; Deliverable</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Client Dashboard UI</strong></td>
+            <td><span class="tag-badge tag-custom">Custom Code</span> (Light)</td>
+            <td>Template override on WooCommerce My Account rendering the wireframe's 6-tile layout, Net Worth summary cards, and dynamic "Keep Going" status bar.</td>
+          </tr>
+          <tr>
+            <td><strong>Financial Tracker Engine</strong></td>
+            <td><span class="tag-badge tag-custom">Custom Code</span> (Core)</td>
+            <td>Dedicated database schema (<code>ww_snapshots</code>, <code>ww_snapshot_items</code>), income/expense/asset/liability entry forms, auto-calculation, and Chart.js trend graphs.</td>
+          </tr>
+          <tr>
+            <td><strong>Cross-Course Data Persistence</strong></td>
+            <td><span class="tag-badge tag-custom">Custom Code</span> (Core)</td>
+            <td>Shortcodes embedding snapshot forms directly into course lessons while syncing to the central financial database, accessible outside course contexts.</td>
+          </tr>
+          <tr>
+            <td><strong>Cohort Date Expiry Hook</strong></td>
+            <td><span class="tag-badge tag-custom">Custom Code</span> (Light)</td>
+            <td>Action filter overriding standard enrolment-based expiry to enforce a 10-week countdown from an admin-defined programme cohort start date.</td>
+          </tr>
+          <tr>
+            <td><strong>Resource Assignment System</strong></td>
+            <td><span class="tag-badge tag-custom">Custom Code</span> (Core)</td>
+            <td>Custom Post Type (<code>ww_resource</code>) with administrative assignment panel linking individual worksheets or videos directly to client user IDs.</td>
+          </tr>
+          <tr>
+            <td><strong>Private File Delivery Handler</strong></td>
+            <td><span class="tag-badge tag-custom">Custom Code</span> (Core)</td>
+            <td>Authenticated PHP download script preventing direct URL file access and verifying user ownership before streaming worksheet downloads.</td>
+          </tr>
+          <tr>
+            <td><strong>LMS Curriculum &amp; Content</strong></td>
+            <td><span class="tag-badge tag-plugin">Plugin Configuration</span></td>
+            <td>Configuring 6-week modules, video lessons, topic hierarchies, assignment upload dropzones, and prerequisite rules inside standard LearnDash settings.</td>
+          </tr>
+          <tr>
+            <td><strong>Payment &amp; Enrolment Flow</strong></td>
+            <td><span class="tag-badge tag-plugin">Plugin Configuration</span></td>
+            <td>Configuring WooCommerce products, PayPal payment gateway credentials, and native LearnDash course connection settings.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="running-footer">
+      <span>Viranga Lakshan · virangalakshanz@gmail.com</span>
+      <span>Wealth Wisdom Client Portal Proposal</span>
+      <span class="page-number">Page 2 of 4</span>
+    </div>
+  </div>
+
+  <!-- ============================== PAGE 3 ============================== -->
+  <div class="page">
+    <div>
+      <div class="running-header">
+        <span>Wealth Wisdom · Client Portal, LMS &amp; Financial Dashboard</span>
+        <span class="doc-tag">Security, Scope &amp; Running Costs</span>
+      </div>
+
+      <!-- Section: Security & Data Protection -->
+      <h2 class="sec-heading"><span class="num">05.</span> Security Architecture, Data Isolation &amp; POPIA Alignment</h2>
+      <p>
+        Because Wealth Wisdom handles sensitive personal financial data, security cannot rely on generic assumptions. I enforce a strict defensive architecture across the application layer:
+      </p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width: 25%;">Security Domain</th>
+            <th style="width: 25%;">Implemented Standard</th>
+            <th style="width: 50%;">Engineering Protection Mechanism</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Financial Field Encryption</strong></td>
+            <td>Application-Level Libsodium</td>
+            <td>Sensitive financial data fields are encrypted at the application level using PHP Libsodium before database insertion. The encryption key is isolated outside the database in server environment variables. (No WordPress plugin provides automated database encryption at rest).</td>
+          </tr>
+          <tr>
+            <td><strong>Data Access Isolation</strong></td>
+            <td>Strict User-ID Validation</td>
+            <td>All database queries utilize wpdb-prepared statements with mandatory session user-ID checks. Zero client balance sheet queries can execute without verified ownership validation.</td>
+          </tr>
+          <tr>
+            <td><strong>Endpoint Security</strong></td>
+            <td>Solid Security Suite + Cloudflare</td>
+            <td>Deployment of Solid Security (one dedicated suite—never running conflicting security tools) coupled with Cloudflare web application firewall, enforcing HTTPS, brute-force locking, and request sanitation.</td>
+          </tr>
+          <tr>
+            <td><strong>Authentication Security</strong></td>
+            <td>Two-Factor Authentication (2FA)</td>
+            <td>Enforced 2FA for all administrative and coaching accounts; optional 2FA for clients. Strict session timeouts for inactive dashboard tabs.</td>
+          </tr>
+          <tr>
+            <td><strong>Audit Logging</strong></td>
+            <td>Internal Security Audit Trail</td>
+            <td>Every administrative inspection or coach review of client balance sheet records is written to an immutable internal audit log.</td>
+          </tr>
+          <tr>
+            <td><strong>Caching &amp; Leakage Policy</strong></td>
+            <td>Strict Portal Exclusions</td>
+            <td>All client portal endpoints (<code>/my-account/portal/*</code>) and logged-in user requests are strictly excluded from page caching to prevent cached financial data leaks. No caching plugin bloat.</td>
+          </tr>
+          <tr>
+            <td><strong>POPIA Regulatory Compliance</strong></td>
+            <td>Data Privacy Standards</td>
+            <td>Alignment with South African POPIA regulations: transparent privacy consent notice on signup, client self-service data export, and standard account deletion procedures.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Section: Scope Definition -->
+      <h2 class="sec-heading"><span class="num">06.</span> Scope Definition: Prototype vs. Full System</h2>
+      <p>
+        To provide complete delivery clarity, the development scope is split into two precise definitions:
+      </p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 4px 0 6px 0;">
+        <div style="border: 1px solid #cbd5e1; border-radius: 3px; padding: 6px 8px; background: #ffffff;">
+          <h3 class="sub-heading" style="color: #0e8f6b; margin-top: 0;">Initial Working Prototype Scope (1 Dec 2026):</h3>
+          <ul style="list-style: none; font-size: 7.4pt; color: #475569; line-height: 1.35;">
+            <li>• Dedicated staging environment configuration.</li>
+            <li>• Sample six-week course structure configured in LearnDash.</li>
+            <li>• WooCommerce checkout to automated enrolment flow via PayPal sandbox.</li>
+            <li>• Core responsive client portal rendering the wireframe's 6-tile grid.</li>
+            <li>• Functional financial tracking form computing Net Worth and Monthly Surplus.</li>
+            <li>• Saving one timestamped financial snapshot to the database.</li>
+            <li><em>Excluded from Prototype: Historical comparisons, resource assignment admin, subscriptions, security hardening, client training.</em></li>
+          </ul>
+        </div>
+
+        <div style="border: 1px solid #cbd5e1; border-radius: 3px; padding: 6px 8px; background: #ffffff;">
+          <h3 class="sub-heading" style="color: #0f2a47; margin-top: 0;">Complete Production System Scope:</h3>
+          <ul style="list-style: none; font-size: 7.4pt; color: #475569; line-height: 1.35;">
+            <li>• Full implementation of all items in the Technical Approach (Section 03).</li>
+            <li>• Historical snapshot comparison views and trend visualization (Chart.js).</li>
+            <li>• Resource Library CPT with admin individual client assignment panel.</li>
+            <li>• LearnDash Group Leader coaching review and assignment grading workflow.</li>
+            <li>• Private document download gateway with authenticated access control.</li>
+            <li>• Cohort date access expiry handler (10 weeks from programme start).</li>
+            <li>• Comprehensive security hardening, libsodium encryption, and POPIA tools.</li>
+            <li>• Full administrator video guides, written manuals, and live training.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout-box navy" style="margin: 4px 0;">
+        <strong>Explicit System Exclusions (Both Scopes):</strong> Creation of coaching course content, video production, graphic logo design, content migration, third-party plugin licence purchase costs, web hosting fees, external calendar booking tools (optional Phase 2), native mobile app builds, and direct bank/accounting feed integrations.
+      </div>
+
+      <!-- Section: Licences & Ongoing Costs -->
+      <h2 class="sec-heading"><span class="num">07.</span> Third-Party Licences, Hosting &amp; Running Items</h2>
+      <p>
+        In accordance with your preferences, below is the transparent checklist of external software and infrastructure items required to support the platform. <em>(Commercial amounts are omitted and will be reviewed during our discovery call to select the most cost-effective tiers):</em>
+      </p>
+
+      <table class="data-table" style="margin: 0;">
+        <thead>
+          <tr>
+            <th style="width: 25%;">Component Category</th>
+            <th style="width: 25%;">Required / Optional</th>
+            <th style="width: 50%;">Operational Purpose &amp; Hosting Prerequisites</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>LearnDash LMS Licence</strong></td>
+            <td><span class="tag-badge tag-plugin">Required</span></td>
+            <td>Annual core software licence for course builder, quiz engine, and WooCommerce integration add-on. Direct vendor renewal.</td>
+          </tr>
+          <tr>
+            <td><strong>Web Hosting Environment</strong></td>
+            <td><span class="tag-badge tag-plugin">Required</span></td>
+            <td>Existing client host. Prerequisites to confirm: PHP 8.1+, Sodium extension, HTTPS enabled, daily automated server backups.</td>
+          </tr>
+          <tr>
+            <td><strong>Transactional Email (SMTP)</strong></td>
+            <td><span class="tag-badge tag-plugin">Required</span></td>
+            <td>Dedicated delivery service (e.g. Postmark / SendGrid / Mailgun) to ensure assignment alerts and password resets do not hit spam folders.</td>
+          </tr>
+          <tr>
+            <td><strong>Security Suite Licence</strong></td>
+            <td><span class="tag-badge tag-opt">Optional</span></td>
+            <td>Solid Security Pro for automated malware scanning, file integrity monitoring, and two-factor enforcement. Core version can suffice initially if preferred.</td>
+          </tr>
+          <tr>
+            <td><strong>WooCommerce Subscriptions</strong></td>
+            <td><span class="tag-badge tag-opt">Optional</span></td>
+            <td>Required only if selecting Option A (automated monthly recurring renewals). Not required if launching with Option B (one-time extensions).</td>
+          </tr>
+          <tr>
+            <td><strong>Ongoing Maintenance Plan</strong></td>
+            <td><span class="tag-badge tag-opt">Optional</span></td>
+            <td>Post-launch software update management, off-site backup verification, and uptime monitoring. To be discussed separately.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="running-footer">
+      <span>Viranga Lakshan · virangalakshanz@gmail.com</span>
+      <span>Wealth Wisdom Client Portal Proposal</span>
+      <span class="page-number">Page 3 of 4</span>
+    </div>
+  </div>
+
+  <!-- ============================== PAGE 4 ============================== -->
+  <div class="page">
+    <div>
+      <div class="running-header">
+        <span>Wealth Wisdom · Client Portal, LMS &amp; Financial Dashboard</span>
+        <span class="doc-tag">Timeline, Governance &amp; Next Steps</span>
+      </div>
+
+      <!-- Section: Timeline & Feasibility -->
+      <h2 class="sec-heading"><span class="num">08.</span> Project Timeline, Milestones &amp; Feasibility Evaluation</h2>
+      <p>
+        I have structured a phased delivery schedule using calendar durations to maintain predictable progress:
+      </p>
+
+      <div class="milestone-grid">
+        <div class="ms-card">
+          <div class="ms-header">
+            <span class="ms-title">Stage 01: Setup &amp; Discovery</span>
+            <span class="ms-dur">Duration: 4 Days</span>
+          </div>
+          <ul>
+            <li>Staging site creation and PHP/Sodium prerequisite verification.</li>
+            <li>Spec confirmation and WooCommerce/PayPal sandbox connectivity.</li>
+          </ul>
+        </div>
+        <div class="ms-card">
+          <div class="ms-header">
+            <span class="ms-title">Stage 02: Prototype Build</span>
+            <span class="ms-dur">Target: 1 Dec 2026 (2.5 Weeks)</span>
+          </div>
+          <ul>
+            <li>LearnDash structure setup and client portal wireframe UI implementation.</li>
+            <li>Functional financial snapshot form calculating Net Worth &amp; Surplus.</li>
+          </ul>
+        </div>
+        <div class="ms-card">
+          <div class="ms-header">
+            <span class="ms-title">Stage 03: Full Module Integration</span>
+            <span class="ms-dur">Duration: 2 Weeks</span>
+          </div>
+          <ul>
+            <li>Comparison views, Chart.js trends, and Resource Library CPT with admin assignment.</li>
+            <li>Cohort-based 10-week expiry logic and private file delivery gateway.</li>
+          </ul>
+        </div>
+        <div class="ms-card">
+          <div class="ms-header">
+            <span class="ms-title">Stage 04: Security, QA &amp; Handover</span>
+            <span class="ms-dur">Duration: 2.5 Weeks</span>
+          </div>
+          <ul>
+            <li>Data isolation auditing, cross-browser testing, and POPIA review.</li>
+            <li>Administrator video guides, written manuals, and live training session.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Honest Feasibility Callout -->
+      <div class="callout-box" style="margin: 5px 0;">
+        <strong>Feasibility Evaluation (Year-End vs. Mid-January Handover):</strong><br>
+        • <strong>Working Prototype by 1 December 2026:</strong> Confirmed achievable for the focused prototype scope defined in Section 06.<br>
+        • <strong>Completion before end of December:</strong> Feasible only as an aggressive stretch schedule; my committed completion date is <strong>16 January 2027</strong>. This ensures delivery without cutting corners on security and accounts for four key dependencies: (1) Staging and PayPal access by 12 Nov, (2) Sample course content and confirmed spec by 20 Nov, (3) Client milestone review turnarounds within two business days, and (4) The South African December holiday period (16 Dec Day of Reconciliation, 25 Dec, 26 Dec) which predictably reduces staff availability for UAT and training. Earliest start date: <strong>10 November 2026</strong>.
+      </div>
+
+      <!-- Section: Training, Docs & Support -->
+      <h2 class="sec-heading"><span class="num">09.</span> Training, Documentation &amp; Post-Launch Handover</h2>
+      <p style="margin-bottom: 3px;">
+        To ensure complete operational self-sufficiency for your team, handover includes:
+      </p>
+      <p style="font-size: 7.6pt; line-height: 1.35; margin-bottom: 5px;">
+        • <strong>Administrator Manual (PDF):</strong> Step-by-step documentation detailing course creation, resource assignment, user management, and snapshot export.<br>
+        • <strong>Recorded Video Walkthroughs:</strong> Concise screencasts demonstrating common workflows: uploading modules, reviewing student assignments, and granting resource access.<br>
+        • <strong>Live Interactive Training:</strong> One live screen-share walkthrough with coaching staff, followed by a dedicated follow-up Q&amp;A session.<br>
+        • <strong>Handover &amp; 30-Day Support:</strong> Full Git source repository transfer. All code and custom assets are fully and unconditionally owned by Wealth Wisdom upon completion. Includes 30 days of post-deployment bug-fix support. Payment terms: milestone-based via Upwork, agreed upon alongside the quote.
+      </p>
+
+      <!-- Section: Top Risks & Assumptions -->
+      <h2 class="sec-heading"><span class="num">10.</span> Key Risks, Mitigations &amp; Core Assumptions</h2>
+      <table class="data-table" style="margin: 3px 0 5px 0;">
+        <thead>
+          <tr>
+            <th style="width: 25%;">Identified Risk</th>
+            <th style="width: 35%;">Engineered Mitigation</th>
+            <th style="width: 40%;">Project Assumption</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Cohort vs. Purchase Expiry</strong></td>
+            <td>Custom date hook calculating expiry from scheduled cohort start dates.</td>
+            <td>Programmes run on set dates rather than indeterminate future starts.</td>
+          </tr>
+          <tr>
+            <td><strong>Public Document Exposure</strong></td>
+            <td>Protected non-public directory with authenticated PHP stream gateway.</td>
+            <td>Server allows directory storage outside public <code>wp-content/uploads</code>.</td>
+          </tr>
+          <tr>
+            <td><strong>Holiday Review Delays</strong></td>
+            <td>Committed delivery date set to 16 January 2027 with clear milestone checkpoints.</td>
+            <td>Client provides timely feedback on staging prototypes prior to 16 Dec.</td>
+          </tr>
+          <tr>
+            <td><strong>Wireframe Scope Growth</strong></td>
+            <td>Optional elements (calendar bookings, goals) cleanly separated into Phase 2.</td>
+            <td>Phase 1 focus remains strictly on core portal, LMS, and financial tracking.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Section: Questions for the Client -->
+      <h2 class="sec-heading"><span class="num">11.</span> Questions for You &amp; Immediate Next Steps</h2>
+      <ul class="qa-list">
+        <li><span class="q-num">1.</span> <strong>Cohort Structure:</strong> Will your courses run on fixed calendar dates for group intakes, or rolling start dates per individual?</li>
+        <li><span class="q-num">2.</span> <strong>Renewal Preference:</strong> Do you prefer Option B (one-time renewal products) for simplicity, or Option A (automated monthly recurring billing via PayPal)?</li>
+        <li><span class="q-num">3.</span> <strong>Coaching Module Scope:</strong> Is the base scope for "My Coaching" (coach notes and action plans) sufficient, or is live calendar booking an immediate requirement?</li>
+        <li><span class="q-num">4.</span> <strong>Financial Data Access:</strong> Which coaching roles should be granted permission to view individual client balance sheet records?</li>
+        <li><span class="q-num">5.</span> <strong>Hosting Specifications:</strong> Can you confirm the current hosting platform and PHP version powering wealthwisdom.co.za?</li>
+        <li><span class="q-num">6.</span> <strong>Detailed Specification:</strong> Could you share the detailed project specification document mentioned in your job post?</li>
+      </ul>
+
+      <!-- Next Steps Box -->
+      <div class="next-steps-banner">
+        <div class="ns-left">
+          <h4>Immediate Next Step: 20–30 Minute Discovery Call</h4>
+          <p>Let us review your detailed specification together and align on scope. Formal fixed-price quotes for both the prototype and complete system will be delivered within one business day of our call.</p>
+        </div>
+        <div class="ns-right">
+          <div><strong>Viranga Lakshan</strong></div>
+          <div>virangalakshanz@gmail.com</div>
+          <div>+94 71 378 1359</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="running-footer">
+      <span>Viranga Lakshan · virangalakshanz@gmail.com</span>
+      <span>Wealth Wisdom Client Portal Proposal</span>
+      <span class="page-number">Page 4 of 4</span>
+    </div>
+  </div>
+
+</body>
+</html>
+"""
+
+with open(html_path, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print(f"HTML written to {html_path}")
+
+edge_path = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+html_url = "file:///" + html_path.replace("\\", "/")
+
+cmd = [
+    edge_path,
+    "--headless",
+    "--disable-gpu",
+    "--no-pdf-header-footer",
+    f"--print-to-pdf={pdf_path}",
+    html_url
+]
+
+subprocess.run(cmd, check=True)
+
+if os.path.exists(pdf_path):
+    reader = PdfReader(pdf_path)
+    print("SUCCESS: PDF Generated!")
+    print(f"Total pages: {len(reader.pages)}")
+    print(f"File size: {os.path.getsize(pdf_path)} bytes")
+else:
+    print("ERROR: PDF was not generated.")
