@@ -1,45 +1,76 @@
-# ✉️ Wealth Wisdom — Direct Email Cover Letter
+# ✉️ Wealth Wisdom — Direct Email to Bianca
 
-**To:** Wealth Wisdom Team (via website contact or direct email)  
-**Subject:** Technical Proposal & Architecture: Client Portal, LMS & Financial Dashboard — Viranga Lakshan  
-**Attachment:** `WealthWisdom_WordPress_Proposal.pdf`
-
----
-
-## EMAIL BODY (Copy & Paste Ready)
+**To:** Bianca (Wealth Wisdom)  
+**Subject:** Wealth Wisdom WordPress Client Portal, LMS & Financial Dashboard — Technical Proposal | Viranga Lakshan  
+**Attachment:** `WealthWisdom_Client_Portal_Proposal_Viranga_Lakshan.pdf`
 
 ---
 
-Dear Wealth Wisdom Team,
+## EMAIL TEXT (Ready to Copy & Paste)
 
-I came across your opening for an experienced WordPress developer to architect and build your personalized Client Portal, LMS, and Financial Dashboard for Wealth Wisdom (wealthwisdom.co.za).
+---
 
-I have studied your project requirements and reviewed your **"My Wealth Dashboard" wireframe** in detail. The structure you've envisioned—featuring Net Worth and Monthly Surplus calculations, timestamped Financial Snapshots with progress tracking, 6-week LearnDash course progression, individual resource assignment, and integrated WooCommerce checkout—is a practical and impactful platform. I can build it precisely as designed on your existing WordPress and WooCommerce setup.
+Hello Bianca,
 
-I am a Senior Software Engineer with over 5 years of industry experience engineering production web platforms, complex CMS architectures, and secure client portals for international corporations and government organizations at Arimac Digital. My work includes:
+I hope you're doing well.
 
-• **Multi-Tenant E-Commerce Platform:** Engineered microservices and BFF layers managing isolated tenant accounts, payment integrations, and transactional financial reporting.
-• **Adrik News & Media Platform (Kuwait):** High-concurrency bilingual digital platform featuring paid subscriber access, OneSignal push notifications, and payment processing.
-• **DIMO Gate Pass Management System (DIMO Lanka):** Mission-critical vehicle logistics platform integrated directly with SAP ERP, handling complex role-based approval workflows and Flyway database migrations.
-• **Al Ain Museum V2 (UAE Government):** Enterprise Headless CMS platform for a premier UAE cultural institution (live at alainmuseum.ae/en).
-• **Holsten Arabia:** Headless CMS web platform built for a globally recognized beverage brand, featuring multilingual content architecture and custom form pipelines (live at holstenarabia.me/en).
+Nandi Erasmus asked me to contact you regarding the Wealth Wisdom WordPress Client Portal, LMS, and Financial Dashboard project.
 
-### Key Highlights of My Technical Approach:
-1. **Zero Reinventing the Wheel:** Using proven, trusted WordPress plugins (LearnDash + MemberPress / WooCommerce Memberships) for core learning and subscription management to keep your platform stable and easily maintainable.
-2. **Dedicated Financial Snapshot Engine:** A lightweight custom PHP/MySQL plugin to record timestamped snapshots of client income, expenses, assets, and liabilities, automatically updating Net Worth and Monthly Surplus while preserving full historical records even after a course access period concludes.
-3. **Admin Autonomy & Complete Handover:** Full video tutorials, written administrator guides, and a live screen-share walkthrough so your coaching team can independently upload materials, create courses, and manage clients without needing continuous developer support.
-4. **Transparent Collaboration & Budget Alignment:** Rather than presenting rigid numbers upfront, I propose that we discuss your exact milestone budget during an initial 30-minute discovery call to align directly with your scope and expectations.
-5. **Timeline:** Ready to commence immediately, targeting a functional prototype by **1 December 2026** and full deployment with staff training completed before **31 December 2026**.
+My name is Viranga Lakshan, and I'm an Associate Software Engineer at Arimac Lanka (Pvt) Ltd, Sri Lanka. I have over 4 years of professional software development experience, working on enterprise applications and international client projects.
 
-Please find my complete 4-page technical proposal attached as a PDF.
+We are proposing to collaborate as a team of three software professionals to deliver your project with a strong focus on quality, security, reliability, and long-term maintainability.
 
-I would welcome the opportunity to connect for a brief 20 to 30-minute introductory call to review your wireframe details and discuss how we can bring this platform to life.
+**Meet our team:**
 
-Kind regards,
+1. **Viranga Lakshan** – Associate Software Engineer, Arimac Lanka (Pvt) Ltd.
+   - Full-stack development, backend architecture, REST APIs, database design, authentication, and integrations.
+   - Experience with international projects, e-commerce platforms, and enterprise applications.
+
+2. **Janith Kavishaka** – Software Developer, DMS Software.
+   - Backend development, database architecture, and technical implementation.
+
+3. **Lithumitha Ravikumar** – Project Manager, Arimac Lanka (Pvt) Ltd.
+   - Project planning, coordination, team management, and delivery.
+
+**Our understanding of your project:**
+
+After reviewing your requirements and dashboard concept, we understand that you need an integrated platform covering:
+
+- Secure personalised client dashboards.
+- LearnDash LMS and six-week course management.
+- Custom financial tracking and historical snapshots.
+- Personalised resource libraries and assignment management.
+- WooCommerce and PayPal payment integration.
+- Membership management and automated course access.
+- Secure financial data management.
+- Administrator training, documentation, and complete handover.
+
+Our approach is to use reliable existing WordPress plugins wherever possible and develop custom PHP and MySQL functionality where necessary.
+
+**Regarding pricing:**
+
+We understand that you are looking for a practical and cost-effective solution. We are flexible with pricing and happy to discuss reasonable fixed-price options after understanding the complete project scope and your expectations.
+
+We are genuinely interested in this opportunity. Our goal is not simply to complete a project but to deliver a secure, high-quality product and establish a successful long-term working relationship.
+
+**Could we arrange an online meeting with you?**
+
+We would love to introduce our team, understand your business requirements in more detail, explain our proposed technical approach, and discuss realistic development milestones and pricing.
+
+**I'm also sharing our team's CVs and technical proposal for your review:**
+
+📑 **Wealth Wisdom Technical Proposal (Attached PDF):** *WealthWisdom_Client_Portal_Proposal_Viranga_Lakshan.pdf*  
+🌐 **My Live Portfolio:** https://viranga-lakshan.github.io/portfolio/  
+📄 **Viranga Lakshan – CV (Google Drive):** https://drive.google.com/file/d/1dNXU_Ig0WMNT2lwEaoSZ6P8O1Xx1EKxu/view?usp=sharing  
+📄 **Janith Kavishaka – GitHub Profile:** https://github.com/janithkavishka31  
+📄 **Lithumitha Ravikumar – Profile:** https://www.linkedin.com/in/lithumitha-ravikumar-9b2137223  
+
+Thank you for your time and consideration, Bianca. We would really appreciate the opportunity to work with Wealth Wisdom.
+
+Best regards,
 
 **Viranga Lakshan**  
-Senior Software Engineer & Platform Architect  
+Associate Software Engineer  
+Sri Lanka  
 📧 virangalakshanz@gmail.com  
-📱 +94 71 378 1359 (WhatsApp available)  
-🌐 Portfolio: https://viranga-lakshan.github.io/portfolio/  
-📄 Full CV (Google Drive): https://drive.google.com/file/d/1dNXU_Ig0WMNT2lwEaoSZ6P8O1Xx1EKxu/view?usp=sharing
+📞 +94 71 378 1359 (WhatsApp available)

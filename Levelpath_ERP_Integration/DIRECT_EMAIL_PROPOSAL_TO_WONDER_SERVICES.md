@@ -1,49 +1,75 @@
-# ✉️ Wonder Services — Direct Email Proposal & Application
+# ✉️ Wonder Services — Team Direct Email Proposal
 
-**To:** Wonder Services Hiring Team / Leadership (`hiring@wonderservices.com` or direct contact)  
-**Subject:** Technical Integration Squad: Levelpath, ERP & CLM Implementation — Viranga Lakshan & Team  
-**Attachment:** `WonderServices_Levelpath_Team_Proposal.pdf`
+**Subject:** Levelpath & ERP Integration Engineering Team — Wonder Services Implementation | Viranga Lakshan
 
 ---
 
-## EMAIL BODY (Copy & Paste Ready)
+## EMAIL TEXT (Ready to Copy & Paste)
 
 ---
 
-Dear Wonder Services Leadership & Hiring Team,
+Hello Wonder Services Team,
 
-I am writing regarding your opening for an experienced, hands-on Integration Engineer to support your enterprise client’s Levelpath implementation.
+I hope you're doing well.
 
-Rather than proposing as a solo contractor, I am presenting a specialized, cross-functional **Integration Engineering Squad** tailored specifically for enterprise Source-to-Pay (S2P) and Procure-to-Pay (P2P) rollouts. Operating as a unified team under a single contractor billing arrangement, we deliver the combined bandwidth of a Lead Solution Architect, a Senior Backend & Oracle SQL Integration Engineer, and a dedicated Business Systems Analyst / Project Manager.
+I am writing to you regarding the Levelpath Integration Engineer role to support your enterprise client’s Levelpath, ERP, and Contract Lifecycle Management (CLM) implementation.
 
-### Meet the Integration Squad:
-1. **Viranga Lakshan — Lead Integration Architect & ERP Specialist:**
-   5+ years of enterprise engineering at Arimac Digital. Architected the enterprise REST API gateway and Kafka event streaming pipeline connected directly to **SAP ERP** for premier conglomerate DIMO Lanka, enforcing OAuth 2.0/JWT security, purchase order dispatching, and multi-tier approval workflows.
-2. **P.H. Janith Kavishka Nadiranga — Senior Backend & Oracle SQL Engineer:**
-   Enterprise backend engineer at DMS Electronics. Architected *InvoiceIQ* (an automated accounts payable reconciliation REST API with deterministic **3-way matching algorithms** and price variance detection) and *Nexware* (an enterprise warehouse, PO, and supplier management system). Expert in Oracle SQL, Spring Boot, and high-throughput data synchronization.
-3. **Lithumitha Ravikumar — Integration Project Manager & S2P Systems Analyst:**
-   Associate Project Manager at Arimac Digital (First Class Honours, Business Information Systems). Specializes in agile sprint governance (JIRA), translating complex procurement business rules into detailed user stories and acceptance criteria, and managing stakeholder communication and go-live releases.
+My name is Viranga Lakshan, and I am a Software Engineer at Arimac Lanka (Pvt) Ltd, Sri Lanka. I have over 4 years of professional software development and enterprise integration experience, building mission-critical gateways and REST API pipelines for international clients.
 
-### Why Wonder Services Benefits from the Squad Advantage:
-• **Zero Single-Point-of-Failure:** You gain continuous, uninterrupted delivery and peer code reviews across the entire 12-month contract—mitigating the risk of solo-contractor illness or delays.  
-• **Full S2P & P2P Lifecycle Coverage:** From configuring Levelpath intake routing and approval rules to low-level Oracle SQL mapping, OAuth 2.0 client credential managers, and Ironclad CLM contract synchronization.  
-• **Single-Contract Simplicity:** You contract with us under standard individual contractor terms and budget rates, while receiving the output, quality assurance, and speed of a 3-person specialized team.  
-• **Dedicated 40+ Hours/Week Commitment:** Full-time dedicated capacity across the 12-month engagement, with structured daily overlap with US (EST/CST) and UK/European business hours.
+We are proposing to collaborate as a specialized team of three software professionals to deliver this engagement with exceptional quality, high throughput, continuous coverage, and zero single-point-of-failure.
 
-Please find our comprehensive 4-page technical proposal attached (*WonderServices_Levelpath_Team_Proposal.pdf*), detailing our integration architecture blueprints, production case studies, and team profiles.
+**Meet our team:**
 
-We are available for an introductory technical call this week to review your integration roadmap, Levelpath intake rules, and kickoff timeline.
+1. **Viranga Lakshan** – Lead Integration Architect, Arimac Lanka (Pvt) Ltd.
+   - Enterprise backend architecture, REST API gateways, OAuth 2.0 / JWT security, and ERP integration.
+   - Designed and built the integration gateway connecting enterprise microservices to **SAP ERP** (including Kafka event streaming, Azure AD, and AWS S3) for premier conglomerate DIMO Lanka.
 
-Kind regards,
+2. **Janith Kavishaka Nadiranga** – Senior Backend & Oracle SQL Specialist, DMS Electronics.
+   - Enterprise backend development, high-volume database design, and procurement reconciliation.
+   - Architected *InvoiceIQ* (an accounts payable reconciliation REST API with deterministic **3-way matching algorithms**) and *Nexware* (an enterprise warehouse, PO, and supplier management system). Deep hands-on experience with Oracle SQL and Spring Boot.
+
+3. **Lithumitha Ravikumar** – Project Manager & Business Systems Analyst, Arimac Lanka (Pvt) Ltd.
+   - Project planning, agile sprint coordination (JIRA), requirements documentation (SRS, user stories, acceptance criteria), and release validation.
+   - First Class Honours in Business Information Systems; specializes in translating complex Source-to-Pay (S2P) and Procure-to-Pay (P2P) business rules into actionable engineering backlogs.
+
+**Our understanding of your project:**
+
+After reviewing your project brief, we understand that you need an experienced integration engineering partner to:
+
+- Design, build, and support secure REST interfaces between Levelpath, ERP (Oracle Cloud ERP / SAP), and CLM (Ironclad) applications using JSON and OAuth 2.0.
+- Configure Levelpath intake workflows, conditional approval routing, and supplier onboarding pipelines.
+- Manage complex data mapping, transformation, and synchronization across purchase requisitions, POs, and contract records.
+- Troubleshoot production integration issues, token refresh lifecycles, and payload schema drift using logs and middleware traces.
+- Coordinate testing, go-live releases, and comprehensive technical documentation.
+
+**Why working with our team gives Wonder Services an advantage:**
+
+- **Continuous 40+ Hours/Week Coverage:** We guarantee dedicated full-time capacity for the expected 12-month engagement with daily working hour overlap for US and European teams.
+- **Squad Redundancy:** Having three engineers backing this engagement eliminates single-contractor delivery bottlenecks and ensures uninterrupted progress and peer-reviewed code quality.
+- **Single-Contract Simplicity:** You contract with us under a standard individual hourly contractor structure, receiving the velocity and expertise of three coordinated professionals.
+
+**Regarding hourly rate:**
+
+We welcome a competitive hourly arrangement and are flexible to align with Wonder Services' standard contractor budget (within your $30 – $100/hr range, proposed at **$38.00 / hr**) for the long-term 12-month commitment.
+
+**Could we arrange an introductory call with your team?**
+
+We would love to introduce our squad, discuss your integration architecture in more detail, explain our technical approach, and agree on kickoff priorities.
+
+**I am also sharing our team's credentials and technical proposal for your review:**
+
+📑 **Wonder Services Technical Proposal (Attached PDF):** *WonderServices_Levelpath_Team_Proposal.pdf*  
+🌐 **My Live Portfolio:** https://viranga-lakshan.github.io/portfolio/  
+📄 **Viranga Lakshan – CV (Google Drive):** https://drive.google.com/file/d/1dNXU_Ig0WMNT2lwEaoSZ6P8O1Xx1EKxu/view?usp=sharing  
+📄 **Janith Kavishaka – CV (GitHub):** https://github.com/janithkavishka31  
+📄 **Lithumitha Ravikumar – Profile:** https://www.linkedin.com/in/lithumitha-ravikumar-9b2137223  
+
+Thank you for your time and consideration. We would genuinely appreciate the opportunity to partner with Wonder Services on this implementation.
+
+Best regards,
 
 **Viranga Lakshan**  
-Lead Integration Architect · On Behalf of the Apex Integration Squad  
-📧 Email: virangalakshanz@gmail.com  
-📱 Phone / WhatsApp: +94 71 378 1359  
-🌐 Portfolio: https://viranga-lakshan.github.io/portfolio/  
-📄 Official CV: https://drive.google.com/file/d/1dNXU_Ig0WMNT2lwEaoSZ6P8O1Xx1EKxu/view?usp=sharing  
-🔗 LinkedIn: https://www.linkedin.com/in/viranga-lakshan-869515279
-
-*Team Co-Engineers:*  
-• Janith Nadiranga: janithnadiranga@gmail.com | +94 77 485 4970 | github.com/janithkavishka31  
-• Lithumitha Ravikumar: lithumitha.r@gmail.com | +94 70 209 5943 | linkedin.com/in/lithumitha-ravikumar-9b2137223
+Lead Integration Engineer  
+Sri Lanka (UTC+5:30)  
+📧 virangalakshanz@gmail.com  
+📞 +94 71 378 1359 (WhatsApp available)
