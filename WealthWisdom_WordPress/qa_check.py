@@ -1,6 +1,5 @@
 import re
 from pypdf import PdfReader
-import fitz # PyMuPDF if available, or pdf2image, or we can check with pypdf and edge
 
 pdf_path = r"C:\Users\Viranga\Downloads\upwrok new\WealthWisdom_WordPress\WealthWisdom_Client_Portal_Proposal_Viranga_Lakshan.pdf"
 

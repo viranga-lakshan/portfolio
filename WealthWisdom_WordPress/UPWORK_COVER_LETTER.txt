@@ -6,7 +6,7 @@ Key approach:
 3. Security: Sensitive fields use application-level encryption (PHP Libsodium with keys outside the database), backed by session-level data isolation and Solid Security hardening.
 
 Timeline & Feasibility:
-A prototype by 1 December 2026 is fully achievable for the core prototype scope. Full system completion before year-end is feasible only as a stretch; my committed delivery date is 16 January 2027 to account for the South African holiday period and allow thorough testing.
+A working prototype within ~3 weeks is fully achievable for the core prototype scope. Full system completion before year-end is feasible as a stretch; my standard committed schedule is 8 weeks from kickoff to account for year-end holidays and allow thorough testing.
 
 My recent builds were on other stacks (Umbraco, Laravel, Spring Boot) with directly transferable architecture for per-user data isolation. To prove this on WordPress, I can deploy a working demo of the snapshot module on staging before contract.
 

@@ -533,16 +533,16 @@ html_content = f"""<!DOCTYPE html>
       <!-- Summary Strip -->
       <div class="summary-strip">
         <div class="strip-item">
-          <div class="strip-label">Earliest Start</div>
-          <div class="strip-val">10 Nov 2026</div>
+          <div class="strip-label">Commencement</div>
+          <div class="strip-val">Immediate on Award</div>
         </div>
         <div class="strip-item">
           <div class="strip-label">Working Prototype</div>
-          <div class="strip-val">1 Dec 2026</div>
+          <div class="strip-val">~3 Weeks from Start</div>
         </div>
         <div class="strip-item">
-          <div class="strip-label">Full Handover Target</div>
-          <div class="strip-val">16 Jan 2027</div>
+          <div class="strip-label">Full System Delivery</div>
+          <div class="strip-val">8 Weeks Total</div>
         </div>
         <div class="strip-item">
           <div class="strip-label">Commercial Quotes</div>
@@ -645,7 +645,7 @@ html_content = f"""<!DOCTYPE html>
           <tr>
             <td><strong>Payments &amp; Access</strong></td>
             <td><strong>WooCommerce + LearnDash Integration</strong></td>
-            <td>Native WooCommerce integration links purchases directly to course enrolment via PayPal. We deliberately avoid a secondary membership plugin (such as MemberPress) to prevent dual-system synchronization failures and access state conflicts.</td>
+            <td>Native WooCommerce integration links purchases directly to course enrolment via PayPal. We deliberately avoid a secondary membership plugin  to prevent dual-system synchronization failures and access state conflicts.</td>
           </tr>
           <tr>
             <td><strong>Cohort Access Control</strong></td>
@@ -836,7 +836,7 @@ html_content = f"""<!DOCTYPE html>
           <tr>
             <td><strong>Data Access Isolation</strong></td>
             <td>Strict User-ID Validation</td>
-            <td>All database queries utilize prepared statements (<code>$wpdb->prepare</code>) with mandatory session user-ID checks. Zero client balance sheet queries can execute without verified ownership validation.</td>
+            <td>All database queries utilize wpdb-prepared statements with mandatory session user-ID checks. Zero client balance sheet queries can execute without verified ownership validation.</td>
           </tr>
           <tr>
             <td><strong>Endpoint Security</strong></td>
@@ -874,7 +874,7 @@ html_content = f"""<!DOCTYPE html>
 
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 4px 0 6px 0;">
         <div style="border: 1px solid #cbd5e1; border-radius: 3px; padding: 6px 8px; background: #ffffff;">
-          <h3 class="sub-heading" style="color: #0e8f6b; margin-top: 0;">Initial Working Prototype Scope (1 Dec 2026):</h3>
+          <h3 class="sub-heading" style="color: #0e8f6b; margin-top: 0;">Initial Working Prototype Scope (~3 Weeks):</h3>
           <ul style="list-style: none; font-size: 7.4pt; color: #475569; line-height: 1.35;">
             <li>• Dedicated staging environment configuration.</li>
             <li>• Sample six-week course structure configured in LearnDash.</li>
@@ -938,7 +938,7 @@ html_content = f"""<!DOCTYPE html>
           <tr>
             <td><strong>Security Suite Licence</strong></td>
             <td><span class="tag-badge tag-opt">Optional</span></td>
-            <td>Solid Security Pro / Wordfence Premium for automated malware scanning. Core community versions can suffice initially if preferred.</td>
+            <td>Solid Security Pro for automated malware scanning. Core community versions can suffice initially if preferred.</td>
           </tr>
           <tr>
             <td><strong>WooCommerce Subscriptions</strong></td>
@@ -989,7 +989,7 @@ html_content = f"""<!DOCTYPE html>
         <div class="ms-card">
           <div class="ms-header">
             <span class="ms-title">Stage 02: Prototype Build</span>
-            <span class="ms-dur">Target: 1 Dec 2026 (2.5 Weeks)</span>
+            <span class="ms-dur">Duration: 2.5 Weeks</span>
           </div>
           <ul>
             <li>LearnDash structure setup and client portal wireframe UI implementation.</li>
@@ -1020,9 +1020,9 @@ html_content = f"""<!DOCTYPE html>
 
       <!-- Honest Feasibility Callout -->
       <div class="callout-box" style="margin: 5px 0;">
-        <strong>Feasibility Evaluation (Year-End vs. Mid-January Handover):</strong><br>
-        • <strong>Working Prototype by 1 December 2026:</strong> Confirmed achievable for the focused prototype scope defined in Section 06.<br>
-        • <strong>Completion before end of December:</strong> Feasible only as an aggressive stretch schedule; my committed completion date is <strong>16 January 2027</strong>. This ensures delivery without cutting corners on security and accounts for four key dependencies: (1) Staging and PayPal access by 12 Nov, (2) Sample course content and confirmed spec by 20 Nov, (3) Client milestone review turnarounds within two business days, and (4) The South African December holiday period (16 Dec Day of Reconciliation, 25 Dec, 26 Dec) which predictably reduces staff availability for UAT and training. Earliest start date: <strong>10 November 2026</strong>.
+        <strong>Feasibility Evaluation &amp; Phased Delivery:</strong><br>
+        • <strong>Working Prototype within ~2.5 to 3 Weeks:</strong> Fully achievable for the focused prototype scope defined in Section 06 upon environment access.<br>
+        • <strong>Full System Completion:</strong> An accelerated completion before year-end is feasible as a stretch schedule; my standard committed handover timeframe is <strong>8 weeks from kickoff</strong>. This guarantees delivery without compromising security or data validation, while factoring in standard turnaround for staging access, course material ingestion, and December year-end holiday closures. Start availability: <strong>Immediate upon agreement</strong>.
       </div>
 
       <!-- Section: Training, Docs & Support -->
@@ -1034,7 +1034,7 @@ html_content = f"""<!DOCTYPE html>
         • <strong>Administrator Manual (PDF):</strong> Step-by-step documentation detailing course creation, resource assignment, user management, and snapshot export.<br>
         • <strong>Recorded Video Walkthroughs:</strong> Concise screencasts demonstrating common workflows: uploading modules, reviewing student assignments, and granting resource access.<br>
         • <strong>Live Interactive Training:</strong> One live screen-share walkthrough with coaching staff, followed by a dedicated follow-up Q&amp;A session.<br>
-        • <strong>Handover &amp; 30-Day Support:</strong> Full Git source repository transfer. All code and custom assets are 100% owned by Wealth Wisdom upon completion. Includes 30 days of post-deployment bug-fix support. Payment terms: milestone-based via Upwork, agreed upon alongside the quote.
+        • <strong>Handover &amp; 30-Day Support:</strong> Full Git source repository transfer. All code and custom assets are fully and unconditionally owned by Wealth Wisdom upon completion. Includes 30 days of post-deployment bug-fix support. Payment terms: milestone-based via Upwork, agreed upon alongside the quote.
       </p>
 
       <!-- Section: Top Risks & Assumptions -->
@@ -1060,8 +1060,8 @@ html_content = f"""<!DOCTYPE html>
           </tr>
           <tr>
             <td><strong>Holiday Review Delays</strong></td>
-            <td>Committed delivery date set to 16 January 2027 with clear milestone checkpoints.</td>
-            <td>Client provides timely feedback on staging prototypes prior to 16 Dec.</td>
+            <td>Committed delivery timeline structured over 8 weeks with phased milestone checkpoints.</td>
+            <td>Client provides timely review feedback within two business days of milestone releases.</td>
           </tr>
           <tr>
             <td><strong>Wireframe Scope Growth</strong></td>
