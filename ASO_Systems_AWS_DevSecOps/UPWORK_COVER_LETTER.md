@@ -19,7 +19,7 @@ Rather than offering an individual contractor whose attention is fragmented acro
 
 1. **Viranga Lakshan (Lead Cloud Architect & DevSecOps Lead):** Leads AWS systems architecture, Docker, Amazon ECS/Fargate containerization, Terraform IaC, GitLab CI/CD with SonarQube quality gates, Keycloak OAuth2/OIDC security, and AWS S3 secure file ingestion with automated ClamAV antivirus scanning.
 2. **Janith Kavishka (Cloud Infrastructure & Database Operations Engineer):** Specializes in production database infrastructure, Amazon RDS (PostgreSQL/MySQL), AWS Lambda, RabbitMQ/Kafka event streaming, automated backup lifecycles, and cross-region disaster recovery/data reconciliation.
-3. **Lithumitha Ravikumar (DevOps Delivery & Security Compliance Lead):** Orchestrates release governance across multi-squad engineering environments, disaster recovery runbooks, QA acceptance criteria validation, and data compliance controls (GDPR / Korean PIPA).
+3. **Lithumitha Ravikumar (Project Manager):** Leads Agile project management, sprint planning, delivery coordination, release governance, and quality assurance. Coordinates cross-functional workflows across engineering, QA, and business stakeholders, ensuring milestone adherence, risk mitigation, and delivery excellence.
 
 ---
 

@@ -376,7 +376,7 @@ HTML_CONTENT = """<!DOCTYPE html>
           <ul class="card-bullets">
             <li><strong>Continuous Execution:</strong> Parallel workstreams across Terraform IaC, container pipelines, and database replication without context switching.</li>
             <li><strong>Enterprise Resilience:</strong> Eliminates single-point-of-failure risk; knowledge is shared across the squad with strict runbook governance.</li>
-            <li><strong>Optimized Cost:</strong> Full access to a Lead Architect, Cloud DBA, and Compliance Delivery Lead at <strong>$55.00/hr</strong> (within your $50–$70/hr range).</li>
+            <li><strong>Optimized Cost:</strong> Full access to a Lead Architect, Cloud Database Engineer, and dedicated Project Manager at <strong>$55.00/hr</strong> (within your $50–$70/hr range).</li>
           </ul>
         </div>
         <div class="card">
@@ -479,7 +479,7 @@ HTML_CONTENT = """<!DOCTYPE html>
     <div class="section">
       <div class="section-title">
         3. Squad Engineering Profiles
-        <span class="tagline">Lead Architect + Cloud Infrastructure/DBA + Compliance Delivery Lead</span>
+        <span class="tagline">Lead Cloud Architect + Cloud Infrastructure/DBA + Dedicated Project Manager</span>
       </div>
       <div class="grid-3">
         <!-- Viranga -->
@@ -536,24 +536,24 @@ HTML_CONTENT = """<!DOCTYPE html>
         <div class="member-box">
           <div>
             <div class="member-name">Lithumitha Ravikumar</div>
-            <div class="member-role">DevOps Delivery & Security Compliance Lead</div>
-            <div class="member-creds">Associate Project Manager, Arimac • Enterprise SaaS & Data Platforms</div>
+            <div class="member-role">Project Manager</div>
+            <div class="member-creds">Associate Project Manager, Arimac Lanka • Enterprise SaaS & Data Platforms</div>
             <p class="card-p">
-              Orchestrates Agile sprint execution, release governance, regulatory data compliance (GDPR/PIPA), and technical documentation. Bridges technical engineering with executive risk management, disaster recovery runbooks, and cross-functional team coordination.
+              Leads Agile project management, sprint ceremonies, delivery coordination, release governance, and quality assurance. Coordinates cross-functional workflows across engineering, QA, and business stakeholders, ensuring milestone adherence, risk mitigation, and delivery excellence.
             </p>
             <ul class="card-bullets">
               <li>Managed 4 engineering squads delivering enterprise multi-tenant digital commerce SaaS platforms.</li>
-              <li>Led delivery of Castle Visualizer enterprise data integration platform for Australian corporate client.</li>
-              <li>Formulated QA test validation against strict acceptance criteria and audit compliance standards.</li>
+              <li>Led delivery of Castle Visualizer enterprise data analytics platform for Australian corporate client.</li>
+              <li>Coordinates sprint ceremonies, risk management, QA acceptance validation, and delivery documentation.</li>
             </ul>
           </div>
           <div class="skill-chips">
-            <span class="chip">Release Governance</span>
-            <span class="chip">GDPR / PIPA Auditing</span>
+            <span class="chip">Project Management</span>
             <span class="chip">Sprint Coordination</span>
-            <span class="chip">DR Runbooks</span>
+            <span class="chip">Release Governance</span>
             <span class="chip">Risk Management</span>
             <span class="chip">QA Acceptance</span>
+            <span class="chip">Stakeholder Reporting</span>
           </div>
         </div>
       </div>
