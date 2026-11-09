@@ -645,7 +645,7 @@ html_content = f"""<!DOCTYPE html>
           <tr>
             <td><strong>Payments &amp; Access</strong></td>
             <td><strong>WooCommerce + LearnDash Integration</strong></td>
-            <td>Native WooCommerce integration links purchases directly to course enrolment via PayPal. We deliberately avoid secondary membership plugins to prevent dual-system synchronization failures and access state conflicts.</td>
+            <td>Native WooCommerce integration links purchases directly to course enrolment via PayPal. We deliberately avoid a secondary membership plugin (such as MemberPress) to prevent dual-system synchronization failures and access state conflicts.</td>
           </tr>
           <tr>
             <td><strong>Cohort Access Control</strong></td>
@@ -836,7 +836,7 @@ html_content = f"""<!DOCTYPE html>
           <tr>
             <td><strong>Data Access Isolation</strong></td>
             <td>Strict User-ID Validation</td>
-            <td>All database queries utilize wpdb-prepared statements with mandatory session user-ID checks. Zero client balance sheet queries can execute without verified ownership validation.</td>
+            <td>All database queries utilize prepared statements (<code>$wpdb->prepare</code>) with mandatory session user-ID checks. Zero client balance sheet queries can execute without verified ownership validation.</td>
           </tr>
           <tr>
             <td><strong>Endpoint Security</strong></td>
@@ -938,7 +938,7 @@ html_content = f"""<!DOCTYPE html>
           <tr>
             <td><strong>Security Suite Licence</strong></td>
             <td><span class="tag-badge tag-opt">Optional</span></td>
-            <td>Solid Security Pro for automated malware scanning, file integrity monitoring, and two-factor enforcement. Core version can suffice initially if preferred.</td>
+            <td>Solid Security Pro / Wordfence Premium for automated malware scanning. Core community versions can suffice initially if preferred.</td>
           </tr>
           <tr>
             <td><strong>WooCommerce Subscriptions</strong></td>
@@ -1034,7 +1034,7 @@ html_content = f"""<!DOCTYPE html>
         • <strong>Administrator Manual (PDF):</strong> Step-by-step documentation detailing course creation, resource assignment, user management, and snapshot export.<br>
         • <strong>Recorded Video Walkthroughs:</strong> Concise screencasts demonstrating common workflows: uploading modules, reviewing student assignments, and granting resource access.<br>
         • <strong>Live Interactive Training:</strong> One live screen-share walkthrough with coaching staff, followed by a dedicated follow-up Q&amp;A session.<br>
-        • <strong>Handover &amp; 30-Day Support:</strong> Full Git source repository transfer. All code and custom assets are fully and unconditionally owned by Wealth Wisdom upon completion. Includes 30 days of post-deployment bug-fix support. Payment terms: milestone-based via Upwork, agreed upon alongside the quote.
+        • <strong>Handover &amp; 30-Day Support:</strong> Full Git source repository transfer. All code and custom assets are 100% owned by Wealth Wisdom upon completion. Includes 30 days of post-deployment bug-fix support. Payment terms: milestone-based via Upwork, agreed upon alongside the quote.
       </p>
 
       <!-- Section: Top Risks & Assumptions -->
@@ -1133,3 +1133,4 @@ if os.path.exists(pdf_path):
     print(f"File size: {os.path.getsize(pdf_path)} bytes")
 else:
     print("ERROR: PDF was not generated.")
+
