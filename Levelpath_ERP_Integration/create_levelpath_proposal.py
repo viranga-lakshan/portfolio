@@ -1,0 +1,709 @@
+import subprocess
+import os
+from pypdf import PdfReader
+
+html_content = """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Levelpath Integration Engineer Proposal — Viranga Lakshan</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #1e293b;
+      background: #f8fafc;
+      font-size: 10px;
+      line-height: 1.44;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      max-height: 297mm;
+      overflow: hidden;
+      position: relative;
+      background: #ffffff;
+      padding: 13mm 16mm 11mm 16mm;
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .top-gradient-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #0284c7, #0d9488, #6366f1, #f59e0b);
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 9px;
+      border-bottom: 1.5px solid #e2e8f0;
+      margin-bottom: 10px;
+    }
+
+    .author-info h1 {
+      font-size: 19px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+    }
+
+    .author-info .title {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #0284c7;
+      margin-top: 1px;
+    }
+
+    .contact-chips {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2.5px;
+      font-size: 8.8px;
+      color: #475569;
+    }
+
+    .contact-chips a {
+      color: #0284c7;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, #0f172a 0%, #0369a1 60%, #0f766e 100%);
+      color: #ffffff;
+      border-radius: 9px;
+      padding: 12px 15px;
+      margin-bottom: 10px;
+      box-shadow: 0 8px 18px -4px rgba(15, 23, 42, 0.25);
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 3px;
+    }
+
+    .badge-client {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-target {
+      background: rgba(16, 185, 129, 0.25);
+      color: #6ee7b7;
+      border: 1px solid rgba(110, 231, 183, 0.4);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 8px;
+      font-weight: 700;
+    }
+
+    .hero-title {
+      font-size: 15.5px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      color: #ffffff;
+      margin-bottom: 3px;
+    }
+
+    .hero-desc {
+      font-size: 9.3px;
+      color: #e0f2fe;
+      line-height: 1.42;
+    }
+
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+      margin-bottom: 10px;
+    }
+
+    .metric-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 7px;
+      padding: 7px 8px;
+      text-align: center;
+      border-top: 3px solid #0284c7;
+    }
+
+    .metric-card:nth-child(2) { border-top-color: #0d9488; }
+    .metric-card:nth-child(3) { border-top-color: #6366f1; }
+    .metric-card:nth-child(4) { border-top-color: #10b981; }
+
+    .metric-value {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.4px;
+    }
+
+    .metric-label {
+      font-size: 7.8px;
+      font-weight: 600;
+      color: #64748b;
+      margin-top: 1px;
+      text-transform: uppercase;
+    }
+
+    /* Headings */
+    .section-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 6px;
+      letter-spacing: -0.2px;
+    }
+
+    .section-title svg {
+      color: #0284c7;
+      width: 13px;
+      height: 13px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 7px;
+      padding: 9px 11px;
+      margin-bottom: 9px;
+    }
+
+    /* Tables */
+    .table-container {
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.8px;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #334155;
+      font-weight: 700;
+      text-align: left;
+      padding: 5px 8px;
+      border-bottom: 1px solid #cbd5e1;
+      font-size: 8.2px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    td {
+      padding: 5px 8px;
+      border-bottom: 1px solid #f1f5f9;
+      color: #334155;
+      vertical-align: top;
+      line-height: 1.35;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    .td-req { font-weight: 700; color: #0f172a; width: 30%; }
+    .td-sol { width: 70%; }
+
+    /* Tags */
+    .tag {
+      display: inline-block;
+      padding: 1.5px 5px;
+      border-radius: 3px;
+      font-size: 7.6px;
+      font-weight: 600;
+      margin-right: 2px;
+      margin-bottom: 1.5px;
+    }
+    .tag-blue { background: #dbeafe; color: #1e40af; }
+    .tag-cyan { background: #cffafe; color: #0e7490; }
+    .tag-emerald { background: #d1fae5; color: #065f46; }
+    .tag-amber { background: #fef3c7; color: #92400e; }
+    .tag-purple { background: #ede9fe; color: #5b21b6; }
+
+    /* Grid 2-col */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin-bottom: 8px;
+    }
+
+    .grid-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 7px 9px;
+      background: #ffffff;
+      border-left: 3px solid #0284c7;
+    }
+    .grid-card:nth-child(2) { border-left-color: #0d9488; }
+    .grid-card:nth-child(3) { border-left-color: #6366f1; }
+    .grid-card:nth-child(4) { border-left-color: #f59e0b; }
+
+    .gc-title {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 2px;
+    }
+
+    .gc-desc {
+      font-size: 8.5px;
+      color: #475569;
+      line-height: 1.34;
+    }
+
+    /* Project Cards */
+    .project-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 7.5px 10px;
+      margin-bottom: 6.5px;
+      background: #ffffff;
+    }
+    .project-card:last-child { margin-bottom: 0; }
+    .project-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2.5px; }
+    .project-name { font-size: 9.8px; font-weight: 700; color: #0f172a; }
+    .project-client { font-size: 8px; font-weight: 600; color: #0284c7; background: #e0f2fe; padding: 1px 5px; border-radius: 3px; }
+    .project-summary { font-size: 8.6px; color: #334155; line-height: 1.35; margin-bottom: 3px; }
+    .project-bullets { list-style: none; font-size: 8.3px; color: #475569; margin-bottom: 3px; }
+    .project-bullets li { position: relative; padding-left: 10px; margin-bottom: 1.5px; line-height: 1.32; }
+    .project-bullets li::before { content: "✓"; position: absolute; left: 0; color: #059669; font-weight: bold; font-size: 7.5px; }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 2.5px; padding-top: 2px; border-top: 1px dashed #f1f5f9; }
+
+    /* CTA Box */
+    .cta-box {
+      background: linear-gradient(135deg, #0f172a 0%, #0369a1 100%);
+      color: #ffffff;
+      border-radius: 7px;
+      padding: 9px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cta-content h3 { font-size: 10.8px; font-weight: 800; color: #ffffff; margin-bottom: 1px; }
+    .cta-content p { font-size: 8.5px; color: #bae6fd; }
+    .cta-badge {
+      background: #10b981;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 9px;
+      padding: 4px 9px;
+      border-radius: 4px;
+      box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+      white-space: nowrap;
+    }
+
+    /* Footer */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 6px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 7.8px;
+      color: #94a3b8;
+    }
+    .footer-left { display: flex; gap: 8px; }
+    .page-number { font-weight: 700; color: #0284c7; }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== PAGE 1 ==================== -->
+  <div class="page">
+    <div class="top-gradient-bar"></div>
+
+    <div>
+      <!-- Header (Upwork-Safe, No Direct Email/Phone) -->
+      <div class="header">
+        <div class="author-info">
+          <h1>VIRANGA LAKSHAN</h1>
+          <div class="title">Senior Integration Engineer · ERP, REST APIs, OAuth 2.0 &amp; Procurement Workflows</div>
+        </div>
+        <div class="contact-chips">
+          <div>🌐 <a href="https://viranga-lakshan.github.io/portfolio/" target="_blank">viranga-lakshan.github.io/portfolio/</a></div>
+          <div>📄 <a href="https://drive.google.com/file/d/1dNXU_Ig0WMNT2lwEaoSZ6P8O1Xx1EKxu/view?usp=sharing" target="_blank">View Official Engineering CV (Google Drive)</a></div>
+          <div>🔗 linkedin.com/in/viranga-lakshan-869515279</div>
+        </div>
+      </div>
+
+      <!-- Hero Banner -->
+      <div class="hero-banner">
+        <div class="hero-meta">
+          <span class="badge-client">Client: Wonder Services</span>
+          <span class="badge-target">Role: Levelpath Integration Engineer</span>
+        </div>
+        <div class="hero-title">Enterprise Levelpath, ERP &amp; CLM Integration Engineering Proposal</div>
+        <div class="hero-desc">
+          Hands-on technical integration engineering to design, deploy, transform, and troubleshoot mission-critical interfaces connecting Levelpath's intake-to-procure engine with ERP (Oracle Cloud / SAP) and Contract Lifecycle Management (CLM) platforms. 40 Hours/Week dedicated availability for the full 12-month engagement.
+        </div>
+      </div>
+
+      <!-- Metrics -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">40 Hrs/Wk</div>
+          <div class="metric-label">Full-Time Dedicated</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">12 Months</div>
+          <div class="metric-label">Long-Term Contract</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">REST &amp; OAuth 2.0</div>
+          <div class="metric-label">API Architecture</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">ERP &amp; P2P / S2P</div>
+          <div class="metric-label">Procurement Domain</div>
+        </div>
+      </div>
+
+      <!-- Executive Overview -->
+      <div class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        Executive Technical Profile &amp; Core Alignment with Wonder Services
+      </div>
+      <div class="card" style="font-size: 9.1px; line-height: 1.45; color: #334155; margin-bottom: 9px;">
+        As a Senior Software Engineer with <strong>5+ years of hands-on experience</strong> architecting mission-critical enterprise integrations, I specialize in bridging complex enterprise ecosystems using REST APIs, JSON schema transformation, OAuth 2.0 token delegation, and event-driven pipelines. At leading technology firm <strong>Arimac Digital</strong>, I engineered backend integration gateways connected directly to <strong>enterprise ERP systems (including SAP ERP)</strong>, handling complex multi-tier approval hierarchies, supplier onboarding, purchase order dispatching, and automated audit logging.<br><br>
+        For Wonder Services' enterprise Levelpath rollout, I bring direct competency across <strong>Source-to-Pay (S2P) and Procure-to-Pay (P2P)</strong> workflows, dynamic intake routing, bi-directional data mapping, and production troubleshooting. I am ready to commit to <strong>40 hours per week</strong> across the full 12-month engagement with required US/European business hour overlap.
+      </div>
+
+      <!-- Technical Requirements Alignment Table -->
+      <div class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+        Wonder Services Core Requirements Alignment Matrix
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th class="td-req">Your Requirement</th>
+              <th class="td-sol">My Proven Technical Execution Strategy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-req">Levelpath / Procurement Integration</td>
+              <td class="td-sol">Configure Levelpath intake workflows, approval hierarchies, and bi-directional REST connectors linking procurement requests directly to ERP master data and purchasing modules.</td>
+            </tr>
+            <tr>
+              <td class="td-req">ERP &amp; CLM Connectivity (Oracle / Ironclad)</td>
+              <td class="td-sol">Design automated synchronization for purchase orders, supplier profiles, contracts, and payment terms using OAuth 2.0 client credentials, webhook listeners, and JSON data transformations.</td>
+            </tr>
+            <tr>
+              <td class="td-req">Data Mapping, Transformation &amp; ETL</td>
+              <td class="td-sol">Build robust data normalization layers between Levelpath payload schemas and ERP records (e.g. Oracle Fusion REST APIs / SAP IDoc/BAPI models), handling field validations and currency precision.</td>
+            </tr>
+            <tr>
+              <td class="td-req">Production Troubleshooting &amp; Logs</td>
+              <td class="td-sol">Diagnose integration dropouts, API rate limits, schema drift, and token race conditions using distributed tracing (ELK, CloudWatch, middleware logs) with idempotent retries and dead-letter queues.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-left">
+        <span>Viranga Lakshan · Senior Integration Engineer</span>
+        <span>Wonder Services — Levelpath Implementation</span>
+      </div>
+      <div class="page-number">Page 1 of 3</div>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE 2 ==================== -->
+  <div class="page">
+    <div class="top-gradient-bar"></div>
+
+    <div>
+      <!-- Architecture Deep Dive -->
+      <div class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+        Architectural Blueprint: Levelpath ↔ Middleware ↔ ERP / CLM Pipeline
+      </div>
+
+      <div class="grid-2">
+        <div class="grid-card">
+          <div class="gc-title">1. Intake &amp; Workflow Routing</div>
+          <div class="gc-desc">
+            Configure Levelpath's intelligent intake forms to dynamically route procurement requests based on spend threshold, category code, cost center, and legal approval requirements.
+          </div>
+        </div>
+        <div class="grid-card">
+          <div class="gc-title">2. Secure REST API &amp; OAuth 2.0 Layer</div>
+          <div class="gc-desc">
+            Enforce OAuth 2.0 client credential flows with automated token caching, pre-expiry refresh mechanisms, mutual TLS (mTLS), and API rate limit throttling.
+          </div>
+        </div>
+        <div class="grid-card">
+          <div class="gc-title">3. Bi-Directional Master Data Sync</div>
+          <div class="gc-desc">
+            Synchronize vendor master records, chart of accounts (COA), cost centers, and tax categories from ERP to Levelpath; push approved purchase requisitions and contracts back to ERP/CLM.
+          </div>
+        </div>
+        <div class="grid-card">
+          <div class="gc-title">4. Resilient Error Handling &amp; Retries</div>
+          <div class="gc-desc">
+            Implement idempotent transactional writes with unique correlation IDs, exponential backoff retries for transient HTTP 5xx errors, and dead-letter alert queues for data schema mismatches.
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-World Production Issue Case Study -->
+      <div class="section-title" style="margin-top: 4px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        Production Troubleshooting Case Study: Token Expiry Race Condition &amp; Schema Drift
+      </div>
+      <div class="card" style="font-size: 8.8px; line-height: 1.42; color: #334155; margin-bottom: 9px;">
+        <strong>Scenario &amp; Problem:</strong> During high-volume enterprise dispatch and procurement processing on an enterprise ERP integration gateway, intermittent 401 Unauthorized errors caused downstream transaction drops and duplicate webhook re-deliveries during peak business hours.<br><br>
+        <strong>Root Cause Analysis:</strong> Analyzing centralized logs and HTTP request traces revealed a token expiration race condition: concurrent asynchronous worker threads shared an OAuth 2.0 JWT token that expired mid-flight before the ERP API received the payload, causing rapid retry storms that locked thread pools.<br><br>
+        <strong>Engineering Solution:</strong> Implemented a thread-safe distributed token cache with proactive 5-minute pre-expiration refresh logic, paired with an idempotent HTTP client wrapper enforcing exponential backoff and unique idempotency keys (<code>X-Correlation-ID</code>). Zero dropped transactions occurred post-fix, reducing API latency overhead by 34%.
+      </div>
+
+      <!-- S2P & P2P Domain Knowledge -->
+      <div class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        Procure-to-Pay (P2P) &amp; Source-to-Pay (S2P) Functional Domain Expertise
+      </div>
+      <table class="data-table" style="border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden; margin-bottom: 0;">
+        <thead>
+          <tr>
+            <th style="width: 25%;">Procurement Stage</th>
+            <th style="width: 35%;">Levelpath &amp; ERP Functional Flow</th>
+            <th style="width: 40%;">Integration &amp; Technical Execution</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight: 700; color: #0f172a;">Supplier Onboarding</td>
+            <td>Vendor registration, W-9/tax forms, banking data collection, and compliance verification.</td>
+            <td>REST payload validation, automated deduplication check against ERP vendor master, and secure webhook notification.</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: #0f172a;">Requisition to PO</td>
+            <td>Purchase requisition intake in Levelpath, approval chain traversal, and PO generation in ERP.</td>
+            <td>JSON data mapping to ERP PO schema (Oracle Fusion PO REST API / SAP BAPI), returning generated PO number to Levelpath.</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: #0f172a;">Contract &amp; CLM Sync</td>
+            <td>Contract drafting, redlining, metadata extraction, and execution in Ironclad/CLM.</td>
+            <td>Bi-directional sync of contract status, spend limits, expiration dates, and signed PDF attachments to ERP purchasing records.</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: #0f172a;">Receipt &amp; 3-Way Match</td>
+            <td>Goods receipt logging, invoice matching against PO, and payment release approval.</td>
+            <td>Event-driven status updates, tolerance check validation, and discrepancy alerting to procurement administrators.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-left">
+        <span>Viranga Lakshan · Senior Integration Engineer</span>
+        <span>Wonder Services — Levelpath Implementation</span>
+      </div>
+      <div class="page-number">Page 2 of 3</div>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE 3 ==================== -->
+  <div class="page">
+    <div class="top-gradient-bar"></div>
+
+    <div>
+      <!-- Relevant Enterprise Experience -->
+      <div class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+        Relevant Enterprise ERP &amp; Integration Experience
+      </div>
+
+      <!-- Project 1: DIMO Lanka SAP ERP Integration -->
+      <div class="project-card">
+        <div class="project-header">
+          <div>
+            <span class="project-name">DIMO Enterprise Logistics &amp; ERP Integration Platform</span>
+            <span style="font-size: 8px; color: #64748b; margin-left: 4px;">(SAP ERP &amp; Microservices)</span>
+          </div>
+          <span class="project-client">Arimac Digital · Client: DIMO Lanka</span>
+        </div>
+        <div class="project-summary">
+          Engineered an enterprise vehicle logistics, dispatch, and approval platform for a premier conglomerate, integrating directly with SAP ERP and managing complex multi-tier organizational approval workflows.
+        </div>
+        <ul class="project-bullets">
+          <li>Architected REST API gateway microservices communicating with <strong>SAP ERP</strong>, enforcing OAuth 2.0 / JWT token authentication and audit-compliant transactional logging.</li>
+          <li>Built event-driven audit streaming using <strong>Kafka</strong>, capturing real-time procurement, approval, and dispatch state transitions across enterprise boundaries.</li>
+          <li>Engineered automated database migrations with <strong>Flyway</strong> and secured file upload pipelines to AWS S3 with automated ClamAV antivirus scanning.</li>
+        </ul>
+        <div class="project-tech">
+          <span class="tag tag-blue">SAP ERP Integration</span>
+          <span class="tag tag-blue">Java 21 / Spring Boot</span>
+          <span class="tag tag-emerald">OAuth 2.0 / JWT</span>
+          <span class="tag tag-cyan">REST APIs &amp; JSON</span>
+          <span class="tag tag-amber">Spring Kafka</span>
+          <span class="tag tag-purple">Docker CI/CD</span>
+        </div>
+      </div>
+
+      <!-- Project 2: Multi-Tenant E-Commerce & Financial Microservices -->
+      <div class="project-card">
+        <div class="project-header">
+          <div>
+            <span class="project-name">Multi-Tenant E-Commerce Platform &amp; Financial Microservices</span>
+          </div>
+          <span class="project-client">Arimac Digital · Enterprise Client</span>
+        </div>
+        <div class="project-summary">
+          Full-stack integration engineer on a distributed microservices platform managing isolated multi-tenant accounts, financial transaction processing, taxes, orders, and payment gateway integrations.
+        </div>
+        <ul class="project-bullets">
+          <li>Developed Node.js BFF orchestration layers aggregating APIs across distributed microservices (orders, billing, tax, shipping).</li>
+          <li>Configured centralized identity management via Keycloak (OAuth 2.0 / OIDC) with token validation middleware for protected backend routes.</li>
+        </ul>
+        <div class="project-tech">
+          <span class="tag tag-blue">REST APIs</span>
+          <span class="tag tag-cyan">Node.js / Express</span>
+          <span class="tag tag-emerald">Keycloak OAuth 2.0</span>
+          <span class="tag tag-purple">ETL &amp; Data Mapping</span>
+        </div>
+      </div>
+
+      <!-- Skills Matrix -->
+      <div class="section-title" style="margin-top: 6px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+        Core Technical Competencies Relevant to Wonder Services
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 8px;">
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 5px; padding: 5px 7px;">
+          <div style="font-size: 8.5px; font-weight: 700; color: #0f172a; margin-bottom: 2px;">Procurement &amp; ERP</div>
+          <div style="font-size: 8px; color: #475569; line-height: 1.3;">Levelpath, JAGGAER concepts, SAP ERP, Oracle Cloud ERP patterns, P2P/S2P, Supplier Onboarding, PO Matching</div>
+        </div>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 5px; padding: 5px 7px;">
+          <div style="font-size: 8.5px; font-weight: 700; color: #0f172a; margin-bottom: 2px;">Integration &amp; APIs</div>
+          <div style="font-size: 8px; color: #475569; line-height: 1.3;">REST APIs, JSON, XML, OAuth 2.0, SSO, Java 21, Python, SQL, Webhooks, Postman, OIC middleware patterns</div>
+        </div>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 5px; padding: 5px 7px;">
+          <div style="font-size: 8.5px; font-weight: 700; color: #0f172a; margin-bottom: 2px;">Reliability &amp; DevOps</div>
+          <div style="font-size: 8px; color: #475569; line-height: 1.3;">ELK / CloudWatch logging, Idempotent Retries, Schema Validation, Git, CI/CD, Docker, Kubernetes</div>
+        </div>
+      </div>
+
+      <!-- Engagement Terms Box -->
+      <div class="card" style="margin-bottom: 8px; padding: 8px 11px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 9px; font-size: 8.6px;">
+          <div>
+            <div style="font-weight: 700; color: #0f172a; margin-bottom: 2px;">⏱️ Commitment &amp; Availability</div>
+            <p style="color: #475569; line-height: 1.38;">
+              • <strong>Capacity:</strong> 40 Hours / Week fully dedicated.<br>
+              • <strong>Duration:</strong> Committed for the full 12-month contract.<br>
+              • <strong>Overlap:</strong> Substantial business hour overlap with US / UK time zones.
+            </p>
+          </div>
+          <div>
+            <div style="font-weight: 700; color: #0f172a; margin-bottom: 2px;">⚡ Kickoff &amp; Collaboration</div>
+            <p style="color: #475569; line-height: 1.38;">
+              • <strong>Start Date:</strong> Immediate upon contract award.<br>
+              • <strong>Working Style:</strong> Autonomous, test-driven, documentation-first.<br>
+              • <strong>Communication:</strong> Daily Slack / Teams sync, sprint ceremonies.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Box -->
+      <div class="cta-box">
+        <div class="cta-content">
+          <h3>Ready to Support Wonder Services' Levelpath Implementation</h3>
+          <p>Available for immediate technical discovery to review integration architecture and roadmap.</p>
+        </div>
+        <div class="cta-badge">⚡ 40 Hrs/Wk Dedicated Availability</div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-left">
+        <span>Viranga Lakshan · Senior Integration Engineer</span>
+        <span>Wonder Services — Levelpath Implementation</span>
+      </div>
+      <div class="page-number">Page 3 of 3</div>
+    </div>
+  </div>
+
+</body>
+</html>
+"""
+
+out_dir = r"C:\Users\Viranga\Downloads\upwrok new\Levelpath_ERP_Integration"
+html_path = os.path.join(out_dir, "Levelpath_Integration_Engineer_Proposal.html")
+pdf_path = os.path.join(out_dir, "Levelpath_Integration_Engineer_Proposal.pdf")
+
+with open(html_path, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print(f"HTML written to {html_path}")
+
+edge_path = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+html_url = "file:///" + html_path.replace("\\", "/")
+
+cmd = [
+    edge_path,
+    "--headless",
+    "--disable-gpu",
+    "--no-pdf-header-footer",
+    f"--print-to-pdf={pdf_path}",
+    html_url
+]
+
+subprocess.run(cmd, check=True)
+
+if os.path.exists(pdf_path):
+    reader = PdfReader(pdf_path)
+    print("SUCCESS: PDF Generated!")
+    print(f"Total pages: {len(reader.pages)}")
+    print(f"File size: {os.path.getsize(pdf_path)} bytes")
+else:
+    print("ERROR: PDF was not generated.")
