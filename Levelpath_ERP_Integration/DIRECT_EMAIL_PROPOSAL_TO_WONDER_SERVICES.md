@@ -1,6 +1,11 @@
 # ✉️ Wonder Services — Team Direct Email Proposal
 
-**Subject:** Levelpath & ERP Integration Engineering Team — Wonder Services Implementation | Viranga Lakshan
+**Subject:** Levelpath & ERP Integration Engineering Team — Wonder Services Implementation | Viranga Lakshan  
+**Attachments to include:**
+1. 📑 `WonderServices_Levelpath_Team_Proposal.pdf` (Technical Proposal)
+2. 📄 `Viranga_Lakshan_CV.pdf`
+3. 📄 `Janith_Kavishka_CV.pdf`
+4. 📄 `Lithumitha_Ravikumar_CV.pdf`
 
 ---
 
@@ -24,7 +29,7 @@ We are proposing to collaborate as a specialized team of three software professi
    - Enterprise backend architecture, REST API gateways, OAuth 2.0 / JWT security, and ERP integration.
    - Designed and built the integration gateway connecting enterprise microservices to **SAP ERP** (including Kafka event streaming, Azure AD, and AWS S3) for premier conglomerate DIMO Lanka.
 
-2. **Janith Kavishaka Nadiranga** – Senior Backend & Oracle SQL Specialist, DMS Electronics.
+2. **Janith Kavishaka** – Software Developer, DMS Electronics.
    - Enterprise backend development, high-volume database design, and procurement reconciliation.
    - Architected *InvoiceIQ* (an accounts payable reconciliation REST API with deterministic **3-way matching algorithms**) and *Nexware* (an enterprise warehouse, PO, and supplier management system). Deep hands-on experience with Oracle SQL and Spring Boot.
 
@@ -56,13 +61,13 @@ We welcome a competitive hourly arrangement and are flexible to align with Wonde
 
 We would love to introduce our squad, discuss your integration architecture in more detail, explain our technical approach, and agree on kickoff priorities.
 
-**I am also sharing our team's credentials and technical proposal for your review:**
+**I have attached our team's CVs and technical proposal for your review:**
 
-📑 **Wonder Services Technical Proposal (Attached PDF):** *WonderServices_Levelpath_Team_Proposal.pdf*  
+📑 **Technical Proposal:** *WonderServices_Levelpath_Team_Proposal.pdf* (Attached)  
+📄 **Viranga Lakshan – CV:** (Attached)  
+📄 **Janith Kavishaka – CV:** (Attached)  
+📄 **Lithumitha Ravikumar – CV:** (Attached)  
 🌐 **My Live Portfolio:** https://viranga-lakshan.github.io/portfolio/  
-📄 **Viranga Lakshan – CV (Google Drive):** https://drive.google.com/file/d/1dNXU_Ig0WMNT2lwEaoSZ6P8O1Xx1EKxu/view?usp=sharing  
-📄 **Janith Kavishaka – CV (GitHub):** https://github.com/janithkavishka31  
-📄 **Lithumitha Ravikumar – Profile:** https://www.linkedin.com/in/lithumitha-ravikumar-9b2137223  
 
 Thank you for your time and consideration. We would genuinely appreciate the opportunity to partner with Wonder Services on this implementation.
 

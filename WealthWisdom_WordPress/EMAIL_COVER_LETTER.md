@@ -2,7 +2,11 @@
 
 **To:** Bianca (Wealth Wisdom)  
 **Subject:** Wealth Wisdom WordPress Client Portal, LMS & Financial Dashboard — Technical Proposal | Viranga Lakshan  
-**Attachment:** `WealthWisdom_Client_Portal_Proposal_Viranga_Lakshan.pdf`
+**Attachments to include:**
+1. 📑 `WealthWisdom_Client_Portal_Proposal_Viranga_Lakshan.pdf` (Technical Proposal)
+2. 📄 `Viranga_Lakshan_CV.pdf`
+3. 📄 `Janith_Kavishaka_CV.pdf`
+4. 📄 `Lithumitha_Ravikumar_CV.pdf`
 
 ---
 
@@ -57,13 +61,13 @@ We are genuinely interested in this opportunity. Our goal is not simply to compl
 
 We would love to introduce our team, understand your business requirements in more detail, explain our proposed technical approach, and discuss realistic development milestones and pricing.
 
-**I'm also sharing our team's CVs and technical proposal for your review:**
+**I have attached our team's CVs and technical proposal for your review:**
 
-📑 **Wealth Wisdom Technical Proposal (Attached PDF):** *WealthWisdom_Client_Portal_Proposal_Viranga_Lakshan.pdf*  
-🌐 **My Live Portfolio:** https://viranga-lakshan.github.io/portfolio/  
-📄 **Viranga Lakshan – CV (Google Drive):** https://drive.google.com/file/d/1dNXU_Ig0WMNT2lwEaoSZ6P8O1Xx1EKxu/view?usp=sharing  
-📄 **Janith Kavishaka – GitHub Profile:** https://github.com/janithkavishka31  
-📄 **Lithumitha Ravikumar – Profile:** https://www.linkedin.com/in/lithumitha-ravikumar-9b2137223  
+📑 **Technical Proposal:** *WealthWisdom_Client_Portal_Proposal_Viranga_Lakshan.pdf* (Attached)  
+📄 **Viranga Lakshan – CV:** (Attached)  
+📄 **Janith Kavishaka – CV:** (Attached)  
+📄 **Lithumitha Ravikumar – CV:** (Attached)  
+🌐 **My Portfolio:** https://viranga-lakshan.github.io/portfolio/  
 
 Thank you for your time and consideration, Bianca. We would really appreciate the opportunity to work with Wealth Wisdom.
 
