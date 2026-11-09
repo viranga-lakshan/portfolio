@@ -929,3 +929,4 @@ def generate_pdf():
 if __name__ == "__main__":
     success = generate_pdf()
     print("Success:", success)
+

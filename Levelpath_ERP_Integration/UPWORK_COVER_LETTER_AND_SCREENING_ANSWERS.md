@@ -91,3 +91,4 @@ Senior Integration Engineer
 > • Earliest Available Start Date: Immediate upon selection and contract agreement.
 > • Proposed Hourly Rate: $38.00 / hour (open to aligning competitively with Wonder Services' standard contractor structure for 12-month engagements).
 > • 40 Hours per Week Commitment: Yes, absolutely. I can commit to a full-time 40 hours per week schedule dedicated to this project for the entire expected 12-month engagement."
+

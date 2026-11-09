@@ -850,3 +850,4 @@ if os.path.exists(pdf_path):
     print(f"File size: {os.path.getsize(pdf_path)} bytes")
 else:
     print("ERROR: PDF was not generated.")
+

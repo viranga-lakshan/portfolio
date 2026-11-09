@@ -1,0 +1,1060 @@
+import os
+import subprocess
+from pypdf import PdfReader
+
+html_content = """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upwork Proposal - Full Stack Java Developer (Spring Boot 3) - Viranga Lakshan</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #1e293b;
+      background-color: #f1f5f9;
+      line-height: 1.42;
+      font-size: 11.2px;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      max-height: 297mm;
+      overflow: hidden;
+      position: relative;
+      background: #ffffff;
+      padding: 15mm 18mm 13mm 18mm;
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Gradient Top Bar */
+    .top-gradient-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #1e40af, #3b82f6, #10b981, #06b6d4);
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1.5px solid #e2e8f0;
+      margin-bottom: 13px;
+    }
+
+    .author-info h1 {
+      font-size: 21px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .author-info .title {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #1d4ed8;
+      margin-top: 2px;
+    }
+
+    .contact-chips {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 3px;
+      font-size: 9.5px;
+      color: #475569;
+    }
+
+    .contact-item a {
+      color: #0284c7;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Hero / Project Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, #091e42 0%, #0f172a 60%, #1e1b4b 100%);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 15px 18px;
+      margin-bottom: 13px;
+      position: relative;
+      box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.25);
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+
+    .badge-role {
+      background: rgba(59, 130, 246, 0.25);
+      color: #60a5fa;
+      border: 1px solid rgba(96, 165, 250, 0.4);
+      padding: 2.5px 8px;
+      border-radius: 5px;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-exp {
+      background: rgba(16, 185, 129, 0.25);
+      color: #34d399;
+      border: 1px solid rgba(52, 211, 153, 0.4);
+      padding: 2.5px 8px;
+      border-radius: 5px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+
+    .badge-contract {
+      background: rgba(245, 158, 11, 0.25);
+      color: #fbbf24;
+      border: 1px solid rgba(251, 191, 36, 0.4);
+      padding: 2.5px 8px;
+      border-radius: 5px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+
+    .hero-title {
+      font-size: 17.5px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      color: #ffffff;
+      margin-bottom: 5px;
+    }
+
+    .hero-desc {
+      font-size: 10.5px;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 9px;
+      margin-bottom: 13px;
+    }
+
+    .metric-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 9px;
+      padding: 9px 10px;
+      text-align: center;
+      border-top: 3px solid #2563eb;
+    }
+
+    .metric-card:nth-child(2) { border-top-color: #10b981; }
+    .metric-card:nth-child(3) { border-top-color: #06b6d4; }
+    .metric-card:nth-child(4) { border-top-color: #8b5cf6; }
+
+    .metric-value {
+      font-size: 15.5px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+    }
+
+    .metric-label {
+      font-size: 9px;
+      font-weight: 600;
+      color: #64748b;
+      margin-top: 1px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    /* Section Styles */
+    .section-title {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+
+    .section-title svg {
+      color: #2563eb;
+      width: 15px;
+      height: 15px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 9px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    /* Fit Grid */
+    .fit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin-bottom: 11px;
+    }
+
+    .fit-item {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 9px 11px;
+    }
+
+    .fit-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10.8px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 3px;
+    }
+
+    .fit-icon-bullet {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #eff6ff;
+      color: #1d4ed8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9.5px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .fit-desc {
+      font-size: 9.8px;
+      color: #475569;
+      line-height: 1.4;
+    }
+
+    /* Alignment Table */
+    .table-container {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 9.8px;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #334155;
+      font-weight: 700;
+      text-align: left;
+      padding: 6px 10px;
+      border-bottom: 1px solid #cbd5e1;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    td {
+      padding: 6.5px 10px;
+      border-bottom: 1px solid #f1f5f9;
+      color: #334155;
+      vertical-align: top;
+      line-height: 1.38;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .td-req {
+      font-weight: 600;
+      color: #0f172a;
+      width: 32%;
+    }
+
+    .td-solution {
+      width: 68%;
+    }
+
+    /* Tags */
+    .tag {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 8.5px;
+      font-weight: 600;
+      margin-right: 4px;
+      margin-bottom: 2px;
+    }
+
+    .tag-blue { background: #dbeafe; color: #1e40af; }
+    .tag-cyan { background: #cffafe; color: #0e7490; }
+    .tag-emerald { background: #d1fae5; color: #065f46; }
+    .tag-purple { background: #ede9fe; color: #5b21b6; }
+    .tag-amber { background: #fef3c7; color: #92400e; }
+
+    /* Phases Grid */
+    .phases-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin-bottom: 11px;
+    }
+
+    .phase-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 9px 11px;
+      background: #ffffff;
+      position: relative;
+      border-left: 3.5px solid #2563eb;
+    }
+
+    .phase-card:nth-child(2) { border-left-color: #10b981; }
+    .phase-card:nth-child(3) { border-left-color: #06b6d4; }
+    .phase-card:nth-child(4) { border-left-color: #8b5cf6; }
+
+    .phase-badge {
+      display: inline-block;
+      font-size: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-bottom: 3px;
+    }
+
+    .phase-1 .phase-badge { background: #eff6ff; color: #1e40af; }
+    .phase-2 .phase-badge { background: #ecfdf5; color: #065f46; }
+    .phase-3 .phase-badge { background: #ecfeff; color: #0e7490; }
+    .phase-4 .phase-badge { background: #f5f3ff; color: #5b21b6; }
+
+    .phase-title {
+      font-size: 10.8px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 3px;
+    }
+
+    .phase-list {
+      list-style: none;
+      font-size: 9.3px;
+      color: #475569;
+    }
+
+    .phase-list li {
+      position: relative;
+      padding-left: 11px;
+      margin-bottom: 2.5px;
+      line-height: 1.35;
+    }
+
+    .phase-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #2563eb;
+      font-weight: bold;
+    }
+
+    /* Architecture / Best Practices Box */
+    .arch-box {
+      background: linear-gradient(135deg, #f8fafc 0%, #f0fdf4 100%);
+      border: 1px solid #bbf7d0;
+      border-radius: 9px;
+      padding: 10px 13px;
+      margin-bottom: 11px;
+    }
+
+    .arch-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #14532d;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+    }
+
+    .pillar-item {
+      background: #ffffff;
+      border: 1px solid #dcfce7;
+      border-radius: 6px;
+      padding: 7px 9px;
+    }
+
+    .pillar-name {
+      font-size: 9.8px;
+      font-weight: 700;
+      color: #15803d;
+      margin-bottom: 2px;
+    }
+
+    .pillar-text {
+      font-size: 8.8px;
+      color: #475569;
+      line-height: 1.33;
+    }
+
+    /* Projects Showcase */
+    .project-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 9.5px 12px;
+      margin-bottom: 8.5px;
+      background: #ffffff;
+    }
+
+    .project-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4px;
+    }
+
+    .project-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .project-client {
+      font-size: 9px;
+      font-weight: 600;
+      color: #1d4ed8;
+      background: #eff6ff;
+      padding: 1.5px 6px;
+      border-radius: 4px;
+    }
+
+    .project-summary {
+      font-size: 9.6px;
+      color: #334155;
+      line-height: 1.38;
+      margin-bottom: 4px;
+    }
+
+    .project-bullets {
+      list-style: none;
+      font-size: 9.2px;
+      color: #475569;
+      margin-bottom: 4px;
+    }
+
+    .project-bullets li {
+      position: relative;
+      padding-left: 12px;
+      margin-bottom: 2px;
+      line-height: 1.32;
+    }
+
+    .project-bullets li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #059669;
+      font-weight: bold;
+      font-size: 8.5px;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3.5px;
+      padding-top: 3px;
+      border-top: 1px dashed #f1f5f9;
+    }
+
+    /* Skills Grid */
+    .skills-matrix {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      margin-bottom: 10px;
+    }
+
+    .skill-category {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 7px;
+      padding: 7px 9px;
+    }
+
+    .skill-cat-title {
+      font-size: 9px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      border-bottom: 1.5px solid #cbd5e1;
+      padding-bottom: 1.5px;
+    }
+
+    .skill-cat-items {
+      font-size: 9px;
+      color: #475569;
+      line-height: 1.35;
+    }
+
+    /* CTA Box */
+    .cta-box {
+      background: linear-gradient(135deg, #091e42 0%, #1e40af 100%);
+      color: #ffffff;
+      border-radius: 9px;
+      padding: 11px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cta-content h3 {
+      font-size: 12px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 2px;
+    }
+
+    .cta-content p {
+      font-size: 9.5px;
+      color: #93c5fd;
+    }
+
+    .cta-badge {
+      background: #10b981;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 10px;
+      padding: 5px 11px;
+      border-radius: 5px;
+      box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+      white-space: nowrap;
+    }
+
+    /* Footer */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 8px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 8.5px;
+      color: #94a3b8;
+    }
+
+    .footer-left {
+      display: flex;
+      gap: 10px;
+    }
+
+    .page-number {
+      font-weight: 700;
+      color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== PAGE 1 ==================== -->
+  <div class="page">
+    <div class="top-gradient-bar"></div>
+
+    <div class="page-content">
+      <!-- Header -->
+      <div class="header">
+        <div class="author-info">
+          <h1>VIRANGA LAKSHAN</h1>
+          <div class="title">Senior Software Engineer · Full Stack Java (Spring Boot 3) & Microservices Specialist</div>
+        </div>
+        <div class="contact-chips">
+          <div class="contact-item">
+            <span>📄 <a href="https://drive.google.com/file/d/1dNXU_Ig0WMNT2lwEaoSZ6P8O1Xx1EKxu/view?usp=sharing" target="_blank">View Full CV (Google Drive)</a></span>
+          </div>
+          <div class="contact-item">
+            <span>📧 virangalakshanz@gmail.com</span>
+          </div>
+          <div class="contact-item">
+            <span>📱 +94 71 378 1359</span>
+          </div>
+          <div class="contact-item">
+            <span>🔗 <a href="https://linkedin.com/in/viranga-lakshan-869515279" target="_blank">linkedin.com/in/viranga-lakshan</a></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Proposal Banner -->
+      <div class="hero-banner">
+        <div class="hero-meta">
+          <span class="badge-role">Full Stack Java / Spring Boot 3</span>
+          <span class="badge-exp">✓ 5 Years Industry Experience</span>
+          <span class="badge-contract">★ Long-Term & Contract-to-Hire Ready</span>
+        </div>
+        <div class="hero-title">Technical Proposal: Custom Web Application Development & Ongoing Support</div>
+        <div class="hero-desc">
+          Delivering a reliable, maintainable, and high-performance custom business web application using <strong>Java 21 / Spring Boot 3</strong> microservices architecture paired with an intuitive, modern frontend (React/Next.js). Designed for seamless team collaboration, rapid problem-solving, and sustainable business growth.
+        </div>
+      </div>
+
+      <!-- Metric Highlights -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">5+ Years</div>
+          <div class="metric-label">Industry Experience</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">Spring Boot 3</div>
+          <div class="metric-label">Java 21 & Microservices</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">20-25 hrs/wk</div>
+          <div class="metric-label">Dedicated Capacity</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">$18 - $20/hr</div>
+          <div class="metric-label">Long-Term Contract</div>
+        </div>
+      </div>
+
+      <!-- Executive Overview -->
+      <div class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        Executive Profile & Industry Experience
+      </div>
+      <div class="card" style="margin-bottom: 11px; font-size: 10.2px; line-height: 1.48; color: #334155;">
+        As a <strong>Senior Software Engineer with 5 years of industry experience</strong>, I have spent my career at premier software development companies—notably <strong>Arimac Lanka</strong> and <strong>SLT Digital Lab</strong>—building mission-critical enterprise products and custom web platforms for major corporations across the globe (including <em>DIMO Lanka</em>, <em>Adrik Kuwait</em>, <em>Al Ain Cultural Institution UAE</em>, and <em>Holsten Arabia</em>).<br><br>
+        My core specialization is architecting and scaling backend microservices with <strong>Java 21 and Spring Boot 3</strong> (Spring Security, Spring Modulith, Spring Kafka, JPA/Hibernate, Flyway) alongside modern, responsive frontend user interfaces (React, Next.js, TypeScript). I focus on building software that is clean, decoupled, and easy to maintain, ensuring your business web application scales effortlessly as your operations grow.
+      </div>
+
+      <!-- Core Strengths -->
+      <div class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        Core Pillars Aligned with Your Business Needs
+      </div>
+      <div class="fit-grid">
+        <div class="fit-item">
+          <div class="fit-header">
+            <span class="fit-icon-bullet">1</span>
+            <span>Spring Boot 3 & Microservices</span>
+          </div>
+          <div class="fit-desc">
+            Deep experience with modern Spring Boot 3.4+, Spring Modulith, Spring Security 6, Kafka event-driven architectures, and Flyway database migrations for 99.9% uptime.
+          </div>
+        </div>
+        <div class="fit-item">
+          <div class="fit-header">
+            <span class="fit-icon-bullet">2</span>
+            <span>Full-Stack & Frontend UX</span>
+          </div>
+          <div class="fit-desc">
+            Proficient in React, Next.js, TypeScript, Tailwind CSS, and TanStack Query. I bridge backend logic with polished, intuitive, and accessible user interfaces.
+          </div>
+        </div>
+        <div class="fit-item">
+          <div class="fit-header">
+            <span class="fit-icon-bullet">3</span>
+            <span>Maintainability & Clean Architecture</span>
+          </div>
+          <div class="fit-desc">
+            Strong advocate of Domain-Driven Design (DDD), SOLID principles, modularity, OpenAPI/Swagger docs, and automated testing (JUnit 5, Mockito, JaCoCo, SonarQube).
+          </div>
+        </div>
+        <div class="fit-item">
+          <div class="fit-header">
+            <span class="fit-icon-bullet">4</span>
+            <span>Collaborative Problem-Solving</span>
+          </div>
+          <div class="fit-desc">
+            Extensive experience collaborating within Agile/Scrum teams. Proactive communicator who takes ownership of tasks and provides practical solutions to complex business goals.
+          </div>
+        </div>
+      </div>
+
+      <!-- Alignment Table -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th class="td-req">Your Project Requirements</th>
+              <th class="td-solution">My Proven Experience & Technical Execution</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-req">Spring Boot 3 & Microservices Architecture</td>
+              <td class="td-solution">Production mastery of Java 21 / Spring Boot 3, RESTful APIs, Spring Data JPA, Kafka asynchronous messaging, and containerized Docker services.</td>
+            </tr>
+            <tr>
+              <td class="td-req">Full-Stack Frontend & UX Polish</td>
+              <td class="td-solution">Building responsive, lightning-fast UI components with React / Next.js / TypeScript, intuitive forms, client-side caching, and seamless REST/GraphQL consumption.</td>
+            </tr>
+            <tr>
+              <td class="td-req">Reliability, Scalability & Maintainability</td>
+              <td class="td-solution">Flyway automated schema migrations, Redis caching, comprehensive error handling, SonarQube code quality gates, and modular architecture.</td>
+            </tr>
+            <tr>
+              <td class="td-req">Long-Term Partnership (<30 hrs/wk, Contract-to-Hire)</td>
+              <td class="td-solution">Dedicated 20-25 hrs/week commitment for the 3-6 month window with full enthusiasm to transition into a permanent full-time member of your engineering team.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-left">
+        <span>Viranga Lakshan · Senior Software Engineer</span>
+        <span>virangalakshanz@gmail.com</span>
+      </div>
+      <div>Full Stack Java (Spring Boot 3) Proposal</div>
+      <div class="page-number">Page 1 of 3</div>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE 2 ==================== -->
+  <div class="page">
+    <div class="top-gradient-bar"></div>
+
+    <div class="page-content">
+      <!-- Section: Engineering Roadmap -->
+      <div class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        Implementation & Support Roadmap: 4-Phase Delivery
+      </div>
+
+      <div class="phases-grid">
+        <div class="phase-card phase-1">
+          <span class="phase-badge">Phase 01 · Alignment & Setup</span>
+          <div class="phase-title">Architecture Review & Foundations</div>
+          <ul class="phase-list">
+            <li>Collaborate with your team to review requirements, domain entities, and roadmap.</li>
+            <li>Configure Spring Boot 3 skeleton with Spring Security 6, JWT, and OpenAPI.</li>
+            <li>Establish database schemas with Flyway versioned migrations (Postgres/MySQL).</li>
+            <li>Deliverable: Configured CI/CD pipeline, modular backend base, and initial API specs.</li>
+          </ul>
+        </div>
+
+        <div class="phase-card phase-2">
+          <span class="phase-badge">Phase 02 · Full-Stack Development</span>
+          <div class="phase-title">Core Feature & Component Engineering</div>
+          <ul class="phase-list">
+            <li>Develop business microservices/domain modules with high-throughput REST APIs.</li>
+            <li>Build dynamic frontend views with React / Next.js, state management, and forms.</li>
+            <li>Integrate role-based access control (RBAC), user authentication, and data validation.</li>
+            <li>Deliverable: Functional end-to-end user workflows tested against business rules.</li>
+          </ul>
+        </div>
+
+        <div class="phase-card phase-3">
+          <span class="phase-badge">Phase 03 · UX & Performance</span>
+          <div class="phase-title">Reliability, Caching & UX Optimization</div>
+          <ul class="phase-list">
+            <li>Optimize frontend performance (lazy loading, responsive UX, error boundaries).</li>
+            <li>Implement Redis caching for hot data and asynchronous Kafka event workflows.</li>
+            <li>Enforce comprehensive test suites (JUnit 5, Mockito, Integration tests, JaCoCo).</li>
+            <li>Deliverable: High-speed, resilient application with exceptional user experience.</li>
+          </ul>
+        </div>
+
+        <div class="phase-card phase-4">
+          <span class="phase-badge">Phase 04 · Support & Growth</span>
+          <div class="phase-title">Long-Term Maintenance & Future Scaling</div>
+          <ul class="phase-list">
+            <li>Continuous monitoring, bug resolution, and iterative business feature releases.</li>
+            <li>Provide clear developer documentation, OpenAPI docs, and architecture walkthroughs.</li>
+            <li>Seamless transition into ongoing contract-to-hire engagement as your product grows.</li>
+            <li>Deliverable: Production stability, happy users, and scalable code base.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Architectural Box: Maintainability & Reliability -->
+      <div class="arch-box">
+        <div class="arch-title">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          How I Ensure the Application is Reliable & Easy to Maintain
+        </div>
+        <div class="pillars-grid">
+          <div class="pillar-item">
+            <div class="pillar-name">1. Modularity & DDD</div>
+            <div class="pillar-text">
+              Using Spring Modulith and clean service boundaries ensures components are decoupled, preventing spaghetti code and allowing new features without breaking existing ones.
+            </div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-name">2. Versioned Flyway Migrations</div>
+            <div class="pillar-text">
+              All database changes are code-controlled and idempotent, making production deployments, team synchronization, and rollbacks safe and automated.
+            </div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-name">3. Quality Gates & Docker</div>
+            <div class="pillar-text">
+              SonarQube code quality checks, JaCoCo test coverage standards, and containerized Docker environments ensure identical behavior across dev, staging, and production.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Long-Term Engagement Terms -->
+      <div class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        Contract Terms, Schedule & Collaboration Model
+      </div>
+      <div class="card" style="margin-bottom: 0;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 9.8px;">
+          <div>
+            <div style="font-weight: 700; color: #0f172a; margin-bottom: 3px;">⏰ Schedule & Capacity</div>
+            <p style="color: #475569; line-height: 1.45;">
+              • <strong>Weekly Allocation:</strong> 20 – 25 hours per week (fits within your &lt;30 hrs/wk requirement).<br>
+              • <strong>Duration:</strong> 3 to 6 months ongoing, with strong enthusiasm for contract-to-hire.<br>
+              • <strong>Rate:</strong> $18.00 – $20.00 / hour (within your $15 – $22 posted budget range).<br>
+              • <strong>Start Date:</strong> Immediate kickoff upon agreement.
+            </p>
+          </div>
+          <div>
+            <div style="font-weight: 700; color: #0f172a; margin-bottom: 3px;">🤝 Team Collaboration & Communication</div>
+            <p style="color: #475569; line-height: 1.45;">
+              • <strong>Agile Participation:</strong> Active participant in sprint planning, standups, and reviews.<br>
+              • <strong>Channels:</strong> Responsive on Slack, Teams, Jira, GitHub/GitLab, and Upwork.<br>
+              • <strong>Transparent Progress:</strong> Clear daily summaries and documented PRs for code reviews.<br>
+              • <strong>Practical Problem Solver:</strong> Focused on pragmatic business ROI over unnecessary complexity.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-left">
+        <span>Viranga Lakshan · Senior Software Engineer</span>
+        <span>virangalakshanz@gmail.com</span>
+      </div>
+      <div>Full Stack Java (Spring Boot 3) Proposal</div>
+      <div class="page-number">Page 2 of 3</div>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE 3 ==================== -->
+  <div class="page">
+    <div class="top-gradient-bar"></div>
+
+    <div class="page-content">
+      <!-- Section: Enterprise Projects from CV -->
+      <div class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+        Proven Enterprise Project Experience (From Software Company Roles)
+      </div>
+
+      <!-- Project 1: DIMO Gate Pass -->
+      <div class="project-card">
+        <div class="project-header">
+          <div>
+            <span class="project-name">DIMO Enterprise Gate Pass & Dispatch Management System</span>
+            <span style="font-size: 8.8px; color: #64748b; margin-left: 5px;">(Microservices Platform)</span>
+          </div>
+          <span class="project-client">Arimac Digital · Client: DIMO Lanka</span>
+        </div>
+        <div class="project-summary">
+          Engineered vehicle dispatch and gate-pass management platform for a premier enterprise conglomerate, built as two high-performance Spring Boot microservices within a distributed architecture.
+        </div>
+        <ul class="project-bullets">
+          <li>Developed API gateway service using <strong>Spring Boot 3.4.5 & Java 21</strong> handling <strong>Keycloak OAuth2/JWT authentication</strong>, role-based approval workflows, and <strong>Spring Kafka audit event publishing</strong>.</li>
+          <li>Built the core Gate Pass domain microservice implementing complex business logic and persistence using <strong>MySQL with Flyway-managed schema migrations</strong>.</li>
+          <li>Integrated external enterprise services including <strong>SAP, Microsoft Graph/Azure AD, and AWS S3</strong>; containerized with Docker and supported CI/CD via Jenkins & GitLab with SonarQube & JaCoCo.</li>
+        </ul>
+        <div class="project-tech">
+          <span class="tag tag-blue">Java 21</span>
+          <span class="tag tag-blue">Spring Boot 3.4.5</span>
+          <span class="tag tag-blue">Spring Security</span>
+          <span class="tag tag-purple">Spring Kafka</span>
+          <span class="tag tag-emerald">MySQL / Flyway</span>
+          <span class="tag tag-cyan">Keycloak (OAuth2/JWT)</span>
+          <span class="tag tag-amber">Docker / CI/CD</span>
+        </div>
+      </div>
+
+      <!-- Project 2: NexWare Platform -->
+      <div class="project-card">
+        <div class="project-header">
+          <div>
+            <span class="project-name">NexWare Enterprise Distribution & Warehouse Platform</span>
+            <span style="font-size: 8.8px; color: #64748b; margin-left: 5px;">(Full-Stack Application)</span>
+          </div>
+          <span class="project-client">Production Full-Stack Web System</span>
+        </div>
+        <div class="project-summary">
+          Architected a complete modular monolith full-stack web application featuring a Java 21 Spring Boot 3 backend and a high-performance Next.js/React frontend.
+        </div>
+        <ul class="project-bullets">
+          <li><strong>Backend:</strong> Built with <strong>Spring Boot 3, Spring Modulith, Spring Security, JPA/Hibernate, PostgreSQL, Redis, Kafka, and Flyway</strong> with comprehensive OpenAPI (Swagger) documentation.</li>
+          <li><strong>Frontend:</strong> Developed intuitive dashboard using <strong>Next.js, React, TypeScript, Tailwind CSS, TanStack Query, Zustand, and Zod</strong> with server-side pagination and role-based routing.</li>
+          <li>Deployed to AWS EC2 with Docker containers, automated GitHub Actions CI/CD pipelines, and HTTPS.</li>
+        </ul>
+        <div class="project-tech">
+          <span class="tag tag-blue">Spring Boot 3</span>
+          <span class="tag tag-blue">Spring Modulith</span>
+          <span class="tag tag-cyan">Next.js / React</span>
+          <span class="tag tag-cyan">TypeScript</span>
+          <span class="tag tag-emerald">PostgreSQL</span>
+          <span class="tag tag-purple">Redis / Kafka</span>
+          <span class="tag tag-amber">AWS / Docker</span>
+        </div>
+      </div>
+
+      <!-- Project 3: TukTuk Tracking -->
+      <div class="project-card">
+        <div class="project-header">
+          <div>
+            <span class="project-name">Police Tuk-Tuk Real-Time GPS Tracking & Telemetry System</span>
+          </div>
+          <span class="project-client">High-Throughput Enterprise Backend</span>
+        </div>
+        <div class="project-summary">
+          Designed and implemented a high-reliability microservice REST API for police GPS tracking handling live data streaming and geographic RBAC with 28+ endpoints.
+        </div>
+        <ul class="project-bullets">
+          <li>Powered by <strong>Java 21, Spring Boot 3, Spring Security, JPA, PostgreSQL, Flyway, Redis, Kafka, and JWT</strong>.</li>
+          <li>Containerized and deployed on AWS EC2 with custom domain, SSL, and automated GitHub Actions.</li>
+        </ul>
+        <div class="project-tech">
+          <span class="tag tag-blue">Java 21</span>
+          <span class="tag tag-blue">Spring Boot 3</span>
+          <span class="tag tag-purple">Kafka Streaming</span>
+          <span class="tag tag-emerald">PostgreSQL</span>
+          <span class="tag tag-cyan">Flyway</span>
+        </div>
+      </div>
+
+      <!-- Technical Skills Matrix -->
+      <div class="section-title" style="margin-top: 8px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+        Full-Stack Technical Skills Matrix
+      </div>
+      <div class="skills-matrix">
+        <div class="skill-category">
+          <div class="skill-cat-title">Backend & Microservices</div>
+          <div class="skill-cat-items">Java 21, Spring Boot 3, Spring Security, Spring Modulith, Spring Data JPA, Spring Kafka, Flyway, Hibernate, REST APIs</div>
+        </div>
+        <div class="skill-category">
+          <div class="skill-cat-title">Frontend & UX</div>
+          <div class="skill-cat-items">React.js, Next.js, TypeScript, JavaScript (ES6+), Tailwind CSS, Redux Toolkit, RTK Query, Zustand, TanStack Query, Zod</div>
+        </div>
+        <div class="skill-category">
+          <div class="skill-cat-title">Data, Cloud & Quality</div>
+          <div class="skill-cat-items">PostgreSQL, MySQL, Redis, Docker, Jenkins, GitLab CI/CD, AWS EC2/S3, Keycloak (OAuth2/JWT), SonarQube, JaCoCo</div>
+        </div>
+      </div>
+
+      <!-- CTA Box -->
+      <div class="cta-box">
+        <div class="cta-content">
+          <h3>Ready to Collaborate on Your Web Application</h3>
+          <p>Looking forward to discussing your business vision, tech stack, and next sprint goals on an intro call.</p>
+        </div>
+        <div class="cta-badge">⚡ Available for Interview & Kickoff</div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-left">
+        <span>Viranga Lakshan · Senior Software Engineer</span>
+        <span>virangalakshanz@gmail.com</span>
+      </div>
+      <div>Full Stack Java (Spring Boot 3) Proposal</div>
+      <div class="page-number">Page 3 of 3</div>
+    </div>
+  </div>
+
+</body>
+</html>
+"""
+
+html_path = os.path.abspath("Viranga_Lakshan_FullStack_Java_Proposal.html")
+pdf_path = os.path.abspath("Viranga_Lakshan_FullStack_Java_Proposal.pdf")
+
+with open(html_path, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print(f"HTML written to {html_path}")
+
+edge_path = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+html_url = "file:///" + html_path.replace("\\", "/")
+
+cmd = [
+    edge_path,
+    "--headless",
+    "--disable-gpu",
+    "--no-pdf-header-footer",
+    f"--print-to-pdf={pdf_path}",
+    html_url
+]
+
+subprocess.run(cmd, check=True)
+
+if os.path.exists(pdf_path):
+    reader = PdfReader(pdf_path)
+    page_count = len(reader.pages)
+    file_size = os.path.getsize(pdf_path)
+    print(f"SUCCESS: PDF generated at {pdf_path}")
+    print(f"Pages: {page_count}, Size: {file_size} bytes")
+else:
+    print("ERROR: PDF file not found!")
+
