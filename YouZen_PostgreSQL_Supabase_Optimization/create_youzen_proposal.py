@@ -869,30 +869,30 @@ HTML_CONTENT = """<!DOCTYPE html>
         <div class="profile-box">
           <div class="profile-header">
             <span class="profile-name">Viranga Lakshan</span>
-            <span class="profile-role">Lead Solutions Architect</span>
+            <span class="profile-role">Lead Solutions Architect & Database Eng.</span>
           </div>
           <p class="card-p">
-            <strong>Role for YouZen:</strong> Technical lead for PostgreSQL query profiling, lock diagnosis, concurrency constraints, RLS policy optimization, and architectural sign-off.
+            <strong>Role for YouZen:</strong> Primary technical lead. Personally leads the PostgreSQL / Supabase audit, query profiling, lock diagnosis, RLS optimization, and personally implements all agreed database fixes.
           </p>
         </div>
 
         <div class="profile-box">
           <div class="profile-header">
             <span class="profile-name">Janith Kavishka</span>
-            <span class="profile-role">Sr. Systems & API Engineer</span>
+            <span class="profile-role">Backend/API & Load-Testing Eng.</span>
           </div>
           <p class="card-p">
-            <strong>Role for YouZen:</strong> Next.js data-access profiling, Supabase Realtime channel optimization, API load script development, and transaction telemetry.
+            <strong>Role for YouZen:</strong> Primary load-testing lead. Develops reusable k6 / Locust scripts, prepares synthetic data generators for 100 restaurants and 100 salons, and runs peak concurrency simulations.
           </p>
         </div>
 
         <div class="profile-box">
           <div class="profile-header">
             <span class="profile-name">Lithumitha Ravikumar</span>
-            <span class="profile-role">Sr. Database & Cloud Engineer</span>
+            <span class="profile-role">Project Coordination & Client Comms</span>
           </div>
           <p class="card-p">
-            <strong>Role for YouZen:</strong> Synthetic data generator scripting, PgBouncer pool tuning, index benchmarking, and staging load-test execution.
+            <strong>Role for YouZen:</strong> Primary project coordinator. Manages delivery timelines, milestone tracking, client communications, technical runbooks, and delivery sign-offs.
           </p>
         </div>
       </div>
