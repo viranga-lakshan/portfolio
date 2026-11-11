@@ -203,3 +203,43 @@ This document has been prepared with strict adherence to client non-disclosure s
 ## 13. Professional Conclusion
 
 LOGIXOTECH approaches multi-tenant database optimization through empirical, measurable engineering: isolating root causes with rigorous telemetry, proving hypotheses through automated staging simulations, and implementing surgical database fixes that permanently protect transaction throughput. We are fully prepared to apply these proven principles to ensure the YouZen platform scales seamlessly across 100 restaurants and 100 hair salons.
+
+---
+
+## 14. Client Reference & Project Verification
+
+### Project Reference – Perera & Sons POS Performance Optimization
+
+* **Client Organization:** Perera & Sons
+* **Project:** Multi-Outlet POS Platform – Performance Investigation and Optimization
+* **Service Provider:** LOGIXOTECH
+* **Industry Sector:** Retail and Food & Beverage (F&B)
+* **Project Scope:** Performance investigation and optimization of an existing multi-outlet POS platform following the introduction of additional application features.
+* **Project Scale:** Approximately 350 business locations, subject to verification against the actual project scope.
+
+### Engagement Summary
+LOGIXOTECH was engaged to investigate performance and response-time issues affecting the existing POS platform. The engagement focused on database performance investigation, query optimization, connection management, transaction concurrency, API performance, and system scalability.
+
+### Client Reference Contact Information
+*Contact details disclosed exclusively following formal client authorization:*
+* **Reference Contact Name:** [Authorized contact name]
+* **Position:** [Official designation]
+* **Organization:** Perera & Sons
+* **Business Email:** [Authorized business email]
+* **Contact Number:** [Authorized business contact number]
+* **Permission to Contact:** [Confirmed / Pending]
+
+### Project Verification Framework
+Subject to client authorization, LOGIXOTECH can facilitate a reference discussion to verify:
+1. **The nature and scope of the engagement:** The operational boundaries and technical focus areas.
+2. **LOGIXOTECH's involvement:** Direct leadership and execution of the POS performance investigation.
+3. **Technical responsibilities performed:** Database profiling, indexing, query rewrites, and load testing conducted by the team.
+4. **Scale supported:** The approximate number of commercial business locations served.
+5. **Remediation activities undertaken:** The specific performance investigation and optimization activities delivered.
+
+### Confidentiality Statement & Evidence Governance
+Client contact details and project information will only be disclosed with the client's authorization. Where direct contact details cannot be shared due to commercial non-disclosure obligations, LOGIXOTECH can arrange an authorized reference introduction or provide an approved anonymized project summary.
+
+**Evidence Classification:** Historical project details and client references must be supported by actual project records and client confirmation. No hypothetical benchmark figures should be represented as verified project results.
+
+

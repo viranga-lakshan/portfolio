@@ -566,7 +566,7 @@ HTML_CONTENT = """<!DOCTYPE html>
 
   <div class="cover-footer">
     <span>LOGIXOTECH Engineering Division • Confidential Technical Evidence</span>
-    <span>Multi-Outlet POS Performance Assessment • Page 1 of 8</span>
+    <span>Multi-Outlet POS Performance Assessment • Page 1 of 9</span>
     <span>logixotech.com</span>
   </div>
 </div>
@@ -685,7 +685,7 @@ HTML_CONTENT = """<!DOCTYPE html>
 
   <div class="page-footer">
     <span>LOGIXOTECH Engineering • Technical Performance & Scalability Report</span>
-    <span>Page 2 of 8</span>
+    <span>Page 2 of 9</span>
     <span class="footer-links">
       <a href="https://viranga-lakshan.github.io/portfolio/">Portfolio</a>
       <a href="https://github.com/viranga-lakshan">GitHub</a>
@@ -798,7 +798,7 @@ HTML_CONTENT = """<!DOCTYPE html>
 
   <div class="page-footer">
     <span>LOGIXOTECH Engineering • Technical Performance & Scalability Report</span>
-    <span>Page 3 of 8</span>
+    <span>Page 3 of 9</span>
     <span class="footer-links">
       <a href="https://viranga-lakshan.github.io/portfolio/">Portfolio</a>
       <a href="https://github.com/viranga-lakshan">GitHub</a>
@@ -934,7 +934,7 @@ HTML_CONTENT = """<!DOCTYPE html>
 
   <div class="page-footer">
     <span>LOGIXOTECH Engineering • Technical Performance & Scalability Report</span>
-    <span>Page 4 of 8</span>
+    <span>Page 4 of 9</span>
     <span class="footer-links">
       <a href="https://viranga-lakshan.github.io/portfolio/">Portfolio</a>
       <a href="https://github.com/viranga-lakshan">GitHub</a>
@@ -1091,7 +1091,7 @@ HTML_CONTENT = """<!DOCTYPE html>
 
   <div class="page-footer">
     <span>LOGIXOTECH Engineering • Technical Performance & Scalability Report</span>
-    <span>Page 5 of 8</span>
+    <span>Page 5 of 9</span>
     <span class="footer-links">
       <a href="https://viranga-lakshan.github.io/portfolio/">Portfolio</a>
       <a href="https://github.com/viranga-lakshan">GitHub</a>
@@ -1213,7 +1213,7 @@ HTML_CONTENT = """<!DOCTYPE html>
 
   <div class="page-footer">
     <span>LOGIXOTECH Engineering • Technical Performance & Scalability Report</span>
-    <span>Page 6 of 8</span>
+    <span>Page 6 of 9</span>
     <span class="footer-links">
       <a href="https://viranga-lakshan.github.io/portfolio/">Portfolio</a>
       <a href="https://github.com/viranga-lakshan">GitHub</a>
@@ -1330,7 +1330,7 @@ HTML_CONTENT = """<!DOCTYPE html>
 
   <div class="page-footer">
     <span>LOGIXOTECH Engineering • Technical Performance & Scalability Report</span>
-    <span>Page 7 of 8</span>
+    <span>Page 7 of 9</span>
     <span class="footer-links">
       <a href="https://viranga-lakshan.github.io/portfolio/">Portfolio</a>
       <a href="https://github.com/viranga-lakshan">GitHub</a>
@@ -1448,7 +1448,117 @@ HTML_CONTENT = """<!DOCTYPE html>
 
   <div class="page-footer">
     <span>LOGIXOTECH Engineering • Technical Performance & Scalability Report</span>
-    <span>Page 8 of 8</span>
+    <span>Page 8 of 9</span>
+    <span class="footer-links">
+      <a href="https://viranga-lakshan.github.io/portfolio/">Portfolio</a>
+      <a href="https://github.com/viranga-lakshan">GitHub</a>
+    </span>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 9: CLIENT REFERENCE & PROJECT VERIFICATION ========================================== -->
+<div class="page">
+  <div>
+    <!-- Top Header -->
+    <div class="header-top">
+      <div>
+        <div class="brand-title">LOGIXO<span style="color:#0284c7;">TECH</span> <span class="brand-badge">Client Reference</span></div>
+        <div class="brand-sub">Project Reference, Verification Framework, and Governance Standards</div>
+      </div>
+      <div class="meta-block">
+        <strong>Organization:</strong> Perera & Sons (Retail and Food & Beverage)<br>
+        <strong>Engagement:</strong> Multi-Outlet POS Performance & Scalability<br>
+        <strong>Protocol:</strong> Client Authorization & Reference Verification
+      </div>
+    </div>
+
+    <!-- Section 16: Client Reference & Project Verification -->
+    <div class="section">
+      <div class="section-title">
+        16. Client Reference & Project Verification
+        <span class="tagline">Formal Verification Protocols for International Prospective Clients</span>
+      </div>
+
+      <!-- Project Reference Metadata Card -->
+      <div class="card tint accent" style="margin-bottom: 7px;">
+        <div class="card-header">
+          <span class="card-title">Project Reference Profile – Perera & Sons POS Optimization</span>
+          <span class="card-badge">Enterprise Profile</span>
+        </div>
+        <div class="grid-2" style="gap: 5px 12px; margin-top: 3px;">
+          <div><strong>Client Organization:</strong> Perera & Sons</div>
+          <div><strong>Service Provider:</strong> LOGIXOTECH Technical Team</div>
+          <div><strong>Industry Sector:</strong> Retail and Food & Beverage (F&B)</div>
+          <div><strong>Project Scale:</strong> ~350 Outlets (Subject to Scope Verification)</div>
+          <div style="grid-column: span 2;">
+            <strong>Project Scope:</strong> Performance investigation and optimization of an existing multi-outlet POS platform following the introduction of additional application features.
+          </div>
+        </div>
+      </div>
+
+      <!-- Engagement Summary -->
+      <div class="card slate" style="margin-bottom: 7px;">
+        <div class="card-header">
+          <span class="card-title">Engagement Summary</span>
+          <span class="card-badge">Scope Verified</span>
+        </div>
+        <p class="card-p" style="margin-bottom:0;">
+          LOGIXOTECH was engaged to investigate operational performance and response-time degradation affecting the existing centralized POS platform. The technical engagement focused specifically on database query execution analysis, index architecture, connection pool management, concurrent transaction handling, API-level profiling, and multi-location system scalability.
+        </p>
+      </div>
+
+      <!-- Client Reference Contact & Verification Grid -->
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Client Reference Contact Information</span>
+            <span class="card-badge">Authorization</span>
+          </div>
+          <p class="card-p" style="font-size:7.2pt; color:#64748b; margin-bottom:4px;">
+            <em>Contact details disclosed exclusively following formal client authorization:</em>
+          </p>
+          <ul class="card-bullets">
+            <li><strong>Reference Contact Name:</strong> [Authorized Client Contact]</li>
+            <li><strong>Official Position:</strong> [Executive / Technical Designation]</li>
+            <li><strong>Organization:</strong> Perera & Sons</li>
+            <li><strong>Business Email:</strong> [Authorized Business Email]</li>
+            <li><strong>Business Contact Number:</strong> [Authorized Telephone]</li>
+            <li><strong>Permission to Contact:</strong> [Confirmed / Pending]</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Project Verification Framework</span>
+            <span class="card-badge">Validation Scope</span>
+          </div>
+          <p class="card-p">
+            Subject to client authorization, LOGIXOTECH can facilitate a reference discussion to formally verify:
+          </p>
+          <ul class="card-bullets">
+            <li><strong>1. Scope of Engagement:</strong> Nature and technical boundaries of the engagement.</li>
+            <li><strong>2. LOGIXOTECH Involvement:</strong> Direct leadership of the POS performance investigation.</li>
+            <li><strong>3. Team Responsibilities:</strong> Database and testing roles performed by the team.</li>
+            <li><strong>4. Scale Supported:</strong> Approximate number of commercial business locations.</li>
+            <li><strong>5. Remediation Delivered:</strong> Performance investigation and optimization activities undertaken.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Confidentiality & Evidence Governance -->
+      <div class="callout-box" style="margin-top: 6px;">
+        <div class="callout-title">Confidentiality Statement & Evidence Governance</div>
+        <div class="callout-text">
+          Client contact details and operational project information will only be disclosed with the client's formal authorization. Where direct contact details cannot be shared due to commercial non-disclosure obligations, LOGIXOTECH can arrange an authorized reference introduction or provide an approved anonymized project verification summary.<br>
+          <strong>Evidence Classification:</strong> Historical project details and client references must be supported by actual project records and client confirmation. No hypothetical benchmark figures should be represented as verified project results.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>LOGIXOTECH Engineering • Technical Performance & Scalability Report</span>
+    <span>Page 9 of 9</span>
     <span class="footer-links">
       <a href="https://viranga-lakshan.github.io/portfolio/">Portfolio</a>
       <a href="https://github.com/viranga-lakshan">GitHub</a>
@@ -1507,9 +1617,10 @@ def generate_pdf():
         image.save(preview_path)
         print(f"Rendered page {i+1} to {preview_path}")
 
-    success = (total_pages == 8)
-    print(f"Success (exactly 8 pages): {success}")
+    success = (total_pages == 9)
+    print(f"Success (exactly 9 pages): {success}")
     return success
 
 if __name__ == "__main__":
     generate_pdf()
+
