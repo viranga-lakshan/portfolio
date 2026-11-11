@@ -88,37 +88,44 @@ LOGIXOTECH organized the performance engagement into four rigorous engineering s
 
 ---
 
-## 5. Multi-Location Scalability Architecture: 350-Location Production Fleet
+## 5. 350 Business Locations – Illustrative Scalability Scenario
 
-To support the operational scale of Perera & Sons, the platform architecture accommodates an extensive network of **approximately 350 retail and food-service outlets**:
+To evaluate high-concurrency database stability, the platform architecture was analyzed under an enterprise workload model of **350 Business Locations – Illustrative Scalability Scenario** supporting **1,050 Simulated Active Devices**:
 
-| Parameter | Production Operating Scale | Architectural Impact on Shared Database |
+| Parameter | Simulated Scale | Architectural Impact & Connection Multiplexing |
 | :--- | :---: | :--- |
-| **Business Locations** | **350** | Multi-tenant data partitioning requirement; records scoped by `outlet_id`. |
-| **Dedicated POS Terminals** | **350** | Continuous checkout writes, receipt printing, cash drawer reconciliation. |
-| **Staff Mobile Devices** | **700** | Two mobile staff phones/tablets per outlet for table-side orders & inventory checks. |
-| **Total Active Devices** | **1,050 Devices** | Simultaneous concurrent HTTP/WebSocket persistent connections to API layer. |
-| **Transaction Character** | **Concurrent Sales & Orders** | Sub-second write requirement; high-frequency inserts into line-item tables. |
-| **Operational Model** | **Centralized Cloud Services** | Shared PostgreSQL cluster hosting sales ledgers, catalogs, and reporting views. |
+| **Business Locations** | **350 Locations** | Multi-tenant data partitioning requirement; records scoped by `outlet_id`. |
+| **Dedicated POS Terminals** | **350 Terminals** | Continuous checkout writes, receipt printing, cash drawer reconciliation. |
+| **Staff Mobile Devices** | **700 Handhelds** | Two mobile staff devices per outlet for table-side orders & inventory checks. |
+| **Simulated Active Devices** | **1,050 Devices** | Simultaneous concurrent HTTP/WebSocket persistent connections to API layer. |
+| **Database Connections** | **250 – 450 Connections** | Multiplexed via PgBouncer; 1,050 active devices do NOT equal direct DB connections. |
+| **Transaction Model** | **ACID Boundaries** | Sub-second write requirement; high-frequency inserts into line-item tables. |
 
-Across approximately 350 commercial outlets, the platform manages over 1,050 active devices simultaneously. The multi-tenant architecture scopes transactions cleanly by `outlet_id`, maintaining full ACID guarantees during continuous storefront ordering and central inventory synchronization.
+> **Connection Multiplexing Distinction:**  
+> In this 350 business location scenario with 1,050 simulated active devices, client connections are multiplexed at the pooling layer (PgBouncer in transaction mode). 1,050 active devices do not equal 1,050 direct database connections; rather, they are efficiently pooled into 250–450 backend connections, preserving PostgreSQL memory and preventing connection exhaustion.
+
+> **Disclaimer:** These figures are illustrative examples for a hypothetical performance optimization scenario. They are not verified historical measurements from the Perera & Sons POS project or LOGIXOTECH production testing.
 
 ---
 
-## 6. Performance Benchmark: Before vs. After Optimization
+## 6. ILLUSTRATIVE PERFORMANCE BENCHMARK – EXAMPLE VALUES FOR TECHNICAL DEMONSTRATION
 
-The table below illustrates verified performance metrics before and after targeted engineering remediation under peak checkout workloads:
+The table below illustrates performance metrics before and after targeted engineering remediation under a simulated peak checkout scenario:
 
-| Performance Metric | Production Baseline (Pre-Fix) | Optimized Result (Post-Fix) | Measured Delta |
+| Performance Metric | Illustrative Baseline | Illustrative Optimized Result | Illustrative Improvement |
 | :--- | :---: | :---: | :---: |
-| **API Response Time (p95)** | **920 ms** | **420 ms** | **54.3% Latency Drop** |
-| **Database Query Response Time** | **450 ms** | **120 ms** | **73.3% Latency Drop** |
-| **Database CPU Utilization** | **85%** | **45%** | **47.1% Load Reduction** |
-| **Failed Request Rate** | **5.0%** | **0.5%** | **90.0% Error Reduction** |
-| **Peak Database Connections** | **450** | **250** | **44.4% Pool Efficiency** |
-| **Transaction Processing Error Rate** | **2.0%** | **0.2%** | **90.0% Reliability Gain** |
+| **API Response Time (p95)** | **920 ms** | **420 ms** | **-54.3% Latency Drop** |
+| **Database Query Response Time** | **450 ms** | **120 ms** | **-73.3% Latency Drop** |
+| **Database CPU Utilization** | **85%** | **45%** | **-47.1% Load Reduction** |
+| **Failed Request Rate** | **5.0%** | **0.5%** | **-90.0% Error Reduction** |
+| **Peak Database Connections** | **450** | **250** | **-44.4% Pool Efficiency** |
+| **Transaction Processing Error Rate** | **2.0%** | **0.2%** | **-90.0% Reliability Gain** |
 
-**Verified Production Impact:** Through systematic slow query elimination, composite indexing, transaction-mode connection pooling (PgBouncer), and lock mitigation, LOGIXOTECH successfully reduced p95 API response times by 54.3% and slashed database query latency by 73.3%, permanently resolving cashier terminal freezes during peak customer traffic.
+> **Disclaimer:** These figures are illustrative examples for a hypothetical performance optimization scenario. They are not verified historical measurements from the Perera & Sons POS project or LOGIXOTECH production testing.
+
+**Illustrative Optimization Impact:** Through systematic query analysis, composite indexing, transaction-mode connection pooling (PgBouncer), and lock mitigation, high-concurrency database platforms can reduce p95 API response times by over 50% and slash database query latency by over 70%, stabilizing cashier terminals during peak customer traffic.
+
+> **Disclaimer:** These figures are illustrative examples for a hypothetical performance optimization scenario. They are not verified historical measurements from the Perera & Sons POS project or LOGIXOTECH production testing.
 
 ---
 
@@ -210,31 +217,34 @@ LOGIXOTECH approaches multi-tenant database optimization through empirical, meas
 
 * **Client Organization:** Perera & Sons
 * **Project:** Multi-Outlet POS Platform – Performance Investigation and Optimization
-* **Service Provider:** LOGIXOTECH
+* **Service Provider:** LOGIXOTECH Technical Team
 * **Industry Sector:** Retail and Food & Beverage (F&B)
 * **Project Scope:** Performance investigation and optimization of an existing multi-outlet POS platform following the introduction of additional application features.
-* **Project Scale:** ~350 Commercial Outlets Operating Concurrently
+* **Project Scale:** ~350 Business Locations – Illustrative Scalability Scenario (Subject to verification against actual project scope)
 
 ### Engagement Summary
 LOGIXOTECH was engaged to investigate performance and response-time issues affecting the existing POS platform. The engagement focused on database performance investigation, query optimization, connection management, transaction concurrency, API performance, and system scalability.
 
 ### Client Reference Contact Information
-*Direct contact facilitated via authorized introduction bridge:*
-* **Reference Contact:** Available upon formal introduction via LOGIXOTECH management
-* **Official Position:** Head of Information Technology / Retail Systems
+**Client reference introductions may be arranged subject to client authorization and availability.**
+* **Reference Contact Protocol:** Client reference introductions arranged subject to authorization
 * **Organization:** Perera & Sons
-* **Business Email & Phone:** Facilitated via authorized introductory bridge
-* **Permission to Contact:** Confirmed for prospective client evaluations
+* **Engagement Focus:** Multi-Outlet POS Performance Optimization
+* **Permission to Contact:** Arranged via introductory bridge upon authorization
 
 ### Project Verification Framework
 Subject to client authorization, LOGIXOTECH can facilitate a reference discussion to formally verify:
 1. **The nature and scope of the engagement:** The operational boundaries and technical focus areas.
-2. **LOGIXOTECH's involvement:** Direct leadership and execution of the POS performance investigation.
+2. **LOGIXOTECH's involvement:** Direct involvement in the POS performance investigation.
 3. **Technical responsibilities performed:** Database profiling, indexing, query rewrites, and load testing conducted by the team.
-4. **Scale supported:** Over 350 commercial business locations and 1,050 active devices.
+4. **Scale supported:** Approximate number of business locations supported.
 5. **Remediation activities undertaken:** The specific performance investigation and optimization activities delivered.
 
-### Confidentiality Statement & Verification Governance
-Client contact details and operational project information are protected under standard corporate confidentiality standards. LOGIXOTECH coordinates direct reference calls and technical verification discussions with Perera & Sons leadership for prospective enterprise clients to review the engagement scope, engineering responsibilities performed, and delivered database optimizations.
+### Confidentiality Statement & Evidence Classification
+Client contact details and operational project information are protected under standard corporate confidentiality standards. Where direct contact details cannot be shared, LOGIXOTECH can arrange an authorized reference introduction or provide an approved anonymized project summary.
+
+> **Evidence Classification:** Historical project details and client references must be supported by actual project records and client confirmation. No hypothetical benchmark figures should be represented as verified project results.
+
+> **Disclaimer:** These figures are illustrative examples for a hypothetical performance optimization scenario. They are not verified historical measurements from the Perera & Sons POS project or LOGIXOTECH production testing.
 
 

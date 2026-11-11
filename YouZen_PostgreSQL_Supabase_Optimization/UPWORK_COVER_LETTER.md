@@ -19,16 +19,19 @@ Here is our direct response to your four key submission requirements:
 ---
 
 ### 1. Similar Project with Measurable Production Results
-* **Platform:** Multi-tenant hospitality POS and online reservation system built on Next.js, Node.js, and Supabase / PostgreSQL.
-* **The Problem:** During peak service hours (Friday/Saturday dinner rush), concurrent table checks and online orders triggered connection pool exhaustion in PgBouncer, severe table lock waits on `orders`/`ticket_items`, and elevated p95 API latency (>950ms), causing checkout freezes on floor terminals.
+* **Platform:** Multi-outlet retail and food-service POS platform modeled under **350 Business Locations – Illustrative Scalability Scenario (1,050 Simulated Active Devices)** on a shared PostgreSQL architecture.
+* **The Problem:** During peak service hours (Friday/Saturday meal rush), concurrent table checks and orders triggered connection pool saturation, table lock waits on `orders`/`order_items`, and elevated p95 API latency (920 ms), causing UI freezes on storefront terminals.
 * **Our Intervention:**
   * Re-architected hot table writes using PostgreSQL row-level locking (`FOR UPDATE SKIP LOCKED`) and advisory locks to eliminate deadlock rollbacks during concurrent table checkout.
-  * Optimized multi-tenant Row-Level Security (RLS) policies by replacing dynamic table lookups with session-cached JWT claims, reducing policy evaluation cost from `O(N)` subqueries to `O(1)` index lookups.
-  * Replaced uncontrolled Supabase Realtime broadcast channels with filtered, tenant-scoped channel subscriptions and debounced client-side invalidations.
-* **Measurable Results:**
-  * **p95 query response time dropped from 950ms to 42ms** under peak simulated load.
-  * Peak database CPU utilization decreased from **88% to 26%**.
-  * Zero deadlocks or connection dropouts across 450+ concurrent POS terminals and staff mobile devices.
+  * Optimized multi-tenant queries by replacing unindexed table scans with targeted composite and partial indexes.
+  * Implemented PgBouncer transaction-mode connection pooling, multiplexing 1,050 active devices into 250–450 backend connections.
+* **Illustrative Benchmark Results:**
+  * **p95 API response time dropped from 920 ms to 420 ms** (-54.3% latency drop).
+  * **Database query latency dropped from 450 ms to 120 ms** (-73.3% latency drop).
+  * **Database CPU utilization decreased from 85% to 45%** under simulated peak load.
+  * **Peak database connections dropped from 450 to 250** via transaction pooling.
+  * *Disclaimer: These figures are illustrative examples for a hypothetical performance optimization scenario. They are not verified historical measurements from the Perera & Sons POS project or LOGIXOTECH production testing.*
+  * *Client reference introductions may be arranged subject to client authorization and availability.*
 
 ---
 
@@ -63,9 +66,12 @@ Before touching schema or queries, we focus on identifying the primary systemic 
 ### 4. Availability & Timeline
 * **Availability:** Immediate start (within 24–48 hours of agreement).
 * **Timeline:** 
-  * **Phase 1 (Audit & Staging Simulation):** 10 to 14 business days.
-  * **Phase 2 (Remediation, Re-testing & Handover):** 10 to 14 business days.
-* **Commercial Alignment:** We are completely aligned with your phased deliverable structure. We will confirm the exact scope and milestone deliverables during kickoff to match your preferred engagement terms.
+  * **Phase 1 (Audit & Staging Simulation):** 10 business days (approximately two weeks).
+  * **Phase 2 (Remediation, Re-testing & Handover):** Approximately two additional weeks, subject to agreed scope.
+* **Commercial Terms:**
+  * **Phase 1 Fixed Price:** USD 1,000 (all-inclusive for baseline audit, synthetic data, k6 test scripts, and audit report).
+  * **Phase 2 Indicative Range:** USD 1,500 – $2,500 (final scope and price agreed collaboratively after Phase 1 audit).
+  * **Additional Infrastructure Costs:** USD 0 under agreed staging environment assumptions.
 
 Attached is our detailed **4-Page Architectural Proposal PDF** along with the technical CVs of our lead database and cloud systems architects.
 

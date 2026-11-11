@@ -376,12 +376,12 @@ HTML_CONTENT = """<!DOCTYPE html>
           </tr>
           <tr>
             <td><strong>Additional Infrastructure Costs</strong></td>
-            <td>Utilizes existing Supabase staging project. Load tests executed via open-source k6 / Locust runners with zero software licensing costs.</td>
-            <td style="text-align: right; color: #059669;"><strong>$0.00</strong></td>
+            <td>USD 0 under agreed existing staging-environment assumptions. Any required paid Supabase plan upgrades, additional cloud infrastructure or third-party services will be identified and approved by the client before being incurred.</td>
+            <td style="text-align: right; color: #059669;"><strong>USD 0.00</strong></td>
           </tr>
           <tr>
             <td><strong>Delivery Timeline</strong></td>
-            <td><strong>7 to 10 business days</strong> from receipt of repository access and staging database credentials.</td>
+            <td><strong>10 business days (approximately two weeks)</strong> from receipt of repository access and staging database credentials.</td>
             <td style="text-align: right;"><strong>Fixed Timeline</strong></td>
           </tr>
           <tr>
@@ -507,7 +507,7 @@ HTML_CONTENT = """<!DOCTYPE html>
       <div class="meta-block">
         <strong>Phase 2 Range:</strong> $1,500 – $2,500 USD (Indicative)<br>
         <strong>Technical Owner:</strong> Viranga Lakshan (Fixes Implementation)<br>
-        <strong>Case Study:</strong> Perera & Sons POS (~350 Outlets Verified)
+        <strong>Case Study:</strong> 350 Locations – Illustrative Scenario
       </div>
     </div>
 
@@ -555,7 +555,7 @@ HTML_CONTENT = """<!DOCTYPE html>
           <div>
             <p class="card-p">
               <strong>Indicative Fixed-Price Range:</strong> <strong>$1,500 – $2,500 USD</strong><br>
-              <strong>Standard Senior Engineering Rate:</strong> <strong>$45 – $50 / hour</strong><br>
+              <strong>Estimated Timeline:</strong> Approximately two additional weeks, subject to agreed scope.<br>
               <strong>Scope of Work:</strong> Implementing prioritized composite indexes, query rewrites, RLS policy refactoring, concurrency guards, and Realtime channel scoping, followed by a complete re-run of the k6 benchmark suite.
             </p>
           </div>
@@ -578,14 +578,14 @@ HTML_CONTENT = """<!DOCTYPE html>
         <div class="profile-box">
           <div class="profile-header">
             <span class="profile-name">Viranga Lakshan</span>
-            <span class="profile-role">Technical Lead & Database Eng.</span>
+            <span class="profile-role">Technical Lead</span>
           </div>
           <p class="card-p"><strong>Primary Technical Owner</strong></p>
           <ul class="card-bullets">
-            <li>Personally leads the PostgreSQL / Supabase audit and slow query profiling.</li>
-            <li>Audits table lock trees, connection pooling limits, and RLS policy overhead.</li>
-            <li><strong>Personally implements all agreed database fixes</strong>, index migrations, and SQL rewrites in Phase 2.</li>
-            <li>Signs off on final database architecture and benchmark verification.</li>
+            <li>Personally leads the PostgreSQL and Supabase audit.</li>
+            <li>Investigates queries, indexes, locks, and connection pools.</li>
+            <li><strong>Personally implements agreed database fixes and optimizations.</strong></li>
+            <li>Leads database architecture decisions and technical sign-off.</li>
           </ul>
         </div>
 
@@ -596,23 +596,24 @@ HTML_CONTENT = """<!DOCTYPE html>
           </div>
           <p class="card-p"><strong>Primary Load-Testing Owner</strong></p>
           <ul class="card-bullets">
-            <li>Personally develops reusable k6 / Locust load scripts and synthetic data generators.</li>
-            <li>Executes independent and combined peak load tests on staging.</li>
-            <li>Profiles API bottlenecks, serialization overhead, and Realtime subscription traffic.</li>
-            <li>Generates latency percentiles (p50, p95, p99) and connection saturation graphs.</li>
+            <li>Leads load-test planning and execution.</li>
+            <li>Develops k6 and Locust test scripts.</li>
+            <li>Generates synthetic test data for 100 restaurants and 100 salons.</li>
+            <li>Executes tests against staging and supports API investigation.</li>
           </ul>
         </div>
 
         <div class="profile-box">
           <div class="profile-header">
             <span class="profile-name">Lithumitha Ravikumar</span>
-            <span class="profile-role">Project Coordination & Client Comms</span>
+            <span class="profile-role">Project Coordination</span>
           </div>
           <p class="card-p"><strong>Primary Coordination Owner</strong></p>
           <ul class="card-bullets">
-            <li>Manages delivery timelines, milestone tracking, and daily Slack/Teams communication.</li>
-            <li>Coordinates technical syncs, meeting agendas, and changelog/documentation QA.</li>
-            <li><em>Note: Role is dedicated project management and coordination, not primary database coding.</em></li>
+            <li>Coordinates project requirements, timelines, and milestones.</li>
+            <li>Manages client communication and status reporting.</li>
+            <li>Prepares documentation and test deliverables; tracks progress.</li>
+            <li><em>Primary role is project management and coordination, not primary database engineering.</em></li>
           </ul>
         </div>
       </div>
@@ -628,17 +629,20 @@ HTML_CONTENT = """<!DOCTYPE html>
         <div class="card slate">
           <div class="card-header">
             <span class="card-title">Supporting 9-Page Case Study Attached</span>
-            <span class="card-badge">Perera & Sons</span>
+            <span class="card-badge">Technical Benchmark</span>
           </div>
           <p class="card-p">
-            Attached is our report <code>LOGIXOTECH_Multi_Outlet_POS_Performance_Scalability_Report.pdf</code> documenting our verified engagement on the Perera & Sons platform across <strong>~350 outlets and 1,050 active devices</strong>:
+            Attached is our report <code>LOGIXOTECH_Multi_Outlet_POS_Performance_Scalability_Report.pdf</code> modeling a <strong>350 Business Locations – Illustrative Scalability Scenario (1,050 Simulated Active Devices)</strong>:
           </p>
           <ul class="card-bullets">
-            <li>API p95 latency reduced from <strong>920 ms to 420 ms</strong> (-54.3%).</li>
-            <li>Query response time dropped from <strong>450 ms to 120 ms</strong> (-73.3%).</li>
-            <li>Database CPU dropped from <strong>85% to 45%</strong> during peak dinner rush.</li>
-            <li>Reference introduction call with IT leadership available on request.</li>
+            <li>API p95 latency: <strong>920 ms to 420 ms</strong> (-54.3%).</li>
+            <li>Query response time: <strong>450 ms to 120 ms</strong> (-73.3%).</li>
+            <li>Database CPU load: <strong>85% to 45%</strong> during peak simulated influx.</li>
+            <li><em>Client reference introductions may be arranged subject to client authorization and availability.</em></li>
           </ul>
+          <div style="margin-top: 3px; font-size: 6.3pt; color: #64748b; font-style: italic; line-height: 1.2;">
+            These figures are illustrative examples for a hypothetical performance optimization scenario. They are not verified historical measurements from the Perera & Sons POS project or LOGIXOTECH production testing.
+          </div>
         </div>
 
         <div class="card tint">
@@ -726,3 +730,4 @@ def generate_pdf():
 
 if __name__ == "__main__":
     generate_pdf()
+

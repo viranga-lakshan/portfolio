@@ -551,7 +551,7 @@ HTML_CONTENT = """<!DOCTYPE html>
       </div>
       <div class="cover-meta-item">
         <strong>Report Classification:</strong>
-        Verified Technical Project & Benchmark Assessment
+        Anonymized Technical Project and Benchmark Report
       </div>
       <div class="cover-meta-item">
         <strong>Publication Date:</strong>
@@ -559,7 +559,7 @@ HTML_CONTENT = """<!DOCTYPE html>
       </div>
       <div class="cover-meta-item">
         <strong>Target Benchmark Context:</strong>
-        Multi-Location High-Concurrency Shared Database Architecture (~350 Outlets)
+        Multi-Location High-Concurrency Shared Database Architecture (350 Business Locations – Illustrative Scalability Scenario)
       </div>
     </div>
   </div>
@@ -812,64 +812,64 @@ HTML_CONTENT = """<!DOCTYPE html>
     <!-- Top Header -->
     <div class="header-top">
       <div>
-        <div class="brand-title">LOGIXO<span style="color:#0284c7;">TECH</span> <span class="brand-badge">Scalability Architecture</span></div>
-        <div class="brand-sub">Multi-Location Scalability Architecture: 350-Outlet Concurrency Model</div>
+        <div class="brand-title">LOGIXO<span style="color:#0284c7;">TECH</span> <span class="brand-badge">Scalability Scenario</span></div>
+        <div class="brand-sub">Multi-Location Scalability Scenario: 350 Business Locations Model</div>
       </div>
       <div class="meta-block">
-        <strong>Architecture Model:</strong> Production Multi-Outlet Scalability Architecture<br>
-        <strong>Operational Footprint:</strong> ~350 Retail Outlets • 1,050 Active Devices<br>
-        <strong>Workload Characterization:</strong> Concurrent Lunch/Dinner Peak Sales Influx
+        <strong>Architecture Model:</strong> 350 Business Locations – Illustrative Scalability Scenario<br>
+        <strong>Simulated Scale:</strong> 350 Locations • 1,050 Simulated Active Devices<br>
+        <strong>Workload Characterization:</strong> Simulated Peak Ordering & Checkout Concurrency Model
       </div>
     </div>
 
     <!-- Section 6: Scalability Context -->
     <div class="section">
       <div class="section-title">
-        6. Multi-Location Scalability Architecture: 350-Location Production Fleet
-        <span class="tagline">Production Workload Architecture Supporting Enterprise Multi-Outlet Deployment</span>
+        6. 350 Business Locations – Illustrative Scalability Scenario
+        <span class="tagline">Illustrative Workload Modeling Across 350 Business Locations and 1,050 Simulated Active Devices</span>
       </div>
-      <p class="card-p" style="margin-bottom:6px;">
-        To support the operational scale of Perera & Sons, the platform architecture accommodates an extensive network of <strong>approximately 350 retail and food-service outlets</strong>. This operating footprint provides the foundational architecture to maintain database stability, sub-second query latency, and reliable connection handling during peak daily meal periods.
+      <p class="card-p" style="margin-bottom:5px;">
+        To evaluate high-concurrency database stability, the platform architecture was analyzed under an enterprise workload model of <strong>350 Business Locations – Illustrative Scalability Scenario</strong> supporting <strong>1,050 Simulated Active Devices</strong>. This benchmark isolates query latency, connection pool multiplexing, and lock contention during simulated peak sales periods.
       </p>
 
       <table class="matrix-table">
         <thead>
           <tr>
             <th style="width: 28%;">Parameter</th>
-            <th style="width: 22%; text-align: right;">Production Operating Scale</th>
-            <th style="width: 50%;">Architectural Impact on Shared Database</th>
+            <th style="width: 22%; text-align: right;">Simulated Scale</th>
+            <th style="width: 50%;">Architectural Impact & Connection Multiplexing</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><strong>Business Locations</strong></td>
-            <td style="text-align: right;"><strong>350</strong></td>
+            <td style="text-align: right;"><strong>350 Locations</strong></td>
             <td>Multi-tenant data partitioning requirement; records scoped by <code>outlet_id</code>.</td>
           </tr>
           <tr>
             <td><strong>Dedicated POS Terminals</strong></td>
-            <td style="text-align: right;"><strong>350</strong></td>
+            <td style="text-align: right;"><strong>350 Terminals</strong></td>
             <td>Continuous checkout writes, receipt printing, cash drawer reconciliation.</td>
           </tr>
           <tr>
             <td><strong>Staff Mobile Devices</strong></td>
-            <td style="text-align: right;"><strong>700</strong></td>
-            <td>Two mobile staff phones/tablets per outlet for table-side orders & inventory checks.</td>
+            <td style="text-align: right;"><strong>700 Handhelds</strong></td>
+            <td>Two mobile staff devices per outlet for table-side ordering and stock checks.</td>
           </tr>
           <tr>
-            <td><strong>Total Active Devices</strong></td>
+            <td><strong>Simulated Active Devices</strong></td>
             <td style="text-align: right;"><strong>1,050 Devices</strong></td>
             <td>Simultaneous concurrent HTTP/WebSocket persistent connections to API layer.</td>
           </tr>
           <tr>
-            <td><strong>Transaction Character</strong></td>
-            <td style="text-align: right;"><strong>Concurrent Sales & Orders</strong></td>
-            <td>Sub-second write requirement; high-frequency inserts into line-item tables.</td>
+            <td><strong>Database Connections</strong></td>
+            <td style="text-align: right;"><strong>250 – 450 Connections</strong></td>
+            <td>Multiplexed via PgBouncer; 1,050 active devices do NOT equal direct DB connections.</td>
           </tr>
           <tr>
-            <td><strong>Operational Model</strong></td>
-            <td style="text-align: right;"><strong>Centralized Cloud Services</strong></td>
-            <td>Shared PostgreSQL cluster hosting sales ledgers, catalogs, and reporting views.</td>
+            <td><strong>Transaction Model</strong></td>
+            <td style="text-align: right;"><strong>ACID Boundaries</strong></td>
+            <td>Sub-second write requirements; high-frequency inserts into line-item tables.</td>
           </tr>
         </tbody>
       </table>
@@ -903,7 +903,7 @@ HTML_CONTENT = """<!DOCTYPE html>
             <ul class="pipe-bullets">
               <li><strong>Load Balancer:</strong> SSL termination & regional request routing.</li>
               <li><strong>API Services:</strong> Stateless Next.js / Node.js worker microservices.</li>
-              <li><strong>Connection Pooler:</strong> PgBouncer multiplexing 1,050 client connections into a controlled backend pool.</li>
+              <li><strong>Connection Pooler:</strong> PgBouncer multiplexing 1,050 client devices into 250–450 backend connections.</li>
               <li><strong>Rate Limiter & Cache:</strong> Redis-backed catalog caching.</li>
             </ul>
           </div>
@@ -924,12 +924,15 @@ HTML_CONTENT = """<!DOCTYPE html>
       </div>
     </div>
 
-    <!-- Section 6 Highlight Box -->
-    <div class="callout-box" style="margin-top:6px;">
-      <div class="callout-title">Production Concurrency Architecture</div>
+    <!-- Section 6 Highlight Box & Disclaimer -->
+    <div class="callout-box" style="margin-top:5px; margin-bottom:5px;">
+      <div class="callout-title">Connection Multiplexing Distinction</div>
       <div class="callout-text">
-        Across approximately 350 commercial outlets, the platform manages over 1,050 active devices simultaneously. The multi-tenant architecture scopes transactions cleanly by <code>outlet_id</code>, maintaining full ACID guarantees during continuous storefront ordering and central inventory synchronization.
+        In this 350 business location scenario with 1,050 simulated active devices, client connections are multiplexed at the pooling layer (PgBouncer in transaction mode). 1,050 active devices do not equal 1,050 direct database connections; rather, they are efficiently pooled into 250–450 backend connections, preserving PostgreSQL memory and preventing connection exhaustion.
       </div>
+    </div>
+    <div style="font-size: 6.8pt; color: #64748b; font-style: italic; line-height: 1.25; border-left: 2.5px solid #94a3b8; padding-left: 6px;">
+      These figures are illustrative examples for a hypothetical performance optimization scenario. They are not verified historical measurements from the Perera & Sons POS project or LOGIXOTECH production testing.
     </div>
   </div>
 
@@ -950,32 +953,32 @@ HTML_CONTENT = """<!DOCTYPE html>
     <div class="header-top">
       <div>
         <div class="brand-title">LOGIXO<span style="color:#0284c7;">TECH</span> <span class="brand-badge">Benchmark Metrics</span></div>
-        <div class="brand-sub">Empirical Performance Benchmark: Before vs. After Optimization Scenario</div>
+        <div class="brand-sub">ILLUSTRATIVE PERFORMANCE BENCHMARK – EXAMPLE VALUES FOR TECHNICAL DEMONSTRATION</div>
       </div>
       <div class="meta-block">
-        <strong>Evaluation Protocol:</strong> Production Peak Meal-Rush Concurrency Benchmarks<br>
+        <strong>Evaluation Protocol:</strong> Simulated Peak Meal-Rush Concurrency Benchmarks<br>
         <strong>Metric Scope:</strong> p95 Response Time, Query Latency, CPU, Connection Peak<br>
-        <strong>Classification:</strong> Verified Production Performance Metrics
+        <strong>Classification:</strong> Illustrative Performance Benchmark – Example Values for Technical Demonstration
       </div>
     </div>
 
     <!-- Section 7: Benchmark Comparison -->
     <div class="section">
       <div class="section-title">
-        7. Performance Benchmark: Before vs. After Optimization
-        <span class="tagline">Measured Production Results Following LOGIXOTECH Database Remediation</span>
+        7. ILLUSTRATIVE PERFORMANCE BENCHMARK – EXAMPLE VALUES FOR TECHNICAL DEMONSTRATION
+        <span class="tagline">Illustrative Comparison: Baseline vs. Optimized Architecture</span>
       </div>
-      <p class="card-p" style="margin-bottom:6px;">
-        To demonstrate the quantifiable impact of database query optimization, connection pooling, and lock contention mitigation, the table below illustrates performance metrics before and after targeted engineering remediation under a peak checkout simulation:
+      <p class="card-p" style="margin-bottom:5px;">
+        To demonstrate the quantifiable impact of database query optimization, connection pooling, and lock contention mitigation, the table below illustrates performance metrics before and after targeted engineering remediation under a simulated peak checkout scenario:
       </p>
 
       <table class="matrix-table">
         <thead>
           <tr>
             <th style="width: 32%;">Performance Metric</th>
-            <th style="width: 20%; text-align: right;">Production Baseline (Pre-Fix)</th>
-            <th style="width: 22%; text-align: right;">Optimized Result (Post-Fix)</th>
-            <th style="width: 26%; text-align: right;">Measured Delta</th>
+            <th style="width: 22%; text-align: right;">Illustrative Baseline</th>
+            <th style="width: 24%; text-align: right;">Illustrative Optimized Result</th>
+            <th style="width: 22%; text-align: right;">Illustrative Delta</th>
           </tr>
         </thead>
         <tbody>
@@ -983,40 +986,43 @@ HTML_CONTENT = """<!DOCTYPE html>
             <td><strong>API Response Time (p95)</strong></td>
             <td style="text-align: right; color: #dc2626;"><strong>920 ms</strong></td>
             <td style="text-align: right; color: #059669;"><strong>420 ms</strong></td>
-            <td style="text-align: right;"><strong>54.3% Latency Drop</strong></td>
+            <td style="text-align: right;"><strong>-54.3% Latency Drop</strong></td>
           </tr>
           <tr>
             <td><strong>Database Query Response Time</strong></td>
             <td style="text-align: right; color: #dc2626;"><strong>450 ms</strong></td>
             <td style="text-align: right; color: #059669;"><strong>120 ms</strong></td>
-            <td style="text-align: right;"><strong>73.3% Latency Drop</strong></td>
+            <td style="text-align: right;"><strong>-73.3% Latency Drop</strong></td>
           </tr>
           <tr>
             <td><strong>Database CPU Utilization</strong></td>
             <td style="text-align: right; color: #dc2626;"><strong>85%</strong></td>
             <td style="text-align: right; color: #059669;"><strong>45%</strong></td>
-            <td style="text-align: right;"><strong>47.1% Load Reduction</strong></td>
+            <td style="text-align: right;"><strong>-47.1% Load Reduction</strong></td>
           </tr>
           <tr>
             <td><strong>Failed Request Rate</strong></td>
             <td style="text-align: right; color: #dc2626;"><strong>5.0%</strong></td>
             <td style="text-align: right; color: #059669;"><strong>0.5%</strong></td>
-            <td style="text-align: right;"><strong>90.0% Error Reduction</strong></td>
+            <td style="text-align: right;"><strong>-90.0% Error Reduction</strong></td>
           </tr>
           <tr>
             <td><strong>Peak Database Connections</strong></td>
             <td style="text-align: right; color: #dc2626;"><strong>450</strong></td>
             <td style="text-align: right; color: #059669;"><strong>250</strong></td>
-            <td style="text-align: right;"><strong>44.4% Pool Efficiency</strong></td>
+            <td style="text-align: right;"><strong>-44.4% Pool Efficiency</strong></td>
           </tr>
           <tr>
             <td><strong>Transaction Processing Error Rate</strong></td>
             <td style="text-align: right; color: #dc2626;"><strong>2.0%</strong></td>
             <td style="text-align: right; color: #059669;"><strong>0.2%</strong></td>
-            <td style="text-align: right;"><strong>90.0% Reliability Gain</strong></td>
+            <td style="text-align: right;"><strong>-90.0% Reliability Gain</strong></td>
           </tr>
         </tbody>
       </table>
+      <div style="margin-top: 4px; font-size: 6.8pt; color: #64748b; font-style: italic; line-height: 1.25; border-left: 2.5px solid #0284c7; padding-left: 6px;">
+        These figures are illustrative examples for a hypothetical performance optimization scenario. They are not verified historical measurements from the Perera & Sons POS project or LOGIXOTECH production testing.
+      </div>
     </div>
 
     <!-- Visual Metric Delta Cards -->
@@ -1080,13 +1086,16 @@ HTML_CONTENT = """<!DOCTYPE html>
           <span class="delta-badge">99.8% Success Rate</span>
         </div>
       </div>
+      <div style="margin-top: 4px; font-size: 6.8pt; color: #64748b; font-style: italic; line-height: 1.25; border-left: 2.5px solid #0284c7; padding-left: 6px;">
+        These figures are illustrative examples for a hypothetical performance optimization scenario. They are not verified historical measurements from the Perera & Sons POS project or LOGIXOTECH production testing.
+      </div>
     </div>
 
-    <!-- Verified Production Impact Box -->
-    <div class="callout-box" style="margin-top:7px; background:#f0fdf4; border-color:#16a34a;">
-      <div class="callout-title" style="color:#15803d;">Verified Production Impact</div>
+    <!-- Illustrative Optimization Impact Box -->
+    <div class="callout-box" style="margin-top:5px; background:#f0fdf4; border-color:#16a34a;">
+      <div class="callout-title" style="color:#15803d;">Illustrative Optimization Impact</div>
       <div class="callout-text" style="color:#166534;">
-        Through systematic slow query elimination, composite indexing, transaction-mode connection pooling (PgBouncer), and lock mitigation, LOGIXOTECH successfully reduced p95 API response times by 54.3% and slashed database query latency by 73.3%, permanently resolving cashier terminal freezes during peak customer traffic.
+        Through systematic slow query elimination, composite indexing, transaction-mode connection pooling (PgBouncer), and lock mitigation, high-concurrency database platforms can reduce p95 API response times by 54.3% and slash database query latency by 73.3%, stabilizing cashier terminals during peak customer traffic.
       </div>
     </div>
   </div>
@@ -1366,42 +1375,42 @@ HTML_CONTENT = """<!DOCTYPE html>
         <div class="profile-box">
           <div class="profile-header">
             <span class="profile-name">Viranga Lakshan</span>
-            <span class="profile-role">Technical Lead & Database Eng.</span>
+            <span class="profile-role">Technical Lead</span>
           </div>
           <p class="card-p"><strong>Primary Technical Owner</strong></p>
           <ul class="card-bullets">
-            <li>Personally leads the PostgreSQL / Supabase technical audit and query profiling.</li>
-            <li>Analyzes slow queries, lock contention, and RLS policy overhead.</li>
-            <li><strong>Personally implements all agreed database fixes</strong>, index migrations, and SQL rewrites.</li>
-            <li>Validates database optimization results and provides architectural sign-off.</li>
+            <li>Personally leads the PostgreSQL and Supabase audit.</li>
+            <li>Investigates queries, indexes, locks, and connection pools.</li>
+            <li><strong>Personally implements agreed database fixes and optimizations.</strong></li>
+            <li>Leads database architecture decisions and technical sign-off.</li>
           </ul>
         </div>
 
         <div class="profile-box">
           <div class="profile-header">
             <span class="profile-name">Janith Kavishka</span>
-            <span class="profile-role">Backend & Load-Testing Eng.</span>
+            <span class="profile-role">Backend/API & Load-Testing Eng.</span>
           </div>
           <p class="card-p"><strong>Primary Load-Testing Owner</strong></p>
           <ul class="card-bullets">
-            <li>Leads load-test planning, scenario design, and scripting in <strong>k6</strong> / <strong>Locust</strong>.</li>
-            <li>Prepares synthetic data generators for 100 restaurants and 100 salons.</li>
-            <li>Executes independent and combined peak load tests on staging.</li>
-            <li>Profiles API bottlenecks and produces before-and-after latency comparisons.</li>
+            <li>Leads load-test planning and execution.</li>
+            <li>Develops k6 and Locust test scripts.</li>
+            <li>Generates synthetic test data for 100 restaurants and 100 salons.</li>
+            <li>Executes tests against staging and supports API investigation.</li>
           </ul>
         </div>
 
         <div class="profile-box">
           <div class="profile-header">
             <span class="profile-name">Lithumitha Ravikumar</span>
-            <span class="profile-role">Project Coordination & Client Comms</span>
+            <span class="profile-role">Project Coordination</span>
           </div>
           <p class="card-p"><strong>Primary Coordination Owner</strong></p>
           <ul class="card-bullets">
-            <li>Manages project timelines, scope tracking, and milestone deliverables.</li>
-            <li>Coordinates daily client communication and schedules technical meetings.</li>
-            <li>Maintains technical runbooks, changelogs, and audit documentation.</li>
-            <li><em>Note: Role is project management and coordination, not primary database coding.</em></li>
+            <li>Coordinates project requirements, timelines, and milestones.</li>
+            <li>Manages client communication and status reporting.</li>
+            <li>Prepares documentation and test deliverables; tracks progress.</li>
+            <li><em>Primary role is project management and coordination, not primary database engineering.</em></li>
           </ul>
         </div>
       </div>
@@ -1478,11 +1487,11 @@ HTML_CONTENT = """<!DOCTYPE html>
     <div class="section">
       <div class="section-title">
         16. Client Reference & Project Verification
-        <span class="tagline">Formal Verification Protocols for International Prospective Clients</span>
+        <span class="tagline">Formal Verification Protocols for Prospective Clients</span>
       </div>
 
       <!-- Project Reference Metadata Card -->
-      <div class="card tint accent" style="margin-bottom: 7px;">
+      <div class="card tint accent" style="margin-bottom: 6px;">
         <div class="card-header">
           <span class="card-title">Project Reference Profile – Perera & Sons POS Optimization</span>
           <span class="card-badge">Enterprise Profile</span>
@@ -1491,7 +1500,7 @@ HTML_CONTENT = """<!DOCTYPE html>
           <div><strong>Client Organization:</strong> Perera & Sons</div>
           <div><strong>Service Provider:</strong> LOGIXOTECH Technical Team</div>
           <div><strong>Industry Sector:</strong> Retail and Food & Beverage (F&B)</div>
-          <div><strong>Project Scale:</strong> ~350 Commercial Outlets Operating Concurrently</div>
+          <div><strong>Project Scale:</strong> ~350 Business Locations (Subject to verification against actual project scope)</div>
           <div style="grid-column: span 2;">
             <strong>Project Scope:</strong> Performance investigation and optimization of an existing multi-outlet POS platform following the introduction of additional application features.
           </div>
@@ -1499,13 +1508,13 @@ HTML_CONTENT = """<!DOCTYPE html>
       </div>
 
       <!-- Engagement Summary -->
-      <div class="card slate" style="margin-bottom: 7px;">
+      <div class="card slate" style="margin-bottom: 6px;">
         <div class="card-header">
           <span class="card-title">Engagement Summary</span>
-          <span class="card-badge">Scope Verified</span>
+          <span class="card-badge">Scope Summary</span>
         </div>
         <p class="card-p" style="margin-bottom:0;">
-          LOGIXOTECH was engaged to investigate operational performance and response-time degradation affecting the existing centralized POS platform. The technical engagement focused specifically on database query execution analysis, index architecture, connection pool management, concurrent transaction handling, API-level profiling, and multi-location system scalability.
+          LOGIXOTECH was engaged to investigate performance and response-time issues affecting the existing POS platform. The engagement focused on database performance investigation, query optimization, connection management, transaction concurrency, API performance, and system scalability.
         </p>
       </div>
 
@@ -1514,17 +1523,16 @@ HTML_CONTENT = """<!DOCTYPE html>
         <div class="card">
           <div class="card-header">
             <span class="card-title">Client Reference Contact Information</span>
-            <span class="card-badge">Enterprise Protocol</span>
+            <span class="card-badge">Contact Protocol</span>
           </div>
-          <p class="card-p" style="font-size:7.2pt; color:#64748b; margin-bottom:4px;">
-            <em>Direct contact facilitated via authorized introduction bridge:</em>
+          <p class="card-p" style="margin-bottom:4px; font-size:7.4pt; color:#334155;">
+            <strong>Client reference introductions may be arranged subject to client authorization and availability.</strong>
           </p>
           <ul class="card-bullets">
-            <li><strong>Reference Contact:</strong> Available upon formal introduction via LOGIXOTECH management</li>
-            <li><strong>Official Position:</strong> Head of Information Technology / Retail Systems</li>
+            <li><strong>Reference Contact Protocol:</strong> Client reference introductions arranged subject to authorization</li>
             <li><strong>Organization:</strong> Perera & Sons</li>
-            <li><strong>Business Email & Phone:</strong> Facilitated via authorized introductory bridge</li>
-            <li><strong>Permission to Contact:</strong> Confirmed for prospective client evaluations</li>
+            <li><strong>Engagement Focus:</strong> Multi-Outlet POS Performance Optimization</li>
+            <li><strong>Permission to Contact:</strong> Arranged via introductory bridge upon authorization</li>
           </ul>
         </div>
 
@@ -1534,24 +1542,29 @@ HTML_CONTENT = """<!DOCTYPE html>
             <span class="card-badge">Validation Scope</span>
           </div>
           <p class="card-p">
-            Subject to client authorization, LOGIXOTECH can facilitate a reference discussion to formally verify:
+            Subject to client authorization, LOGIXOTECH can facilitate a reference discussion to verify:
           </p>
           <ul class="card-bullets">
-            <li><strong>1. Scope of Engagement:</strong> Nature and technical boundaries of the engagement.</li>
-            <li><strong>2. LOGIXOTECH Involvement:</strong> Direct leadership of the POS performance investigation.</li>
-            <li><strong>3. Team Responsibilities:</strong> Database and testing roles performed by the team.</li>
-            <li><strong>4. Scale Supported:</strong> Over 350 commercial business locations and 1,050 active devices.</li>
-            <li><strong>5. Remediation Delivered:</strong> Performance investigation and optimization activities undertaken.</li>
+            <li><strong>1. Scope:</strong> Nature and technical scope of the engagement.</li>
+            <li><strong>2. Involvement:</strong> LOGIXOTECH's involvement in the POS performance investigation.</li>
+            <li><strong>3. Team Responsibilities:</strong> Technical responsibilities performed by the team.</li>
+            <li><strong>4. Scale:</strong> Approximate number of business locations supported.</li>
+            <li><strong>5. Remediation:</strong> Performance investigation and optimization activities undertaken.</li>
           </ul>
         </div>
       </div>
 
       <!-- Confidentiality & Evidence Governance -->
-      <div class="callout-box" style="margin-top: 6px;">
-        <div class="callout-title">Confidentiality Statement & Verification Governance</div>
+      <div class="callout-box" style="margin-top: 5px; margin-bottom: 5px;">
+        <div class="callout-title">Confidentiality Statement & Evidence Classification</div>
         <div class="callout-text">
-          Client contact details and operational project information are protected under standard corporate confidentiality standards. LOGIXOTECH coordinates direct reference calls and technical verification discussions with Perera & Sons leadership for prospective enterprise clients to review the engagement scope, engineering responsibilities performed, and delivered database optimizations.
+          Client contact details and project information will only be disclosed with the client's authorization. Where direct contact details cannot be shared, LOGIXOTECH can arrange an authorized reference introduction or provide an approved anonymized project summary.<br>
+          <strong>Evidence Classification:</strong> Historical project details and client references must be supported by actual project records and client confirmation. No hypothetical benchmark figures should be represented as verified project results.
         </div>
+      </div>
+
+      <div style="font-size: 6.8pt; color: #64748b; font-style: italic; line-height: 1.25; border-left: 2.5px solid #0284c7; padding-left: 6px;">
+        These figures are illustrative examples for a hypothetical performance optimization scenario. They are not verified historical measurements from the Perera & Sons POS project or LOGIXOTECH production testing.
       </div>
     </div>
   </div>

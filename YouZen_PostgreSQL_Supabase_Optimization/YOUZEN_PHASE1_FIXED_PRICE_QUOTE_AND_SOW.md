@@ -15,11 +15,10 @@
 | Item | Details | Cost (USD) |
 | :--- | :--- | :---: |
 | **Phase 1: Full Database Audit & Staging Concurrency Simulation** | All-inclusive fixed-price deliverable covering baseline telemetry, synthetic data generation, k6 load testing scripts, independent and combined peak load simulations (100 restaurants + 100 salons), concurrency rule verification, and final findings report with prioritized fixes. | **$1,000.00** |
-| **Additional Infrastructure Costs** | We utilize your existing Supabase staging environment. Test scripts will be executed using open-source **k6** / **Locust** test runners. | **$0.00** |
-| *(Optional Cloud Runner Note)* | *If distributed multi-region external traffic generation is requested, minimal cloud compute (e.g. AWS EC2 t3.medium runners) would cost less than $25 total, billed directly or run by client.* | *<$25 (Optional)* |
+| **Additional Infrastructure Costs** | USD 0 under the agreed existing staging-environment assumptions. Any required paid Supabase plan upgrades, additional cloud infrastructure or third-party services will be identified and approved by the client before being incurred. | **USD 0.00** |
 | **Total Phase 1 Fixed Price** | **Complete Phase 1 Delivery** | **$1,000.00** |
 
-* **Delivery Timeline:** **7 to 10 business days** from repository and staging database access.
+* **Delivery Timeline:** **10 business days (approximately two weeks)** from repository and staging database access.
 * **Payment Milestone:** 100% escrow funded upon kickoff ($1,000) and released upon delivery of the test scripts and benchmark audit report.
 
 ---
@@ -53,8 +52,8 @@ We confirm that the **$1,000 USD** fixed-price quote covers all items requested:
 
 Phase 2 covers implementing the agreed fixes (index additions, query rewrites, RLS policy refactoring, concurrency guards, and Realtime channel scoping) and re-running the identical benchmark harness.
 
-* **Standard Senior Engineering Hourly Rate:** **$45.00 – $50.00 / hour**
-* **Indicative Phase 2 Price Range:** **$1,500 – $2,500 USD** (timeline and final milestone cost dependent on the specific complexity and volume of fixes prioritized in the Phase 1 audit report).
+* **Indicative Phase 2 Price Range:** **$1,500 – $2,500 USD** (final milestone cost and scope confirmed collaboratively after reviewing the Phase 1 audit report).
+* **Estimated Delivery Timeline:** **Approximately two additional weeks**, subject to the agreed scope.
 * **Governance:** We will establish the exact fixed-price scope, delivery timeline, and milestone deliverables for Phase 2 collaboratively after reviewing the Phase 1 audit findings and prioritizing the fix backlog together.
 
 ---
@@ -63,45 +62,48 @@ Phase 2 covers implementing the agreed fixes (index additions, query rewrites, R
 
 We explicitly clarify the division of responsibilities across our core team members for YouZen:
 
-### 1. Viranga Lakshan – Technical Lead & Database Optimization Engineer
+### 1. Viranga Lakshan – Technical Lead
 * **Role: Primary Technical Owner**
 * **Personal Responsibilities:**
-  * **Personally leads** the PostgreSQL and Supabase performance audit.
-  * Deconstructs query execution plans (`EXPLAIN ANALYZE`), identifies missing composite/partial indexes, and audits table lock trees.
-  * Refactors slow Row-Level Security (RLS) policies into session-cached JWT / `STABLE` helper functions.
-  * **Personally implements all database fixes, SQL migrations, and query rewrites in Phase 2.**
-  * Signs off on the final database architecture and benchmark validation.
+  * **Personally leads** the PostgreSQL and Supabase audit.
+  * Investigates queries, indexes, locks, and connection pools.
+  * **Personally implements agreed database fixes and optimizations.**
+  * Leads database architecture decisions and technical sign-off.
 
 ### 2. Janith Kavishka – Backend/API & Load-Testing Engineer
 * **Role: Primary Load-Testing Owner**
 * **Personal Responsibilities:**
-  * **Personally writes** the reusable, parameterized **k6** / **Locust** load test scripts.
-  * Builds the synthetic data generators for 100 restaurants and 100 hair salons.
-  * Executes the isolated restaurant rush, salon booking peak, and combined peak simulations.
-  * Profiles API response times, N+1 query patterns, and Supabase Realtime channel subscription volume.
-  * Generates before-and-after latency percentiles (p50, p95, p99) and connection saturation graphs.
+  * Leads load-test planning and execution.
+  * Develops reusable **k6** and **Locust** test scripts.
+  * Generates synthetic test data for 100 restaurants and 100 hair salons.
+  * Executes tests against staging and supports API performance investigation.
 
-### 3. Lithumitha Ravikumar – Project Coordination & Client Communication
-* **Role: Primary Coordination & Project Management Owner**
+### 3. Lithumitha Ravikumar – Project Coordination
+* **Role: Primary Coordination Owner**
 * **Personal Responsibilities:**
-  * Manages sprint timelines, milestone delivery schedules, and client status reporting.
-  * Coordinates technical meetings, agendas, and written daily updates on Slack / Teams.
-  * Maintains documentation runbooks, changelogs, and delivery sign-offs.
-  * *Clarification:* Lithumitha's primary responsibility is **project management, coordination, and documentation quality control**, not primary database engineering or load-test scripting. An earlier draft briefly grouped scripting support under her profile; this has been cleanly corrected.
+  * Coordinates project requirements, delivery timelines, and milestones.
+  * Manages client communication and weekly status reporting.
+  * Prepares documentation and test deliverables; tracks progress against objectives.
+  * *Note: Primary role is dedicated project management and coordination, not primary database engineering.*
 
 ---
 
 ## 5. Supporting Case Study Evidence & Client Reference
 
-Attached to this proposal is our complete **9-page enterprise technical report**:  
+Attached to this quotation is our complete **9-page enterprise technical report**:  
 📄 `LOGIXOTECH_Multi_Outlet_POS_Performance_Scalability_Report.pdf`
 
-* **Platform Context:** Multi-outlet retail and food-service POS platform serving **~350 commercial outlets** and **1,050 active devices** on a centralized database cluster.
-* **Verified Optimization Results:**
-  * API response time (p95) reduced from **920 ms to 420 ms** (54.3% drop).
-  * Database query response time reduced from **450 ms to 120 ms** (73.3% drop).
-  * Database CPU utilization reduced from **85% to 45%** under peak meal service rush.
-  * Failed request rate dropped from **5.0% to 0.5%** (10x reduction).
+* **Platform Context:** 350 Business Locations – Illustrative Scalability Scenario (1,050 Simulated Active Devices) on a centralized database cluster.
+* **Illustrative Benchmark Results:**
+  * API response time (p95): **920 ms to 420 ms** (-54.3% latency drop).
+  * Database query response time: **450 ms to 120 ms** (-73.3% latency drop).
+  * Database CPU utilization: **85% to 45%** (-47.1% load reduction).
+  * Failed request rate: **5.0% to 0.5%** (-90.0% error reduction).
+  * Peak database connections: **450 to 250** (-44.4% pool efficiency).
+  * Transaction processing error rate: **2.0% to 0.2%** (-90.0% reliability gain).
+
+> **Disclaimer:** These figures are illustrative examples for a hypothetical performance optimization scenario. They are not verified historical measurements from the Perera & Sons POS project or LOGIXOTECH production testing.
+
 * **Client Reference Protocol:**
-  * Reference discussion with Perera & Sons IT leadership can be coordinated via an introductory call to verify engagement scope, team performance, and delivered optimizations.
+  * **Client reference introductions may be arranged subject to client authorization and availability.** Verification discussions cover the nature and scope of the engagement, LOGIXOTECH's involvement, team responsibilities performed, scale supported, and optimization activities undertaken.
 

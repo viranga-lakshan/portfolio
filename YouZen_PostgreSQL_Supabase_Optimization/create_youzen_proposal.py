@@ -486,18 +486,21 @@ HTML_CONTENT = """<!DOCTYPE html>
       </div>
       <div class="card">
         <div class="card-header">
-          <span class="card-title">Case Study: Multi-Tenant Hospitality & Booking Engine</span>
-          <span class="card-badge">Production Benchmark</span>
+          <span class="card-title">Case Study: Multi-Outlet POS Platform Architecture</span>
+          <span class="card-badge">Technical Benchmark</span>
         </div>
         <p class="card-p">
-          Optimized a shared Supabase / PostgreSQL architecture supporting 350+ concurrent merchant locations running Next.js POS terminals and consumer reservation portals:
+          Demonstrated architecture modeling for <strong>350 Business Locations – Illustrative Scalability Scenario (1,050 Simulated Active Devices)</strong> running POS terminals and reservation services:
         </p>
         <ul class="card-bullets">
-          <li><strong>Query Latency:</strong> Reduced p95 response time from <strong>920ms to 42ms</strong> under peak simulated dinner rush.</li>
-          <li><strong>Connection Stability:</strong> Configured PgBouncer transaction-mode pooling, eliminating connection drops across 500+ client devices.</li>
-          <li><strong>Concurrency Guarantees:</strong> Implemented advisory locks and partial index constraints to eliminate slot double-bookings completely.</li>
-          <li><strong>CPU Utilization:</strong> Dropped database CPU load from <strong>85% to 24%</strong> by eliminating unindexed Foreign Key joins and debouncing Realtime channels.</li>
+          <li><strong>API Latency (p95):</strong> Lowered p95 response time from <strong>920 ms to 420 ms</strong> (-54.3%) under simulated peak checkout rush.</li>
+          <li><strong>Database Query Latency:</strong> Slashed query response time from <strong>450 ms to 120 ms</strong> (-73.3%) through composite indexing.</li>
+          <li><strong>Database CPU Load:</strong> Dropped CPU utilization from <strong>85% to 45%</strong> by eliminating table scans and pooling connections.</li>
+          <li><strong>Connection Multiplexing:</strong> Pooled peak connections from <strong>450 to 250</strong> via PgBouncer transaction-mode connection pooling.</li>
         </ul>
+        <div style="margin-top: 3px; font-size: 6.5pt; color: #64748b; font-style: italic; line-height: 1.2;">
+          These figures are illustrative examples for a hypothetical performance optimization scenario. They are not verified historical measurements from the Perera & Sons POS project or LOGIXOTECH production testing.
+        </div>
       </div>
     </div>
   </div>
@@ -869,10 +872,10 @@ HTML_CONTENT = """<!DOCTYPE html>
         <div class="profile-box">
           <div class="profile-header">
             <span class="profile-name">Viranga Lakshan</span>
-            <span class="profile-role">Lead Solutions Architect & Database Eng.</span>
+            <span class="profile-role">Technical Lead</span>
           </div>
           <p class="card-p">
-            <strong>Role for YouZen:</strong> Primary technical lead. Personally leads the PostgreSQL / Supabase audit, query profiling, lock diagnosis, RLS optimization, and personally implements all agreed database fixes.
+            <strong>Role for YouZen:</strong> Primary technical lead. Personally leads the PostgreSQL and Supabase audit; investigates queries, indexes, locks, and connection pools; personally implements agreed database fixes and optimizations; leads architecture decisions.
           </p>
         </div>
 
@@ -882,17 +885,17 @@ HTML_CONTENT = """<!DOCTYPE html>
             <span class="profile-role">Backend/API & Load-Testing Eng.</span>
           </div>
           <p class="card-p">
-            <strong>Role for YouZen:</strong> Primary load-testing lead. Develops reusable k6 / Locust scripts, prepares synthetic data generators for 100 restaurants and 100 salons, and runs peak concurrency simulations.
+            <strong>Role for YouZen:</strong> Primary load-testing owner. Leads load-test planning and execution; develops k6 and Locust test scripts; generates synthetic test data for 100 restaurants and 100 salons; executes tests against staging.
           </p>
         </div>
 
         <div class="profile-box">
           <div class="profile-header">
             <span class="profile-name">Lithumitha Ravikumar</span>
-            <span class="profile-role">Project Coordination & Client Comms</span>
+            <span class="profile-role">Project Coordination</span>
           </div>
           <p class="card-p">
-            <strong>Role for YouZen:</strong> Primary project coordinator. Manages delivery timelines, milestone tracking, client communications, technical runbooks, and delivery sign-offs.
+            <strong>Role for YouZen:</strong> Coordinates project requirements, timelines, and milestones; manages client communication and status reporting; tracks progress. <em>Primary role is project management and coordination, not primary database engineering.</em>
           </p>
         </div>
       </div>
@@ -902,7 +905,7 @@ HTML_CONTENT = """<!DOCTYPE html>
     <div class="callout-box">
       <div class="callout-title">Immediate Kickoff & Collaboration Plan</div>
       <div class="callout-text">
-        We are prepared to begin immediately upon selection. Our first step is a 30-minute technical kickoff call with Romain and the engineering team to review repository access, staging database provisioning, and telemetry capture tools. Phase 1 findings and the initial staging test harness will be delivered within the first two weeks.
+        We are prepared to begin immediately upon selection. Our first step is a 30-minute technical kickoff call with Luca and the engineering team to review repository access, staging database provisioning, and telemetry capture tools. Phase 1 findings and the initial staging test harness will be delivered within 10 business days (approximately two weeks).
       </div>
     </div>
   </div>
