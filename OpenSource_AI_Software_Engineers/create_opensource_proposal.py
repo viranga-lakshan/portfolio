@@ -237,17 +237,77 @@ HTML_CONTENT = """<!DOCTYPE html>
     color: #0f172a;
   }
 
-  /* Diagram block */
-  .diagram-box {
-    background: #f8fafc;
-    border: 1px solid #cbd5e1;
-    border-radius: 5px;
-    padding: 7px 9px;
-    font-family: 'Consolas', 'Courier New', monospace;
-    font-size: 7.1pt;
-    color: #0f172a;
-    line-height: 1.34;
+  /* Pipeline Flow for Optimization */
+  .pipeline-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 7px;
     margin-top: 4px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 5px;
+    padding: 7px;
+  }
+  .pipeline-col {
+    flex: 1;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 7px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .pipeline-col.accent {
+    border-top: 3px solid #059669;
+    flex: 1.35;
+  }
+  .pipeline-badge {
+    display: inline-block;
+    font-size: 6.7pt;
+    font-weight: 700;
+    color: #059669;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 2px;
+  }
+  .pipeline-title {
+    font-size: 8.3pt;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 3px;
+  }
+  .pipeline-p {
+    font-size: 7.4pt;
+    color: #475569;
+    line-height: 1.3;
+    margin: 0;
+  }
+  .pipeline-bullets {
+    margin: 0;
+    padding-left: 12px;
+    font-size: 7.2pt;
+    color: #334155;
+    line-height: 1.28;
+  }
+  .pipeline-bullets li {
+    margin-bottom: 2px;
+  }
+  .pipeline-bullets code, .pipeline-p code {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    padding: 1px 3px;
+    border-radius: 3px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 6.9pt;
+    color: #0f172a;
+  }
+  .pipeline-arrow {
+    display: flex;
+    align-items: center;
+    color: #94a3b8;
+    font-size: 10pt;
+    font-weight: 700;
   }
 
   /* Callout */
@@ -543,18 +603,43 @@ HTML_CONTENT = """<!DOCTYPE html>
         4. Algorithmic Optimization & Complexity Engineering
         <span class="tagline">Transforming Sluggish Execution into High-Throughput Performance</span>
       </div>
-      <div class="diagram-box">
-┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ [BOTTLENECK IDENTIFICATION]  CPU Profiling / Flamegraphs / Memory Profilers (py-spy, JProfiler) │
-├──────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ [ALGORITHMIC RE-ENGINEERING]                                                                     │
-│  ├── Inefficient Lookups: Replacing linear list searches O(N) with Hash Tables / Sets O(1)        │
-│  ├── Redundant Work: Memoization, Dynamic Programming, and caching repeated calculations         │
-│  ├── Memory Footprint: Replacing bloated objects with primitive arrays, generators, or pools     │
-│  └── Concurrency: Leveraging asynchronous I/O (asyncio, CompletableFuture) without deadlocks     │
-├──────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ [BENCHMARK VERIFICATION]  Automated micro-benchmarks proving latency reduction and zero leakage   │
-└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+      <div class="pipeline-flow">
+        <div class="pipeline-col">
+          <div>
+            <span class="pipeline-badge">Stage 01: Profiling</span>
+            <div class="pipeline-title">Bottleneck Identification</div>
+            <p class="pipeline-p">
+              Isolating CPU hot-loops and memory bottlenecks using non-invasive flamegraphs, heap profilers (<code>py-spy</code>, <code>JProfiler</code>, <code>perf</code>), and I/O trace analysis.
+            </p>
+          </div>
+        </div>
+
+        <div class="pipeline-arrow">➔</div>
+
+        <div class="pipeline-col accent">
+          <div>
+            <span class="pipeline-badge">Stage 02: Refactoring</span>
+            <div class="pipeline-title">Algorithmic Optimization</div>
+            <ul class="pipeline-bullets">
+              <li><strong>Lookup Speed:</strong> Replacing linear scans <code>O(N)</code> with <code>O(1)</code> Hash Sets & Maps.</li>
+              <li><strong>Memoization:</strong> Dynamic programming caching for repeated recursive sub-problems.</li>
+              <li><strong>Memory Footprint:</strong> Generators, primitive arrays, and object pooling.</li>
+              <li><strong>Concurrency:</strong> Non-blocking async routines (<code>asyncio</code>, <code>CompletableFuture</code>).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pipeline-arrow">➔</div>
+
+        <div class="pipeline-col">
+          <div>
+            <span class="pipeline-badge">Stage 03: Verification</span>
+            <div class="pipeline-title">Benchmark & Testing</div>
+            <p class="pipeline-p">
+              Running automated micro-benchmarks to quantify latency reduction, verify zero memory drift, and prove zero regressions against the unit test suite.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -911,3 +996,4 @@ def generate_pdf():
 if __name__ == "__main__":
     success = generate_pdf()
     print("Success:", success)
+
