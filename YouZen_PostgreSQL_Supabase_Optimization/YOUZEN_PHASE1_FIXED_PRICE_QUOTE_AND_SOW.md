@@ -14,19 +14,19 @@
 
 | Item | Details | Cost (USD) |
 | :--- | :--- | :---: |
-| **Phase 1: Full Database Audit & Staging Concurrency Simulation** | All-inclusive fixed-price deliverable covering baseline telemetry, synthetic data generation, k6 load testing scripts, independent and combined peak load simulations (100 restaurants + 100 salons), concurrency rule verification, and final findings report with prioritized fixes. | **$2,800.00** |
+| **Phase 1: Full Database Audit & Staging Concurrency Simulation** | All-inclusive fixed-price deliverable covering baseline telemetry, synthetic data generation, k6 load testing scripts, independent and combined peak load simulations (100 restaurants + 100 salons), concurrency rule verification, and final findings report with prioritized fixes. | **$1,000.00** |
 | **Additional Infrastructure Costs** | We utilize your existing Supabase staging environment. Test scripts will be executed using open-source **k6** / **Locust** test runners. | **$0.00** |
 | *(Optional Cloud Runner Note)* | *If distributed multi-region external traffic generation is requested, minimal cloud compute (e.g. AWS EC2 t3.medium runners) would cost less than $25 total, billed directly or run by client.* | *<$25 (Optional)* |
-| **Total Phase 1 Fixed Price** | **Complete Phase 1 Delivery** | **$2,800.00** |
+| **Total Phase 1 Fixed Price** | **Complete Phase 1 Delivery** | **$1,000.00** |
 
-* **Delivery Timeline:** **10 to 14 business days (2 weeks)** from repository and staging database access.
-* **Payment Milestone:** 50% upon kickoff ($1,400) / 50% upon delivery of test scripts and benchmark report ($1,400).
+* **Delivery Timeline:** **7 to 10 business days** from repository and staging database access.
+* **Payment Milestone:** 100% escrow funded upon kickoff ($1,000) and released upon delivery of the test scripts and benchmark audit report.
 
 ---
 
 ## 2. Confirmation of Phase 1 Inclusions
 
-We confirm that the **$2,800 USD** fixed-price quote covers all items requested:
+We confirm that the **$1,000 USD** fixed-price quote covers all items requested:
 
 1. **Baseline Measurement & Telemetry:**
    * Profiling existing query response times (p50, p95, p99), connection count utilization in PgBouncer, lock wait duration trees, and buffer cache hit rates via `pg_stat_statements` and Supabase telemetry.
@@ -53,9 +53,9 @@ We confirm that the **$2,800 USD** fixed-price quote covers all items requested:
 
 Phase 2 covers implementing the agreed fixes (index additions, query rewrites, RLS policy refactoring, concurrency guards, and Realtime channel scoping) and re-running the identical benchmark harness.
 
-* **Standard Senior Engineering Hourly Rate:** **$50.00 / hour**
-* **Indicative Phase 2 Price Range:** **$2,500 – $4,200 USD** (typically 50 to 80 hours of senior database engineering, migration scripting, and re-verification load testing).
-* **Governance:** We will establish the exact fixed-price scope and milestone deliverables for Phase 2 collaboratively after reviewing the Phase 1 audit findings and prioritizing the fix backlog together.
+* **Standard Senior Engineering Hourly Rate:** **$45.00 – $50.00 / hour**
+* **Indicative Phase 2 Price Range:** **$1,500 – $2,500 USD** (timeline and final milestone cost dependent on the specific complexity and volume of fixes prioritized in the Phase 1 audit report).
+* **Governance:** We will establish the exact fixed-price scope, delivery timeline, and milestone deliverables for Phase 2 collaboratively after reviewing the Phase 1 audit findings and prioritizing the fix backlog together.
 
 ---
 
@@ -104,3 +104,4 @@ Attached to this proposal is our complete **9-page enterprise technical report**
   * Failed request rate dropped from **5.0% to 0.5%** (10x reduction).
 * **Client Reference Protocol:**
   * Reference discussion with Perera & Sons IT leadership can be coordinated via an introductory call to verify engagement scope, team performance, and delivered optimizations.
+
