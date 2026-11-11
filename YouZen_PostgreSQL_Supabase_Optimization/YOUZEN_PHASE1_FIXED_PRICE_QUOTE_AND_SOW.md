@@ -52,7 +52,8 @@ We confirm that the **$1,000 USD** fixed-price quote covers all items requested:
 
 Phase 2 covers implementing the agreed fixes (index additions, query rewrites, RLS policy refactoring, concurrency guards, and Realtime channel scoping) and re-running the identical benchmark harness.
 
-* **Indicative Phase 2 Price Range:** **$1,500 – $2,500 USD** (final milestone cost and scope confirmed collaboratively after reviewing the Phase 1 audit report).
+* **Indicative Fixed-Price Range:** **$1,500 – $2,500 USD**
+* **Pricing Basis:** Estimated based on approximately 30–50 engineering hours at our standard senior engineering rate of **$45–$50 / hour**, delivered strictly as a capped fixed-price milestone so you have 100% cost certainty.
 * **Estimated Delivery Timeline:** **Approximately two additional weeks**, subject to the agreed scope.
 * **Governance:** We will establish the exact fixed-price scope, delivery timeline, and milestone deliverables for Phase 2 collaboratively after reviewing the Phase 1 audit findings and prioritizing the fix backlog together.
 
@@ -88,7 +89,7 @@ We explicitly clarify the division of responsibilities across our core team memb
 
 ---
 
-## 5. Supporting Case Study Evidence & Client Reference
+## 5. Technical Case Study Reference & Client Reference
 
 Attached to this quotation is our complete **9-page enterprise technical report**:  
 📄 `LOGIXOTECH_Multi_Outlet_POS_Performance_Scalability_Report.pdf`

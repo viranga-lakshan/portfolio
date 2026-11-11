@@ -549,19 +549,19 @@ HTML_CONTENT = """<!DOCTYPE html>
       <div class="card tint">
         <div class="card-header">
           <span class="card-title">Phase 2 Budget & Scope Governance</span>
-          <span class="card-badge">Flexible Scope</span>
+          <span class="card-badge">Capped Fixed Price</span>
         </div>
         <div class="grid-2" style="margin-top:2px;">
           <div>
             <p class="card-p">
               <strong>Indicative Fixed-Price Range:</strong> <strong>$1,500 – $2,500 USD</strong><br>
-              <strong>Estimated Timeline:</strong> Approximately two additional weeks, subject to agreed scope.<br>
-              <strong>Scope of Work:</strong> Implementing prioritized composite indexes, query rewrites, RLS policy refactoring, concurrency guards, and Realtime channel scoping, followed by a complete re-run of the k6 benchmark suite.
+              <strong>Pricing Basis:</strong> Estimated from 30–50 hours at our standard senior engineering rate ($45–$50/hr), delivered strictly as a capped fixed-price milestone for complete cost certainty.<br>
+              <strong>Estimated Timeline:</strong> Approximately two additional weeks, subject to agreed scope.
             </p>
           </div>
           <div>
             <p class="card-p">
-              <strong>Collaborative Agreement:</strong> The exact milestone budget and delivery timeline for Phase 2 will be established collaboratively after reviewing the Phase 1 audit report together, ensuring you only pay for verified, high-impact fixes.
+              <strong>Scope & Governance:</strong> Implementing prioritized composite indexes, query rewrites, RLS policy refactoring, concurrency guards, and Realtime channel scoping, followed by a complete re-run of the k6 benchmark suite. The final milestone budget will be agreed after reviewing the Phase 1 audit.
             </p>
           </div>
         </div>
@@ -622,22 +622,22 @@ HTML_CONTENT = """<!DOCTYPE html>
     <!-- Section 5: Case Study Reference & Immediate Kickoff -->
     <div class="section">
       <div class="section-title">
-        5. Verified Case Study Evidence & Immediate Kickoff
-        <span class="tagline">Proven Multi-Outlet POS Optimization (~350 Locations)</span>
+        5. Technical Case Study Reference & Immediate Kickoff
+        <span class="tagline">Multi-Outlet POS Optimization Case Study & Scalability Modeling</span>
       </div>
       <div class="grid-2">
         <div class="card slate">
           <div class="card-header">
             <span class="card-title">Supporting 9-Page Case Study Attached</span>
-            <span class="card-badge">Technical Benchmark</span>
+            <span class="card-badge">Case Study</span>
           </div>
           <p class="card-p">
-            Attached is our report <code>LOGIXOTECH_Multi_Outlet_POS_Performance_Scalability_Report.pdf</code> modeling a <strong>350 Business Locations – Illustrative Scalability Scenario (1,050 Simulated Active Devices)</strong>:
+            Attached is our report <code>LOGIXOTECH_Multi_Outlet_POS_Performance_Scalability_Report.pdf</code> documenting our engagement on the Perera & Sons POS platform, including a <strong>350 Business Locations – Illustrative Scalability Scenario (1,050 Simulated Active Devices)</strong>:
           </p>
           <ul class="card-bullets">
-            <li>API p95 latency: <strong>920 ms to 420 ms</strong> (-54.3%).</li>
-            <li>Query response time: <strong>450 ms to 120 ms</strong> (-73.3%).</li>
-            <li>Database CPU load: <strong>85% to 45%</strong> during peak simulated influx.</li>
+            <li>API p95 latency: <strong>920 ms to 420 ms</strong> (-54.3% illustrative drop).</li>
+            <li>Query response time: <strong>450 ms to 120 ms</strong> (-73.3% illustrative drop).</li>
+            <li>Database CPU load: <strong>85% to 45%</strong> under simulated peak influx.</li>
             <li><em>Client reference introductions may be arranged subject to client authorization and availability.</em></li>
           </ul>
           <div style="margin-top: 3px; font-size: 6.3pt; color: #64748b; font-style: italic; line-height: 1.2;">
