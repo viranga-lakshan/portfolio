@@ -603,43 +603,18 @@ HTML_CONTENT = """<!DOCTYPE html>
         4. Algorithmic Optimization & Complexity Engineering
         <span class="tagline">Transforming Sluggish Execution into High-Throughput Performance</span>
       </div>
-      <div class="pipeline-flow">
-        <div class="pipeline-col">
-          <div>
-            <span class="pipeline-badge">Stage 01: Profiling</span>
-            <div class="pipeline-title">Bottleneck Identification</div>
-            <p class="pipeline-p">
-              Isolating CPU hot-loops and memory bottlenecks using non-invasive flamegraphs, heap profilers (<code>py-spy</code>, <code>JProfiler</code>, <code>perf</code>), and I/O trace analysis.
-            </p>
-          </div>
-        </div>
-
-        <div class="pipeline-arrow">➔</div>
-
-        <div class="pipeline-col accent">
-          <div>
-            <span class="pipeline-badge">Stage 02: Refactoring</span>
-            <div class="pipeline-title">Algorithmic Optimization</div>
-            <ul class="pipeline-bullets">
-              <li><strong>Lookup Speed:</strong> Replacing linear scans <code>O(N)</code> with <code>O(1)</code> Hash Sets & Maps.</li>
-              <li><strong>Memoization:</strong> Dynamic programming caching for repeated recursive sub-problems.</li>
-              <li><strong>Memory Footprint:</strong> Generators, primitive arrays, and object pooling.</li>
-              <li><strong>Concurrency:</strong> Non-blocking async routines (<code>asyncio</code>, <code>CompletableFuture</code>).</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="pipeline-arrow">➔</div>
-
-        <div class="pipeline-col">
-          <div>
-            <span class="pipeline-badge">Stage 03: Verification</span>
-            <div class="pipeline-title">Benchmark & Testing</div>
-            <p class="pipeline-p">
-              Running automated micro-benchmarks to quantify latency reduction, verify zero memory drift, and prove zero regressions against the unit test suite.
-            </p>
-          </div>
-        </div>
+      <div class="diagram-box">
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ [BOTTLENECK IDENTIFICATION]  CPU Profiling / Flamegraphs / Memory Profilers (py-spy, JProfiler) │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ [ALGORITHMIC RE-ENGINEERING]                                                                     │
+│  ├── Inefficient Lookups: Replacing linear list searches O(N) with Hash Tables / Sets O(1)        │
+│  ├── Redundant Work: Memoization, Dynamic Programming, and caching repeated calculations         │
+│  ├── Memory Footprint: Replacing bloated objects with primitive arrays, generators, or pools     │
+│  └── Concurrency: Leveraging asynchronous I/O (asyncio, CompletableFuture) without deadlocks     │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ [BENCHMARK VERIFICATION]  Automated micro-benchmarks proving latency reduction and zero leakage   │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
       </div>
     </div>
 
