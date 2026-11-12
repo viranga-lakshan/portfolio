@@ -82,3 +82,4 @@ This document prepares you for technical interviews, architectural discussions, 
   * Combine relational storage for core fields with JSONB / schemaless document storage for dynamic custom attributes, backed by indexed GIN / computed column indexes.
 * **Concurrency Control:**
   * Use **Optimistic Concurrency** with `RowVersion` / `byte[]` timestamp columns on Deals and Contacts to prevent two sales reps from overwriting each other's edits.
+
