@@ -18,9 +18,11 @@ Hi [Client Name / Team],
 
 Thank you for the quick response. 
 
-To answer your three questions directly: **Yes, our team has hands-on production experience across all three areas—marketplaces, streaming/media platforms, and regulated healthcare & medication workflows.**
+To answer your three questions directly: **Yes, our team has extensive hands-on production experience across all three areas—marketplaces, streaming/media platforms, and regulated healthcare & medication workflows.**
 
-I have attached our team’s individual CVs to this email for your review, and summarized our relevant project experience below:
+All five of us work at **Sri Lanka’s premier, top-tier software and digital engineering firm (Arimac Digital)**. As a cohesive engineering unit, our daily responsibility is designing and delivering large-scale digital platforms for **international governments (including UAE and Abu Dhabi sovereign government institutions)** as well as enterprise clients across the US, Australia, the UK, and the GCC.
+
+I have attached our team’s individual CVs to this email for your review, and summarized our direct experience below:
 
 ---
 
@@ -45,9 +47,9 @@ I have attached our team’s individual CVs to this email for your review, and s
 
 ---
 
-### 4. Our 5-Member Engineering Team (CVs Attached)
+### 4. Our 5-Member Engineering Team (From Sri Lanka's Top Software Firm)
 
-Our team members work with Sri Lanka’s premier software and digital experience engineering firms, with a proven track record delivering massive international platforms for clients in the US, Australia, the UK, and the GCC:
+We are a pre-assembled, cross-functional team that works together daily on high-stakes international client and government projects:
 
 1. **Chamara Lahiru — Senior Frontend Engineer (6+ Years Experience)** *(CV Attached)*  
    *Specialization:* Next.js, React, React Native, Redux, GraphQL, micro-frontends. Led frontend architecture for McGrath Real Estate (Australia), DU Greenfield (UAE), Ooredoo, and Burger King.
@@ -62,9 +64,9 @@ Our team members work with Sri Lanka’s premier software and digital experience
 
 ---
 
-### 5. Recent International Enterprise Client References
+### 5. International Government & Enterprise Client References
 
-Our team has actively built and supported high-profile international enterprise platforms. You can review several of our live client sites:
+Our team has actively built and supported high-profile international government and enterprise platforms. You can review several of our live client sites:
 
 * **Al Ain Museum V2 (UAE)** — Live Site: [alainmuseum.ae](https://alainmuseum.ae) *(Government Cultural Institution Platform)*
 * **Natural History Museum Abu Dhabi (UAE)** — Live Site: [nhmad.ae](https://nhmad.ae) *(Abu Dhabi Government Digital Experience)*
