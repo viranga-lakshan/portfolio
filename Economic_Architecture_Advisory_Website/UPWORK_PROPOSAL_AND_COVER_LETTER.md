@@ -2,17 +2,17 @@
 **Client:** Economic Architecture Advisory (`econarc.com.sa`)  
 **Project:** Website Design & Infrastructure Setup  
 **Target Principals:** Haitham Al Rebh (Principal & Founder) & Roman J. Zytek, PhD (Partner)  
-**Submission Ready:** Yes (Focused on Webflow CMS, Enterprise CMS GCC Case Studies, and Direct Client Infrastructure Costs)
+**Submission Ready:** Yes (Verified Webflow Pricing, Saudi .com.sa Domain Economics & Enterprise Case Studies)
 
 ---
 
 ## 1. Upwork Proposal Cover Letter
 
-**Subject:** Proposal: Sovereign Bilingual Web Presence on Webflow & Secure Cloud/Mail Infrastructure (`econarc.com.sa`)
+**Subject:** Proposal: Sovereign Bilingual Web Presence on Webflow & Secure Infrastructure (`econarc.com.sa`)
 
 Dear Haitham and Dr. Zytek,
 
-We have carefully reviewed your project requirements and the comprehensive **Brand Identity Guidelines 2026** for **Economic Architecture Advisory**.
+We have carefully reviewed your project requirements, the comprehensive **Brand Identity Guidelines 2026**, and the infrastructure specifications for **Economic Architecture Advisory**.
 
 Your practice operates at a sovereign tier—advising at the complex intersection of macroeconomic policy, institutional diagnostics, financial system development, and productivity. A firm founded by former senior leadership from Saudi Arabia’s Ministry of Economy and Planning, G20 Working Group co-chairs, and former IMF economists requires a digital presence that projects **quiet authority, analytical depth, and institutional credibility**. It must reflect the rigorous precision of an elite policy institution rather than a commercial agency.
 
@@ -31,20 +31,29 @@ Based on your objectives for a rapid 2–4 week turnaround, seamless Arabic/Engl
 
 ---
 
-### 2. Client-Owned Project Infrastructure & Zero Agency Hosting Markup
-In strict adherence to enterprise governance, **we never host client applications on our personal or agency servers**. 
+### 2. Client-Owned Project Infrastructure & Verified Direct Vendor Costs
+In strict adherence to enterprise governance, **we never host client applications on our personal or agency servers, nor do we add any hosting markups**. 
 
 From Day 1, all accounts, domain assets, and hosting environments are created directly in **Economic Architecture Advisory’s name**, ensuring you retain 100% legal ownership, data sovereignty, and zero vendor lock-in.
 
-#### Transparent Monthly Project Infrastructure Costs (Paid Directly by Client to Vendors)
-| Infrastructure Component | Verified Vendor Plan | Monthly Cost | Client Billing |
-|---|---|---|---|
-| **CMS Platform & Web Hosting** | Webflow Premium Site Plan (billed yearly; 20k CMS items, 50 GB CDN bandwidth, site search) | **$25.00 / mo** | Direct to Webflow |
-| **Bilingual Arabic Localization** | Webflow Localize Essential (1 secondary Arabic locale, localized SEO & styling) | **$9.00 / mo** | Direct to Webflow |
-| **Inquiry Forms & Bot Protection** | Webflow Native Forms with reCAPTCHA & instant advisory inbox routing | **Included** | Direct to Webflow |
-| **Custom Domain Registration** | Domain registrar fee for `econarc.com.sa` (amortized yearly) | **~$1.00–2.00 / mo** | Direct to Registrar |
-| **Total Monthly Platform Cost** | **Fully managed, zero server-maintenance infrastructure** | **~$34.00 / month** | **Direct Vendor Cost** |
-| **Enterprise Business Email** | Google Workspace Enterprise or Microsoft 365 Business Premium | **~$6.00–8.00 / user / mo** | Direct to Google / Microsoft |
+#### Verified Monthly Project Infrastructure Costs (Direct Invoices from Vendors)
+| Infrastructure Component | Verified Vendor Plan & Inclusions | Annual Billing (Recommended) | Monthly Billing (Flexible) | Direct Client Billing |
+|---|---|---|---|---|
+| **Webflow CMS Hosting** | **Premium Site Plan:** Custom domain, 20,000 CMS items, 50 GB CDN bandwidth, site search, form uploads | **$25.00 / mo** ($300 billed yearly) | **$39.00 / mo** (Month-to-month) | Direct to Webflow |
+| **Arabic Localization** | **Localize Essential:** 1 secondary Arabic locale, native automatic RTL, localized SEO, styles & hreflang | **$9.00 / mo** ($108 billed yearly) | **~$12.00 / mo** (Month-to-month) | Direct to Webflow |
+| **Forms & Inquiries** | Native Webflow Forms with reCAPTCHA & instant email dispatch to advisory inbox | **Included in Plan** | **Included in Plan** | Direct to Webflow |
+| **Staff Editorial Seats** | Standard Workspace seats for publishing and content updates | **Included in Plan** | **Included in Plan** | Direct to Webflow |
+| **Webflow Platform Total** | **Fully managed, zero server-maintenance, enterprise CDN infrastructure** | **~$34.00 / month** ($408 / year) | **~$51.00 / month** | **Direct to Webflow** |
+
+#### Saudi Domain (`econarc.com.sa`) & Enterprise Email Breakdown:
+* **Saudi Domain (`econarc.com.sa`):**
+  * **If already registered by your firm:** **$0 upfront** (annual renewal is only ~60–80 SAR / ~$16–21 USD/year via local registrar).
+  * **If new registration via official Saudi CST/SaudiNIC accredited registrar (e.g. Sahara Net, NourNet with Saudi CR):** **~60 to 100 SAR / year** (approx. **$16 to $27 USD / year**, or ~$1.50–2.25/mo).
+  * **If registered via international corporate registrars (e.g. 101domain, Marcaria):** **~$50 to $90+ USD / year** due to international administrative routing.
+* **Enterprise Business Email Suite:**
+  * **Google Workspace Business Starter:** **$6.00 / user / month** (annual commitment) or $7.20 / user / month (flexible).
+  * **Microsoft 365 Business Basic:** **$6.00 / user / month**.
+  * For an executive practice of 3 principal mailboxes (e.g. `haitham@`, `zytek@`, `inquiries@`), total email cost is **~$18.00–$24.00 / month** paid directly to Google or Microsoft.
 
 *Note: Agency professional development fees for design, engineering, and configuration are separate and will be aligned based on your scope.*
 
