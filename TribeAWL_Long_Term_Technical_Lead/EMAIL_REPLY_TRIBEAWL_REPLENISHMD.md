@@ -1,12 +1,16 @@
 # Email Reply: TribeAWL / ReplenishMD (Long Term Technical Lead)
 **Subject:** Re: Long Term Technical Lead Opportunity — Team Credentials & Relevant Experience
 **Target:** Client / Founder (ReplenishMD / TribeAWL)
-**Context:** Replying to client's inquiry:
-> *"Have you worked on a medication management application / Or a marketplace / Or a streaming platform"*
+**Attachments Included:**
+1. `chamara_lahiru_se_cv (2).pdf` (Chamara Lahiru)
+2. `Avishka_Meddegoda_Resume.pdf` (Avishka Meddegoda)
+3. `VIRANGA LAKSHAN (1).pdf` (Viranga Lakshan)
+4. `P H J K Nadiranga_CV.pdf` (Janith Kavishka)
+5. `Lithumitha_Ravikumar_CV.pdf` (Lithumitha Ravikumar)
 
 ---
 
-## Email Draft (Ready to Send)
+## Email Draft (Ready to Send with Attached CVs)
 
 **Subject:** Re: Long Term Technical Lead Opportunity — Team Credentials & Relevant Experience
 
@@ -16,7 +20,7 @@ Thank you for the quick response.
 
 To answer your three questions directly: **Yes, our team has hands-on production experience across all three areas—marketplaces, streaming/media platforms, and regulated healthcare & medication workflows.**
 
-Here is a direct breakdown of how our work maps to your platform requirements:
+I have attached our team’s individual CVs to this email for your review, and summarized our relevant project experience below:
 
 ---
 
@@ -41,19 +45,19 @@ Here is a direct breakdown of how our work maps to your platform requirements:
 
 ---
 
-### 4. Our 5-Member Engineering Team
+### 4. Our 5-Member Engineering Team (CVs Attached)
 
 Our team members work with Sri Lanka’s premier software and digital experience engineering firms, with a proven track record delivering massive international platforms for clients in the US, Australia, the UK, and the GCC:
 
-1. **Chamara Lahiru — Senior Frontend Engineer (6+ Years Experience)**  
+1. **Chamara Lahiru — Senior Frontend Engineer (6+ Years Experience)** *(CV Attached)*  
    *Specialization:* Next.js, React, React Native, Redux, GraphQL, micro-frontends. Led frontend architecture for McGrath Real Estate (Australia), DU Greenfield (UAE), Ooredoo, and Burger King.
-2. **Avishka Meddegoda — Senior Full-Stack & Backend Engineer (6+ Years Experience)**  
+2. **Avishka Meddegoda — Senior Full-Stack & Backend Engineer (6+ Years Experience)** *(CV Attached)*  
    *Specialization:* Java Spring Boot, PHP/Laravel microservices, scalable distributed APIs, Keycloak OAuth2/JWT security, and cloud architecture (DIMO Enterprise, Ooredoo Algeria & Maldives; published IEEE author).
-3. **Viranga Lakshan — Senior CMS & Full-Stack Developer (2+ Years Experience)**  
+3. **Viranga Lakshan — Senior CMS & Full-Stack Developer (2+ Years Experience)** *(CV Attached)*  
    *Specialization:* Next.js, React, TypeScript, Sitecore Helix, Umbraco, and headless CMS integrations (Al Ain Museum UAE, Natural History Museum Abu Dhabi, Holsten Arabia).
-4. **Janith Kavishka — Full-Stack Developer (2+ Years Experience)**  
+4. **Janith Kavishka — Full-Stack Developer (2+ Years Experience)** *(CV Attached)*  
    *Specialization:* Java Spring Boot, React, Next.js, TypeScript, AWS RDS cloud migrations, and high-volume transactional data pipelines (SINGER Sri Lanka PLC).
-5. **Lithumitha Ravikumar — Dedicated Project Manager (2 Years Experience)**  
+5. **Lithumitha Ravikumar — Dedicated Project Manager (2 Years Experience)** *(CV Attached)*  
    *Specialization:* Agile Scrum/Waterfall sprint planning, requirement documentation, and QA governance for international client platforms (Al Ain Museum UAE, Guardian Funds Australia). First Class Honours in Business Information Systems.
 
 ---
@@ -77,7 +81,7 @@ We have not attached a fixed proposal or budget number yet, as we prefer to firs
 
 Please note that **we are completely flexible and can easily adapt to your target budget**—pricing will not be an issue, and we can structure our engagement milestones to fit your budget comfortably.
 
-Are you available for a brief 15-minute call this week via Google Meet or Zoom? We would be glad to walk through our relevant code architectures and discuss how we can support TribeAWL / ReplenishMD as your long-term technical leads.
+Please review the attached CVs, and let me know if you are available for a brief 15-minute call this week via Google Meet or Zoom. We would be glad to walk through our relevant code architectures and discuss how we can support TribeAWL / ReplenishMD as your long-term technical leads.
 
 Looking forward to your reply.
 
