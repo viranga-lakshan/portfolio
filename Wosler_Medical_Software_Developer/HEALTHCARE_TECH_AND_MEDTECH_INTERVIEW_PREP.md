@@ -79,3 +79,4 @@ This guide prepares you for conversations with Wosler's technical leadership, Ch
 2. **Preliminary Report Generation:** Transcribing radiologist audio dictation using specialized medical speech models (Whisper-fine-tuned), formatting findings into standardized structured templates (e.g., BI-RADS for breast imaging).
 3. **Quality & Completeness Checks:** Computer vision models verifying that ultrasound acquisition protocols contain all required anatomical view angles before the patient leaves the clinic room.
 4. **Clinic Queue Automation:** Predicting appointment durations based on modality and patient history to optimize booking slots and minimize patient wait times.
+

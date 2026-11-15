@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ReplenishMD - Software Development Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    background-color: #E2E8F0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #000000;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  .page {
+    width: 210mm;
+    height: 297mm;
+    page-break-after: always;
+    position: relative;
+    background-color: #FFFFFF;
+    overflow: hidden;
+    padding: 16mm 20mm 14mm 20mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* MONOCHROME PALETTE */
+  :root {
+    --black: #000000;
+    --charcoal: #292929;
+    --dark-grey: #4A4A4A;
+    --medium-grey: #777777;
+    --light-grey: #EAEAEA;
+    --surface-grey: #F8F9FA;
+    --surface-card: #FFFFFF;
+    --white: #FFFFFF;
+    --border-light: #E0E0E0;
+    --border-dark: #292929;
+  }
+
+  /* HEADER & FOOTER */
+  .page-header {
+    border-bottom: 1.5px solid var(--black);
+    padding-bottom: 7px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-left {
+    font-size: 8pt;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--black);
+    text-transform: uppercase;
+  }
+  .header-right {
+    font-size: 7pt;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--medium-grey);
+    text-transform: uppercase;
+  }
+
+  .page-footer {
+    border-top: 1px solid var(--border-light);
+    padding-top: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 6.8pt;
+    color: var(--medium-grey);
+  }
+  .footer-left {
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+  .footer-left strong {
+    color: var(--black);
+  }
+  .footer-page-num {
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: 0.5px;
+  }
+
+  /* TYPOGRAPHY */
+  .section-tag {
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--medium-grey);
+    margin-bottom: 4px;
+    display: block;
+  }
+  h1.page-title {
+    font-size: 19pt;
+    font-weight: 800;
+    color: var(--black);
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  h2.block-title {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: var(--charcoal);
+    letter-spacing: -0.2px;
+    margin-bottom: 6px;
+  }
+  h3.item-title {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 3px;
+  }
+  p.lead-text {
+    font-size: 8.5pt;
+    line-height: 1.55;
+    color: var(--dark-grey);
+    margin-bottom: 12px;
+  }
+  p.body-text {
+    font-size: 7.8pt;
+    line-height: 1.48;
+    color: var(--dark-grey);
+    margin-bottom: 8px;
+  }
+
+  /* CARDS & CONTAINERS */
+  .card {
+    background-color: var(--surface-grey);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    padding: 11px 13px;
+    margin-bottom: 9px;
+  }
+  .card-dark {
+    background-color: var(--black);
+    color: var(--white);
+    border-radius: 4px;
+    padding: 13px 16px;
+    margin-bottom: 11px;
+  }
+  .card-dark h1, .card-dark h2, .card-dark h3 {
+    color: var(--white);
+  }
+  .card-dark p {
+    color: #D1D5DB;
+  }
+
+  .card-bordered {
+    background-color: var(--white);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 9px;
+  }
+  .grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 8px;
+  }
+
+  /* BADGES & PILLS */
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 2px;
+    font-size: 6.5pt;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .badge-dark {
+    background-color: var(--black);
+    color: var(--white);
+  }
+  .badge-outline {
+    background-color: var(--white);
+    color: var(--black);
+    border: 1px solid var(--black);
+  }
+  .badge-grey {
+    background-color: var(--light-grey);
+    color: var(--charcoal);
+  }
+
+  /* LISTS */
+  ul.check-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  ul.check-list li {
+    font-size: 7.6pt;
+    line-height: 1.45;
+    color: var(--dark-grey);
+    margin-bottom: 4px;
+    position: relative;
+    padding-left: 13px;
+  }
+  ul.check-list li::before {
+    content: "■";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    font-size: 4.5pt;
+    color: var(--black);
+  }
+
+  /* TABLES */
+  table.corp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 7.3pt;
+    margin-top: 4px;
+  }
+  table.corp-table th {
+    background-color: var(--black);
+    color: var(--white);
+    font-weight: 700;
+    text-align: left;
+    padding: 5px 8px;
+    font-size: 6.8pt;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    border: 1px solid var(--black);
+  }
+  table.corp-table td {
+    padding: 4.5px 8px;
+    border: 1px solid var(--border-light);
+    color: var(--dark-grey);
+    vertical-align: top;
+    line-height: 1.35;
+  }
+  table.corp-table tr:nth-child(even) td {
+    background-color: var(--surface-grey);
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background-color: var(--border-light);
+    margin: 8px 0;
+  }
+
+  .link-pill {
+    display: inline-block;
+    font-size: 6.4pt;
+    font-weight: 700;
+    color: var(--black);
+    text-decoration: underline;
+    letter-spacing: 0.3px;
+  }
+
+  /* COVER STYLING */
+  .cover-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .cover-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--black);
+    padding-bottom: 12px;
+  }
+  .cover-logo-text {
+    font-size: 14pt;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: var(--black);
+    text-transform: uppercase;
+  }
+  .cover-label {
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--medium-grey);
+    text-transform: uppercase;
+  }
+  .cover-hero-img {
+    width: 100%;
+    height: 95mm;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid var(--border-light);
+    margin: 16px 0;
+  }
+  .cover-title-box {
+    margin-top: 5px;
+  }
+  .cover-main-title {
+    font-size: 27pt;
+    font-weight: 900;
+    letter-spacing: -0.8px;
+    line-height: 1.1;
+    color: var(--black);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .cover-subtitle {
+    font-size: 11pt;
+    font-weight: 500;
+    color: var(--dark-grey);
+    letter-spacing: -0.2px;
+    margin-bottom: 24px;
+    border-left: 3px solid var(--black);
+    padding-left: 12px;
+  }
+  .cover-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    border-top: 1px solid var(--black);
+    padding-top: 14px;
+    background: var(--surface-grey);
+    padding: 14px 16px;
+    border-radius: 4px;
+    border: 1px solid var(--border-light);
+  }
+  .cover-meta-item {
+    display: flex;
+    flex-direction: column;
+  }
+  .cover-meta-item span.label {
+    font-size: 6.8pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--medium-grey);
+    margin-bottom: 2px;
+  }
+  .cover-meta-item span.val {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: var(--black);
+  }
+</style>
+</head>
+<body>
+
+<!-- ========================================== PAGE 01: COVER PAGE ========================================== -->
+<div class="page" style="padding: 18mm 20mm 16mm 20mm;">
+  <div class="cover-container">
+    <div>
+      <div class="cover-top">
+        <div class="cover-logo-text">REPLENISHMD</div>
+        <div class="cover-label">INTERNATIONAL SOFTWARE DEVELOPMENT PROPOSAL</div>
+      </div>
+      
+      <!-- High resolution realistic color photograph -->
+      <img src="file:///C:/Users/Viranga/Downloads/upwrok new/ReplenishMD_Software_Development_Proposal/images/cover_healthcare.jpg" class="cover-hero-img" alt="Healthcare Technology">
+      
+      <div class="cover-title-box">
+        <div class="cover-main-title">Software Development<br>Proposal</div>
+        <div class="cover-subtitle">Building Scalable, Secure and Intelligent Digital Solutions.</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="cover-meta-grid">
+        <div class="cover-meta-item">
+          <span class="label">Prepared For</span>
+          <span class="val">ReplenishMD</span>
+          <span style="font-size:6.8pt; color:#6B7280; margin-top:1px;">United States</span>
+        </div>
+        <div class="cover-meta-item">
+          <span class="label">Prepared By</span>
+          <span class="val">Software Engineering Team</span>
+          <span style="font-size:6.8pt; color:#6B7280; margin-top:1px;">Sri Lanka (Arimac Digital Core)</span>
+        </div>
+        <div class="cover-meta-item">
+          <span class="label">Technical Lead</span>
+          <span class="val">Avishka Meddegoda</span>
+          <span style="font-size:6.8pt; color:#6B7280; margin-top:1px;">Date: November 2026</span>
+        </div>
+      </div>
+      <div style="font-size: 6.5pt; color: #9CA3AF; text-align: center; margin-top: 10px; letter-spacing: 0.5px;">
+        STRICTLY CONFIDENTIAL &middot; PREPARED FOR THE EXECUTIVE LEADERSHIP OF REPLENISHMD
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 02: EXECUTIVE SUMMARY ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">ReplenishMD &middot; Software Development Proposal</div>
+      <div class="header-right">01 &middot; Executive Summary</div>
+    </div>
+
+    <span class="section-tag">Overview &amp; Strategic Value</span>
+    <h1 class="page-title">Executive Summary</h1>
+    
+    <p class="lead-text">
+      We are a <strong>five-member software engineering team based in Sri Lanka</strong>, bringing together experienced frontend and backend engineers, distributed cloud architects, and dedicated Agile project management. Our team members originate from Sri Lanka’s premier digital product and engineering firms, with a proven track record delivering mission-critical enterprise applications for international clients across the <strong>United States, the United Arab Emirates, Australia, Kuwait, and the wider GCC region</strong>.
+    </p>
+
+    <div class="card-dark" style="margin-bottom: 12px;">
+      <h2 style="font-size: 11pt; margin-bottom: 5px; color:#FFFFFF;">Our Objective &amp; Partnership Commitment</h2>
+      <p style="font-size: 8pt; margin: 0; line-height: 1.5; color: #E5E7EB;">
+        Our objective is to establish an enduring, high-trust engineering partnership with <strong>ReplenishMD</strong>. Rather than operating as disjointed freelance contractors, we deploy as a cohesive, pre-assembled engineering squad capable of translating complex business requirements into high-performance, compliant, and scalable healthcare and marketplace solutions.
+      </p>
+    </div>
+
+    <h2 class="block-title" style="margin-top: 6px;">Core Technical &amp; Engineering Capabilities</h2>
+    <div class="grid-2" style="gap: 9px; margin-bottom: 12px;">
+      <div class="card-bordered">
+        <h3 class="item-title">1. Full-Stack Software Engineering</h3>
+        <p class="body-text" style="margin:0;">End-to-end web, mobile, and desktop application engineering utilizing modern, type-safe frameworks including React, Next.js, and TypeScript.</p>
+      </div>
+      <div class="card-bordered">
+        <h3 class="item-title">2. Enterprise Application Architecture</h3>
+        <p class="body-text" style="margin:0;">Domain-driven design, modular monoliths, and distributed microservices built for high concurrency, fault tolerance, and clear domain separation.</p>
+      </div>
+      <div class="card-bordered">
+        <h3 class="item-title">3. E-Commerce &amp; Marketplace Development</h3>
+        <p class="body-text" style="margin:0;">Multi-tenant vendor onboarding, catalog management, dynamic checkout, automated inventory synchronization, and secure payment processing.</p>
+      </div>
+      <div class="card-bordered">
+        <h3 class="item-title">4. Media &amp; Content Delivery Platforms</h3>
+        <p class="body-text" style="margin:0;">Scalable media delivery, subscription paywalls, live and on-demand streaming architectures, and content repository management.</p>
+      </div>
+      <div class="card-bordered">
+        <h3 class="item-title">5. Backend Microservices &amp; APIs</h3>
+        <p class="body-text" style="margin:0;">High-throughput RESTful and GraphQL APIs built with Node.js, NestJS, and Java Spring Boot, leveraging asynchronous messaging queues.</p>
+      </div>
+      <div class="card-bordered">
+        <h3 class="item-title">6. Secure Authentication &amp; Governance</h3>
+        <p class="body-text" style="margin:0;">Enterprise Identity &amp; Access Management (IAM) via Keycloak, OAuth2/OIDC, JWT tokens, granular Role-Based Access Control, and audit logging.</p>
+      </div>
+    </div>
+
+    <div class="card" style="background:#F9FAFB; border-left: 3px solid var(--black); margin-bottom: 0;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <strong style="font-size:8pt; color:var(--black);">Proven International Scale &middot; Established Team Cohesion</strong>
+          <p style="font-size:7.2pt; margin:1px 0 0 0; color:var(--dark-grey);">Every engineer on our team works together daily on high-stakes international platforms, ensuring zero onboarding friction.</p>
+        </div>
+        <span class="badge badge-dark">5-Member Squad</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">ReplenishMD &middot; Software Development Proposal &middot; Technical Lead: <strong>Avishka Meddegoda</strong></div>
+    <div class="footer-page-num">Page 02 of 12</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 03: UNDERSTANDING REPLENISHMD ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">ReplenishMD &middot; Software Development Proposal</div>
+      <div class="header-right">02 &middot; Strategic Domains</div>
+    </div>
+
+    <span class="section-tag">Domain Analysis &amp; Functional Scope</span>
+    <h1 class="page-title">Understanding ReplenishMD</h1>
+    
+    <p class="lead-text">
+      Based on our initial communication, we understand that ReplenishMD is evaluating engineering capabilities across <strong>three strategic, high-impact functional areas</strong>: Medication Management, Marketplace/E-Commerce, and Streaming/Digital Media. Below is our architectural synthesis of these domains:
+    </p>
+
+    <!-- 3 DOMAINS -->
+    <div class="card-bordered" style="margin-bottom: 8px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+        <h2 class="block-title" style="margin:0; font-size:10pt;">A. Medication Management &amp; Clinical Workflows</h2>
+        <span class="badge badge-dark">Healthcare Workflows</span>
+      </div>
+      <p class="body-text" style="margin-bottom: 6px;">
+        Designed to handle regulated clinical operations, prescription coordination, and patient medication tracking with strict data isolation and auditability:
+      </p>
+      <div class="grid-3" style="gap:6px;">
+        <div style="background:#F9FAFB; padding:5px 7px; border:1px solid #E5E7EB; border-radius:3px;">
+          <strong style="font-size:7.2pt; color:var(--black);">Prescription Workflows:</strong>
+          <p style="font-size:6.7pt; margin:1px 0 0 0; color:#4B5563;">Digital prescription generation, dosage schedules, refill approvals, and practitioner authorizations.</p>
+        </div>
+        <div style="background:#F9FAFB; padding:5px 7px; border:1px solid #E5E7EB; border-radius:3px;">
+          <strong style="font-size:7.2pt; color:var(--black);">Pharmacy Integrations:</strong>
+          <p style="font-size:6.7pt; margin:1px 0 0 0; color:#4B5563;">API connectors for compounding pharmacies, batch tracking, inventory availability, and fulfillment dispatch.</p>
+        </div>
+        <div style="background:#F9FAFB; padding:5px 7px; border:1px solid #E5E7EB; border-radius:3px;">
+          <strong style="font-size:7.2pt; color:var(--black);">Audit Trails &amp; Compliance:</strong>
+          <p style="font-size:6.7pt; margin:1px 0 0 0; color:#4B5563;">Immutable chronological audit logs capturing every record view, modification, and medication order event.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-bordered" style="margin-bottom: 8px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+        <h2 class="block-title" style="margin:0; font-size:10pt;">B. Marketplace &amp; Commercial E-Commerce</h2>
+        <span class="badge badge-grey">Commerce Engine</span>
+      </div>
+      <p class="body-text" style="margin-bottom: 6px;">
+        A scalable multi-tier commercial infrastructure supporting product sales, practitioner treatments, and automated vendor management:
+      </p>
+      <div class="grid-3" style="gap:6px;">
+        <div style="background:#F9FAFB; padding:5px 7px; border:1px solid #E5E7EB; border-radius:3px;">
+          <strong style="font-size:7.2pt; color:var(--black);">Catalog &amp; Inventory:</strong>
+          <p style="font-size:6.7pt; margin:1px 0 0 0; color:#4B5563;">Multi-tiered product and clinical service catalog management with dynamic pricing and stock sync.</p>
+        </div>
+        <div style="background:#F9FAFB; padding:5px 7px; border:1px solid #E5E7EB; border-radius:3px;">
+          <strong style="font-size:7.2pt; color:var(--black);">Accounts &amp; Checkout:</strong>
+          <p style="font-size:6.7pt; margin:1px 0 0 0; color:#4B5563;">Separate customer, clinic, and vendor portals with multi-gateway payment processing (Stripe/Card).</p>
+        </div>
+        <div style="background:#F9FAFB; padding:5px 7px; border:1px solid #E5E7EB; border-radius:3px;">
+          <strong style="font-size:7.2pt; color:var(--black);">Order Management:</strong>
+          <p style="font-size:6.7pt; margin:1px 0 0 0; color:#4B5563;">End-to-end order processing, invoice generation, tax rules, and administrative analytics dashboards.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-bordered" style="margin-bottom: 10px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+        <h2 class="block-title" style="margin:0; font-size:10pt;">C. Streaming &amp; Digital Media Platform</h2>
+        <span class="badge badge-grey">Media &amp; Telehealth</span>
+      </div>
+      <p class="body-text" style="margin-bottom: 6px;">
+        High-throughput content management for telehealth video consultations, practitioner training, and client education:
+      </p>
+      <div class="grid-3" style="gap:6px;">
+        <div style="background:#F9FAFB; padding:5px 7px; border:1px solid #E5E7EB; border-radius:3px;">
+          <strong style="font-size:7.2pt; color:var(--black);">Media Distribution:</strong>
+          <p style="font-size:6.7pt; margin:1px 0 0 0; color:#4B5563;">Adaptive video/audio streaming with low-latency edge CDN caching and encrypted content storage.</p>
+        </div>
+        <div style="background:#F9FAFB; padding:5px 7px; border:1px solid #E5E7EB; border-radius:3px;">
+          <strong style="font-size:7.2pt; color:var(--black);">Paywall &amp; Access Control:</strong>
+          <p style="font-size:6.7pt; margin:1px 0 0 0; color:#4B5563;">Subscription-based video access, role-restricted educational modules, and token-gated viewing.</p>
+        </div>
+        <div style="background:#F9FAFB; padding:5px 7px; border:1px solid #E5E7EB; border-radius:3px;">
+          <strong style="font-size:7.2pt; color:var(--black);">Telehealth Consultations:</strong>
+          <p style="font-size:6.7pt; margin:1px 0 0 0; color:#4B5563;">Secure, real-time audio/video consultations integrated seamlessly with clinical patient files.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="background:#FFFFFF; border: 1.5px solid var(--black); padding:9px 12px; margin-bottom: 0;">
+      <div style="font-size:7.2pt; font-weight:700; text-transform:uppercase; color:var(--black); margin-bottom:2px;">Important Scope Qualification</div>
+      <p style="font-size:7pt; color:#4B5563; margin:0; line-height:1.4;">
+        These functional domains reflect our understanding of the capabilities requested in your initial inquiry. They do not constitute locked product requirements. The definitive architectural scope, feature matrix, and delivery phases will be established collaboratively during an initial technical discovery workshop with your leadership.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">ReplenishMD &middot; Software Development Proposal &middot; Technical Lead: <strong>Avishka Meddegoda</strong></div>
+    <div class="footer-page-num">Page 03 of 12</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 04: OUR TECHNICAL CAPABILITIES ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">ReplenishMD &middot; Software Development Proposal</div>
+      <div class="header-right">03 &middot; Technical Capabilities</div>
+    </div>
+
+    <span class="section-tag">Engineering Infrastructure &amp; Tech Stack</span>
+    <h1 class="page-title">Our Technical Capabilities</h1>
+    
+    <p class="lead-text">
+      Our team operates across a battle-tested, modern enterprise technology stack. Every capability presented below is backed directly by the actual production deliverables and engineering histories of our squad members:
+    </p>
+
+    <div class="grid-2" style="gap: 9px; margin-bottom: 9px;">
+      <!-- Col 1 -->
+      <div class="card-bordered">
+        <h2 class="block-title" style="font-size:9.5pt; border-bottom:1px solid var(--border-light); padding-bottom:3px;">Frontend Engineering</h2>
+        <ul class="check-list">
+          <li><strong>React.js &amp; Next.js:</strong> Modern server-rendered (SSR) and static web architectures with fast hydration and edge rendering.</li>
+          <li><strong>React Native:</strong> Cross-platform iOS and Android mobile applications sharing core business logic.</li>
+          <li><strong>TypeScript &amp; Redux Toolkit:</strong> End-to-end type safety, predictive state management, and robust RTK Query caching.</li>
+          <li><strong>Modern UI/UX:</strong> Component-driven development with Tailwind CSS, Material UI (MUI), and accessible design systems.</li>
+        </ul>
+      </div>
+
+      <div class="card-bordered">
+        <h2 class="block-title" style="font-size:9.5pt; border-bottom:1px solid var(--border-light); padding-bottom:3px;">Backend Engineering</h2>
+        <ul class="check-list">
+          <li><strong>Node.js &amp; Express / NestJS:</strong> High-performance asynchronous microservices and Backend-for-Frontend (BFF) layers.</li>
+          <li><strong>Java Spring Boot:</strong> Enterprise-grade transactional services, Spring Security, JPA/Hibernate, and modular monoliths.</li>
+          <li><strong>PHP / Laravel Lumen:</strong> Lightweight, domain-specific microservices powering high-throughput commerce domains.</li>
+          <li><strong>RESTful &amp; GraphQL APIs:</strong> Contract-first API specifications (OpenAPI/Swagger) with automated schema validation.</li>
+        </ul>
+      </div>
+
+      <!-- Col 2 -->
+      <div class="card-bordered">
+        <h2 class="block-title" style="font-size:9.5pt; border-bottom:1px solid var(--border-light); padding-bottom:3px;">Architecture &amp; Integration</h2>
+        <ul class="check-list">
+          <li><strong>Microservices &amp; BFF Architecture:</strong> Clean domain isolation with dedicated BFF orchestration for web and mobile.</li>
+          <li><strong>Message-Driven Systems:</strong> Asynchronous event publishing and queuing via Apache Kafka and RabbitMQ.</li>
+          <li><strong>Third-Party API Integrations:</strong> Seamless integration with payment gateways (Stripe), logistics, and healthcare services.</li>
+          <li><strong>Headless CMS Ecosystems:</strong> Decoupled content delivery using Strapi, Storyblok, Sitecore, and Umbraco.</li>
+        </ul>
+      </div>
+
+      <div class="card-bordered">
+        <h2 class="block-title" style="font-size:9.5pt; border-bottom:1px solid var(--border-light); padding-bottom:3px;">Databases &amp; Storage</h2>
+        <ul class="check-list">
+          <li><strong>PostgreSQL &amp; MySQL:</strong> ACID-compliant relational modeling, Flyway migrations, connection pooling, and indexing.</li>
+          <li><strong>MongoDB:</strong> Document storage for dynamic product catalogs and semi-structured clinical metadata.</li>
+          <li><strong>Redis:</strong> In-memory session management, rate-limiting counters, and sub-millisecond data caching.</li>
+          <li><strong>AWS S3 &amp; Cloud Storage:</strong> Secure document repository with pre-signed URLs and server-side encryption.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Security & Cloud Full-width -->
+    <div class="grid-2" style="gap: 9px; margin-bottom: 0;">
+      <div class="card-bordered" style="background:#FAFAFA;">
+        <h2 class="block-title" style="font-size:9.5pt; border-bottom:1px solid var(--border-light); padding-bottom:3px;">Cloud &amp; DevOps Engineering</h2>
+        <ul class="check-list">
+          <li><strong>Amazon Web Services (AWS):</strong> EC2, RDS, Lambda, S3, CloudFront, Route53, and IAM security.</li>
+          <li><strong>Containerization &amp; Orchestration:</strong> Docker container builds and Kubernetes cluster deployments.</li>
+          <li><strong>CI/CD Automation:</strong> Automated test execution, linting, and deployment via GitLab CI/CD and GitHub Actions.</li>
+        </ul>
+      </div>
+
+      <div class="card-bordered" style="background:#FAFAFA;">
+        <h2 class="block-title" style="font-size:9.5pt; border-bottom:1px solid var(--border-light); padding-bottom:3px;">Security &amp; Identity Governance</h2>
+        <ul class="check-list">
+          <li><strong>Keycloak &amp; OAuth2 / OIDC:</strong> Centralized identity management, Single Sign-On (SSO), and JWT token exchange.</li>
+          <li><strong>Role-Based Access Control (RBAC):</strong> Strict permission scoping for patients, practitioners, and super-admins.</li>
+          <li><strong>Data Protection:</strong> Enforced TLS 1.3 transport encryption, AES-256 data at rest, and audit logging.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">ReplenishMD &middot; Software Development Proposal &middot; Technical Lead: <strong>Avishka Meddegoda</strong></div>
+    <div class="footer-page-num">Page 04 of 12</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 05: INTERNATIONAL PROJECT PORTFOLIO ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">ReplenishMD &middot; Software Development Proposal</div>
+      <div class="header-right">04 &middot; Project Portfolio</div>
+    </div>
+
+    <span class="section-tag">Case Studies &amp; Track Record</span>
+    <h1 class="page-title">International Project Portfolio</h1>
+    
+    <p class="lead-text" style="margin-bottom:8px;">
+      Our team members have played pivotal engineering roles in designing, deploying, and maintaining high-visibility international platforms across diverse industries including e-commerce, digital media, real estate, and government institutions:
+    </p>
+
+    <!-- 8 PROJECTS GRID -->
+    <div class="grid-2" style="gap: 7px; margin-bottom: 7px;">
+      <!-- Project 01 -->
+      <div class="card-bordered" style="padding: 7px 9px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h3 class="item-title" style="margin:0; font-size:7.8pt;">01. Moolee Multi-Tenant E-Commerce</h3>
+          <a href="https://moolee.mv" class="link-pill" target="_blank">moolee.mv</a>
+        </div>
+        <p style="font-size:6.7pt; color:#4B5563; margin:2px 0 3px 0; line-height:1.3;">Multi-tenant marketplace supporting customer and admin portals. Microservices architecture managing orders, payments, shipping, promotions, and Keycloak OAuth2 auth.</p>
+        <div style="font-size:6.2pt; color:#6B7280;"><strong>Tech:</strong> Node.js, Express, Laravel Lumen, Strapi CMS, Keycloak, MySQL, Docker, GitLab CI/CD</div>
+      </div>
+
+      <!-- Project 02 -->
+      <div class="card-bordered" style="padding: 7px 9px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h3 class="item-title" style="margin:0; font-size:7.8pt;">02. Adrik News &amp; Media Platform</h3>
+          <span style="font-size:6.3pt; color:#6B7280; font-weight:600;">Client: Adrik, Kuwait</span>
+        </div>
+        <div style="font-size:6.4pt; margin:1px 0;"><span style="color:#4B5563;">Dev App Environment:</span> <a href="https://app.dev.adrik.arimac.xyz/" class="link-pill" target="_blank">app.dev.adrik.arimac.xyz</a></div>
+        <p style="font-size:6.7pt; color:#4B5563; margin:0 0 3px 0; line-height:1.3;">Bilingual (EN/AR) digital news and media platform. Built 3 Node.js BFF services for web, mobile, and admin, handling streaming, subscriptions, payments, and push notifications.</p>
+        <div style="font-size:6.2pt; color:#6B7280;"><strong>Tech:</strong> Node.js, Express, Keycloak, JWT, OneSignal, REST APIs, Docker, Kubernetes</div>
+      </div>
+
+      <!-- Project 03 -->
+      <div class="card-bordered" style="padding: 7px 9px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h3 class="item-title" style="margin:0; font-size:7.8pt;">03. McGrath Real Estate Marketplace</h3>
+          <span class="badge badge-grey">Australia</span>
+        </div>
+        <p style="font-size:6.7pt; color:#4B5563; margin:2px 0 3px 0; line-height:1.3;">Leading Australian digital property marketplace. Built responsive, high-performance frontend interfaces with advanced faceted search, property listings, and real-time data sync.</p>
+        <div style="font-size:6.2pt; color:#6B7280;"><strong>Tech:</strong> Next.js, Node.js, GraphQL, Redux, React</div>
+      </div>
+
+      <!-- Project 04 -->
+      <div class="card-bordered" style="padding: 7px 9px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h3 class="item-title" style="margin:0; font-size:7.8pt;">04. DU Greenfield Transformation</h3>
+          <span class="badge badge-grey">UAE Telecom</span>
+        </div>
+        <p style="font-size:6.7pt; color:#4B5563; margin:2px 0 3px 0; line-height:1.3;">Enterprise digital telecom transformation in the UAE. Engineered modular micro-frontend features using React Native and React, managing global state and high concurrency.</p>
+        <div style="font-size:6.2pt; color:#6B7280;"><strong>Tech:</strong> React.js, React Native, GraphQL, Redux</div>
+      </div>
+
+      <!-- Project 05 -->
+      <div class="card-bordered" style="padding: 7px 9px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h3 class="item-title" style="margin:0; font-size:7.8pt;">05. Al Ain Museum V2</h3>
+          <a href="https://alainmuseum.ae" class="link-pill" target="_blank">alainmuseum.ae</a>
+        </div>
+        <p style="font-size:6.7pt; color:#4B5563; margin:2px 0 3px 0; line-height:1.3;">Government cultural institution platform in the UAE. Rebuilt multi-site ecosystem with Next.js and Sitecore Headless CMS, implementing custom recursive nested content rendering.</p>
+        <div style="font-size:6.2pt; color:#6B7280;"><strong>Tech:</strong> Next.js, React, TypeScript, Sitecore Helix, REST APIs</div>
+      </div>
+
+      <!-- Project 06 -->
+      <div class="card-bordered" style="padding: 7px 9px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h3 class="item-title" style="margin:0; font-size:7.8pt;">06. Nat. History Museum Abu Dhabi</h3>
+          <a href="https://nhmad.ae" class="link-pill" target="_blank">nhmad.ae</a>
+        </div>
+        <p style="font-size:6.7pt; color:#4B5563; margin:2px 0 3px 0; line-height:1.3;">Abu Dhabi government digital experience platform. Implemented Sitecore Helix architecture and custom C#/.NET components for multilingual content delivery and high availability.</p>
+        <div style="font-size:6.2pt; color:#6B7280;"><strong>Tech:</strong> Sitecore, C#, .NET, Sitecore Helix, REST APIs, TypeScript</div>
+      </div>
+
+      <!-- Project 07 -->
+      <div class="card-bordered" style="padding: 7px 9px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h3 class="item-title" style="margin:0; font-size:7.8pt;">07. Holsten Arabia</h3>
+          <a href="https://holstenarabia.me" class="link-pill" target="_blank">holstenarabia.me</a>
+        </div>
+        <p style="font-size:6.7pt; color:#4B5563; margin:2px 0 3px 0; line-height:1.3;">Headless CMS-based digital experience for global beverage brand across the Middle East. Next.js/React frontend integrated with Umbraco Headless CMS via structured REST APIs.</p>
+        <div style="font-size:6.2pt; color:#6B7280;"><strong>Tech:</strong> Umbraco Headless, Next.js, React, TypeScript, C#, .NET</div>
+      </div>
+
+      <!-- Project 08 -->
+      <div class="card-bordered" style="padding: 7px 9px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h3 class="item-title" style="margin:0; font-size:7.8pt;">08. Gravitee.io</h3>
+          <a href="https://gravitee.io" class="link-pill" target="_blank">gravitee.io</a>
+        </div>
+        <p style="font-size:6.7pt; color:#4B5563; margin:2px 0 3px 0; line-height:1.3;">Global technology corporate platform. Built and integrated modular, reusable content components consuming Storyblok API with Astro framework for ultra-fast page delivery.</p>
+        <div style="font-size:6.2pt; color:#6B7280;"><strong>Tech:</strong> Storyblok Headless, Astro, TypeScript, RESTful APIs</div>
+      </div>
+    </div>
+
+    <!-- Portfolio Rule Statement -->
+    <div style="background:#F9FAFB; border:1px solid #E5E7EB; padding:6px 10px; border-radius:3px;">
+      <p style="font-size:6.5pt; color:#6B7280; margin:0; line-height:1.35;">
+        <strong>Portfolio Attribution &amp; Environment Clarification:</strong> The projects listed above represent the collective professional engineering contributions of our respective team members during their tenure with leading digital solution firms (primarily Arimac Digital). Individual engineers contributed across distinct architecture, backend, frontend, or PM workstreams. The Adrik URL represents an active development environment, demonstrated for technical evaluation.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">ReplenishMD &middot; Software Development Proposal &middot; Technical Lead: <strong>Avishka Meddegoda</strong></div>
+    <div class="footer-page-num">Page 05 of 12</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 06: OUR ENGINEERING TEAM ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">ReplenishMD &middot; Software Development Proposal</div>
+      <div class="header-right">05 &middot; Engineering Team</div>
+    </div>
+
+    <span class="section-tag">Talent &amp; Experience Profiles</span>
+    <h1 class="page-title">Our Engineering Team</h1>
+    
+    <p class="lead-text" style="margin-bottom:8px;">
+      We deploy as a unified, highly capable five-member software engineering squad led by senior engineers with 6+ years of specialized experience in full-stack architecture, frontend systems, and distributed platforms:
+    </p>
+
+    <!-- 5 TEAM MEMBERS -->
+    <div class="grid-2" style="gap: 7px; margin-bottom: 7px;">
+      <!-- Member 1: Avishka (Technical Lead) -->
+      <div class="card-bordered" style="padding:8px 10px; border-left:3px solid var(--black);">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h2 class="block-title" style="margin:0; font-size:8.8pt;">01. Avishka Meddegoda</h2>
+          <span class="badge badge-dark">Technical Lead</span>
+        </div>
+        <div style="font-size:6.8pt; color:var(--dark-grey); font-weight:700; margin-bottom:3px;">Senior Software Engineer &middot; 6+ Years Experience</div>
+        <p style="font-size:6.7pt; color:#4B5563; margin-bottom:4px; line-height:1.3;">
+          <strong>Responsibilities:</strong> Technical leadership, system architecture, backend microservices, Keycloak security/OAuth2, technical planning, and code quality governance.
+        </p>
+        <div style="font-size:6.3pt; color:#6B7280; line-height:1.25;">
+          <strong>Expertise:</strong> Java Spring Boot, PHP/Laravel, Node.js, REST APIs, Keycloak, JWT, AWS, Redis.<br>
+          <strong>Projects:</strong> DIMO Enterprise, Ooredoo Algeria, Ooredoo Maldives. Published IEEE author.
+        </div>
+      </div>
+
+      <!-- Member 2: Chamara (Senior Frontend) -->
+      <div class="card-bordered" style="padding:8px 10px; border-left:3px solid var(--black);">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h2 class="block-title" style="margin:0; font-size:8.8pt;">02. Chamara Lahiru</h2>
+          <span class="badge badge-dark">Senior Frontend Lead</span>
+        </div>
+        <div style="font-size:6.8pt; color:var(--dark-grey); font-weight:700; margin-bottom:3px;">Senior Frontend &amp; Mobile Engineer &middot; 6+ Years Experience</div>
+        <p style="font-size:6.7pt; color:#4B5563; margin-bottom:4px; line-height:1.3;">
+          <strong>Responsibilities:</strong> Frontend architecture, responsive web and React Native mobile development, state management, and GraphQL client-side integration.
+        </p>
+        <div style="font-size:6.3pt; color:#6B7280; line-height:1.25;">
+          <strong>Expertise:</strong> React, Next.js, React Native, Redux, GraphQL, TypeScript, Tailwind CSS.<br>
+          <strong>Projects:</strong> McGrath Real Estate (Australia), DU Greenfield (UAE), Ooredoo, Burger King.
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-3" style="gap: 7px; margin-bottom: 7px;">
+      <!-- Member 3: Viranga -->
+      <div class="card-bordered" style="padding:7px 9px;">
+        <h2 class="block-title" style="margin:0; font-size:8.2pt;">03. Viranga Lakshan</h2>
+        <div style="font-size:6.6pt; color:var(--dark-grey); font-weight:700; margin-bottom:2px;">Full-Stack / CMS &middot; 2+ Yrs</div>
+        <p style="font-size:6.5pt; color:#4B5563; margin-bottom:3px; line-height:1.25;">
+          <strong>Responsibilities:</strong> Full-stack development, headless CMS APIs, client technical communications.
+        </p>
+        <div style="font-size:6.1pt; color:#6B7280; line-height:1.2;">
+          <strong>Expertise:</strong> Next.js, React, TypeScript, Sitecore, Umbraco, REST APIs.<br>
+          <strong>Projects:</strong> Al Ain Museum V2, Nat. History Museum Abu Dhabi, Holsten Arabia.
+        </div>
+      </div>
+
+      <!-- Member 4: Janith -->
+      <div class="card-bordered" style="padding:7px 9px;">
+        <h2 class="block-title" style="margin:0; font-size:8.2pt;">04. Janith Kavishka</h2>
+        <div style="font-size:6.6pt; color:var(--dark-grey); font-weight:700; margin-bottom:2px;">Full-Stack Developer &middot; 2+ Yrs</div>
+        <p style="font-size:6.5pt; color:#4B5563; margin-bottom:3px; line-height:1.25;">
+          <strong>Responsibilities:</strong> Backend logic, relational database engineering, cloud data migrations.
+        </p>
+        <div style="font-size:6.1pt; color:#6B7280; line-height:1.2;">
+          <strong>Expertise:</strong> Java Spring Boot, React, Next.js, PostgreSQL, AWS RDS, RabbitMQ.<br>
+          <strong>Projects:</strong> SINGER Sri Lanka PLC enterprise receipt &amp; transaction engine.
+        </div>
+      </div>
+
+      <!-- Member 5: Lithumitha -->
+      <div class="card-bordered" style="padding:7px 9px;">
+        <h2 class="block-title" style="margin:0; font-size:8.2pt;">05. Lithumitha Ravikumar</h2>
+        <div style="font-size:6.6pt; color:var(--dark-grey); font-weight:700; margin-bottom:2px;">Project Manager &middot; 2 Yrs</div>
+        <p style="font-size:6.5pt; color:#4B5563; margin-bottom:3px; line-height:1.25;">
+          <strong>Responsibilities:</strong> Agile sprint planning, user story grooming, SRS documentation, QA tracking.
+        </p>
+        <div style="font-size:6.1pt; color:#6B7280; line-height:1.2;">
+          <strong>Expertise:</strong> Scrum, JIRA, SRS, Acceptance Criteria. First Class Honours in BIS.<br>
+          <strong>Projects:</strong> Al Ain Museum UAE delivery, Guardian Funds Australia.
+        </div>
+      </div>
+    </div>
+
+    <!-- Office image callout -->
+    <div style="display:flex; gap:12px; align-items:center; background:#F9FAFB; border:1px solid #E5E7EB; padding:8px 12px; border-radius:4px;">
+      <img src="file:///C:/Users/Viranga/Downloads/upwrok new/ReplenishMD_Software_Development_Proposal/images/team_office.jpg" style="width:75px; height:50px; object-fit:cover; border-radius:3px; border:1px solid #D1D5DB;" alt="Engineering Team">
+      <div>
+        <strong style="font-size:7.5pt; color:var(--black);">Pre-Assembled Team Synergy</strong>
+        <p style="font-size:6.8pt; color:#4B5563; margin:1px 0 0 0; line-height:1.35;">
+          Unlike freelance marketplaces where random individuals are paired together, our team members operate out of the same engineering environment in Colombo, Sri Lanka, ensuring cohesive code standards, peer reviews, and synchronized sprint delivery.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">ReplenishMD &middot; Software Development Proposal &middot; Technical Lead: <strong>Avishka Meddegoda</strong></div>
+    <div class="footer-page-num">Page 06 of 12</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 07: TECHNICAL LEADERSHIP AND DELIVERY MODEL ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">ReplenishMD &middot; Software Development Proposal</div>
+      <div class="header-right">06 &middot; Delivery Model</div>
+    </div>
+
+    <span class="section-tag">Governance &amp; Engineering Operations</span>
+    <h1 class="page-title">Technical Leadership &amp; Delivery Model</h1>
+    
+    <p class="lead-text">
+      To ensure clear accountability, code quality, and predictable delivery for ReplenishMD, our squad is governed by an established technical leadership structure led by <strong>Avishka Meddegoda</strong>:
+    </p>
+
+    <!-- OPERATIONAL BREAKDOWN -->
+    <div class="grid-2" style="gap: 9px; margin-bottom: 12px;">
+      <div class="card-bordered">
+        <h2 class="block-title" style="font-size:9.2pt;">Technical Architecture &amp; Planning</h2>
+        <p class="body-text">
+          Led by <strong>Avishka Meddegoda</strong> (Technical Lead). Every architectural decision—from microservice boundaries and database schema designs to authentication flows and API contracts—is reviewed and validated before implementation begins.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <h2 class="block-title" style="font-size:9.2pt;">Frontend &amp; Mobile UI Execution</h2>
+        <p class="body-text">
+          Led by <strong>Chamara Lahiru</strong> (Senior Frontend Engineer). Chamara ensures that all client-facing and administrative portals maintain responsive layouts, optimized state trees, fast rendering, and smooth mobile compatibility.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <h2 class="block-title" style="font-size:9.2pt;">Full-Stack Implementation Workstreams</h2>
+        <p class="body-text">
+          Executed by <strong>Viranga Lakshan</strong> and <strong>Janith Kavishka</strong>. They own end-to-end feature delivery across frontend components, database migrations, and third-party API connectors within dedicated sprint workstreams.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <h2 class="block-title" style="font-size:9.2pt;">Project Coordination &amp; Quality Governance</h2>
+        <p class="body-text">
+          Coordinated by <strong>Lithumitha Ravikumar</strong> (Project Manager). Lithumitha facilitates sprint planning, maintains transparent JIRA tracking, removes blockers, and coordinates QA test execution against acceptance criteria.
+        </p>
+      </div>
+    </div>
+
+    <!-- HIERARCHY DIAGRAM -->
+    <div class="card" style="background:#F9FAFB; padding:12px 14px; margin-bottom: 0;">
+      <h2 class="block-title" style="text-align:center; font-size:9pt; margin-bottom:10px;">Engineering Squad Delivery Hierarchy</h2>
+      
+      <!-- Tier 1: Tech Lead -->
+      <div style="display:flex; justify-content:center; margin-bottom:6px;">
+        <div style="background:var(--black); color:var(--white); padding:6px 14px; border-radius:3px; text-align:center; width:260px;">
+          <div style="font-size:8pt; font-weight:700;">AVISHKA MEDDEGODA</div>
+          <div style="font-size:6.5pt; color:#D1D5DB; text-transform:uppercase;">Technical Lead &middot; Software Architect</div>
+        </div>
+      </div>
+
+      <!-- Arrow down -->
+      <div style="text-align:center; font-size:9pt; color:var(--medium-grey); line-height:1; margin-bottom:6px;">▼</div>
+
+      <!-- Tier 2: Specialized Engineering Disciplines -->
+      <div class="grid-3" style="gap:8px; margin-bottom:6px;">
+        <div style="background:var(--white); border:1px solid #D1D5DB; padding:6px 8px; border-radius:3px; text-align:center;">
+          <div style="font-size:7.4pt; font-weight:700; color:var(--black);">CHAMARA LAHIRU</div>
+          <div style="font-size:6.2pt; color:var(--dark-grey);">Frontend &amp; Mobile Lead</div>
+        </div>
+        <div style="background:var(--white); border:1px solid #D1D5DB; padding:6px 8px; border-radius:3px; text-align:center;">
+          <div style="font-size:7.4pt; font-weight:700; color:var(--black);">VIRANGA LAKSHAN</div>
+          <div style="font-size:6.2pt; color:var(--dark-grey);">Full-Stack &amp; CMS Dev</div>
+        </div>
+        <div style="background:var(--white); border:1px solid #D1D5DB; padding:6px 8px; border-radius:3px; text-align:center;">
+          <div style="font-size:7.4pt; font-weight:700; color:var(--black);">JANITH KAVISHKA</div>
+          <div style="font-size:6.2pt; color:var(--dark-grey);">Full-Stack &amp; Database</div>
+        </div>
+      </div>
+
+      <!-- Arrow down -->
+      <div style="text-align:center; font-size:9pt; color:var(--medium-grey); line-height:1; margin-bottom:6px;">▼</div>
+
+      <!-- Tier 3: Project Management & QA -->
+      <div style="display:flex; justify-content:center;">
+        <div style="background:var(--white); border:1.5px solid var(--black); padding:6px 14px; border-radius:3px; text-align:center; width:300px;">
+          <div style="font-size:7.6pt; font-weight:700; color:var(--black);">LITHUMITHA RAVIKUMAR</div>
+          <div style="font-size:6.4pt; color:var(--dark-grey); text-transform:uppercase;">Agile Sprint Governance &middot; QA &middot; Stakeholder Coordination</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">ReplenishMD &middot; Software Development Proposal &middot; Technical Lead: <strong>Avishka Meddegoda</strong></div>
+    <div class="footer-page-num">Page 07 of 12</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 08: DEVELOPMENT METHODOLOGY ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">ReplenishMD &middot; Software Development Proposal</div>
+      <div class="header-right">07 &middot; Methodology</div>
+    </div>
+
+    <span class="section-tag">Agile Lifecycle &amp; Delivery Framework</span>
+    <h1 class="page-title">Development Methodology</h1>
+    
+    <p class="lead-text">
+      We operate under a disciplined Agile Scrum methodology adapted for high-stakes healthcare and enterprise software engineering, emphasizing transparent milestone tracking, continuous integration, and frequent stakeholder feedback:
+    </p>
+
+    <!-- HORIZONTAL AGILE PROCESS DIAGRAM -->
+    <div class="grid-5" style="display:grid; grid-template-columns: repeat(5, 1fr); gap:6px; margin-bottom:12px;">
+      <!-- Phase 1 -->
+      <div style="background:var(--black); color:var(--white); padding:8px 6px; border-radius:3px; text-align:center;">
+        <div style="font-size:6.2pt; font-weight:700; color:#9CA3AF; text-transform:uppercase;">Phase 01</div>
+        <div style="font-size:7.5pt; font-weight:700; margin-top:2px; color:var(--white);">Discovery</div>
+      </div>
+      <!-- Phase 2 -->
+      <div style="background:var(--black); color:var(--white); padding:8px 6px; border-radius:3px; text-align:center;">
+        <div style="font-size:6.2pt; font-weight:700; color:#9CA3AF; text-transform:uppercase;">Phase 02</div>
+        <div style="font-size:7.5pt; font-weight:700; margin-top:2px; color:var(--white);">Architecture</div>
+      </div>
+      <!-- Phase 3 -->
+      <div style="background:var(--black); color:var(--white); padding:8px 6px; border-radius:3px; text-align:center;">
+        <div style="font-size:6.2pt; font-weight:700; color:#9CA3AF; text-transform:uppercase;">Phase 03</div>
+        <div style="font-size:7.5pt; font-weight:700; margin-top:2px; color:var(--white);">Development</div>
+      </div>
+      <!-- Phase 4 -->
+      <div style="background:var(--black); color:var(--white); padding:8px 6px; border-radius:3px; text-align:center;">
+        <div style="font-size:6.2pt; font-weight:700; color:#9CA3AF; text-transform:uppercase;">Phase 04</div>
+        <div style="font-size:7.5pt; font-weight:700; margin-top:2px; color:var(--white);">QA &amp; Security</div>
+      </div>
+      <!-- Phase 5 -->
+      <div style="background:var(--black); color:var(--white); padding:8px 6px; border-radius:3px; text-align:center;">
+        <div style="font-size:6.2pt; font-weight:700; color:#9CA3AF; text-transform:uppercase;">Phase 05</div>
+        <div style="font-size:7.5pt; font-weight:700; margin-top:2px; color:var(--white);">Deployment</div>
+      </div>
+    </div>
+
+    <!-- DETAILED PHASES -->
+    <div class="card-bordered" style="margin-bottom:7px;">
+      <h2 class="block-title" style="font-size:8.8pt; margin-bottom:3px;">PHASE 01 &middot; DISCOVERY &amp; REQUIREMENTS ANALYSIS</h2>
+      <p style="font-size:7.2pt; color:#4B5563; margin:0; line-height:1.4;">
+        In-depth technical discovery workshops with ReplenishMD stakeholders. Review existing platform code, map business processes, catalog third-party dependencies (pharmacy APIs, payment gateways, video infrastructure), and formulate the Software Requirements Specification (SRS).
+      </p>
+    </div>
+
+    <div class="card-bordered" style="margin-bottom:7px;">
+      <h2 class="block-title" style="font-size:8.8pt; margin-bottom:3px;">PHASE 02 &middot; TECHNICAL ARCHITECTURE &amp; SCHEMA DESIGN</h2>
+      <p style="font-size:7.2pt; color:#4B5563; margin:0; line-height:1.4;">
+        Designing system architecture blueprints, relational and document database schemas, RESTful/GraphQL API contracts, authentication workflows, and UI component design systems to ensure consistent look and feel across web and mobile.
+      </p>
+    </div>
+
+    <div class="card-bordered" style="margin-bottom:7px;">
+      <h2 class="block-title" style="font-size:8.8pt; margin-bottom:3px;">PHASE 03 &middot; ITERATIVE SPRINT DEVELOPMENT</h2>
+      <p style="font-size:7.2pt; color:#4B5563; margin:0; line-height:1.4;">
+        Executing two-week Agile development sprints. Parallel workstreams for frontend UI, backend microservices, database migrations, and third-party integrations. Continuous code integration, peer reviews, and bi-weekly sprint review demonstrations.
+      </p>
+    </div>
+
+    <div class="card-bordered" style="margin-bottom:7px;">
+      <h2 class="block-title" style="font-size:8.8pt; margin-bottom:3px;">PHASE 04 &middot; QUALITY ASSURANCE &amp; SECURITY VALIDATION</h2>
+      <p style="font-size:7.2pt; color:#4B5563; margin:0; line-height:1.4;">
+        End-to-end functional testing, regression suites, API contract validation, load and stress testing, and vulnerability assessments (VAPT). Verification of role-based permissions, data encryption, and audit log generation.
+      </p>
+    </div>
+
+    <div class="card-bordered" style="margin-bottom:0;">
+      <h2 class="block-title" style="font-size:8.8pt; margin-bottom:3px;">PHASE 05 &middot; PRODUCTION DEPLOYMENT &amp; ONGOING SUPPORT</h2>
+      <p style="font-size:7.2pt; color:#4B5563; margin:0; line-height:1.4;">
+        Zero-downtime production deployment to AWS cloud infrastructure, setup of monitoring and error tracking alerts, delivery of complete technical documentation and API specifications, followed by warranty support and sprint enhancements.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">ReplenishMD &middot; Software Development Proposal &middot; Technical Lead: <strong>Avishka Meddegoda</strong></div>
+    <div class="footer-page-num">Page 08 of 12</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 09: SECURITY AND COMPLIANCE CONSIDERATIONS ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">ReplenishMD &middot; Software Development Proposal</div>
+      <div class="header-right">08 &middot; Security &amp; Compliance</div>
+    </div>
+
+    <span class="section-tag">Governance, Privacy &amp; Data Protection</span>
+    <h1 class="page-title">Security &amp; Compliance Considerations</h1>
+    
+    <p class="lead-text">
+      Healthcare and clinical platforms demand uncompromising data protection. Our engineering practices embed security into every layer of application architecture, ensuring confidentiality, integrity, and availability:
+    </p>
+
+    <div class="grid-2" style="gap: 9px; margin-bottom: 12px;">
+      <div class="card-bordered">
+        <h2 class="block-title" style="font-size:9.2pt;">Role-Based Access Control (RBAC)</h2>
+        <p class="body-text">
+          Granular permission scoping isolating patient records, practitioner charts, pharmacy orders, and administrative oversight. Users only access data strictly necessary for their authorized role.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <h2 class="block-title" style="font-size:9.2pt;">Secure Authentication &amp; MFA</h2>
+        <p class="body-text">
+          Integration with Keycloak or enterprise IAM providers implementing OAuth2 / OpenID Connect, short-lived JWT tokens, automatic session timeouts, and mandatory Multi-Factor Authentication.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <h2 class="block-title" style="font-size:9.2pt;">Cryptographic Data Protection</h2>
+        <p class="body-text">
+          Enforced TLS 1.3 transport encryption for all web and mobile traffic, combined with AES-256 encryption at rest for databases, S3 object storage, and automated backups.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <h2 class="block-title" style="font-size:9.2pt;">Immutable Audit Logging</h2>
+        <p class="body-text">
+          Append-only chronological audit logging recording every read, write, update, and export of sensitive patient, medication, or transaction data with timestamps and IP records.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <h2 class="block-title" style="font-size:9.2pt;">API &amp; Network Perimeter Security</h2>
+        <p class="body-text">
+          Strict CORS policies, IP allowlisting for third-party pharmacy endpoints, rate-limiting to mitigate brute-force attacks, and adherence to OWASP Top 10 secure coding guidelines.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <h2 class="block-title" style="font-size:9.2pt;">Secure Cloud Infrastructure</h2>
+        <p class="body-text">
+          Isolated Virtual Private Clouds (VPCs) on AWS, private subnets for database clusters, regular security patch upgrades, and automated off-site encrypted database snapshots.
+        </p>
+      </div>
+    </div>
+
+    <!-- HIPAA Qualification Card -->
+    <div class="card" style="background:#F9FAFB; border: 1.5px solid var(--black); padding:10px 14px; margin-bottom: 0;">
+      <div style="font-size:7.5pt; font-weight:700; text-transform:uppercase; color:var(--black); margin-bottom:3px;">
+        Regulatory Alignment &amp; HIPAA Qualification Note
+      </div>
+      <p style="font-size:7.1pt; color:#4B5563; margin:0; line-height:1.45;">
+        As an engineering partner, we implement secure software architectures following industry-standard principles (encryption, access controls, audit trails, and data isolation). <strong>HIPAA-related operational requirements must be evaluated and implemented according to ReplenishMD's specific US regulatory, legal, and operational obligations</strong>. We do not claim third-party HIPAA certification as a development squad; rather, we build technical controls that support your compliance roadmap.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">ReplenishMD &middot; Software Development Proposal &middot; Technical Lead: <strong>Avishka Meddegoda</strong></div>
+    <div class="footer-page-num">Page 09 of 12</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 10: INDICATIVE DEVELOPMENT TIMELINE ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">ReplenishMD &middot; Software Development Proposal</div>
+      <div class="header-right">09 &middot; Roadmap &amp; Timeline</div>
+    </div>
+
+    <span class="section-tag">Delivery Milestones &amp; Planning</span>
+    <h1 class="page-title">Indicative Development Timeline</h1>
+    
+    <p class="lead-text">
+      The roadmap below illustrates an indicative delivery trajectory for an enterprise healthcare and marketplace platform. Actual timelines will be calibrated collaboratively based on confirmed scope, platform complexity, and existing codebase maturity:
+    </p>
+
+    <!-- TIMELINE TABLE -->
+    <table class="corp-table" style="margin-bottom: 12px;">
+      <thead>
+        <tr>
+          <th style="width:18%;">Phase / Milestone</th>
+          <th style="width:52%;">Key Workstreams &amp; Engineering Deliverables</th>
+          <th style="width:15%;">Indicative Period</th>
+          <th style="width:15%;">Primary Owner</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Milestone 01<br>Discovery &amp; Blueprint</strong></td>
+          <td>Technical requirement workshops, user journey mapping, third-party dependency review, and SRS architecture blueprint.</td>
+          <td>Weeks 1 &ndash; 2</td>
+          <td>Avishka / Lithumitha</td>
+        </tr>
+        <tr>
+          <td><strong>Milestone 02<br>Foundation &amp; Auth</strong></td>
+          <td>Database schema design, Keycloak/OAuth2 security setup, RBAC rules, CI/CD pipeline, and base design system.</td>
+          <td>Weeks 3 &ndash; 5</td>
+          <td>Avishka / Chamara</td>
+        </tr>
+        <tr>
+          <td><strong>Milestone 03<br>Core Features &amp; Workflows</strong></td>
+          <td>Medication management workflows, appointment scheduling, patient/provider portals, and initial marketplace catalog.</td>
+          <td>Weeks 6 &ndash; 10</td>
+          <td>Full Squad</td>
+        </tr>
+        <tr>
+          <td><strong>Milestone 04<br>Integrations &amp; Media</strong></td>
+          <td>Pharmacy API connectors, payment gateways (Stripe), streaming/video consultation endpoints, and notifications.</td>
+          <td>Weeks 11 &ndash; 13</td>
+          <td>Avishka / Janith</td>
+        </tr>
+        <tr>
+          <td><strong>Milestone 05<br>QA &amp; Security Hardening</strong></td>
+          <td>End-to-end integration testing, regression passes, performance tuning, and vulnerability testing.</td>
+          <td>Weeks 14 &ndash; 15</td>
+          <td>Full Squad / QA</td>
+        </tr>
+        <tr>
+          <td><strong>Milestone 06<br>Deployment &amp; Launch</strong></td>
+          <td>Staging sign-off, production rollout on AWS, monitoring setup, technical documentation, and team handover.</td>
+          <td>Week 16+</td>
+          <td>Avishka / Lithumitha</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- GOVERNANCE FACTORS -->
+    <div class="card-bordered" style="background:#FAFAFA; margin-bottom: 0;">
+      <h2 class="block-title" style="font-size:9pt; margin-bottom:4px;">Key Governance Factors Influencing Project Schedules</h2>
+      <p style="font-size:7.2pt; color:#4B5563; margin-bottom:6px; line-height:1.4;">
+        In professional enterprise engineering, delivery timelines must be grounded in reality rather than arbitrary promises. The actual delivery schedule depends on the following critical parameters:
+      </p>
+      <div class="grid-3" style="gap:6px;">
+        <div style="background:#FFFFFF; border:1px solid #E5E7EB; padding:5px 7px; border-radius:3px;">
+          <strong style="font-size:7pt; color:var(--black);">Confirmed Scope:</strong>
+          <p style="font-size:6.6pt; margin:1px 0 0 0; color:#4B5563;">Depth of custom medication workflows versus off-the-shelf APIs.</p>
+        </div>
+        <div style="background:#FFFFFF; border:1px solid #E5E7EB; padding:5px 7px; border-radius:3px;">
+          <strong style="font-size:7pt; color:var(--black);">Existing Architecture:</strong>
+          <p style="font-size:6.6pt; margin:1px 0 0 0; color:#4B5563;">State of any legacy codebase, database schemas, or technical debt.</p>
+        </div>
+        <div style="background:#FFFFFF; border:1px solid #E5E7EB; padding:5px 7px; border-radius:3px;">
+          <strong style="font-size:7pt; color:var(--black);">Third-Party APIs:</strong>
+          <p style="font-size:6.6pt; margin:1px 0 0 0; color:#4B5563;">Documentation quality and sandbox availability of partner pharmacy APIs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">ReplenishMD &middot; Software Development Proposal &middot; Technical Lead: <strong>Avishka Meddegoda</strong></div>
+    <div class="footer-page-num">Page 10 of 12</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 11: ENGAGEMENT AND COMMERCIAL MODEL ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">ReplenishMD &middot; Software Development Proposal</div>
+      <div class="header-right">10 &middot; Engagement Model</div>
+    </div>
+
+    <span class="section-tag">Partnership Framework &amp; Commercial Flexibility</span>
+    <h1 class="page-title">Engagement &amp; Commercial Model</h1>
+    
+    <p class="lead-text">
+      We offer flexible collaboration models structured to suit ReplenishMD’s operational preferences, whether you require a dedicated engineering squad or milestone-based delivery:
+    </p>
+
+    <!-- 3 ENGAGEMENT OPTIONS -->
+    <div class="grid-3" style="gap: 8px; margin-bottom: 12px;">
+      <div class="card-bordered" style="border-top: 3px solid var(--black);">
+        <div style="font-size:6.8pt; font-weight:700; text-transform:uppercase; color:var(--medium-grey);">Option A</div>
+        <h2 class="block-title" style="font-size:9.5pt; margin:2px 0 4px 0;">Dedicated Development Team</h2>
+        <p style="font-size:7pt; color:#4B5563; line-height:1.4; margin-bottom:6px;">
+          Our 5-member squad works exclusively as an extension of ReplenishMD on an agreed monthly basis.
+        </p>
+        <ul class="check-list" style="font-size:6.8pt;">
+          <li>Full team capacity &amp; direct Slack integration.</li>
+          <li>Agile sprint prioritization flexibility.</li>
+          <li>Continuous delivery &amp; immediate support.</li>
+          <li>Predictable monthly investment.</li>
+        </ul>
+      </div>
+
+      <div class="card-bordered" style="border-top: 3px solid var(--black);">
+        <div style="font-size:6.8pt; font-weight:700; text-transform:uppercase; color:var(--medium-grey);">Option B</div>
+        <h2 class="block-title" style="font-size:9.5pt; margin:2px 0 4px 0;">Milestone-Based Delivery</h2>
+        <p style="font-size:7pt; color:#4B5563; line-height:1.4; margin-bottom:6px;">
+          Development delivered against clearly defined phases, deliverables, and acceptance criteria.
+        </p>
+        <ul class="check-list" style="font-size:6.8pt;">
+          <li>Fixed deliverables per agreed phase.</li>
+          <li>Payments tied to verified acceptance gates.</li>
+          <li>Clear upfront scope boundaries.</li>
+          <li>Ideal for MVP or discrete platform phases.</li>
+        </ul>
+      </div>
+
+      <div class="card-bordered" style="border-top: 3px solid var(--black);">
+        <div style="font-size:6.8pt; font-weight:700; text-transform:uppercase; color:var(--medium-grey);">Option C</div>
+        <h2 class="block-title" style="font-size:9.5pt; margin:2px 0 4px 0;">Ongoing Technical Support</h2>
+        <p style="font-size:7pt; color:#4B5563; line-height:1.4; margin-bottom:6px;">
+          Continuous development, platform maintenance, security patches, and on-call operational assistance.
+        </p>
+        <ul class="check-list" style="font-size:6.8pt;">
+          <li>SLA-backed defect resolution.</li>
+          <li>Cloud monitoring &amp; backup maintenance.</li>
+          <li>Iterative feature enhancements.</li>
+          <li>Long-term technical advisory.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- OPERATIONAL PROTOCOLS -->
+    <div class="card-bordered" style="margin-bottom: 8px;">
+      <h2 class="block-title" style="font-size:9pt; margin-bottom:4px;">Operational &amp; Communication Protocols</h2>
+      <div class="grid-2" style="gap:8px;">
+        <div>
+          <strong style="font-size:7.2pt; color:var(--black);">Working Hours &amp; US Overlap:</strong>
+          <p style="font-size:6.8pt; color:#4B5563; margin:1px 0 0 0; line-height:1.35;">Our team maintains scheduled daily overlap with US business hours (Eastern and Pacific time zones) for daily standups, alignment calls, and real-time collaboration.</p>
+        </div>
+        <div>
+          <strong style="font-size:7.2pt; color:var(--black);">Project Management &amp; Reporting:</strong>
+          <p style="font-size:6.8pt; color:#4B5563; margin:1px 0 0 0; line-height:1.35;">Transparent task boards in JIRA or ClickUp, shared GitLab/GitHub repositories, bi-weekly sprint demos, and weekly executive progress reports.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Commercial note -->
+    <div class="card" style="background:#F9FAFB; padding:8px 12px; margin-bottom: 0;">
+      <div style="font-size:7.2pt; font-weight:700; color:var(--black); margin-bottom:1px;">Transparent Commercial Proposal Following Discovery</div>
+      <p style="font-size:6.9pt; color:#4B5563; margin:0; line-height:1.35;">
+        Consistent with enterprise software standards, detailed commercial figures, hourly rates, and milestone quotes will be prepared following our technical discovery discussion once the exact architecture, technology stack, and sprint cadence are agreed upon.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">ReplenishMD &middot; Software Development Proposal &middot; Technical Lead: <strong>Avishka Meddegoda</strong></div>
+    <div class="footer-page-num">Page 11 of 12</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 12: NEXT STEPS AND CONTACT INFORMATION ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">ReplenishMD &middot; Software Development Proposal</div>
+      <div class="header-right">11 &middot; Next Steps</div>
+    </div>
+
+    <span class="section-tag">Engagement Initiation</span>
+    <h1 class="page-title" style="font-size:21pt; letter-spacing:-0.6px; margin-bottom:12px;">Let's Build Something Meaningful Together.</h1>
+    
+    <p class="lead-text" style="margin-bottom:14px;">
+      We would welcome the opportunity to arrange a <strong>15–30 minute technical discovery meeting</strong> with the leadership of ReplenishMD. Our goal is to listen, understand your strategic roadmap, and explore how our dedicated squad can accelerate your platform delivery.
+    </p>
+
+    <!-- AGENDA CARD -->
+    <div class="card-dark" style="margin-bottom: 14px; padding:12px 16px;">
+      <h2 style="font-size:10.5pt; color:var(--white); margin-bottom:6px;">Discovery Meeting Objectives</h2>
+      <ul class="check-list" style="color:#D1D5DB;">
+        <li style="color:#E5E7EB; margin-bottom:5px;"><strong>Understand Business Priorities:</strong> Clarify current platform status, strategic goals, and target release milestones.</li>
+        <li style="color:#E5E7EB; margin-bottom:5px;"><strong>Review Technical Architecture:</strong> Discuss preferred tech stacks (Ruby on Rails, Node/NestJS, Next.js, React 19) and integrations.</li>
+        <li style="color:#E5E7EB; margin-bottom:5px;"><strong>Define Engagement Parameters:</strong> Confirm squad allocation, timeline horizons, communication channels, and governance.</li>
+        <li style="color:#E5E7EB; margin-bottom:0;"><strong>Next Deliverable:</strong> Following the call, we will provide a comprehensive Implementation Proposal with itemized deliverables, sprint schedules, and commercial terms.</li>
+      </ul>
+    </div>
+
+    <!-- CONTACT DETAILS BOX -->
+    <div class="card-bordered" style="padding:14px 18px; margin-bottom: 14px; border:1.5px solid var(--black);">
+      <h2 class="block-title" style="font-size:11pt; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px;">Contact &amp; Communication Channels</h2>
+      
+      <div class="grid-2" style="gap:14px;">
+        <div>
+          <div style="font-size:7pt; color:var(--medium-grey); font-weight:700; text-transform:uppercase;">Client Engagement Lead</div>
+          <div style="font-size:9.5pt; font-weight:800; color:var(--black); margin-top:1px;">Viranga Lakshan</div>
+          <div style="font-size:7.5pt; color:var(--dark-grey); margin-bottom:8px;">Full-Stack &amp; Client Communication</div>
+          
+          <div style="font-size:7.5pt; line-height:1.5; color:var(--dark-grey);">
+            <strong>Email:</strong> <a href="mailto:virangalakshanz@gmail.com" style="color:var(--black); font-weight:600;">virangalakshanz@gmail.com</a><br>
+            <strong>WhatsApp / Direct:</strong> <span style="font-weight:600; color:var(--black);">+94 71 378 1359</span><br>
+            <strong>LinkedIn:</strong> <a href="https://linkedin.com/in/viranga-lakshan-869515279" class="link-pill" target="_blank">linkedin.com/in/viranga-lakshan-869515279</a>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:7pt; color:var(--medium-grey); font-weight:700; text-transform:uppercase;">Technical Architecture Lead</div>
+          <div style="font-size:9.5pt; font-weight:800; color:var(--black); margin-top:1px;">Avishka Meddegoda</div>
+          <div style="font-size:7.5pt; color:var(--dark-grey); margin-bottom:8px;">Senior Software Engineer &middot; Tech Lead</div>
+          
+          <div style="font-size:7.5pt; line-height:1.5; color:var(--dark-grey);">
+            <strong>Location:</strong> Colombo, Sri Lanka (GMT+5:30)<br>
+            <strong>Engineering Base:</strong> Arimac Digital Core Alumni Squad<br>
+            <strong>Availability:</strong> Immediate engagement &middot; US time zone overlap
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLOSING STATEMENT -->
+    <div style="text-align:center; padding:6px 0;">
+      <p style="font-size:8pt; font-weight:600; color:var(--black); margin:0;">
+        We look forward to exploring the opportunity to support ReplenishMD with our software engineering capabilities.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">ReplenishMD &middot; Software Development Proposal &middot; Technical Lead: <strong>Avishka Meddegoda</strong></div>
+    <div class="footer-page-num">Page 12 of 12</div>
+  </div>
+</div>
+
+</body>
+</html>
