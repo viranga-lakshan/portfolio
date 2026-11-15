@@ -1,0 +1,2026 @@
+import os
+import pypdfium2 as pdfium
+from playwright.sync_api import sync_playwright
+
+output_dir = r"C:\Users\Viranga\Downloads\upwrok new\Pinedo_Real_Estate_Digital_Transformation_Proposal"
+html_path = os.path.join(output_dir, "proposal_template.html")
+pdf_path = os.path.join(output_dir, "RealEstate_Digital_Transformation_Proposal.pdf")
+img_dir = os.path.join(output_dir, "images")
+
+def get_img_path(name):
+    p = os.path.join(img_dir, name)
+    return p.replace("\\", "/")
+
+html_content = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pinedo Makelaardij - Real Estate Digital Transformation Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @page {{
+    size: A4 portrait;
+    margin: 0;
+  }}
+  * {{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }}
+  body {{
+    background-color: #E5E7EB;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #000000;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }}
+  
+  .page {{
+    width: 210mm;
+    height: 297mm;
+    page-break-after: always;
+    position: relative;
+    background-color: #FFFFFF;
+    overflow: hidden;
+    padding: 15mm 18mm 13mm 18mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }}
+
+  /* MONOCHROME PALETTE */
+  :root {{
+    --black: #000000;
+    --dark-bg: #111111;
+    --dark-card: #1A1A1A;
+    --secondary-text: #666666;
+    --light-bg: #F5F5F5;
+    --light-card: #FAFAFA;
+    --border: #D9D9D9;
+    --border-dark: #333333;
+    --white: #FFFFFF;
+  }}
+
+  /* BLACK PAGES (Cover) */
+  .page-black {{
+    background-color: var(--dark-bg);
+    color: var(--white);
+    padding: 20mm 20mm 16mm 20mm;
+  }}
+
+  /* HEADER & FOOTER */
+  .page-header {{
+    border-bottom: 1.5px solid var(--black);
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }}
+  .header-left {{
+    font-size: 7.5pt;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    color: var(--black);
+    text-transform: uppercase;
+  }}
+  .header-right {{
+    font-size: 7pt;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    color: var(--secondary-text);
+    text-transform: uppercase;
+  }}
+
+  .page-footer {{
+    border-top: 1px solid var(--border);
+    padding-top: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 6.8pt;
+    color: var(--secondary-text);
+  }}
+  .footer-left strong {{
+    color: var(--black);
+  }}
+  .footer-page-num {{
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: 0.5px;
+  }}
+
+  /* TYPOGRAPHY */
+  .section-tag {{
+    display: inline-block;
+    font-size: 6.8pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--secondary-text);
+    margin-bottom: 3px;
+  }}
+  .page-title {{
+    font-size: 16pt;
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--black);
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+  }}
+  .lead-text {{
+    font-size: 7.8pt;
+    line-height: 1.45;
+    color: #333333;
+    margin-bottom: 10px;
+  }}
+  .body-text {{
+    font-size: 7.2pt;
+    line-height: 1.45;
+    color: #444444;
+  }}
+  .block-title {{
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 4px;
+  }}
+
+  /* MONOCHROME CARDS & CONTAINERS */
+  .card {{
+    background: var(--light-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 12px;
+  }}
+  .card-bordered {{
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 9px 11px;
+  }}
+  .card-dark {{
+    background: var(--dark-card);
+    border: 1px solid var(--border-dark);
+    color: var(--white);
+    border-radius: 4px;
+    padding: 10px 12px;
+  }}
+  .badge {{
+    display: inline-block;
+    font-size: 6pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 2px 5px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+  }}
+  .badge-black {{
+    background: var(--black);
+    color: var(--white);
+  }}
+  .badge-grey {{
+    background: #E5E5E5;
+    color: #222222;
+    border: 1px solid #CCCCCC;
+  }}
+
+  /* GRIDS */
+  .grid-2 {{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+  }}
+  .grid-3 {{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }}
+  .grid-4 {{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 7px;
+  }}
+
+  /* TABLES */
+  .mono-table {{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 6.8pt;
+  }}
+  .mono-table th {{
+    background: var(--black);
+    color: var(--white);
+    text-align: left;
+    padding: 5px 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 6.2pt;
+    letter-spacing: 0.5px;
+  }}
+  .mono-table td {{
+    padding: 5px 8px;
+    border-bottom: 1px solid var(--border);
+    color: #333333;
+    line-height: 1.35;
+  }}
+  .mono-table tr:nth-child(even) td {{
+    background: #FBFBFB;
+  }}
+
+  /* IMAGES IN STRICT MONOCHROME */
+  img.monochrome {{
+    filter: grayscale(100%) contrast(108%);
+  }}
+
+  /* MOCKUP STYLING (Swiss modern minimalism) */
+  .browser-window {{
+    background: var(--white);
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  }}
+  .browser-top {{
+    background: #EEEEEE;
+    border-bottom: 1px solid #DDDDDD;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }}
+  .browser-dots {{
+    display: flex;
+    gap: 3px;
+  }}
+  .browser-dot {{
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #BBBBBB;
+  }}
+  .browser-url {{
+    background: var(--white);
+    border: 1px solid #D5D5D5;
+    border-radius: 3px;
+    font-size: 5.8pt;
+    color: #666666;
+    padding: 1px 8px;
+    flex: 1;
+    max-width: 280px;
+    text-align: left;
+  }}
+
+  .disclaimer-box {{
+    background: #F9FAFB;
+    border-left: 2.5px solid var(--black);
+    padding: 4px 8px;
+    margin-top: 6px;
+    font-size: 6.2pt;
+    color: #666666;
+    line-height: 1.35;
+  }}
+</style>
+</head>
+<body>
+
+<!-- ========================================== PAGE 01: PREMIUM COVER PAGE ========================================== -->
+<div class="page page-black">
+  <div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:1px solid #333333; padding-bottom:14px;">
+    <div>
+      <div style="font-size:8pt; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#AAAAAA;">CONFIDENTIAL BUSINESS PROPOSAL</div>
+      <div style="font-size:7pt; color:#666666; margin-top:2px; letter-spacing:1px;">DOCUMENT IDENTIFIER: PRD-2026-PINEDO-V1</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:8pt; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:#FFFFFF;">PINEDO MAKELAARDIJ</div>
+      <div style="font-size:7pt; color:#888888; margin-top:1px;">ALKMAAR, NETHERLANDS</div>
+    </div>
+  </div>
+
+  <div style="margin: 24mm 0 16mm 0;">
+    <div style="font-size:8.5pt; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:#888888; margin-bottom:12px;">STRATEGIC TECHNOLOGY ROADMAP</div>
+    <h1 style="font-size:32pt; font-weight:900; line-height:1.08; letter-spacing:-1px; color:#FFFFFF; margin-bottom:16px;">
+      REAL ESTATE<br>DIGITAL TRANSFORMATION
+    </h1>
+    <div style="width:60px; height:3px; background:#FFFFFF; margin-bottom:16px;"></div>
+    <p style="font-size:11.5pt; font-weight:400; line-height:1.45; color:#CCCCCC; max-width:540px;">
+      A Modern Property Discovery, Customer Engagement &amp; Business Management Platform Concept for Pinedo Makelaardij.
+    </p>
+  </div>
+
+  <!-- Architectural Feature Image in Monochrome -->
+  <div style="border: 1px solid #333333; border-radius: 4px; overflow: hidden; margin-bottom: 20mm; height: 180px; position:relative;">
+    <img src="file:///{get_img_path('cover_arch.jpg')}" class="monochrome" style="width:100%; height:100%; object-fit:cover; display:block;" alt="Modern Monochrome Architecture">
+    <div style="position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent, rgba(17,17,17,0.9)); padding:10px 14px; display:flex; justify-content:space-between; align-items:flex-end;">
+      <span style="font-size:6.8pt; color:#AAAAAA; letter-spacing:1px; text-transform:uppercase;">Architectural Excellence &middot; Digital Systems Engineering</span>
+      <span style="font-size:6.5pt; color:#777777;">Alkmaar Real Estate Market Concept</span>
+    </div>
+  </div>
+
+  <!-- Metadata Grid -->
+  <div style="border-top:1px solid #333333; padding-top:14px; display:grid; grid-template-columns: 1.2fr 1fr 1fr; gap:16px;">
+    <div>
+      <div style="font-size:6.5pt; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; color:#888888; margin-bottom:3px;">PREPARED FOR</div>
+      <div style="font-size:9pt; font-weight:700; color:#FFFFFF;">Pinedo Makelaardij</div>
+      <div style="font-size:7.2pt; color:#AAAAAA; margin-top:2px;">Attn: Mr. Joshua Pinedo</div>
+      <div style="font-size:7pt; color:#777777;">Alkmaar, Netherlands</div>
+    </div>
+
+    <div>
+      <div style="font-size:6.5pt; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; color:#888888; margin-bottom:3px;">PREPARED BY</div>
+      <div style="font-size:9pt; font-weight:700; color:#FFFFFF;">[YOUR SOFTWARE COMPANY NAME]</div>
+      <div style="font-size:7.2pt; color:#AAAAAA; margin-top:2px;">Software Development Team – Sri Lanka</div>
+      <div style="font-size:7pt; color:#777777;">[YOUR COMPANY WEBSITE]</div>
+    </div>
+
+    <div>
+      <div style="font-size:6.5pt; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; color:#888888; margin-bottom:3px;">ENGAGEMENT STATUS</div>
+      <div style="font-size:9pt; font-weight:700; color:#FFFFFF;">Concept Proposal</div>
+      <div style="font-size:7.2pt; color:#AAAAAA; margin-top:2px;">Date: November 2026</div>
+      <div style="font-size:7pt; color:#777777;">Confidential Document</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 02: EXECUTIVE SUMMARY ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation</div>
+      <div class="header-right">01 &middot; Executive Summary</div>
+    </div>
+
+    <span class="section-tag">Strategic Vision &amp; Platform Overview</span>
+    <h1 class="page-title">Transforming Real Estate Businesses Through Digital Innovation</h1>
+    
+    <p class="lead-text">
+      The modern real estate landscape in the Netherlands demands seamless digital experiences for buyers, sellers, and agents alike. This proposal presents an independently conceived digital transformation concept for <strong>Pinedo Makelaardij</strong>, exploring how an integrated, enterprise-grade web application can unite property discovery, enquiry handling, viewing scheduling, and business intelligence into one cohesive platform.
+    </p>
+
+    <!-- 6 Core Pillars Grid -->
+    <div class="grid-3" style="gap:8px; margin-bottom:12px;">
+      <div class="card-bordered" style="padding:8px 10px;">
+        <div style="font-size:6.5pt; font-weight:800; color:var(--black); text-transform:uppercase; margin-bottom:2px;">01 &middot; Discovery &amp; Management</div>
+        <p style="font-size:6.8pt; color:#444444; line-height:1.35; margin:0;">Intuitive property search, faceted filtering, interactive map exploration, and comprehensive listing management.</p>
+      </div>
+      <div class="card-bordered" style="padding:8px 10px;">
+        <div style="font-size:6.5pt; font-weight:800; color:var(--black); text-transform:uppercase; margin-bottom:2px;">02 &middot; Lead &amp; Enquiry Routing</div>
+        <p style="font-size:6.8pt; color:#444444; line-height:1.35; margin:0;">Zero lead leakage through automated multi-channel enquiry capture, scoring, and instant agent notification.</p>
+      </div>
+      <div class="card-bordered" style="padding:8px 10px;">
+        <div style="font-size:6.5pt; font-weight:800; color:var(--black); text-transform:uppercase; margin-bottom:2px;">03 &middot; Agent Operations</div>
+        <p style="font-size:6.8pt; color:#444444; line-height:1.35; margin:0;">Dedicated agent portals with assigned property portfolios, client communication logs, and activity records.</p>
+      </div>
+      <div class="card-bordered" style="padding:8px 10px;">
+        <div style="font-size:6.5pt; font-weight:800; color:var(--black); text-transform:uppercase; margin-bottom:2px;">04 &middot; Viewing Scheduling</div>
+        <p style="font-size:6.8pt; color:#444444; line-height:1.35; margin:0;">Self-service or agent-assisted viewing calendar integrated directly with Google Calendar and automated reminders.</p>
+      </div>
+      <div class="card-bordered" style="padding:8px 10px;">
+        <div style="font-size:6.5pt; font-weight:800; color:var(--black); text-transform:uppercase; margin-bottom:2px;">05 &middot; Business Analytics</div>
+        <p style="font-size:6.8pt; color:#444444; line-height:1.35; margin:0;">Actionable visibility into listing popularity, enquiry conversion velocity, viewing outcomes, and agent performance.</p>
+      </div>
+      <div class="card-bordered" style="padding:8px 10px;">
+        <div style="font-size:6.5pt; font-weight:800; color:var(--black); text-transform:uppercase; margin-bottom:2px;">06 &middot; AI-Powered Assistant</div>
+        <p style="font-size:6.8pt; color:#444444; line-height:1.35; margin:0;">Optional 24/7 intelligent assistant understanding natural language buyer queries, qualifying leads, and booking viewings.</p>
+      </div>
+    </div>
+
+    <!-- Core Business Opportunity Statement -->
+    <div class="card" style="margin-bottom:12px; background:#F8F9FA;">
+      <h2 class="block-title" style="font-size:8.8pt;">The Business Opportunity</h2>
+      <p class="body-text" style="font-size:7.2pt; margin-bottom:6px;">
+        Real estate brokerages frequently navigate disparate systems: property listings managed in one software, client messages scattered across email and WhatsApp, appointments stored in private calendars, and business reporting calculated manually. 
+      </p>
+      <p class="body-text" style="font-size:7.2pt; margin:0;">
+        A centralised digital platform creates substantial operational leverage: it elevates brand authority in the Alkmaar market, simplifies daily portfolio administration, guarantees immediate responsiveness to prospective buyers and sellers, and establishes transparent performance metrics across the entire agency.
+      </p>
+    </div>
+
+    <!-- Executive Summary Diagram: CUSTOMERS → DIGITAL PLATFORM → PROPERTY ENQUIRIES → AGENTS → APPOINTMENTS -->
+    <div class="card-bordered" style="padding:12px 14px; background:#FFFFFF;">
+      <div style="font-size:7pt; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--black); margin-bottom:10px; text-align:center;">
+        End-to-End Value Delivery Flow
+      </div>
+      
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:6px;">
+        <!-- Step 1 -->
+        <div style="flex:1; border:1px solid var(--black); background:var(--black); color:var(--white); padding:8px 6px; border-radius:3px; text-align:center;">
+          <div style="font-size:6pt; color:#AAAAAA; text-transform:uppercase; font-weight:700;">Stage 01</div>
+          <div style="font-size:7.5pt; font-weight:800; margin-top:1px;">CUSTOMERS</div>
+          <div style="font-size:6pt; color:#CCCCCC; margin-top:2px;">Buyers &amp; Sellers</div>
+        </div>
+
+        <div style="font-size:9pt; font-weight:900; color:var(--black);">→</div>
+
+        <!-- Step 2 -->
+        <div style="flex:1.2; border:1.5px solid var(--black); background:var(--white); padding:8px 6px; border-radius:3px; text-align:center;">
+          <div style="font-size:6pt; color:#666666; text-transform:uppercase; font-weight:700;">Stage 02</div>
+          <div style="font-size:7.5pt; font-weight:800; color:var(--black); margin-top:1px;">DIGITAL PLATFORM</div>
+          <div style="font-size:6pt; color:#555555; margin-top:2px;">Discovery &amp; Search</div>
+        </div>
+
+        <div style="font-size:9pt; font-weight:900; color:var(--black);">→</div>
+
+        <!-- Step 3 -->
+        <div style="flex:1.2; border:1px solid #777777; background:#F5F5F5; padding:8px 6px; border-radius:3px; text-align:center;">
+          <div style="font-size:6pt; color:#666666; text-transform:uppercase; font-weight:700;">Stage 03</div>
+          <div style="font-size:7.5pt; font-weight:800; color:var(--black); margin-top:1px;">PROPERTY ENQUIRIES</div>
+          <div style="font-size:6pt; color:#555555; margin-top:2px;">Lead Qualification</div>
+        </div>
+
+        <div style="font-size:9pt; font-weight:900; color:var(--black);">→</div>
+
+        <!-- Step 4 -->
+        <div style="flex:1; border:1px solid var(--black); background:var(--black); color:var(--white); padding:8px 6px; border-radius:3px; text-align:center;">
+          <div style="font-size:6pt; color:#AAAAAA; text-transform:uppercase; font-weight:700;">Stage 04</div>
+          <div style="font-size:7.5pt; font-weight:800; margin-top:1px;">AGENTS</div>
+          <div style="font-size:6pt; color:#CCCCCC; margin-top:2px;">Brokers &amp; Staff</div>
+        </div>
+
+        <div style="font-size:9pt; font-weight:900; color:var(--black);">→</div>
+
+        <!-- Step 5 -->
+        <div style="flex:1.2; border:1.5px solid var(--black); background:var(--white); padding:8px 6px; border-radius:3px; text-align:center;">
+          <div style="font-size:6pt; color:#666666; text-transform:uppercase; font-weight:700;">Stage 05</div>
+          <div style="font-size:7.5pt; font-weight:800; color:var(--black); margin-top:1px;">APPOINTMENTS</div>
+          <div style="font-size:6pt; color:#555555; margin-top:2px;">Viewings &amp; Offers</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="disclaimer-box">
+      <strong>Independent Concept Disclosure:</strong> This document represents an exploratory technology concept independently formulated by our engineering team. It does not imply that Pinedo Makelaardij currently faces operational deficiencies, nor does it represent an approved or commissioned software build.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation &middot; Prepared by: <strong>[YOUR COMPANY NAME]</strong></div>
+    <div class="footer-page-num">Page 02 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 03: UNDERSTANDING THE BUSINESS OPPORTUNITY ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation</div>
+      <div class="header-right">02 &middot; Opportunity Analysis</div>
+    </div>
+
+    <span class="section-tag">Market Context &amp; Value Drivers</span>
+    <h1 class="page-title">Potential Opportunities for a More Connected Real Estate Experience</h1>
+    
+    <p class="lead-text">
+      As property seekers in the North Holland province increasingly rely on mobile-first discovery and immediate communication, real estate agencies that connect high-aesthetic presentation with disciplined operational systems secure significant competitive advantages. We have identified six fundamental areas of opportunity:
+    </p>
+
+    <!-- 6 Improvement Areas Cards -->
+    <div class="grid-2" style="gap:9px; margin-bottom:10px;">
+      <!-- Card 1 -->
+      <div class="card-bordered">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+          <h2 class="block-title" style="margin:0; font-size:8.5pt;">01. Better Property Discovery</h2>
+          <span class="badge badge-black">Buyer UX</span>
+        </div>
+        <p class="body-text" style="font-size:7pt; margin-bottom:3px;">
+          Elevate how prospective buyers discover Alkmaar listings through high-resolution galleries, neighborhood insights, interactive maps, and responsive filtering (price, square meters, bedrooms, energy labels).
+        </p>
+        <div style="font-size:6.3pt; color:var(--secondary-text);"><strong>Strategic Impact:</strong> Higher engagement time, lower bounce rates, and increased buyer affinity.</div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card-bordered">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+          <h2 class="block-title" style="margin:0; font-size:8.5pt;">02. Centralised Property Management</h2>
+          <span class="badge badge-black">Operations</span>
+        </div>
+        <p class="body-text" style="font-size:7pt; margin-bottom:3px;">
+          A single, intuitive back-office dashboard to manage active sales, rentals, commercial properties, and pending listings. Update pricing, photos, and availability status instantaneously.
+        </p>
+        <div style="font-size:6.3pt; color:var(--secondary-text);"><strong>Strategic Impact:</strong> Eliminates duplicate data entry and ensures consistent cross-channel pricing.</div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card-bordered">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+          <h2 class="block-title" style="margin:0; font-size:8.5pt;">03. Faster Enquiry Handling</h2>
+          <span class="badge badge-black">Lead Velocity</span>
+        </div>
+        <p class="body-text" style="font-size:7pt; margin-bottom:3px;">
+          Automated ingestion and categorization of web enquiries, email leads, and phone requests into a structured CRM pipeline. Real-time notification dispatch to assigned listing agents.
+        </p>
+        <div style="font-size:6.3pt; color:var(--secondary-text);"><strong>Strategic Impact:</strong> Substantially reduces lead response time from hours to minutes.</div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="card-bordered">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+          <h2 class="block-title" style="margin:0; font-size:8.5pt;">04. Improved Agent Communication</h2>
+          <span class="badge badge-black">Team Synergy</span>
+        </div>
+        <p class="body-text" style="font-size:7pt; margin-bottom:3px;">
+          Comprehensive client interaction histories, internal agent collaboration notes, and buyer preference logs accessible seamlessly from office desktop or mobile devices in the field.
+        </p>
+        <div style="font-size:6.3pt; color:var(--secondary-text);"><strong>Strategic Impact:</strong> Personalized buyer consultations and flawless handover between colleagues.</div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="card-bordered">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+          <h2 class="block-title" style="margin:0; font-size:8.5pt;">05. Simplified Viewing Appointments</h2>
+          <span class="badge badge-black">Scheduling</span>
+        </div>
+        <p class="body-text" style="font-size:7pt; margin-bottom:3px;">
+          Frictionless viewing scheduling with real-time agent calendar availability, automated appointment confirmations, directions, and calendar invites for prospective buyers.
+        </p>
+        <div style="font-size:6.3pt; color:var(--secondary-text);"><strong>Strategic Impact:</strong> Prevents scheduling clashes, minimizes viewing no-shows, and saves administrative hours.</div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="card-bordered">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+          <h2 class="block-title" style="margin:0; font-size:8.5pt;">06. Business Performance Visibility</h2>
+          <span class="badge badge-black">Intelligence</span>
+        </div>
+        <p class="body-text" style="font-size:7pt; margin-bottom:3px;">
+          Real-time executive reporting displaying listing view counts, enquiry volume trends, days on market, agent conversion ratios, and property category demand across Alkmaar.
+        </p>
+        <div style="font-size:6.3pt; color:var(--secondary-text);"><strong>Strategic Impact:</strong> Data-driven decision making for pricing strategy and marketing investments.</div>
+      </div>
+    </div>
+
+    <!-- Comparative Table -->
+    <div style="margin-top:4px;">
+      <div style="font-size:7pt; font-weight:800; text-transform:uppercase; letter-spacing:0.8px; color:var(--black); margin-bottom:5px;">
+        Operational Comparison: Traditional Workflows vs. Unified Digital Platform
+      </div>
+      <table class="mono-table">
+        <thead>
+          <tr>
+            <th style="width:22%;">Operational Domain</th>
+            <th style="width:39%;">Conventional Real Estate Practice</th>
+            <th style="width:39%;">Proposed Unified Digital Platform</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Property Discovery</strong></td>
+            <td>Static property pages; basic filters; delayed updates.</td>
+            <td>Instant faceted search, interactive map exploration, fast galleries.</td>
+          </tr>
+          <tr>
+            <td><strong>Enquiry Processing</strong></td>
+            <td>Inbox-based replies; manual agent forwarding; lead leakage.</td>
+            <td>Automated CRM lead routing, immediate notifications, tracking.</td>
+          </tr>
+          <tr>
+            <td><strong>Viewing Logistics</strong></td>
+            <td>Back-and-forth phone calls and manual calendar entries.</td>
+            <td>Integrated availability engine with automated calendar sync and SMS alerts.</td>
+          </tr>
+          <tr>
+            <td><strong>Executive Insights</strong></td>
+            <td>Spreadsheets assembled at month-end; delayed feedback.</td>
+            <td>Real-time visual dashboards showing portfolio velocity &amp; conversion.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation &middot; Prepared by: <strong>[YOUR COMPANY NAME]</strong></div>
+    <div class="footer-page-num">Page 03 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 04: PROPOSED DIGITAL ECOSYSTEM ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation</div>
+      <div class="header-right">03 &middot; System Architecture</div>
+    </div>
+
+    <span class="section-tag">Modular Enterprise Blueprint</span>
+    <h1 class="page-title">One Connected Platform. Multiple Business Capabilities.</h1>
+    
+    <p class="lead-text">
+      The proposed digital ecosystem is organized into four interconnected tiers, ensuring that public customer experiences, agent operational tools, and executive data repositories communicate seamlessly via secure, decoupled application programming interfaces (APIs):
+    </p>
+
+    <!-- ARCHITECTURE DIAGRAM (SVG / CSS Monochrome Boxes) -->
+    <div class="card" style="padding:10px 14px; background:#FAFAFA; margin-bottom:10px;">
+      <!-- Tier 1 -->
+      <div style="background:var(--black); color:var(--white); padding:6px 10px; border-radius:3px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <span style="font-size:6pt; color:#AAAAAA; text-transform:uppercase; font-weight:700;">TIER 01 &middot; PUBLIC TOUCHPOINT</span>
+          <div style="font-size:8pt; font-weight:800; letter-spacing:0.5px;">PUBLIC CUSTOMER DISCOVERY WEBSITE</div>
+        </div>
+        <div style="font-size:6.3pt; color:#DDDDDD;">Next.js &middot; SSR &middot; Responsive Mobile &amp; Desktop &middot; SEO Optimized</div>
+      </div>
+
+      <div style="text-align:center; font-size:7pt; color:#777777; line-height:1; margin:3px 0;">▼</div>
+
+      <!-- Tier 2 -->
+      <div style="background:var(--white); border:1px solid #777777; padding:6px 10px; border-radius:3px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <span style="font-size:6pt; color:#666666; text-transform:uppercase; font-weight:700;">TIER 02 &middot; EXPERIENCE &amp; ENGAGEMENT</span>
+          <div style="font-size:8pt; font-weight:800; color:var(--black);">CUSTOMER EXPERIENCE &amp; INTERACTION LAYER</div>
+        </div>
+        <div style="font-size:6.3pt; color:#555555;">Faceted Search &middot; Interactive Maps &middot; Viewing Booker &middot; AI Chat Widget</div>
+      </div>
+
+      <div style="text-align:center; font-size:7pt; color:#777777; line-height:1; margin:3px 0;">▼</div>
+
+      <!-- Tier 3 -->
+      <div style="background:var(--black); color:var(--white); padding:6px 10px; border-radius:3px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <span style="font-size:6pt; color:#AAAAAA; text-transform:uppercase; font-weight:700;">TIER 03 &middot; BUSINESS LOGIC</span>
+          <div style="font-size:8pt; font-weight:800; letter-spacing:0.5px;">APPLICATION BACKEND &amp; RESTFUL API GATEWAY</div>
+        </div>
+        <div style="font-size:6.3pt; color:#DDDDDD;">Node.js / Express &middot; RBAC Security &middot; Webhooks &middot; Data Validation</div>
+      </div>
+
+      <div style="text-align:center; font-size:7pt; color:#777777; line-height:1; margin:3px 0;">▼</div>
+
+      <!-- Tier 4: Core Business Modules Grid -->
+      <div style="background:var(--white); border:1.5px solid var(--black); padding:7px 9px; border-radius:3px;">
+        <div style="font-size:6pt; color:#666666; text-transform:uppercase; font-weight:700; margin-bottom:5px; text-align:center;">
+          TIER 04 &middot; CORE BUSINESS MODULES
+        </div>
+        <div class="grid-4" style="gap:5px;">
+          <div style="background:#F3F4F6; padding:5px 6px; border-radius:2px; text-align:center; border:1px solid #E5E7EB;">
+            <div style="font-size:6.8pt; font-weight:700; color:var(--black);">Property Mgmt</div>
+            <div style="font-size:5.8pt; color:#666666;">Listings, Media, Specs</div>
+          </div>
+          <div style="background:#F3F4F6; padding:5px 6px; border-radius:2px; text-align:center; border:1px solid #E5E7EB;">
+            <div style="font-size:6.8pt; font-weight:700; color:var(--black);">Customer CRM</div>
+            <div style="font-size:5.8pt; color:#666666;">Leads, Buyer Profiles</div>
+          </div>
+          <div style="background:#F3F4F6; padding:5px 6px; border-radius:2px; text-align:center; border:1px solid #E5E7EB;">
+            <div style="font-size:6.8pt; font-weight:700; color:var(--black);">Agent Operations</div>
+            <div style="font-size:5.8pt; color:#666666;">Portfolios, Schedules</div>
+          </div>
+          <div style="background:#F3F4F6; padding:5px 6px; border-radius:2px; text-align:center; border:1px solid #E5E7EB;">
+            <div style="font-size:6.8pt; font-weight:700; color:var(--black);">Appointments</div>
+            <div style="font-size:5.8pt; color:#666666;">Viewings, Bookings</div>
+          </div>
+        </div>
+        <div class="grid-3" style="gap:5px; margin-top:5px;">
+          <div style="background:#F3F4F6; padding:4px 6px; border-radius:2px; text-align:center; border:1px solid #E5E7EB;">
+            <div style="font-size:6.8pt; font-weight:700; color:var(--black);">Notifications</div>
+            <div style="font-size:5.8pt; color:#666666;">Email &amp; WhatsApp Alerts</div>
+          </div>
+          <div style="background:#F3F4F6; padding:4px 6px; border-radius:2px; text-align:center; border:1px solid #E5E7EB;">
+            <div style="font-size:6.8pt; font-weight:700; color:var(--black);">Business Analytics</div>
+            <div style="font-size:5.8pt; color:#666666;">Performance &amp; Pipeline</div>
+          </div>
+          <div style="background:#F3F4F6; padding:4px 6px; border-radius:2px; text-align:center; border:1px solid #E5E7EB;">
+            <div style="font-size:6.8pt; font-weight:700; color:var(--black);">AI Property Assistant</div>
+            <div style="font-size:5.8pt; color:#666666;">24/7 Natural Language</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center; font-size:7pt; color:#777777; line-height:1; margin:3px 0;">▼</div>
+
+      <!-- Tier 5: Database and Integrations -->
+      <div style="background:#EFEFEF; border:1px solid #CCCCCC; padding:6px 10px; border-radius:3px;">
+        <div style="font-size:6pt; color:#666666; text-transform:uppercase; font-weight:700; margin-bottom:3px; text-align:center;">
+          TIER 05 &middot; DATA PERSISTENCE &amp; THIRD-PARTY INTEGRATIONS
+        </div>
+        <div style="display:flex; justify-content:space-between; gap:6px; font-size:6.3pt; color:#333333;">
+          <span style="background:var(--white); padding:2px 6px; border-radius:2px; border:1px solid #D5D5D5;"><strong>PostgreSQL:</strong> ACID Database</span>
+          <span style="background:var(--white); padding:2px 6px; border-radius:2px; border:1px solid #D5D5D5;"><strong>Google Maps:</strong> Geocoding &amp; Spatial</span>
+          <span style="background:var(--white); padding:2px 6px; border-radius:2px; border:1px solid #D5D5D5;"><strong>WhatsApp API:</strong> Direct Messaging</span>
+          <span style="background:var(--white); padding:2px 6px; border-radius:2px; border:1px solid #D5D5D5;"><strong>Google Calendar:</strong> 2-Way Sync</span>
+          <span style="background:var(--white); padding:2px 6px; border-radius:2px; border:1px solid #D5D5D5;"><strong>OpenAI API:</strong> Intelligent Bot</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Architectural Advantages -->
+    <div class="grid-3" style="gap:8px;">
+      <div class="card-bordered">
+        <strong style="font-size:7.5pt; color:var(--black);">High Modularity</strong>
+        <p class="body-text" style="font-size:6.8pt; margin-top:2px;">
+          Each business module functions autonomously. Features can be deployed in structured phases without disrupting active operations.
+        </p>
+      </div>
+      <div class="card-bordered">
+        <strong style="font-size:7.5pt; color:var(--black);">API-First Extensibility</strong>
+        <p class="body-text" style="font-size:6.8pt; margin-top:2px;">
+          Standardized REST APIs ensure future connectivity with Dutch MLS networks (Funda / RealWorks), external portals, and mobile apps.
+        </p>
+      </div>
+      <div class="card-bordered">
+        <strong style="font-size:7.5pt; color:var(--black);">Security by Design</strong>
+        <p class="body-text" style="font-size:6.8pt; margin-top:2px;">
+          Role-Based Access Control (RBAC) isolates internal customer records, financial offers, and agent notes from unauthorized public access.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation &middot; Prepared by: <strong>[YOUR COMPANY NAME]</strong></div>
+    <div class="footer-page-num">Page 04 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 05: PUBLIC WEBSITE EXPERIENCE ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation</div>
+      <div class="header-right">04 &middot; Public Website Experience</div>
+    </div>
+
+    <span class="section-tag">High-Fidelity Interface Concept</span>
+    <h1 class="page-title">A Modern Property Discovery Experience</h1>
+    
+    <p class="lead-text" style="margin-bottom:8px;">
+      The proposed public-facing website blends Swiss minimalist design with frictionless navigation. Three core screen concepts illustrate the prospective buyer and seller journey:
+    </p>
+
+    <!-- 3 MOCKUPS COLUMN / STACK -->
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      
+      <!-- Mockup 1: Homepage -->
+      <div class="browser-window">
+        <div class="browser-top">
+          <div class="browser-dots"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+          <div class="browser-url">https://www.pinedomakelaardij.nl/ — Concept Homepage</div>
+          <span style="font-size:5.5pt; color:#888888; margin-left:auto;">DESKTOP VIEW</span>
+        </div>
+        <div style="padding:6px 10px; background:#FAFAFA;">
+          <!-- Mockup Header -->
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #E5E5E5; padding-bottom:4px; margin-bottom:5px;">
+            <div style="font-size:7pt; font-weight:900; letter-spacing:0.5px; color:#000000;">PINEDO MAKELAARDIJ</div>
+            <div style="display:flex; gap:10px; font-size:5.5pt; font-weight:600; text-transform:uppercase; color:#444444;">
+              <span>Aanbod (Properties)</span>
+              <span>Aankoop (Buying)</span>
+              <span>Verkoop (Selling)</span>
+              <span>Taxaties (Valuation)</span>
+              <span>Over Ons (About)</span>
+              <span style="background:#000; color:#fff; padding:1px 5px; border-radius:2px;">Contact</span>
+            </div>
+          </div>
+          <!-- Hero Section inside Mockup -->
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div style="flex:1.2;">
+              <div style="font-size:5.5pt; font-weight:700; color:#777777; text-transform:uppercase;">Exclusief Wonen in Alkmaar &amp; Omstreken</div>
+              <div style="font-size:10pt; font-weight:900; line-height:1.15; color:#000000; margin:2px 0 4px 0;">Uw Betrouwbare Makelaar in Alkmaar</div>
+              <!-- Search bar widget -->
+              <div style="background:#FFFFFF; border:1px solid #D1D5DB; border-radius:3px; padding:3px 5px; display:flex; gap:4px; align-items:center;">
+                <span style="font-size:5.5pt; color:#666; font-weight:600;">Koop (Buy) ▼</span>
+                <span style="font-size:5.5pt; color:#999;">|</span>
+                <span style="font-size:5.5pt; color:#333; flex:1;">Alkmaar, Oudorp, De Hoef...</span>
+                <span style="font-size:5.5pt; color:#666;">Prijs tot €600k ▼</span>
+                <span style="background:#000; color:#fff; font-size:5.5pt; font-weight:700; padding:2px 6px; border-radius:2px;">Zoeken</span>
+              </div>
+            </div>
+            <!-- Small architectural photo -->
+            <div style="flex:0.8; height:52px; border-radius:3px; overflow:hidden; border:1px solid #CCCCCC;">
+              <img src="file:///{get_img_path('prop_modern.jpg')}" class="monochrome" style="width:100%; height:100%; object-fit:cover;" alt="Hero Property">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mockup 2: Property Search Page -->
+      <div class="browser-window">
+        <div class="browser-top">
+          <div class="browser-dots"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+          <div class="browser-url">https://www.pinedomakelaardij.nl/aanbod?gemeente=alkmaar — Faceted Search</div>
+          <span style="font-size:5.5pt; color:#888888; margin-left:auto;">FILTER &amp; GRID MOCKUP</span>
+        </div>
+        <div style="padding:6px 10px; background:#FFFFFF; display:flex; gap:8px;">
+          <!-- Left Sidebar Filters -->
+          <div style="width:120px; border-right:1px solid #EEEEEE; padding-right:6px;">
+            <div style="font-size:5.8pt; font-weight:800; text-transform:uppercase; margin-bottom:3px;">Filters (32 Resultaten)</div>
+            <div style="font-size:5.2pt; color:#666; margin-bottom:3px;">Type: [x] Woonhuis  [ ] Appartement</div>
+            <div style="font-size:5.2pt; color:#666; margin-bottom:3px;">Prijs: €250.000 – €750.000</div>
+            <div style="font-size:5.2pt; color:#666; margin-bottom:3px;">Kamers: 3+ Slaapkamers</div>
+            <div style="font-size:5.2pt; color:#666; margin-bottom:3px;">Energielabel: [A+] [A] [B]</div>
+            <div style="font-size:5.2pt; background:#000; color:#fff; text-align:center; padding:1px; border-radius:2px; font-weight:700;">Filters Toepassen</div>
+          </div>
+          <!-- Right Grid of Cards -->
+          <div style="flex:1; display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+            <!-- Property 1 -->
+            <div style="border:1px solid #E5E7EB; border-radius:3px; padding:3px; display:flex; gap:4px; align-items:center;">
+              <img src="file:///{get_img_path('prop_townhouse.jpg')}" class="monochrome" style="width:45px; height:35px; object-fit:cover; border-radius:2px;" alt="Townhouse">
+              <div>
+                <div style="font-size:6pt; font-weight:800; color:#000;">Voormeerstraat 14, Alkmaar</div>
+                <div style="font-size:5.5pt; color:#444; font-weight:700;">€ 385.000 k.k.</div>
+                <div style="font-size:4.8pt; color:#777;">125 m² &middot; 4 kamers &middot; Label A</div>
+              </div>
+            </div>
+            <!-- Property 2 -->
+            <div style="border:1px solid #E5E7EB; border-radius:3px; padding:3px; display:flex; gap:4px; align-items:center;">
+              <img src="file:///{get_img_path('prop_apartment.jpg')}" class="monochrome" style="width:45px; height:35px; object-fit:cover; border-radius:2px;" alt="Apartment">
+              <div>
+                <div style="font-size:6pt; font-weight:800; color:#000;">Kanaalkade 88-B, Alkmaar</div>
+                <div style="font-size:5.5pt; color:#444; font-weight:700;">€ 295.000 k.k.</div>
+                <div style="font-size:4.8pt; color:#777;">88 m² &middot; 2 kamers &middot; Label B</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mockup 3: Property Detail Page -->
+      <div class="browser-window">
+        <div class="browser-top">
+          <div class="browser-dots"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+          <div class="browser-url">https://www.pinedomakelaardij.nl/woning/alkmaar-kennemerstraatweg-42 — Property Detail</div>
+          <span style="font-size:5.5pt; color:#888888; margin-left:auto;">PROPERTY DETAIL VIEW</span>
+        </div>
+        <div style="padding:6px 10px; background:#FAFAFA; display:flex; gap:8px;">
+          <!-- Gallery & Description -->
+          <div style="flex:1.4;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div>
+                <div style="font-size:7.5pt; font-weight:900; color:#000;">Kennemerstraatweg 42, 1815 LA Alkmaar</div>
+                <div style="font-size:6pt; color:#666;">Karakteristieke vrijstaande villa nabij de Alkmaarder Hout</div>
+              </div>
+              <div style="font-size:8pt; font-weight:900; color:#000;">€ 645.000 k.k.</div>
+            </div>
+            <div style="display:flex; gap:4px; margin-top:4px;">
+              <span class="badge badge-grey">180 m² Woonoppervlak</span>
+              <span class="badge badge-grey">5 Slaapkamers</span>
+              <span class="badge badge-grey">Bouwjaar 1932</span>
+              <span class="badge badge-black">Energielabel A</span>
+            </div>
+            <p style="font-size:5.5pt; color:#555; margin-top:3px; line-height:1.3;">
+              Sfeervolle, uitstekend onderhouden woning voorzien van royale living, moderne leefkeuken en zonnige tuin op het zuiden. Gelegen op loopafstand van het historische centrum.
+            </p>
+          </div>
+          <!-- Viewing & Agent Form -->
+          <div style="flex:0.8; background:#FFFFFF; border:1px solid #D9D9D9; border-radius:3px; padding:4px 6px;">
+            <div style="font-size:6pt; font-weight:800; color:#000; text-transform:uppercase;">Bezichtiging Plannen (Book Viewing)</div>
+            <div style="font-size:5pt; color:#666; margin-bottom:3px;">Selecteer uw gewenste datum:</div>
+            <div style="display:flex; gap:2px; margin-bottom:3px;">
+              <span style="background:#000; color:#fff; font-size:4.8pt; padding:1px 3px; border-radius:1px;">Di 18 Nov</span>
+              <span style="background:#eee; color:#333; font-size:4.8pt; padding:1px 3px; border-radius:1px;">Wo 19 Nov</span>
+              <span style="background:#eee; color:#333; font-size:4.8pt; padding:1px 3px; border-radius:1px;">Do 20 Nov</span>
+            </div>
+            <div style="font-size:5pt; background:#000; color:#fff; text-align:center; padding:2px; border-radius:2px; font-weight:700;">Direct Bevestigen</div>
+            <div style="font-size:4.8pt; color:#888; text-align:center; margin-top:2px;">Contactpersoon: Joshua Pinedo</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="disclaimer-box" style="margin-top:6px;">
+      <strong>Mockup &amp; Data Clarification:</strong> The user interfaces and property addresses depicted above (e.g., Voormeerstraat, Kanaalkade, Kennemerstraatweg) are illustrative conceptual mockups created exclusively to visualize platform capabilities. They do not represent active listings or verified data of Pinedo Makelaardij.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation &middot; Prepared by: <strong>[YOUR COMPANY NAME]</strong></div>
+    <div class="footer-page-num">Page 05 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 06: PROPERTY AND AGENT MANAGEMENT ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation</div>
+      <div class="header-right">05 &middot; Operations Dashboard</div>
+    </div>
+
+    <span class="section-tag">Back-Office &amp; Portfolio Control</span>
+    <h1 class="page-title">Simplifying Property and Agent Operations</h1>
+    
+    <p class="lead-text">
+      The administrative backbone empowers agency administrators and brokers to manage the full lifecycle of residential and commercial properties with maximum efficiency, clear accountability, and zero operational friction:
+    </p>
+
+    <!-- Operational Feature Highlights -->
+    <div class="grid-2" style="gap:8px; margin-bottom:9px;">
+      <div class="card-bordered">
+        <h2 class="block-title" style="font-size:8.2pt;">Comprehensive Property Management</h2>
+        <ul style="font-size:6.8pt; color:#444444; padding-left:14px; line-height:1.4;">
+          <li>Create, edit, and publish residential, commercial, and rental listings.</li>
+          <li>Drag-and-drop high-resolution photo galleries with automatic optimization.</li>
+          <li>Dynamic status toggling: <em>Beschikbaar (Active)</em>, <em>Onder Bod (Under Offer)</em>, <em>Verkocht (Sold)</em>.</li>
+          <li>Structured Dutch property attributes (woonoppervlakte, perceel, energielabel, VvE bijdrage).</li>
+        </ul>
+      </div>
+
+      <div class="card-bordered">
+        <h2 class="block-title" style="font-size:8.2pt;">Agent Assignment &amp; Workload Management</h2>
+        <ul style="font-size:6.8pt; color:#444444; padding-left:14px; line-height:1.4;">
+          <li>Dedicated agent profile management with assigned property portfolios.</li>
+          <li>Automated enquiry routing ensuring leads reach the responsible broker instantly.</li>
+          <li>Integrated viewing calendar showing individual and team availability.</li>
+          <li>Audit logs tracking who modified listing parameters, pricing, and viewing notes.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- HIGH-FIDELITY DASHBOARD MOCKUP -->
+    <div class="browser-window" style="margin-bottom:8px;">
+      <div class="browser-top">
+        <div class="browser-dots"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+        <div class="browser-url">https://admin.pinedomakelaardij.nl/properties — Back-Office Administration</div>
+        <span style="font-size:5.5pt; color:#888888; margin-left:auto;">ADMIN PORTAL MOCKUP</span>
+      </div>
+
+      <div style="padding:8px 12px; background:#FAFAFA;">
+        <!-- Top Stats Row -->
+        <div class="grid-4" style="gap:6px; margin-bottom:8px;">
+          <div style="background:#FFFFFF; border:1px solid #DDDDDD; padding:5px 8px; border-radius:3px;">
+            <div style="font-size:5.5pt; color:#777; text-transform:uppercase; font-weight:700;">Totale Portefeuille</div>
+            <div style="font-size:12pt; font-weight:900; color:#000;">48</div>
+            <div style="font-size:5pt; color:#555;">Actieve Woningen</div>
+          </div>
+          <div style="background:#FFFFFF; border:1px solid #DDDDDD; padding:5px 8px; border-radius:3px;">
+            <div style="font-size:5.5pt; color:#777; text-transform:uppercase; font-weight:700;">In Onderhandeling</div>
+            <div style="font-size:12pt; font-weight:900; color:#000;">11</div>
+            <div style="font-size:5pt; color:#555;">Onder Bod / Reservering</div>
+          </div>
+          <div style="background:#FFFFFF; border:1px solid #DDDDDD; padding:5px 8px; border-radius:3px;">
+            <div style="font-size:5.5pt; color:#777; text-transform:uppercase; font-weight:700;">Bezichtigingen</div>
+            <div style="font-size:12pt; font-weight:900; color:#000;">24</div>
+            <div style="font-size:5pt; color:#555;">Gepland Deze Week</div>
+          </div>
+          <div style="background:#FFFFFF; border:1px solid #DDDDDD; padding:5px 8px; border-radius:3px;">
+            <div style="font-size:5.5pt; color:#777; text-transform:uppercase; font-weight:700;">Nieuwe Aanvragen</div>
+            <div style="font-size:12pt; font-weight:900; color:#000;">38</div>
+            <div style="font-size:5pt; color:#555;">Laatste 7 Dagen</div>
+          </div>
+        </div>
+
+        <!-- Property Management Table -->
+        <div style="background:#FFFFFF; border:1px solid #DDDDDD; border-radius:3px; overflow:hidden;">
+          <div style="padding:4px 8px; background:#EEEEEE; font-size:6pt; font-weight:800; text-transform:uppercase; color:#000; display:flex; justify-content:space-between;">
+            <span>Actuele Woningen Beheer (Property Portfolio Table)</span>
+            <span style="color:#555;">+ Woning Toevoegen (Add Property)</span>
+          </div>
+          <table style="width:100%; border-collapse:collapse; font-size:6.2pt;">
+            <thead>
+              <tr style="border-bottom:1px solid #DDDDDD; background:#F8F8F8;">
+                <th style="padding:3px 6px; text-align:left;">Adres (Address)</th>
+                <th style="padding:3px 6px; text-align:left;">Type</th>
+                <th style="padding:3px 6px; text-align:left;">Vraagprijs</th>
+                <th style="padding:3px 6px; text-align:left;">Makelaar (Agent)</th>
+                <th style="padding:3px 6px; text-align:left;">Status</th>
+                <th style="padding:3px 6px; text-align:right;">Acties</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid #EEEEEE;">
+                <td style="padding:3px 6px; font-weight:700;">Voormeerstraat 14, Alkmaar</td>
+                <td style="padding:3px 6px;">Woonhuis (125 m²)</td>
+                <td style="padding:3px 6px; font-weight:700;">€ 385.000</td>
+                <td style="padding:3px 6px;">Joshua Pinedo</td>
+                <td style="padding:3px 6px;"><span class="badge badge-black">Beschikbaar</span></td>
+                <td style="padding:3px 6px; text-align:right; font-weight:700;">Bewerken &middot; Bekijk</td>
+              </tr>
+              <tr style="border-bottom:1px solid #EEEEEE; background:#FAFAFA;">
+                <td style="padding:3px 6px; font-weight:700;">Kanaalkade 88-B, Alkmaar</td>
+                <td style="padding:3px 6px;">Appartement (88 m²)</td>
+                <td style="padding:3px 6px; font-weight:700;">€ 295.000</td>
+                <td style="padding:3px 6px;">J. Pinedo</td>
+                <td style="padding:3px 6px;"><span class="badge badge-grey">Onder Bod</span></td>
+                <td style="padding:3px 6px; text-align:right; font-weight:700;">Bewerken &middot; Bekijk</td>
+              </tr>
+              <tr style="border-bottom:1px solid #EEEEEE;">
+                <td style="padding:3px 6px; font-weight:700;">Kennemerstraatweg 42, Alkmaar</td>
+                <td style="padding:3px 6px;">Villa (180 m²)</td>
+                <td style="padding:3px 6px; font-weight:700;">€ 645.000</td>
+                <td style="padding:3px 6px;">Joshua Pinedo</td>
+                <td style="padding:3px 6px;"><span class="badge badge-black">Beschikbaar</span></td>
+                <td style="padding:3px 6px; text-align:right; font-weight:700;">Bewerken &middot; Bekijk</td>
+              </tr>
+              <tr>
+                <td style="padding:3px 6px; font-weight:700;">Laat 112-C, Alkmaar Centrum</td>
+                <td style="padding:3px 6px;">Maisonnette (104 m²)</td>
+                <td style="padding:3px 6px; font-weight:700;">€ 349.000</td>
+                <td style="padding:3px 6px;">Team Alkmaar</td>
+                <td style="padding:3px 6px;"><span class="badge badge-grey">Verkocht ovb</span></td>
+                <td style="padding:3px 6px; text-align:right; font-weight:700;">Bewerken &middot; Bekijk</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="disclaimer-box">
+      <strong>Administrative Data Note:</strong> Metrics, inventory quantities, and agent roles displayed in the dashboard above represent illustrative software wireframe data developed to demonstrate operational interface layouts.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation &middot; Prepared by: <strong>[YOUR COMPANY NAME]</strong></div>
+    <div class="footer-page-num">Page 06 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 07: CUSTOMER RELATIONSHIP MANAGEMENT ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation</div>
+      <div class="header-right">06 &middot; CRM &amp; Lead Management</div>
+    </div>
+
+    <span class="section-tag">Client Acquisition &amp; Retention</span>
+    <h1 class="page-title">Turn Property Enquiries Into Business Opportunities</h1>
+    
+    <p class="lead-text">
+      A qualified enquiry is the lifeblood of real estate brokerage. The integrated CRM module tracks every prospective buyer, tenant, and seller from initial website visit through to contract signing, ensuring no customer falls through the cracks:
+    </p>
+
+    <!-- CRM Capabilities Grid -->
+    <div class="grid-3" style="gap:7px; margin-bottom:9px;">
+      <div class="card-bordered" style="padding:7px 9px;">
+        <strong style="font-size:7.2pt; color:var(--black);">Omni-Channel Lead Ingestion</strong>
+        <p class="body-text" style="font-size:6.6pt; margin-top:2px;">
+          Automatically capture leads originating from web contact forms, property detail viewing requests, direct emails, and incoming WhatsApp chats.
+        </p>
+      </div>
+      <div class="card-bordered" style="padding:7px 9px;">
+        <strong style="font-size:7.2pt; color:var(--black);">Buyer Preference Profiling</strong>
+        <p class="body-text" style="font-size:6.6pt; margin-top:2px;">
+          Record maximum budget limits, mortgage pre-approval status, desired Alkmaar neighborhoods, minimum bedrooms, and moving timelines.
+        </p>
+      </div>
+      <div class="card-bordered" style="padding:7px 9px;">
+        <strong style="font-size:7.2pt; color:var(--black);">Automated Follow-Up Tasks</strong>
+        <p class="body-text" style="font-size:6.6pt; margin-top:2px;">
+          Prompt agents with timely reminders following viewings, enabling prompt collection of buyer feedback, counter-offers, and second viewing bookings.
+        </p>
+      </div>
+    </div>
+
+    <!-- SAMPLE PIPELINE VISUAL -->
+    <div class="card-bordered" style="padding:8px 12px; margin-bottom:8px; background:#FFFFFF;">
+      <div style="font-size:6.5pt; font-weight:800; text-transform:uppercase; letter-spacing:0.8px; color:var(--black); margin-bottom:6px; text-align:center;">
+        Structured Lead Qualification Pipeline (Sample Flow)
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:4px;">
+        <div style="flex:1; background:#000000; color:#FFFFFF; padding:6px 4px; border-radius:2px; text-align:center;">
+          <div style="font-size:5.5pt; color:#AAAAAA; text-transform:uppercase;">STAGE 01</div>
+          <div style="font-size:7.2pt; font-weight:800;">NEW LEAD</div>
+          <div style="font-size:5.5pt; color:#CCCCCC;">Captured (42)</div>
+        </div>
+        <span style="font-size:8pt; font-weight:900;">→</span>
+        <div style="flex:1; background:#222222; color:#FFFFFF; padding:6px 4px; border-radius:2px; text-align:center;">
+          <div style="font-size:5.5pt; color:#AAAAAA; text-transform:uppercase;">STAGE 02</div>
+          <div style="font-size:7.2pt; font-weight:800;">CONTACTED</div>
+          <div style="font-size:5.5pt; color:#CCCCCC;">In Touch (28)</div>
+        </div>
+        <span style="font-size:8pt; font-weight:900;">→</span>
+        <div style="flex:1; background:#444444; color:#FFFFFF; padding:6px 4px; border-radius:2px; text-align:center;">
+          <div style="font-size:5.5pt; color:#AAAAAA; text-transform:uppercase;">STAGE 03</div>
+          <div style="font-size:7.2pt; font-weight:800;">QUALIFIED</div>
+          <div style="font-size:5.5pt; color:#CCCCCC;">Budget Verified (19)</div>
+        </div>
+        <span style="font-size:8pt; font-weight:900;">→</span>
+        <div style="flex:1.2; background:#000000; color:#FFFFFF; padding:6px 4px; border-radius:2px; text-align:center;">
+          <div style="font-size:5.5pt; color:#AAAAAA; text-transform:uppercase;">STAGE 04</div>
+          <div style="font-size:7.2pt; font-weight:800;">VIEWING SCHEDULED</div>
+          <div style="font-size:5.5pt; color:#CCCCCC;">On Calendar (11)</div>
+        </div>
+        <span style="font-size:8pt; font-weight:900;">→</span>
+        <div style="flex:1; background:#666666; color:#FFFFFF; padding:6px 4px; border-radius:2px; text-align:center;">
+          <div style="font-size:5.5pt; color:#AAAAAA; text-transform:uppercase;">STAGE 05</div>
+          <div style="font-size:7.2pt; font-weight:800;">CLOSED</div>
+          <div style="font-size:5.5pt; color:#CCCCCC;">Offer / Notary (6)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HIGH-FIDELITY CRM TABLE MOCKUP -->
+    <div class="browser-window" style="margin-bottom:6px;">
+      <div class="browser-top">
+        <div class="browser-dots"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+        <div class="browser-url">https://admin.pinedomakelaardij.nl/crm/enquiries — Customer Lead Ingestion</div>
+        <span style="font-size:5.5pt; color:#888888; margin-left:auto;">CRM TABLE MOCKUP</span>
+      </div>
+
+      <div style="padding:6px 10px; background:#FAFAFA;">
+        <table style="width:100%; border-collapse:collapse; font-size:6pt; background:#FFFFFF; border:1px solid #DDDDDD;">
+          <thead>
+            <tr style="background:#000000; color:#FFFFFF;">
+              <th style="padding:4px 6px; text-align:left;">Client Name</th>
+              <th style="padding:4px 6px; text-align:left;">Target Property</th>
+              <th style="padding:4px 6px; text-align:left;">Budget</th>
+              <th style="padding:4px 6px; text-align:left;">Channel</th>
+              <th style="padding:4px 6px; text-align:left;">Assigned Broker</th>
+              <th style="padding:4px 6px; text-align:left;">Pipeline Stage</th>
+              <th style="padding:4px 6px; text-align:right;">Next Step</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #EEEEEE;">
+              <td style="padding:4px 6px; font-weight:700;">Dhr. Mark van Dijk</td>
+              <td style="padding:4px 6px;">Kennemerstraatweg 42</td>
+              <td style="padding:4px 6px;">€ 650.000</td>
+              <td style="padding:4px 6px;"><span class="badge badge-grey">Website Form</span></td>
+              <td style="padding:4px 6px;">Joshua Pinedo</td>
+              <td style="padding:4px 6px;"><span class="badge badge-black">Viewing Scheduled</span></td>
+              <td style="padding:4px 6px; text-align:right; font-weight:700;">Di 18 Nov &middot; 14:00</td>
+            </tr>
+            <tr style="border-bottom:1px solid #EEEEEE; background:#FAFAFA;">
+              <td style="padding:4px 6px; font-weight:700;">Mevr. Sophie Bakker</td>
+              <td style="padding:4px 6px;">Kanaalkade 88-B</td>
+              <td style="padding:4px 6px;">€ 300.000</td>
+              <td style="padding:4px 6px;"><span class="badge badge-grey">WhatsApp</span></td>
+              <td style="padding:4px 6px;">J. Pinedo</td>
+              <td style="padding:4px 6px;"><span class="badge badge-grey">Qualified Lead</span></td>
+              <td style="padding:4px 6px; text-align:right; font-weight:700;">Bellen voor optie</td>
+            </tr>
+            <tr style="border-bottom:1px solid #EEEEEE;">
+              <td style="padding:4px 6px; font-weight:700;">Dhr. Lars de Boer</td>
+              <td style="padding:4px 6px;">Voormeerstraat 14</td>
+              <td style="padding:4px 6px;">€ 390.000</td>
+              <td style="padding:4px 6px;"><span class="badge badge-grey">AI Chatbot</span></td>
+              <td style="padding:4px 6px;">Joshua Pinedo</td>
+              <td style="padding:4px 6px;"><span class="badge badge-black">Viewing Scheduled</span></td>
+              <td style="padding:4px 6px; text-align:right; font-weight:700;">Wo 19 Nov &middot; 10:30</td>
+            </tr>
+            <tr>
+              <td style="padding:4px 6px; font-weight:700;">Familie Visser</td>
+              <td style="padding:4px 6px;">Aanvraag Verkoopadvies</td>
+              <td style="padding:4px 6px;">Waardebepaling</td>
+              <td style="padding:4px 6px;"><span class="badge badge-grey">Direct Email</span></td>
+              <td style="padding:4px 6px;">J. Pinedo</td>
+              <td style="padding:4px 6px;"><span class="badge badge-grey">Contacted</span></td>
+              <td style="padding:4px 6px; text-align:right; font-weight:700;">Waarderapport sturen</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="disclaimer-box">
+      <strong>Illustrative CRM Data:</strong> All client names, telephone channels, and enquiry details above represent fictional Dutch persona records created strictly to illustrate CRM data architecture.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation &middot; Prepared by: <strong>[YOUR COMPANY NAME]</strong></div>
+    <div class="footer-page-num">Page 07 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 08: APPOINTMENT AND COMMUNICATION MANAGEMENT ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation</div>
+      <div class="header-right">07 &middot; Viewing &amp; Calendar Logistics</div>
+    </div>
+
+    <span class="section-tag">Frictionless Scheduling</span>
+    <h1 class="page-title">Make Customer Interactions Easier</h1>
+    
+    <p class="lead-text">
+      Property viewings require tight synchronization between prospective buyers, sellers, and busy agents on the road in Alkmaar. The calendar management engine automates scheduling, reminders, and confirmations:
+    </p>
+
+    <!-- Key Appointment Capabilities -->
+    <div class="grid-4" style="gap:6px; margin-bottom:8px;">
+      <div class="card-bordered" style="padding:6px 8px;">
+        <strong style="font-size:6.8pt; color:var(--black);">2-Way Google Sync</strong>
+        <p style="font-size:6.2pt; color:#555; margin-top:2px;">Real-time bi-directional synchronization with agent Google/Outlook calendars.</p>
+      </div>
+      <div class="card-bordered" style="padding:6px 8px;">
+        <strong style="font-size:6.8pt; color:var(--black);">Smart Buffer Times</strong>
+        <p style="font-size:6.2pt; color:#555; margin-top:2px;">Automatic 20-minute travel buffers calculated between locations in Alkmaar.</p>
+      </div>
+      <div class="card-bordered" style="padding:6px 8px;">
+        <strong style="font-size:6.8pt; color:var(--black);">WhatsApp Reminders</strong>
+        <p style="font-size:6.2pt; color:#555; margin-top:2px;">Automated 24h &amp; 2h WhatsApp reminders to prospective buyers reducing no-shows.</p>
+      </div>
+      <div class="card-bordered" style="padding:6px 8px;">
+        <strong style="font-size:6.8pt; color:var(--black);">Seller Notifications</strong>
+        <p style="font-size:6.2pt; color:#555; margin-top:2px;">Automatic SMS alerts to property owners when a new viewing slot is confirmed.</p>
+      </div>
+    </div>
+
+    <!-- CALENDAR UI MOCKUP -->
+    <div class="browser-window" style="margin-bottom:8px;">
+      <div class="browser-top">
+        <div class="browser-dots"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+        <div class="browser-url">https://admin.pinedomakelaardij.nl/calendar — Agent Viewing Schedule</div>
+        <span style="font-size:5.5pt; color:#888888; margin-left:auto;">WEEKLY CALENDAR MOCKUP</span>
+      </div>
+
+      <div style="padding:8px 10px; background:#FAFAFA;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <div>
+            <strong style="font-size:7pt; color:#000;">Weekoverzicht &middot; 17 Nov – 21 Nov 2026</strong>
+            <span style="font-size:5.8pt; color:#666; margin-left:6px;">Makelaar: Joshua Pinedo (Alkmaar Regio)</span>
+          </div>
+          <div style="display:flex; gap:3px;">
+            <span style="font-size:5.2pt; background:#000; color:#fff; padding:1px 4px; border-radius:2px; font-weight:700;">Week</span>
+            <span style="font-size:5.2pt; background:#eee; color:#333; padding:1px 4px; border-radius:2px;">Dag</span>
+            <span style="font-size:5.2pt; background:#eee; color:#333; padding:1px 4px; border-radius:2px;">Agenda</span>
+          </div>
+        </div>
+
+        <!-- Calendar Grid Mockup -->
+        <div style="display:grid; grid-template-columns: 45px repeat(5, 1fr); gap:3px; background:#FFFFFF; border:1px solid #DDDDDD; padding:4px; border-radius:3px; font-size:5.8pt;">
+          <!-- Header Days -->
+          <div style="font-weight:700; color:#888; text-align:center;">Tijd</div>
+          <div style="font-weight:700; text-align:center; background:#F0F0F0; padding:2px;">Ma 17</div>
+          <div style="font-weight:700; text-align:center; background:#000; color:#fff; padding:2px;">Di 18</div>
+          <div style="font-weight:700; text-align:center; background:#F0F0F0; padding:2px;">Wo 19</div>
+          <div style="font-weight:700; text-align:center; background:#F0F0F0; padding:2px;">Do 20</div>
+          <div style="font-weight:700; text-align:center; background:#F0F0F0; padding:2px;">Vr 21</div>
+
+          <!-- 09:00 - 11:00 -->
+          <div style="color:#777; text-align:center; padding:3px 0;">09:00</div>
+          <div style="background:#FAFAFA; border-left:2px solid #CCC; padding:2px;">Kantooroverleg</div>
+          <div style="background:#EFEFEF; border-left:2px solid #000; padding:2px; font-weight:600;">Voormeerstr. 14<br><span style="font-size:4.8pt; color:#666;">Fam. De Boer</span></div>
+          <div style="background:#FAFAFA; padding:2px;">Vrij</div>
+          <div style="background:#EFEFEF; border-left:2px solid #000; padding:2px; font-weight:600;">Taxatie Oudorp<br><span style="font-size:4.8pt; color:#666;">Dhr. Visser</span></div>
+          <div style="background:#FAFAFA; padding:2px;">Kantoortijd</div>
+
+          <!-- 11:00 - 13:00 -->
+          <div style="color:#777; text-align:center; padding:3px 0;">11:30</div>
+          <div style="background:#FAFAFA; padding:2px;">Dossierbeheer</div>
+          <div style="background:#FAFAFA; padding:2px;">Reistijd (Buffer)</div>
+          <div style="background:#EFEFEF; border-left:2px solid #000; padding:2px; font-weight:600;">Kanaalkade 88-B<br><span style="font-size:4.8pt; color:#666;">Mevr. Bakker</span></div>
+          <div style="background:#FAFAFA; padding:2px;">Vrij</div>
+          <div style="background:#EFEFEF; border-left:2px solid #000; padding:2px; font-weight:600;">Kennemerstr. 42<br><span style="font-size:4.8pt; color:#666;">Dhr. Van Dijk</span></div>
+
+          <!-- 14:00 - 16:00 -->
+          <div style="color:#777; text-align:center; padding:3px 0;">14:00</div>
+          <div style="background:#EFEFEF; border-left:2px solid #000; padding:2px; font-weight:600;">Notaris Alkmaar<br><span style="font-size:4.8pt; color:#666;">Overdracht Laat</span></div>
+          <div style="background:#EFEFEF; border-left:2px solid #000; padding:2px; font-weight:600;">Kennemerstr. 42<br><span style="font-size:4.8pt; color:#666;">2e Bezichtiging</span></div>
+          <div style="background:#FAFAFA; padding:2px;">Administratie</div>
+          <div style="background:#EFEFEF; border-left:2px solid #000; padding:2px; font-weight:600;">Laat 112-C<br><span style="font-size:4.8pt; color:#666;">Kijkersgroep</span></div>
+          <div style="background:#FAFAFA; padding:2px;">Weekafsluiting</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Communication Dispatch Pipeline -->
+    <div class="card" style="background:#F9FAFB; padding:8px 12px;">
+      <div style="font-size:6.8pt; font-weight:800; text-transform:uppercase; color:var(--black); margin-bottom:4px;">
+        Automated Communication Dispatch Chain
+      </div>
+      <p class="body-text" style="font-size:6.8pt; margin:0; line-height:1.4;">
+        Upon customer viewing reservation: (1) Calendar invite generated with .ics attachment; (2) Instant broker push notification; (3) Property brochure emailed to buyer; (4) WhatsApp location pin dispatched 2 hours prior to viewing; (5) Automated feedback survey dispatched 30 minutes post-viewing.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation &middot; Prepared by: <strong>[YOUR COMPANY NAME]</strong></div>
+    <div class="footer-page-num">Page 08 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 09: AI-POWERED PROPERTY ASSISTANT ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation</div>
+      <div class="header-right">08 &middot; AI Conversational Assistant</div>
+    </div>
+
+    <span class="section-tag">Intelligent Automation (Optional Module)</span>
+    <h1 class="page-title">An Intelligent Assistant for Property Enquiries</h1>
+    
+    <p class="lead-text">
+      Prospective buyers frequently browse real estate outside standard business hours. An optional, dedicated AI conversational assistant can provide instant, 24/7 responsiveness, understanding natural language property requirements and pre-qualifying leads directly on the website:
+    </p>
+
+    <!-- Capabilities Grid -->
+    <div class="grid-3" style="gap:7px; margin-bottom:9px;">
+      <div class="card-bordered" style="padding:7px 9px;">
+        <strong style="font-size:7pt; color:var(--black);">Natural Language Search</strong>
+        <p class="body-text" style="font-size:6.5pt; margin-top:2px;">
+          Parses casual buyer phrasing (e.g., <em>"quiet house near city centre with garden"</em>) and matches database parameters accurately.
+        </p>
+      </div>
+      <div class="card-bordered" style="padding:7px 9px;">
+        <strong style="font-size:7pt; color:var(--black);">Lead Qualification</strong>
+        <p class="body-text" style="font-size:6.5pt; margin-top:2px;">
+          Captures verified contact information, preferred budget thresholds, and mortgage status before routing to agents.
+        </p>
+      </div>
+      <div class="card-bordered" style="padding:7px 9px;">
+        <strong style="font-size:7pt; color:var(--black);">Multilingual Support</strong>
+        <p class="body-text" style="font-size:6.5pt; margin-top:2px;">
+          Engages international and expat buyers seamlessly in Dutch, English, and German without requiring extra staff.
+        </p>
+      </div>
+    </div>
+
+    <!-- REALISTIC AI CHAT INTERFACE MOCKUP (Exact prompt conversation in Alkmaar context) -->
+    <div class="browser-window" style="margin-bottom:8px;">
+      <div class="browser-top">
+        <div class="browser-dots"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+        <div class="browser-url">https://www.pinedomakelaardij.nl/ — Pinedo AI Assistant Widget</div>
+        <span style="font-size:5.5pt; color:#888888; margin-left:auto;">CONVERSATIONAL UI MOCKUP</span>
+      </div>
+
+      <div style="padding:10px 14px; background:#FAFAFA; display:flex; justify-content:center;">
+        <!-- Chat Phone/Widget Container -->
+        <div style="width:100%; max-width:440px; background:#FFFFFF; border:1px solid #D1D5DB; border-radius:6px; overflow:hidden; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
+          <!-- Chat Header -->
+          <div style="background:#000000; color:#FFFFFF; padding:6px 10px; display:flex; justify-content:space-between; align-items:center;">
+            <div style="display:flex; gap:6px; align-items:center;">
+              <div style="width:7px; height:7px; border-radius:50%; background:#10B981;"></div>
+              <div>
+                <div style="font-size:6.8pt; font-weight:800;">Pinedo Virtual Property Assistant</div>
+                <div style="font-size:5.2pt; color:#CCCCCC;">24/7 Live Alkmaar Property Guidance</div>
+              </div>
+            </div>
+            <span class="badge badge-grey" style="font-size:5pt;">AI Powered</span>
+          </div>
+
+          <!-- Chat Body Messages -->
+          <div style="padding:8px 10px; display:flex; flex-direction:column; gap:6px; font-size:6.5pt; min-height:130px;">
+            <!-- Customer Bubble 1 -->
+            <div style="align-self:flex-end; background:#000000; color:#FFFFFF; padding:5px 8px; border-radius:5px 5px 1px 5px; max-width:78%;">
+              "I'm looking for a two-bedroom apartment in Alkmaar."
+            </div>
+
+            <!-- AI Bubble 1 -->
+            <div style="align-self:flex-start; background:#F3F4F6; color:#111111; padding:5px 8px; border-radius:5px 5px 5px 1px; max-width:82%; border:1px solid #E5E7EB;">
+              "Certainly! What is your preferred budget?"
+            </div>
+
+            <!-- Customer Bubble 2 -->
+            <div style="align-self:flex-end; background:#000000; color:#FFFFFF; padding:5px 8px; border-radius:5px 5px 1px 5px; max-width:78%;">
+              "Between €250,000 and €350,000."
+            </div>
+
+            <!-- AI Bubble 2 with Property Card Preview -->
+            <div style="align-self:flex-start; background:#F3F4F6; color:#111111; padding:5px 8px; border-radius:5px 5px 5px 1px; max-width:88%; border:1px solid #E5E7EB;">
+              "Thank you. I have identified properties matching your preferences in Alkmaar! For example: <strong>Kanaalkade 88-B (€295.000, 2 bedrooms, 88 m²)</strong>. Would you like to arrange a viewing with Mr. Joshua Pinedo?"
+              <div style="margin-top:4px; display:flex; gap:4px;">
+                <span style="background:#000; color:#fff; font-size:5.5pt; padding:2px 6px; border-radius:2px; font-weight:700;">Bezichtiging Plannen (Book Viewing)</span>
+                <span style="background:#fff; color:#000; border:1px solid #ccc; font-size:5.5pt; padding:2px 6px; border-radius:2px;">Meer Details</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chat Input Bar -->
+          <div style="border-top:1px solid #EEEEEE; padding:4px 8px; background:#FFFFFF; display:flex; gap:4px;">
+            <input type="text" placeholder="Type uw bericht hier (Type your reply)..." style="flex:1; border:1px solid #D5D5D5; border-radius:3px; font-size:6pt; padding:2px 6px;" readonly>
+            <span style="background:#000; color:#fff; font-size:5.5pt; padding:2px 6px; border-radius:2px; font-weight:700;">Verzend</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="disclaimer-box">
+      <strong>Optional Module Qualification:</strong> The AI Property Assistant is an optional component. Implementation is subject to client approval, OpenAI / LLM API integration agreements, data privacy governance, and defined scope boundaries.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation &middot; Prepared by: <strong>[YOUR COMPANY NAME]</strong></div>
+    <div class="footer-page-num">Page 09 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 10: BUSINESS ANALYTICS AND REPORTING ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation</div>
+      <div class="header-right">09 &middot; Business Intelligence</div>
+    </div>
+
+    <span class="section-tag">Data-Driven Brokerage Governance</span>
+    <h1 class="page-title">Make Better Decisions With Business Insights</h1>
+    
+    <p class="lead-text">
+      Centralized data empowers executive leadership to evaluate inventory performance, optimize marketing spend, and identify high-demand property niches across the Alkmaar housing market:
+    </p>
+
+    <!-- 5 HIGH-PRECISION MONOCHROME SVG CHARTS GRID -->
+    <div class="grid-2" style="gap:8px; margin-bottom:8px;">
+      
+      <!-- Chart 1: Monthly Enquiries - Line Chart -->
+      <div class="card-bordered" style="padding:6px 9px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <strong style="font-size:6.8pt; color:var(--black);">1. Monthly Enquiries Volume (Trend)</strong>
+          <span class="badge badge-grey">Jan – Jun 2026</span>
+        </div>
+        <div style="text-align:center;">
+          <svg width="250" height="75" viewBox="0 0 250 75" style="display:inline-block;">
+            <!-- Grid lines -->
+            <line x1="25" y1="15" x2="245" y2="15" stroke="#E5E7EB" stroke-width="0.75" />
+            <line x1="25" y1="35" x2="245" y2="35" stroke="#E5E7EB" stroke-width="0.75" />
+            <line x1="25" y1="55" x2="245" y2="55" stroke="#E5E7EB" stroke-width="0.75" />
+            <!-- Y-Axis labels -->
+            <text x="5" y="18" font-size="5" fill="#888">120</text>
+            <text x="8" y="38" font-size="5" fill="#888">80</text>
+            <text x="8" y="58" font-size="5" fill="#888">40</text>
+            <!-- Line Path -->
+            <polyline fill="none" stroke="#000000" stroke-width="2" points="35,52 75,44 115,36 155,24 195,28 235,16" />
+            <!-- Dots -->
+            <circle cx="35" cy="52" r="2.5" fill="#000" />
+            <circle cx="75" cy="44" r="2.5" fill="#000" />
+            <circle cx="115" cy="36" r="2.5" fill="#000" />
+            <circle cx="155" cy="24" r="2.5" fill="#000" />
+            <circle cx="195" cy="28" r="2.5" fill="#000" />
+            <circle cx="235" cy="16" r="2.5" fill="#000" />
+            <!-- X-Axis labels -->
+            <text x="30" y="68" font-size="5.5" fill="#555" font-weight="600">Jan</text>
+            <text x="70" y="68" font-size="5.5" fill="#555" font-weight="600">Feb</text>
+            <text x="110" y="68" font-size="5.5" fill="#555" font-weight="600">Mrt</text>
+            <text x="150" y="68" font-size="5.5" fill="#555" font-weight="600">Apr</text>
+            <text x="190" y="68" font-size="5.5" fill="#555" font-weight="600">Mei</text>
+            <text x="230" y="68" font-size="5.5" fill="#555" font-weight="600">Jun</text>
+          </svg>
+        </div>
+        <div style="font-size:5.8pt; color:#666; text-align:center;">Demonstrating 78% growth in digital enquiry acquisition across H1.</div>
+      </div>
+
+      <!-- Chart 2: Property Categories - Bar Chart -->
+      <div class="card-bordered" style="padding:6px 9px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <strong style="font-size:6.8pt; color:var(--black);">2. Property Categories (Inventory Breakdown)</strong>
+          <span class="badge badge-grey">Active Portfolio</span>
+        </div>
+        <div style="text-align:center;">
+          <svg width="250" height="75" viewBox="0 0 250 75" style="display:inline-block;">
+            <line x1="20" y1="60" x2="245" y2="60" stroke="#CCCCCC" stroke-width="1" />
+            <!-- Bars -->
+            <rect x="35" y="15" width="28" height="45" fill="#000000" />
+            <text x="49" y="11" font-size="5.5" fill="#000" font-weight="700" text-anchor="middle">48%</text>
+            <text x="49" y="68" font-size="5.5" fill="#555" text-anchor="middle">Woonhuis</text>
+
+            <rect x="85" y="26" width="28" height="34" fill="#444444" />
+            <text x="99" y="22" font-size="5.5" fill="#000" font-weight="700" text-anchor="middle">32%</text>
+            <text x="99" y="68" font-size="5.5" fill="#555" text-anchor="middle">Appartement</text>
+
+            <rect x="135" y="44" width="28" height="16" fill="#777777" />
+            <text x="149" y="40" font-size="5.5" fill="#000" font-weight="700" text-anchor="middle">14%</text>
+            <text x="149" y="68" font-size="5.5" fill="#555" text-anchor="middle">Villa</text>
+
+            <rect x="185" y="52" width="28" height="8" fill="#AAAAAA" />
+            <text x="199" y="48" font-size="5.5" fill="#000" font-weight="700" text-anchor="middle">6%</text>
+            <text x="199" y="68" font-size="5.5" fill="#555" text-anchor="middle">Commercieel</text>
+          </svg>
+        </div>
+        <div style="font-size:5.8pt; color:#666; text-align:center;">Single-family homes &amp; apartments constitute 80% of current demand.</div>
+      </div>
+
+      <!-- Chart 3: Lead Pipeline - Funnel Chart -->
+      <div class="card-bordered" style="padding:6px 9px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <strong style="font-size:6.8pt; color:var(--black);">3. Conversion Pipeline (Funnel)</strong>
+          <span class="badge badge-grey">Conversion Rates</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:2.5px; padding:2px 0;">
+          <div style="display:flex; align-items:center; font-size:5.8pt;">
+            <span style="width:75px; color:#555;">Website Bezoekers</span>
+            <div style="flex:1; background:#000000; color:#fff; padding:2px 6px; font-weight:700; width:100%; border-radius:2px;">100% &middot; 4.250 Sessies</div>
+          </div>
+          <div style="display:flex; align-items:center; font-size:5.8pt;">
+            <span style="width:75px; color:#555;">Aanvragen (Leads)</span>
+            <div style="width:65%; background:#333333; color:#fff; padding:2px 6px; font-weight:700; border-radius:2px;">18% &middot; 765 Enquiries</div>
+          </div>
+          <div style="display:flex; align-items:center; font-size:5.8pt;">
+            <span style="width:75px; color:#555;">Bezichtigingen</span>
+            <div style="width:42%; background:#555555; color:#fff; padding:2px 6px; font-weight:700; border-radius:2px;">8.2% &middot; 348 Viewings</div>
+          </div>
+          <div style="display:flex; align-items:center; font-size:5.8pt;">
+            <span style="width:75px; color:#555;">Biedingen (Offers)</span>
+            <div style="width:22%; background:#777777; color:#fff; padding:2px 6px; font-weight:700; border-radius:2px;">3.4% &middot; 144 Bids</div>
+          </div>
+          <div style="display:flex; align-items:center; font-size:5.8pt;">
+            <span style="width:75px; color:#555;">Transacties (Closed)</span>
+            <div style="width:12%; background:#000000; color:#fff; padding:2px 6px; font-weight:700; border-radius:2px;">1.8% &middot; 78 Deals</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart 4: Appointment Status - Donut Chart -->
+      <div class="card-bordered" style="padding:6px 9px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <strong style="font-size:6.8pt; color:var(--black);">4. Appointment Status Outcomes</strong>
+          <span class="badge badge-grey">Viewing Audits</span>
+        </div>
+        <div style="display:flex; align-items:center; justify-content:space-around;">
+          <svg width="70" height="70" viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="15.915" fill="transparent" stroke="#E5E7EB" stroke-width="6" />
+            <!-- Segments: 65% Completed (#000), 18% Rescheduled (#555), 12% Cancelled (#888), 5% No-show (#CCC) -->
+            <circle cx="20" cy="20" r="15.915" fill="transparent" stroke="#000000" stroke-width="6" stroke-dasharray="65 35" stroke-dashoffset="25" />
+            <circle cx="20" cy="20" r="15.915" fill="transparent" stroke="#555555" stroke-width="6" stroke-dasharray="18 82" stroke-dashoffset="60" />
+            <circle cx="20" cy="20" r="15.915" fill="transparent" stroke="#888888" stroke-width="6" stroke-dasharray="12 88" stroke-dashoffset="42" />
+            <circle cx="20" cy="20" r="15.915" fill="transparent" stroke="#CCCCCC" stroke-width="6" stroke-dasharray="5 95" stroke-dashoffset="30" />
+          </svg>
+          <div style="font-size:5.5pt; color:#444; line-height:1.4;">
+            <div><span style="display:inline-block; width:6px; height:6px; background:#000; margin-right:3px;"></span>Voltooid (65%)</div>
+            <div><span style="display:inline-block; width:6px; height:6px; background:#555; margin-right:3px;"></span>Verplaatst (18%)</div>
+            <div><span style="display:inline-block; width:6px; height:6px; background:#888; margin-right:3px;"></span>Geannuleerd (12%)</div>
+            <div><span style="display:inline-block; width:6px; height:6px; background:#CCC; margin-right:3px;"></span>No-show (5%)</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Chart 5: Agent Performance - Horizontal Bar Chart (Full-width) -->
+    <div class="card-bordered" style="padding:6px 10px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+        <strong style="font-size:6.8pt; color:var(--black);">5. Agent Activity &amp; Viewing Completion (Monthly Comparison)</strong>
+        <span class="badge badge-grey">Illustrative Team Metrics</span>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:3px; font-size:5.8pt;">
+        <div style="display:flex; align-items:center;">
+          <span style="width:110px; font-weight:700;">Joshua Pinedo (Lead Broker)</span>
+          <div style="flex:1; background:#000000; color:#fff; padding:2px 6px; font-weight:700; border-radius:2px; max-width:85%;">48 Viewings &middot; 9 Deals Closed &middot; 94% Response Rate</div>
+        </div>
+        <div style="display:flex; align-items:center;">
+          <span style="width:110px; font-weight:700;">Associate Broker A</span>
+          <div style="flex:1; background:#444444; color:#fff; padding:2px 6px; font-weight:700; border-radius:2px; max-width:68%;">34 Viewings &middot; 6 Deals Closed &middot; 89% Response Rate</div>
+        </div>
+        <div style="display:flex; align-items:center;">
+          <span style="width:110px; font-weight:700;">Associate Broker B</span>
+          <div style="flex:1; background:#777777; color:#fff; padding:2px 6px; font-weight:700; border-radius:2px; max-width:52%;">26 Viewings &middot; 4 Deals Closed &middot; 85% Response Rate</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="disclaimer-box" style="margin-top:6px;">
+      <strong>Sample Data Notice:</strong> All graphical visualizations, percentages, viewing counts, and agent figures shown on this page constitute illustrative prototype metrics intended to exhibit analytical reporting interfaces.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation &middot; Prepared by: <strong>[YOUR COMPANY NAME]</strong></div>
+    <div class="footer-page-num">Page 10 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 11: TECHNICAL ARCHITECTURE ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation</div>
+      <div class="header-right">10 &middot; Technical Architecture</div>
+    </div>
+
+    <span class="section-tag">Enterprise Engineering Standards</span>
+    <h1 class="page-title">Scalable, Secure and Maintainable Technology</h1>
+    
+    <p class="lead-text">
+      The platform is engineered upon proven, modern enterprise technologies designed for high performance, uncompromising security, long-term maintainability, and seamless third-party service connectivity:
+    </p>
+
+    <!-- Tech Stack Grid -->
+    <div class="grid-4" style="gap:6px; margin-bottom:8px;">
+      <div class="card-bordered" style="padding:6px 8px;">
+        <span class="badge badge-black" style="margin-bottom:2px;">Frontend</span>
+        <div style="font-size:7.2pt; font-weight:800; color:#000;">Next.js &amp; React 19</div>
+        <p style="font-size:5.8pt; color:#555; margin-top:2px;">TypeScript, Tailwind CSS, Server-Side Rendering (SSR) for superior SEO and instant page loading.</p>
+      </div>
+
+      <div class="card-bordered" style="padding:6px 8px;">
+        <span class="badge badge-black" style="margin-bottom:2px;">Backend APIs</span>
+        <div style="font-size:7.2pt; font-weight:800; color:#000;">Node.js / Express</div>
+        <p style="font-size:5.8pt; color:#555; margin-top:2px;">Decoupled RESTful microservices, JWT authentication, schema validation, and rate-limiting gateways.</p>
+      </div>
+
+      <div class="card-bordered" style="padding:6px 8px;">
+        <span class="badge badge-black" style="margin-bottom:2px;">Database &amp; ORM</span>
+        <div style="font-size:7.2pt; font-weight:800; color:#000;">PostgreSQL &amp; Prisma</div>
+        <p style="font-size:5.8pt; color:#555; margin-top:2px;">ACID-compliant relational modeling, spatial indexing, automated migrations, and connection pooling.</p>
+      </div>
+
+      <div class="card-bordered" style="padding:6px 8px;">
+        <span class="badge badge-black" style="margin-bottom:2px;">Cloud Hosting</span>
+        <div style="font-size:7.2pt; font-weight:800; color:#000;">Vercel &amp; AWS</div>
+        <p style="font-size:5.8pt; color:#555; margin-top:2px;">Edge CDN delivery, automated SSL/TLS certificates, Dockerized containers, and daily automated backups.</p>
+      </div>
+    </div>
+
+    <!-- TECHNICAL ARCHITECTURE DIAGRAM -->
+    <div class="card" style="padding:8px 12px; background:#FAFAFA; margin-bottom:8px;">
+      <div style="font-size:6.5pt; font-weight:800; text-transform:uppercase; letter-spacing:0.8px; color:var(--black); margin-bottom:6px; text-align:center;">
+        End-to-End System Integration Flow
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
+        <!-- Top: Users -->
+        <div style="width:100%; max-width:480px; background:#000000; color:#FFFFFF; padding:4px 8px; border-radius:3px; display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:6.8pt; font-weight:800;">USER ACCESS TOUCHPOINTS</span>
+          <span style="font-size:5.8pt; color:#CCCCCC;">Public Home Buyers &middot; Property Sellers &middot; Licensed Real Estate Brokers &middot; Back-Office Admins</span>
+        </div>
+
+        <div style="font-size:7pt; color:#666; line-height:1;">▼ HTTPS / WSS (TLS 1.3)</div>
+
+        <!-- Next: Next.js Frontend -->
+        <div style="width:100%; max-width:480px; background:#FFFFFF; border:1.5px solid #000; padding:5px 8px; border-radius:3px; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <div style="font-size:7.2pt; font-weight:800;">NEXT.JS APPLICATION LAYER (FRONTEND &amp; SSR)</div>
+            <div style="font-size:5.5pt; color:#666;">Faceted Property Filter &middot; Interactive Map Engine &middot; Real-Time Viewing Scheduler &middot; Admin UI</div>
+          </div>
+          <span class="badge badge-grey">Edge Cached</span>
+        </div>
+
+        <div style="font-size:7pt; color:#666; line-height:1;">▼ JSON / RESTful APIs</div>
+
+        <!-- Next: Backend APIs -->
+        <div style="width:100%; max-width:480px; background:#1A1A1A; color:#FFFFFF; padding:5px 8px; border-radius:3px; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <div style="font-size:7.2pt; font-weight:800;">NODE.JS BACKEND APIS &amp; BUSINESS LOGIC CONTROLLERS</div>
+            <div style="font-size:5.5pt; color:#AAAAAA;">Authentication (JWT/OIDC) &middot; Lead Dispatcher &middot; Booking Automation &middot; Data Validation</div>
+          </div>
+          <span class="badge badge-grey" style="background:#333; color:#fff;">RBAC Enforced</span>
+        </div>
+
+        <div style="font-size:7pt; color:#666; line-height:1;">▼ Prisma ORM / Connection Pool &amp; Webhook Events</div>
+
+        <!-- Bottom: DB & Integrations -->
+        <div style="width:100%; max-width:480px; display:grid; grid-template-columns: 1fr 1.2fr; gap:6px;">
+          <div style="background:#FFFFFF; border:1px solid #777; padding:4px 6px; border-radius:2px; text-align:center;">
+            <div style="font-size:6.5pt; font-weight:800; color:#000;">PostgreSQL Relational DB</div>
+            <div style="font-size:5.2pt; color:#666;">Encrypted At Rest &middot; Daily Automated Snapshots</div>
+          </div>
+          <div style="background:#FFFFFF; border:1px solid #777; padding:4px 6px; border-radius:2px; text-align:center;">
+            <div style="font-size:6.5pt; font-weight:800; color:#000;">Third-Party Enterprise Connectors</div>
+            <div style="font-size:5.2pt; color:#666;">Google Maps &middot; WhatsApp Business &middot; Calendar &middot; OpenAI</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Security & Architecture Table -->
+    <table class="mono-table" style="font-size:6.5pt;">
+      <thead>
+        <tr>
+          <th style="width:25%;">Architectural Pillar</th>
+          <th style="width:40%;">Engineering Implementation</th>
+          <th style="width:35%;">Business Benefit for Pinedo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Performance &amp; SEO</strong></td>
+          <td>Server-Side Rendering (SSR), edge caching, responsive WebP image optimization.</td>
+          <td>Top Google Search rankings for Alkmaar property terms; zero page lag.</td>
+        </tr>
+        <tr>
+          <td><strong>Data Security</strong></td>
+          <td>Strict Role-Based Access Control (RBAC), TLS 1.3 transit encryption, AES-256 at rest.</td>
+          <td>Confidential client bids, buyer finances, and owner details are fully protected.</td>
+        </tr>
+        <tr>
+          <td><strong>API Extensibility</strong></td>
+          <td>Contract-first OpenAPI specs, modular database schemas via Prisma.</td>
+          <td>Easy future expansion into Dutch real estate portals or mobile apps.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation &middot; Prepared by: <strong>[YOUR COMPANY NAME]</strong></div>
+    <div class="footer-page-num">Page 11 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 12: PROJECT IMPLEMENTATION ROADMAP ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation</div>
+      <div class="header-right">11 &middot; Implementation Roadmap</div>
+    </div>
+
+    <span class="section-tag">Methodology &amp; Phased Execution</span>
+    <h1 class="page-title">A Structured Approach to Successful Delivery</h1>
+    
+    <p class="lead-text">
+      To guarantee predictability, continuous stakeholder visibility, and risk-free deployment, the project is organized into five sequential delivery phases following Agile Scrum engineering practices:
+    </p>
+
+    <!-- HORIZONTAL TIMELINE ROADMAP (5 Phases) -->
+    <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:10px;">
+      
+      <!-- Phase 1 -->
+      <div style="display:flex; gap:8px; align-items:center; background:#FAFAFA; border:1px solid #DDDDDD; padding:6px 10px; border-radius:3px;">
+        <div style="background:#000000; color:#FFFFFF; font-size:6.8pt; font-weight:800; padding:4px 8px; border-radius:2px; min-width:85px; text-align:center;">
+          PHASE 01
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:7.5pt; font-weight:800; color:#000;">Discovery, Business Analysis &amp; Requirements Prioritization</div>
+          <p style="font-size:6.3pt; color:#555; margin:1px 0 0 0;">
+            Joint discovery sessions with Mr. Joshua Pinedo and team; mapping existing listing workflows, defining user personas, prioritizing MVP feature backlog, and formalizing technical specification document.
+          </p>
+        </div>
+        <div style="text-align:right; font-size:6pt; font-weight:700; color:#666;">
+          Duration: <span style="color:#000;">[TO BE CONFIRMED]</span>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div style="display:flex; gap:8px; align-items:center; background:#FAFAFA; border:1px solid #DDDDDD; padding:6px 10px; border-radius:3px;">
+        <div style="background:#222222; color:#FFFFFF; font-size:6.8pt; font-weight:800; padding:4px 8px; border-radius:2px; min-width:85px; text-align:center;">
+          PHASE 02
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:7.5pt; font-weight:800; color:#000;">UI/UX Design, Design System &amp; Clickable Prototypes</div>
+          <p style="font-size:6.3pt; color:#555; margin:1px 0 0 0;">
+            Designing high-fidelity desktop and mobile wireframes in Figma, Swiss minimalist styling, component design system, customer discovery journeys, and formal design sign-off.
+          </p>
+        </div>
+        <div style="text-align:right; font-size:6pt; font-weight:700; color:#666;">
+          Duration: <span style="color:#000;">[TO BE CONFIRMED]</span>
+        </div>
+      </div>
+
+      <!-- Phase 3 -->
+      <div style="display:flex; gap:8px; align-items:center; background:#FAFAFA; border:1px solid #DDDDDD; padding:6px 10px; border-radius:3px;">
+        <div style="background:#000000; color:#FFFFFF; font-size:6.8pt; font-weight:800; padding:4px 8px; border-radius:2px; min-width:85px; text-align:center;">
+          PHASE 03
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:7.5pt; font-weight:800; color:#000;">Core Application &amp; Business Module Engineering</div>
+          <p style="font-size:6.3pt; color:#555; margin:1px 0 0 0;">
+            Next.js frontend development, Node.js REST API gateway, PostgreSQL database schemas, Property Portfolio Manager, Agent Operations Portal, and Customer Lead CRM build.
+          </p>
+        </div>
+        <div style="text-align:right; font-size:6pt; font-weight:700; color:#666;">
+          Duration: <span style="color:#000;">[TO BE CONFIRMED]</span>
+        </div>
+      </div>
+
+      <!-- Phase 4 -->
+      <div style="display:flex; gap:8px; align-items:center; background:#FAFAFA; border:1px solid #DDDDDD; padding:6px 10px; border-radius:3px;">
+        <div style="background:#222222; color:#FFFFFF; font-size:6.8pt; font-weight:800; padding:4px 8px; border-radius:2px; min-width:85px; text-align:center;">
+          PHASE 04
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:7.5pt; font-weight:800; color:#000;">Third-Party Integrations, Rigorous QA &amp; User Acceptance Testing</div>
+          <p style="font-size:6.3pt; color:#555; margin:1px 0 0 0;">
+            Connecting Google Maps, WhatsApp Business, Google Calendar two-way sync, optional AI bot, cross-browser responsiveness tests, load benchmarking, and client UAT.
+          </p>
+        </div>
+        <div style="text-align:right; font-size:6pt; font-weight:700; color:#666;">
+          Duration: <span style="color:#000;">[TO BE CONFIRMED]</span>
+        </div>
+      </div>
+
+      <!-- Phase 5 -->
+      <div style="display:flex; gap:8px; align-items:center; background:#FAFAFA; border:1px solid #DDDDDD; padding:6px 10px; border-radius:3px;">
+        <div style="background:#000000; color:#FFFFFF; font-size:6.8pt; font-weight:800; padding:4px 8px; border-radius:2px; min-width:85px; text-align:center;">
+          PHASE 05
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:7.5pt; font-weight:800; color:#000;">Production Cloud Deployment, Staff Training &amp; Handover</div>
+          <p style="font-size:6.3pt; color:#555; margin:1px 0 0 0;">
+            Live production cutover, DNS routing, database seeding, staff user manual delivery, administrator training workshops, source code repository handover, and warranty hypercare.
+          </p>
+        </div>
+        <div style="text-align:right; font-size:6pt; font-weight:700; color:#666;">
+          Duration: <span style="color:#000;">[TO BE CONFIRMED]</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Timeline Calibration Box -->
+    <div class="card" style="background:#F9FAFB; padding:9px 12px;">
+      <div style="font-size:7.2pt; font-weight:800; text-transform:uppercase; color:var(--black); margin-bottom:2px;">
+        Transparent Timeline &amp; Milestone Calibration
+      </div>
+      <p class="body-text" style="font-size:6.8pt; margin:0; line-height:1.4;">
+        Exact milestone timelines and delivery sprints will be determined collaboratively following the initial discovery workshop, based on agreed functional scope, existing property data formats, and desired integration depth.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation &middot; Prepared by: <strong>[YOUR COMPANY NAME]</strong></div>
+    <div class="footer-page-num">Page 12 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 13: OUR DEVELOPMENT TEAM ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation</div>
+      <div class="header-right">12 &middot; Engineering Credentials</div>
+    </div>
+
+    <span class="section-tag">Talent, Experience &amp; Delivery Model</span>
+    <h1 class="page-title">Experienced Engineers. Practical Software Solutions.</h1>
+    
+    <!-- Mandatory required wording from prompt -->
+    <div class="card" style="background:#F8F9FA; border-left:3.5px solid var(--black); padding:10px 14px; margin-bottom:12px;">
+      <p style="font-size:8pt; line-height:1.55; color:#222222; font-weight:500; margin:0;">
+        "We are a Sri Lanka-based software development team working with international clients and delivering web applications, business platforms, backend systems, and custom software solutions.<br><br>
+        Our team includes experienced software engineers, with team members having more than six years of professional software development experience."
+      </p>
+    </div>
+
+    <h2 class="block-title" style="font-size:9.2pt; margin-bottom:6px;">Core Engineering Capabilities</h2>
+    <div class="grid-2" style="gap:8px; margin-bottom:12px;">
+      <div class="card-bordered" style="padding:8px 10px;">
+        <strong style="font-size:7.5pt; color:var(--black);">1. Full-Stack Web Development</strong>
+        <p class="body-text" style="font-size:6.8pt; margin-top:2px;">
+          End-to-end application delivery utilizing Next.js, React, Node.js, and TypeScript, guaranteeing seamless coordination between frontend UX and backend architecture.
+        </p>
+      </div>
+
+      <div class="card-bordered" style="padding:8px 10px;">
+        <strong style="font-size:7.5pt; color:var(--black);">2. Frontend &amp; UI Engineering</strong>
+        <p class="body-text" style="font-size:6.8pt; margin-top:2px;">
+          Component-driven design systems, pixel-perfect responsive layouts, WCAG accessibility, and high-performance client state management.
+        </p>
+      </div>
+
+      <div class="card-bordered" style="padding:8px 10px;">
+        <strong style="font-size:7.5pt; color:var(--black);">3. Backend Architecture &amp; APIs</strong>
+        <p class="body-text" style="font-size:6.8pt; margin-top:2px;">
+          Microservices and modular backend architectures built for concurrency, resilient error handling, contract-first API design, and webhooks.
+        </p>
+      </div>
+
+      <div class="card-bordered" style="padding:8px 10px;">
+        <strong style="font-size:7.5pt; color:var(--black);">4. Database Engineering &amp; Data Models</strong>
+        <p class="body-text" style="font-size:6.8pt; margin-top:2px;">
+          Relational modeling with PostgreSQL, query indexing, schema migrations via Prisma, and ACID transactional integrity.
+        </p>
+      </div>
+
+      <div class="card-bordered" style="padding:8px 10px;">
+        <strong style="font-size:7.5pt; color:var(--black);">5. Enterprise Third-Party Integrations</strong>
+        <p class="body-text" style="font-size:6.8pt; margin-top:2px;">
+          Deep integration expertise with Google Maps APIs, WhatsApp Business API, Calendar synchronization, payment gateways, and OpenAI models.
+        </p>
+      </div>
+
+      <div class="card-bordered" style="padding:8px 10px;">
+        <strong style="font-size:7.5pt; color:var(--black);">6. Cloud Deployment &amp; Ongoing Support</strong>
+        <p class="body-text" style="font-size:6.8pt; margin-top:2px;">
+          Automated CI/CD pipelines, containerized deployment, performance monitoring, proactive maintenance, and ongoing technical support.
+        </p>
+      </div>
+    </div>
+
+    <!-- Team Transparency & CV Offer Box -->
+    <div class="card-bordered" style="background:#FFFFFF; padding:10px 14px;">
+      <div style="font-size:7.2pt; font-weight:800; text-transform:uppercase; color:var(--black); margin-bottom:2px;">
+        Verified Engineering Portfolios &amp; CVs Available Upon Request
+      </div>
+      <p class="body-text" style="font-size:6.8pt; margin:0; line-height:1.4;">
+        To maintain professional transparency without premature assumptions, full individual developer CVs, GitHub repositories, code samples, and verified international enterprise project case studies will be provided directly upon request during our preliminary discussions.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation &middot; Prepared by: <strong>[YOUR COMPANY NAME]</strong></div>
+    <div class="footer-page-num">Page 13 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 14: NEXT STEPS AND COLLABORATION ========================================== -->
+<div class="page" style="background-color:#FAFAFA;">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation</div>
+      <div class="header-right">13 &middot; Next Steps &amp; Action Plan</div>
+    </div>
+
+    <span class="section-tag">Partnership Engagement</span>
+    <h1 class="page-title">Let's Explore What We Can Build Together.</h1>
+    
+    <p class="lead-text">
+      We invite Mr. Joshua Pinedo and the leadership of Pinedo Makelaardij to review this concept proposal. The pathway from initial concept to a tailored production platform follows six straightforward, transparent steps:
+    </p>
+
+    <!-- 6 Next Steps Grid -->
+    <div class="grid-3" style="gap:8px; margin-bottom:12px;">
+      <div class="card-bordered" style="padding:8px 10px;">
+        <div style="font-size:6.5pt; font-weight:800; color:var(--black); text-transform:uppercase;">STEP 01</div>
+        <div style="font-size:7.8pt; font-weight:800; margin:1px 0 3px 0;">Initial Discussion</div>
+        <p style="font-size:6.6pt; color:#555; line-height:1.35; margin:0;">A brief 30-minute online discovery meeting to discuss your digital vision, current workflow priorities, and expectations.</p>
+      </div>
+
+      <div class="card-bordered" style="padding:8px 10px;">
+        <div style="font-size:6.5pt; font-weight:800; color:var(--black); text-transform:uppercase;">STEP 02</div>
+        <div style="font-size:7.8pt; font-weight:800; margin:1px 0 3px 0;">Understand Requirements</div>
+        <p style="font-size:6.6pt; color:#555; line-height:1.35; margin:0;">Detailed review of Pinedo Makelaardij's listing formats, client acquisition channels, and team operational habits.</p>
+      </div>
+
+      <div class="card-bordered" style="padding:8px 10px;">
+        <div style="font-size:6.5pt; font-weight:800; color:var(--black); text-transform:uppercase;">STEP 03</div>
+        <div style="font-size:7.8pt; font-weight:800; margin:1px 0 3px 0;">Identify High-Value Features</div>
+        <p style="font-size:6.6pt; color:#555; line-height:1.35; margin:0;">Focusing on the highest-ROI capabilities (e.g. public discovery, viewing scheduler, or lead CRM) for early delivery.</p>
+      </div>
+
+      <div class="card-bordered" style="padding:8px 10px;">
+        <div style="font-size:6.5pt; font-weight:800; color:var(--black); text-transform:uppercase;">STEP 04</div>
+        <div style="font-size:7.8pt; font-weight:800; margin:1px 0 3px 0;">Prepare Technical Scope</div>
+        <p style="font-size:6.6pt; color:#555; line-height:1.35; margin:0;">Formulating a comprehensive software requirements specification (SRS) outlining features, data schemas, and APIs.</p>
+      </div>
+
+      <div class="card-bordered" style="padding:8px 10px;">
+        <div style="font-size:6.5pt; font-weight:800; color:var(--black); text-transform:uppercase;">STEP 05</div>
+        <div style="font-size:7.8pt; font-weight:800; margin:1px 0 3px 0;">Finalise Milestones &amp; Investment</div>
+        <p style="font-size:6.6pt; color:#555; line-height:1.35; margin:0;">Establishing clear, milestone-linked commercial terms, delivery sprints, and payment schedules without hidden costs.</p>
+      </div>
+
+      <div class="card-bordered" style="padding:8px 10px;">
+        <div style="font-size:6.5pt; font-weight:800; color:var(--black); text-transform:uppercase;">STEP 06</div>
+        <div style="font-size:7.8pt; font-weight:800; margin:1px 0 3px 0;">Begin Development</div>
+        <p style="font-size:6.6pt; color:#555; line-height:1.35; margin:0;">Kickoff development sprints with transparent weekly demo reviews, staging environment access, and sprint reporting.</p>
+      </div>
+    </div>
+
+    <!-- PROMINENT CALL TO ACTION & CONTACT CARD -->
+    <div style="background:#000000; color:#FFFFFF; border-radius:4px; padding:14px 18px; margin-bottom:12px;">
+      <div style="text-align:center; margin-bottom:12px;">
+        <span style="font-size:7pt; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:#AAAAAA;">COMMENCE YOUR DIGITAL TRANSFORMATION</span>
+        <h2 style="font-size:15pt; font-weight:900; letter-spacing:0.5px; color:#FFFFFF; margin-top:2px;">
+          LET'S DISCUSS YOUR NEXT DIGITAL PROJECT.
+        </h2>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; border-top:1px solid #333333; padding-top:10px;">
+        <div>
+          <div style="font-size:6.5pt; color:#AAAAAA; text-transform:uppercase; font-weight:700;">COMPANY IDENTITY</div>
+          <div style="font-size:8.5pt; font-weight:800; color:#FFFFFF; margin-top:1px;">[YOUR SOFTWARE COMPANY NAME]</div>
+          <div style="font-size:7.2pt; color:#CCCCCC; margin-top:1px;">Software Development Team – Sri Lanka</div>
+          <div style="font-size:7pt; color:#888888; margin-top:1px;">Website: [YOUR COMPANY WEBSITE]</div>
+        </div>
+
+        <div>
+          <div style="font-size:6.5pt; color:#AAAAAA; text-transform:uppercase; font-weight:700;">DIRECT CONTACT CHANNELS</div>
+          <div style="font-size:8.5pt; font-weight:800; color:#FFFFFF; margin-top:1px;">[CONTACT PERSON]</div>
+          <div style="font-size:7.2pt; color:#CCCCCC; margin-top:1px;">Email: [YOUR COMPANY EMAIL]</div>
+          <div style="font-size:7pt; color:#888888; margin-top:1px;">Phone / WhatsApp: [YOUR COMPANY PHONE]</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLOSING STATEMENT -->
+    <div style="text-align:center; padding:4px 10px;">
+      <p style="font-size:8pt; font-weight:600; color:#111111; margin:0; line-height:1.45;">
+        "We would welcome the opportunity to discuss how our software development team could support your company's digital growth."
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">Pinedo Makelaardij &middot; Real Estate Digital Transformation &middot; Prepared by: <strong>[YOUR COMPANY NAME]</strong></div>
+    <div class="footer-page-num">Page 14 of 14</div>
+  </div>
+</div>
+
+</body>
+</html>
+"""
+
+with open(html_path, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print(f"HTML template successfully created at: {html_path}")
+
+# Compile HTML to PDF using Playwright Chromium
+with sync_playwright() as p:
+    browser = p.chromium.launch()
+    page = browser.new_page()
+    page.goto(f"file:///{html_path.replace(os.sep, '/')}", wait_until="networkidle")
+    page.pdf(
+        path=pdf_path,
+        format="A4",
+        print_background=True,
+        margin={"top": "0mm", "right": "0mm", "bottom": "0mm", "left": "0mm"}
+    )
+    browser.close()
+
+print(f"PDF generated successfully at: {pdf_path}")
+
+# Verify total pages and text with pypdfium2
+pdf = pdfium.PdfDocument(pdf_path)
+print(f"Total Page Count: {len(pdf)}")
+for i in range(len(pdf)):
+    tp = pdf[i].get_textpage()
+    text = tp.get_text_range()
+    first_line = text.splitlines()[0] if text.splitlines() else "EMPTY"
+    print(f"Page {i+1}: {len(text)} chars | First line: {first_line[:50]}")
+    s = tp.search(f"Page {i+1:02d} of 14")
+    m = s.get_next()
+    if m:
+        b = tp.get_charbox(m[0])
+        print(f"  Footer Page {i+1:02d} of 14 verified at y={b[1]:.2f} pt")
+    elif i > 0:
+        print(f"  Footer Page {i+1:02d} of 14 NOT found!")
