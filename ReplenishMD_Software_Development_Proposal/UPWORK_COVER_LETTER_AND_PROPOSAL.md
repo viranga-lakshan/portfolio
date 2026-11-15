@@ -28,7 +28,7 @@ We operate as an independent, dedicated 5-member engineering team based in Sri L
 | :--- | :--- | :--- |
 | **1. Medication & Pharmacy Management** | Enterprise healthcare & clinical workflow implementations; strict role-based access control (RBAC), auditable electronic order lifecycle, multi-tenant clinic/provider separation. | Comprehensive audit trails, tamper-evident prescription logs, automated inventory alerts, HIPAA-aligned end-to-end data encryption. |
 | **2. High-Volume Marketplaces** | **Moolee (`moolee.mv`)**: Enterprise nationwide marketplace for Ooredoo Maldives handling high-concurrency order dispatch, real-time merchant payouts, multi-warehouse inventory, and payment gateways. | Automated commission splits, multi-vendor catalog management, resilient checkout pipelines, real-time stock sync. |
-| **3. Digital Media & Streaming Platforms** | **Adrik News & Media Platform (`https://app.dev.adrik.arimac.xyz/` [Dev Environment])**: Real-time content streaming, media ingest, low-latency news delivery, CDN edge caching. | Distributed media streaming, adaptive bitrate delivery, real-time web-socket synchronization, global asset distribution. |
+| **3. Digital Media & Streaming Platforms** | **Adrik News & Media Platform (Kuwait & GCC)**: High-throughput bilingual digital media and real-time streaming platform, media ingest, subscription paywalls, low-latency news delivery, and CDN edge caching. | Distributed media streaming, adaptive bitrate delivery, real-time web-socket synchronization, global asset distribution. |
 
 ---
 
@@ -73,9 +73,9 @@ We operate as a cohesive, pre-integrated software delivery unit under clear tech
    *Client:* Ooredoo Telecom, Maldives  
    *Scope:* Nationwide multi-vendor e-commerce marketplace platform featuring real-time inventory synchronization, dynamic merchant dashboards, integrated logistics tracking, and secure payment processing.
 
-2. **Adrik News & Media Platform (`https://app.dev.adrik.arimac.xyz/` — Development Application Environment)**  
-   *Client:* International Media Enterprise  
-   *Scope:* High-throughput digital media aggregation and real-time streaming platform with automated content ingestion, CDN distribution, and interactive subscriber portals.
+2. **Adrik News & Media Platform (Kuwait & GCC)**  
+   *Client:* Adrik Digital Media, Kuwait  
+   *Scope:* High-throughput bilingual digital media aggregation and real-time streaming platform featuring 3 Node.js BFF microservices (web, mobile, admin), automated content ingestion, subscription paywalls, and push notification distribution.
 
 3. **Al Ain Museum V2 — Sitecore Headless (`https://alainmuseum.ae`)**  
    *Client:* Department of Culture and Tourism (DCT), Abu Dhabi, UAE  

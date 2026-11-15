@@ -709,13 +709,13 @@ html_content = f"""<!DOCTYPE html>
       </div>
 
       <!-- Project 02 -->
-      <div class="card-bordered" style="padding: 7px 9px;">
+      <div class="card-bordered" style="padding: 6px 9px;">
         <div style="display:flex; justify-content:space-between; align-items:center;">
           <h3 class="item-title" style="margin:0; font-size:7.8pt;">02. Adrik News &amp; Media Platform</h3>
-          <span style="font-size:6.3pt; color:#6B7280; font-weight:600;">Client: Adrik, Kuwait</span>
+          <span class="badge badge-grey">Kuwait &middot; GCC</span>
         </div>
-        <div style="font-size:6.4pt; margin:1px 0;"><span style="color:#4B5563;">Dev App Environment:</span> <a href="https://app.dev.adrik.arimac.xyz/" class="link-pill" target="_blank">app.dev.adrik.arimac.xyz</a></div>
-        <p style="font-size:6.7pt; color:#4B5563; margin:0 0 3px 0; line-height:1.3;">Bilingual (EN/AR) digital news and media platform. Built 3 Node.js BFF services for web, mobile, and admin, handling streaming, subscriptions, payments, and push notifications.</p>
+        <div style="font-size:6.4pt; color:#4B5563; margin:2px 0 2px 0;"><strong>Client:</strong> Adrik Digital Media, Kuwait</div>
+        <p style="font-size:6.7pt; color:#4B5563; margin:0 0 2px 0; line-height:1.25;">Bilingual (EN/AR) high-traffic news and media streaming platform. Built 3 Node.js BFF services for web, mobile, and admin, handling streaming, subscriptions, payments, and push notifications.</p>
         <div style="font-size:6.2pt; color:#6B7280;"><strong>Tech:</strong> Node.js, Express, Keycloak, JWT, OneSignal, REST APIs, Docker, Kubernetes</div>
       </div>
 
@@ -783,7 +783,7 @@ html_content = f"""<!DOCTYPE html>
     <!-- Portfolio Rule Statement -->
     <div style="background:#F9FAFB; border:1px solid #E5E7EB; padding:5px 9px; border-radius:3px;">
       <p style="font-size:6.3pt; color:#6B7280; margin:0; line-height:1.3;">
-        <strong>Portfolio Attribution &amp; Enterprise Portals:</strong> Projects reflect collective engineering contributions at leading software engineering firms. Additional enterprise platforms delivered include the <strong>LB Finance Annual Report</strong> (interactive Next.js/Tailwind &amp; Chart.js UX), <strong>Dimo Gate Pass Portal</strong>, and enterprise customer selfcare portals for <strong>BurgerKing</strong>, <strong>Vodafone</strong>, <strong>Ooredoo Algeria</strong>, and <strong>Castle Group</strong>. Adrik represents an active development environment.
+        <strong>Portfolio Attribution &amp; Enterprise Portals:</strong> Projects reflect collective engineering contributions at leading software engineering firms. Additional enterprise platforms delivered include the <strong>LB Finance Annual Report</strong> (interactive Next.js/Tailwind &amp; Chart.js UX), <strong>Dimo Gate Pass Portal</strong>, and enterprise customer selfcare portals for <strong>BurgerKing</strong>, <strong>Vodafone</strong>, <strong>Ooredoo Algeria</strong>, and <strong>Castle Group</strong>.
       </p>
     </div>
   </div>
