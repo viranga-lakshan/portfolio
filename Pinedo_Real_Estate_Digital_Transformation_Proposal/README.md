@@ -95,3 +95,4 @@ The script will:
   - `prop_apartment.jpg` (Apartment asset)
   - `prop_modern.jpg` (Modern residential hero asset)
   - `agent_portrait.jpg` (Broker portrait asset)
+
