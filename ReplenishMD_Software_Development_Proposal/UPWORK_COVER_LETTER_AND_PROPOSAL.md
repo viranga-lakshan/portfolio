@@ -41,10 +41,14 @@ We operate as a cohesive, pre-integrated software delivery unit under clear tech
    - *Tech:* Ruby on Rails, Node.js, NestJS, Next.js, React 19, TypeScript, PostgreSQL, AWS/GCP, Docker, Redis.
    - *Past Project Highlights:* Architectural lead across enterprise platforms, microservices design, high-availability deployments.
 
-2. **Chamara Lahiru — Senior Frontend & UI/UX Engineer (6+ Years Experience)**
-   - *Role:* High-fidelity frontend architecture, responsive design systems, cross-platform performance, WCAG accessibility.
-   - *Tech:* React, Next.js, TypeScript, Tailwind CSS, Redux Toolkit, RESTful/GraphQL APIs, Vite.
-   - *Past Project Highlights:* Large-scale enterprise web applications, component libraries, responsive customer portals.
+2. **Chamara Lahiru — Senior Frontend & UI/UX Lead (6+ Years Experience)**
+   - *Role:* Frontend architecture, responsive Next.js/React web & React Native applications, Redux state management, GraphQL APIs, design systems, data visualization, code reviews & multi-environment releases.
+   - *Tech:* React, Next.js, React Native, TypeScript, Node.js, GraphQL, Redux, Tailwind CSS, MUI, Hero UI, Chart.js.
+   - *Past Project Highlights:*
+     - **McGrath Real Estate Platform (Australia):** Full-stack web application enabling efficient property listing & search; implemented GraphQL APIs, responsive Next.js/Redux UI.
+     - **DU Greenfield Transformation (UAE):** Large-scale telecom platform; reusable React components, Redux state management, GraphQL services for millions of users.
+     - **LB Finance Annual Report Platform:** Interactive web application with Next.js, Tailwind CSS, dynamic Chart.js data visualization.
+     - **Enterprise Customer Portals:** Dimo Gate Pass Portal, Ooredoo Algeria Selfcare Portal, BurgerKing Portal, Vodafone Selfcare Portal, Castle Group Web Portal.
 
 3. **Viranga Lakshan — Senior CMS & Frontend Engineer (2+ Years Experience)**
    - *Role:* CMS architecture, headless content delivery, multi-tenant digital experience platforms, client communication.
@@ -87,15 +91,18 @@ We operate as a cohesive, pre-integrated software delivery unit under clear tech
 
 6. **McGrath Real Estate Platform (`https://www.mcgrath.com.au`)**  
    *Client:* McGrath Estate Agents, Australia  
-   *Scope:* High-scale property listing, search indexing, real-time agent workflow management, and CRM API integrations.
+   *Scope:* Full-stack web application enabling efficient property listing and search functionality. Implemented production GraphQL APIs and responsive, scalable Next.js and Redux user interfaces.
 
 7. **DU Greenfield Telecommunications Platform (`https://www.du.ae`)**  
    *Client:* Emirates Integrated Telecommunications Company (DU), UAE  
-   *Scope:* Enterprise-grade digital self-care portal, high-security billing, and automated customer lifecycle workflows.
+   *Scope:* Enterprise-grade digital transformation platform serving users across the UAE. Engineered responsive frontend features, reusable React components, Redux state management, and optimized GraphQL communication.
 
 8. **Gravitee.io API Management Platform (`https://www.gravitee.io`)**  
    *Client:* Gravitee.io (Europe / US Enterprise)  
    *Scope:* Headless web platform and documentation ecosystem powering enterprise API gateway and event management solutions.
+
+> **Additional Production Enterprise Portals:**  
+> In addition to the primary portfolio systems above, our squad members have built and shipped the **LB Finance Annual Report** (interactive Next.js + Tailwind web application with dynamic Chart.js animations), **Dimo Gate Pass Portal**, and high-volume customer self-care portals for **BurgerKing**, **Vodafone**, **Ooredoo Algeria**, and **Castle Group**.
 
 ---
 
@@ -172,3 +179,4 @@ I’ve emailed the full 12-page PDF proposal to you. Would you be open for a bri
 ---
 
 *Generated and verified in `ReplenishMD_Software_Development_Proposal/ReplenishMD_Software_Development_Proposal.pdf`.*
+

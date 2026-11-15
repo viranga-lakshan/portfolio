@@ -615,9 +615,9 @@ html_content = f"""<!DOCTYPE html>
         <h2 class="block-title" style="font-size:9.5pt; border-bottom:1px solid var(--border-light); padding-bottom:3px;">Frontend Engineering</h2>
         <ul class="check-list">
           <li><strong>React.js &amp; Next.js:</strong> Modern server-rendered (SSR) and static web architectures with fast hydration and edge rendering.</li>
-          <li><strong>React Native:</strong> Cross-platform iOS and Android mobile applications sharing core business logic.</li>
-          <li><strong>TypeScript &amp; Redux Toolkit:</strong> End-to-end type safety, predictive state management, and robust RTK Query caching.</li>
-          <li><strong>Modern UI/UX:</strong> Component-driven development with Tailwind CSS, Material UI (MUI), and accessible design systems.</li>
+          <li><strong>React Native &amp; Mobile:</strong> Cross-platform iOS/Android applications sharing core business logic and Redux store.</li>
+          <li><strong>TypeScript, GraphQL &amp; Redux:</strong> End-to-end type safety, predictive state management, and GraphQL client caching.</li>
+          <li><strong>Modern UI/UX &amp; Data Viz:</strong> Design systems with MUI, Hero UI, Tailwind CSS, and interactive Chart.js visualizations.</li>
         </ul>
       </div>
 
@@ -720,23 +720,23 @@ html_content = f"""<!DOCTYPE html>
       </div>
 
       <!-- Project 03 -->
-      <div class="card-bordered" style="padding: 7px 9px;">
+      <div class="card-bordered" style="padding: 6px 9px;">
         <div style="display:flex; justify-content:space-between; align-items:center;">
-          <h3 class="item-title" style="margin:0; font-size:7.8pt;">03. McGrath Real Estate Marketplace</h3>
+          <h3 class="item-title" style="margin:0; font-size:7.8pt;">03. McGrath Real Estate Platform</h3>
           <span class="badge badge-grey">Australia</span>
         </div>
-        <p style="font-size:6.7pt; color:#4B5563; margin:2px 0 3px 0; line-height:1.3;">Leading Australian digital property marketplace. Built responsive, high-performance frontend interfaces with advanced faceted search, property listings, and real-time data sync.</p>
+        <p style="font-size:6.7pt; color:#4B5563; margin:2px 0 2px 0; line-height:1.25;">Full-stack web application for leading Australian real estate firm enabling efficient property listing &amp; search. Implemented production GraphQL APIs and responsive Next.js/Redux UI.</p>
         <div style="font-size:6.2pt; color:#6B7280;"><strong>Tech:</strong> Next.js, Node.js, GraphQL, Redux, React</div>
       </div>
 
       <!-- Project 04 -->
-      <div class="card-bordered" style="padding: 7px 9px;">
+      <div class="card-bordered" style="padding: 6px 9px;">
         <div style="display:flex; justify-content:space-between; align-items:center;">
-          <h3 class="item-title" style="margin:0; font-size:7.8pt;">04. DU Greenfield Transformation</h3>
+          <h3 class="item-title" style="margin:0; font-size:7.8pt;">04. DU Greenfield Transformation Platform</h3>
           <span class="badge badge-grey">UAE Telecom</span>
         </div>
-        <p style="font-size:6.7pt; color:#4B5563; margin:2px 0 3px 0; line-height:1.3;">Enterprise digital telecom transformation in the UAE. Engineered modular micro-frontend features using React Native and React, managing global state and high concurrency.</p>
-        <div style="font-size:6.2pt; color:#6B7280;"><strong>Tech:</strong> React.js, React Native, GraphQL, Redux</div>
+        <p style="font-size:6.7pt; color:#4B5563; margin:2px 0 2px 0; line-height:1.25;">Large-scale UAE telecommunications platform. Built responsive UI features, reusable React components, Redux state management, and integrated GraphQL services for optimized UX.</p>
+        <div style="font-size:6.2pt; color:#6B7280;"><strong>Tech:</strong> React.js, GraphQL, Redux, React Native</div>
       </div>
 
       <!-- Project 05 -->
@@ -781,9 +781,9 @@ html_content = f"""<!DOCTYPE html>
     </div>
 
     <!-- Portfolio Rule Statement -->
-    <div style="background:#F9FAFB; border:1px solid #E5E7EB; padding:6px 10px; border-radius:3px;">
-      <p style="font-size:6.5pt; color:#6B7280; margin:0; line-height:1.35;">
-        <strong>Portfolio Attribution &amp; Environment Clarification:</strong> The projects listed above represent the collective professional engineering contributions of our respective team members during their tenure with leading digital solution firms (primarily Arimac Digital). Individual engineers contributed across distinct architecture, backend, frontend, or PM workstreams. The Adrik URL represents an active development environment, demonstrated for technical evaluation.
+    <div style="background:#F9FAFB; border:1px solid #E5E7EB; padding:5px 9px; border-radius:3px;">
+      <p style="font-size:6.3pt; color:#6B7280; margin:0; line-height:1.3;">
+        <strong>Portfolio Attribution &amp; Enterprise Portals:</strong> Projects reflect collective engineering contributions at leading firms (primarily Arimac Digital). Additional enterprise platforms delivered include the <strong>LB Finance Annual Report</strong> (interactive Next.js/Tailwind &amp; Chart.js UX), <strong>Dimo Gate Pass Portal</strong>, and enterprise customer selfcare portals for <strong>BurgerKing</strong>, <strong>Vodafone</strong>, <strong>Ooredoo Algeria</strong>, and <strong>Castle Group</strong>. Adrik represents an active development environment.
       </p>
     </div>
   </div>
@@ -812,34 +812,34 @@ html_content = f"""<!DOCTYPE html>
     <!-- 5 TEAM MEMBERS -->
     <div class="grid-2" style="gap: 7px; margin-bottom: 7px;">
       <!-- Member 1: Avishka (Technical Lead) -->
-      <div class="card-bordered" style="padding:8px 10px; border-left:3px solid var(--black);">
+      <div class="card-bordered" style="padding:7px 9px; border-left:3px solid var(--black);">
         <div style="display:flex; justify-content:space-between; align-items:center;">
           <h2 class="block-title" style="margin:0; font-size:8.8pt;">01. Avishka Meddegoda</h2>
           <span class="badge badge-dark">Technical Lead</span>
         </div>
-        <div style="font-size:6.8pt; color:var(--dark-grey); font-weight:700; margin-bottom:3px;">Senior Software Engineer &middot; 6+ Years Experience</div>
-        <p style="font-size:6.7pt; color:#4B5563; margin-bottom:4px; line-height:1.3;">
+        <div style="font-size:6.8pt; color:var(--dark-grey); font-weight:700; margin-bottom:2px;">Senior Software Engineer &middot; 6+ Years Experience</div>
+        <p style="font-size:6.6pt; color:#4B5563; margin-bottom:3px; line-height:1.25;">
           <strong>Responsibilities:</strong> Technical leadership, system architecture, backend microservices, Keycloak security/OAuth2, technical planning, and code quality governance.
         </p>
-        <div style="font-size:6.3pt; color:#6B7280; line-height:1.25;">
+        <div style="font-size:6.2pt; color:#6B7280; line-height:1.2;">
           <strong>Expertise:</strong> Java Spring Boot, PHP/Laravel, Node.js, REST APIs, Keycloak, JWT, AWS, Redis.<br>
           <strong>Projects:</strong> DIMO Enterprise, Ooredoo Algeria, Ooredoo Maldives. Published IEEE author.
         </div>
       </div>
 
       <!-- Member 2: Chamara (Senior Frontend) -->
-      <div class="card-bordered" style="padding:8px 10px; border-left:3px solid var(--black);">
+      <div class="card-bordered" style="padding:7px 9px; border-left:3px solid var(--black);">
         <div style="display:flex; justify-content:space-between; align-items:center;">
           <h2 class="block-title" style="margin:0; font-size:8.8pt;">02. Chamara Lahiru</h2>
           <span class="badge badge-dark">Senior Frontend Lead</span>
         </div>
-        <div style="font-size:6.8pt; color:var(--dark-grey); font-weight:700; margin-bottom:3px;">Senior Frontend &amp; Mobile Engineer &middot; 6+ Years Experience</div>
-        <p style="font-size:6.7pt; color:#4B5563; margin-bottom:4px; line-height:1.3;">
-          <strong>Responsibilities:</strong> Frontend architecture, responsive web and React Native mobile development, state management, and GraphQL client-side integration.
+        <div style="font-size:6.8pt; color:var(--dark-grey); font-weight:700; margin-bottom:2px;">Senior Frontend &amp; Mobile Engineer &middot; 6+ Years Experience</div>
+        <p style="font-size:6.6pt; color:#4B5563; margin-bottom:3px; line-height:1.25;">
+          <strong>Responsibilities:</strong> Frontend architecture, Next.js/React &amp; React Native, Redux state, GraphQL APIs, UI systems (MUI, Hero UI, Tailwind), Chart.js data viz, code reviews &amp; release processes.
         </p>
-        <div style="font-size:6.3pt; color:#6B7280; line-height:1.25;">
-          <strong>Expertise:</strong> React, Next.js, React Native, Redux, GraphQL, TypeScript, Tailwind CSS.<br>
-          <strong>Projects:</strong> McGrath Real Estate (Australia), DU Greenfield (UAE), Ooredoo, Burger King.
+        <div style="font-size:6.2pt; color:#6B7280; line-height:1.2;">
+          <strong>Expertise:</strong> Next.js, React.js, Node.js, GraphQL, Redux, React Native, TypeScript, Tailwind, MUI, Chart.js.<br>
+          <strong>Projects:</strong> McGrath Real Estate (Aus), DU Greenfield (UAE), LB Finance, BurgerKing, Vodafone, Ooredoo.
         </div>
       </div>
     </div>
@@ -1456,3 +1456,4 @@ for i in range(len(pdf)):
         print(f"  Footer Page {i+1:02d} of 12 verified at y={b[1]:.2f} pt")
     elif i > 0:
         print(f"  Footer Page {i+1:02d} of 12 NOT found!")
+

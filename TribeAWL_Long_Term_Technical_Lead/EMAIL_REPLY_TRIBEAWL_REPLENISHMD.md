@@ -51,8 +51,13 @@ I have attached our team’s individual CVs to this email for your review, and s
 
 We are a pre-assembled, cross-functional team that works together daily on high-stakes international client and government projects:
 
-1. **Chamara Lahiru — Senior Frontend Engineer (6+ Years Experience)** *(CV Attached)*  
-   *Specialization:* Next.js, React, React Native, Redux, GraphQL, micro-frontends. Led frontend architecture for McGrath Real Estate (Australia), DU Greenfield (UAE), Ooredoo, and Burger King.
+1. **Chamara Lahiru — Senior Frontend & UI/UX Engineer (6+ Years Experience)** *(CV Attached)*  
+   *Specialization:* Next.js, React, React Native, Node.js, GraphQL, Redux, Tailwind CSS, MUI, Hero UI, Chart.js.
+   *Key Deliverables:*
+   • **McGrath Real Estate Platform (Australia):** Full-stack web application enabling efficient property listing and search functionality; implemented production GraphQL APIs, responsive Next.js and Redux UI.
+   • **DU Greenfield Transformation Platform (UAE):** Developed responsive frontend features for large-scale UAE telecom platform; built reusable React components, Redux state management, and optimized GraphQL communication.
+   • **LB Finance Annual Report Platform:** Interactive web application using Next.js, Tailwind CSS, and dynamic Chart.js animations.
+   • **Enterprise Customer & Internal Portals:** Dimo Gate Pass Portal, Ooredoo Algeria Selfcare, BurgerKing Portal, Vodafone Selfcare, Castle Group Web Portal. Code review, multi-environment release processes, and QA collaboration.
 2. **Avishka Meddegoda — Senior Full-Stack & Backend Engineer (6+ Years Experience)** *(CV Attached)*  
    *Specialization:* Java Spring Boot, PHP/Laravel microservices, scalable distributed APIs, Keycloak OAuth2/JWT security, and cloud architecture (DIMO Enterprise, Ooredoo Algeria & Maldives; published IEEE author).
 3. **Viranga Lakshan — Senior CMS & Full-Stack Developer (2+ Years Experience)** *(CV Attached)*  
