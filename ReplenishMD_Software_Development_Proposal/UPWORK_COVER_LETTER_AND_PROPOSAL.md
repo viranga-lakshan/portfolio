@@ -3,8 +3,8 @@
 **Client:** ReplenishMD (United States)  
 **Project Reference:** Long Term Technical Lead (Business & Workforce Platform, Clinical Scheduling & Medication Management)  
 **Document Generated:** `ReplenishMD_Software_Development_Proposal.pdf` (12 Pages, Enterprise Monochrome + Natural Photography)  
-**Prepared By:** Software Engineering Squad — Sri Lanka  
-**Technical Lead:** Avishka Meddegoda (6+ Years Full-Stack Engineering, Arimac Digital / Global Track Record)  
+**Prepared By:** Software Engineering Team — Sri Lanka  
+**Technical Lead:** Avishka Meddegoda (6+ Years Full-Stack Engineering, Enterprise Architecture & Global Track Record)  
 **Client Communication & Delivery Coordination:** Viranga Lakshan (2+ Years Senior CMS / Frontend Engineer)  
 **Date:** November 2026  
 
@@ -20,7 +20,7 @@ Thank you for your response regarding our technical qualifications across **medi
 
 In direct response to your platform architecture vision, our senior software engineering squad based in Sri Lanka has compiled a comprehensive, 12-page enterprise document: **`ReplenishMD_Software_Development_Proposal.pdf`**, attached for your review.
 
-Our team brings enterprise delivery experience honed at premier technology consultancies in Sri Lanka (including Arimac Digital), architecting and deploying mission-critical systems for international enterprises and government entities across the UAE, Australia, Maldives, and Europe.
+We operate as an independent, dedicated 5-member engineering team based in Sri Lanka. Our developers bring extensive enterprise delivery experience gained across top software engineering companies, having architected and delivered mission-critical systems for international enterprises and government entities across the UAE, Australia, Maldives, and Europe.
 
 ### Direct Response to ReplenishMD's Core Focus Areas
 

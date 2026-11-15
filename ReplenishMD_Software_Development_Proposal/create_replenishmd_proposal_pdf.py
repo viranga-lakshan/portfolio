@@ -410,7 +410,7 @@ html_content = f"""<!DOCTYPE html>
         <div class="cover-meta-item">
           <span class="label">Prepared By</span>
           <span class="val">Software Engineering Team</span>
-          <span style="font-size:6.8pt; color:#6B7280; margin-top:1px;">Sri Lanka (Arimac Digital Core)</span>
+          <span style="font-size:6.8pt; color:#6B7280; margin-top:1px;">Sri Lanka &middot; Dedicated Delivery Squad</span>
         </div>
         <div class="cover-meta-item">
           <span class="label">Technical Lead</span>
@@ -783,7 +783,7 @@ html_content = f"""<!DOCTYPE html>
     <!-- Portfolio Rule Statement -->
     <div style="background:#F9FAFB; border:1px solid #E5E7EB; padding:5px 9px; border-radius:3px;">
       <p style="font-size:6.3pt; color:#6B7280; margin:0; line-height:1.3;">
-        <strong>Portfolio Attribution &amp; Enterprise Portals:</strong> Projects reflect collective engineering contributions at leading firms (primarily Arimac Digital). Additional enterprise platforms delivered include the <strong>LB Finance Annual Report</strong> (interactive Next.js/Tailwind &amp; Chart.js UX), <strong>Dimo Gate Pass Portal</strong>, and enterprise customer selfcare portals for <strong>BurgerKing</strong>, <strong>Vodafone</strong>, <strong>Ooredoo Algeria</strong>, and <strong>Castle Group</strong>. Adrik represents an active development environment.
+        <strong>Portfolio Attribution &amp; Enterprise Portals:</strong> Projects reflect collective engineering contributions at leading software engineering firms. Additional enterprise platforms delivered include the <strong>LB Finance Annual Report</strong> (interactive Next.js/Tailwind &amp; Chart.js UX), <strong>Dimo Gate Pass Portal</strong>, and enterprise customer selfcare portals for <strong>BurgerKing</strong>, <strong>Vodafone</strong>, <strong>Ooredoo Algeria</strong>, and <strong>Castle Group</strong>. Adrik represents an active development environment.
       </p>
     </div>
   </div>
@@ -1396,7 +1396,7 @@ html_content = f"""<!DOCTYPE html>
           
           <div style="font-size:7.5pt; line-height:1.5; color:var(--dark-grey);">
             <strong>Location:</strong> Colombo, Sri Lanka (GMT+5:30)<br>
-            <strong>Engineering Base:</strong> Arimac Digital Core Alumni Squad<br>
+            <strong>Engineering Base:</strong> Dedicated 5-Member Software Engineering Squad<br>
             <strong>Availability:</strong> Immediate engagement &middot; US time zone overlap
           </div>
         </div>

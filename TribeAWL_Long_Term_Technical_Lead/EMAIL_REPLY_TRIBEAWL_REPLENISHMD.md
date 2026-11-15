@@ -20,7 +20,7 @@ Thank you for the quick response.
 
 To answer your three questions directly: **Yes, our team has extensive hands-on production experience across all three areas—marketplaces, streaming/media platforms, and regulated healthcare & medication workflows.**
 
-All five of us work at **Sri Lanka’s premier, top-tier software and digital engineering firm (Arimac Digital)**. As a cohesive engineering unit, our daily responsibility is designing and delivering large-scale digital platforms for **international governments (including UAE and Abu Dhabi sovereign government institutions)** as well as enterprise clients across the US, Australia, the UK, and the GCC.
+We are a dedicated, pre-assembled 5-member software engineering team based in Sri Lanka. Our senior developers bring deep industry experience having engineered and delivered large-scale digital platforms for **international governments (including UAE cultural institutions)** and enterprise clients across the US, Australia, the UK, and the GCC across their careers at top software firms. We operate as a unified, agile engineering squad to take direct ownership of your technical lead and platform development roadmap.
 
 I have attached our team’s individual CVs to this email for your review, and summarized our direct experience below:
 
@@ -28,7 +28,7 @@ I have attached our team’s individual CVs to this email for your review, and s
 
 ### 1. Marketplaces & Multi-Vendor E-Commerce
 * **Moolee Multi-Tenant E-Commerce Platform** (Live Site: [moolee.mv](https://moolee.mv)): Engineered a large-scale multi-tenant marketplace platform with microservices for multi-vendor catalogs, dynamic inventory, orders, customer accounts, payment gateway integrations, automated shipping, and merchant portals.
-* **McGrath Real Estate Marketplace (Australia)**: Built a high-concurrency property marketplace featuring faceted search, dynamic listing management, and real-time data sync using Next.js, GraphQL, and Redux.
+* **McGrath Real Estate Platform (Australia)**: Built a high-concurrency property marketplace featuring faceted search, dynamic listing management, and real-time data sync using Next.js, GraphQL, and Redux.
 * **Multi-Tier E-Commerce Architectures**: Full-stack multi-vendor platforms featuring role-based routing (Admin, Seller, Buyer), automated order lifecycles, and transaction escrow handling.
 
 ---
@@ -47,9 +47,9 @@ I have attached our team’s individual CVs to this email for your review, and s
 
 ---
 
-### 4. Our 5-Member Engineering Team (From Sri Lanka's Top Software Firm)
+### 4. Our Dedicated 5-Member Engineering Squad
 
-We are a pre-assembled, cross-functional team that works together daily on high-stakes international client and government projects:
+We deploy as a cohesive, cross-functional engineering unit with full-stack, frontend, CMS, and project management capabilities:
 
 1. **Chamara Lahiru — Senior Frontend & UI/UX Engineer (6+ Years Experience)** *(CV Attached)*  
    *Specialization:* Next.js, React, React Native, Node.js, GraphQL, Redux, Tailwind CSS, MUI, Hero UI, Chart.js.
