@@ -47,11 +47,12 @@ This proposal is positioned as an **Executive Upgrade & Revenue Multiplier**:
 The proposal is 100% universal and uses clean placeholders:
 - `[REAL ESTATE AGENCY NAME]` — (e.g. *Savills*, *Engel & Völkers*, *Pinedo Makelaardij*, *Knight Frank*)
 - `[CITY / REGION / COUNTRY]` — (e.g. *Amsterdam, Netherlands*, *London, UK*, *Dubai, UAE*)
-- `[YOUR SOFTWARE COMPANY NAME]` — Your company/squad name
-- `[CONTACT PERSON]` — Your name
-- `[YOUR COMPANY EMAIL]` — Your email
-- `[YOUR COMPANY PHONE]` — Your WhatsApp / phone
-- `[YOUR COMPANY WEBSITE]` — Your portfolio website
+- **Prepared By:** Axiom Global (Software Engineering Team – Sri Lanka)
+- **Lead Contact:** Viranga Lakshan (Client Solutions Architect & Delivery Lead)
+- **Email:** `virangalakshanz@gmail.com`
+- **Phone / WhatsApp:** `+94 71 378 1359`
+- **LinkedIn:** `https://www.linkedin.com/in/viranga-lakshan-869515279`
+- **Website:** `axiomglobal.tech`
 
 To customize for a specific agency:
 1. Open `create_universal_realestate_proposal_pdf.py`.
@@ -70,3 +71,4 @@ To customize for a specific agency:
 2. Choose **Template A** (After-Hours Lead Leakage) or **Template B** (Viewing Scheduling Automation).
 3. Attach `Real_Estate_Digital_Transformation_AI_Platform_Proposal.pdf`.
 4. Send to the CEO / Managing Director / Agency Principal.
+

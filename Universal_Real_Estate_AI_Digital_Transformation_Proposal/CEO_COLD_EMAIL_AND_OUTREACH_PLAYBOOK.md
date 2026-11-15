@@ -50,11 +50,13 @@ Would you be open to a brief 15-minute introductory call this Thursday or Friday
 
 Best regards,
 
-**[YOUR NAME]**  
-Software Development Team – Sri Lanka  
-[YOUR COMPANY NAME]  
-Phone / WhatsApp: [YOUR PHONE NUMBER]  
-Website: [YOUR WEBSITE]  
+**Viranga Lakshan**  
+Client Solutions Architect & Delivery Lead  
+**Axiom Global** (Software Engineering Team – Sri Lanka)  
+Email: virangalakshanz@gmail.com  
+Phone / WhatsApp: +94 71 378 1359  
+LinkedIn: https://www.linkedin.com/in/viranga-lakshan-869515279  
+Website: https://axiomglobal.tech  
 
 ---
 
@@ -80,9 +82,11 @@ Would you be open for a quick 10-minute chat this week to explore if this could 
 
 Warm regards,
 
-**[YOUR NAME]**  
-Software Development Team – Sri Lanka  
-Email: [YOUR EMAIL] | WhatsApp: [YOUR PHONE]  
+**Viranga Lakshan**  
+Client Solutions Architect & Delivery Lead  
+**Axiom Global** (Software Engineering Team – Sri Lanka)  
+Email: virangalakshanz@gmail.com | WhatsApp: +94 71 378 1359  
+Website: https://axiomglobal.tech  
 
 ---
 
@@ -109,9 +113,11 @@ Zou u openstaan voor een korte online kennismaking van 15 minuten deze week om t
 
 Met vriendelijke groet,
 
-**[UW NAAM]**  
-Software Development Team – Sri Lanka  
-E-mail: [UW EMAIL] | Tel/WhatsApp: [UW TELEFOONNUMMER]  
+**Viranga Lakshan**  
+Client Solutions Architect & Delivery Lead  
+**Axiom Global** (Software Engineering Team – Sri Lanka)  
+E-mail: virangalakshanz@gmail.com | Tel/WhatsApp: +94 71 378 1359  
+Website: https://axiomglobal.tech  
 
 ---
 
@@ -132,7 +138,10 @@ We've developed an executive AI Platform concept for real estate agencies that t
 I have a 12-page concept proposal with full-color UI mockups. Would you be open to a quick 10-minute intro call this week to review it?
 
 Best regards,
-[Your Name]
+Viranga Lakshan
+Axiom Global | Software Engineering Team
+Email: virangalakshanz@gmail.com | WhatsApp: +94 71 378 1359
+Website: axiomglobal.tech
 ```
 
 ---
@@ -154,7 +163,9 @@ Happy to send over a 2-minute video walkthrough or jump on a quick 10-minute cal
 
 Best regards,
 
-**[YOUR NAME]**
+**Viranga Lakshan**  
+Axiom Global  
+WhatsApp: +94 71 378 1359
 
 ---
 
@@ -171,4 +182,7 @@ Wishing you and the team continued success in [CITY / REGION].
 
 Warm regards,
 
-**[YOUR NAME]**
+**Viranga Lakshan**  
+Client Solutions Architect & Delivery Lead  
+Axiom Global | virangalakshanz@gmail.com | +94 71 378 1359
+
