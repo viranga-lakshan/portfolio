@@ -1,118 +1,92 @@
-# Upwork Proposal Cover Letter
+# Upwork Proposal Cover Letter — GroundWell Sound & Wellness Center
 
-**Job Posting:** Wix Website Build from Existing Mockup with CMS & Acuity Scheduling  
+**Project:** Wix Website Build from Existing Mockup with CMS & Acuity Scheduling  
 **Client Budget:** $2,000.00 Fixed-Price (Agreed & Accepted)  
 **Deliverable PDF:** `GroundWell_Sound_Wellness_Wix_Acuity_Proposal.pdf` (Attached)
 
 ---
 
-### Copy-Paste Proposal Text for Upwork:
+### Recommended Subject Lines:
+* **Option 1:** Proposal: Wix Website Build from Mockup with CMS & Acuity Scheduling — GroundWell Sound & Wellness
+* **Option 2:** GroundWell Sound & Wellness | Wix CMS Architecture & Acuity Integration ($2,000 Fixed)
+* **Option 3:** Full Wix & Acuity Implementation from Mockup | Axiom Global Engineering Team
+
+---
+
+### Copy-Paste Proposal Text:
 
 Hi there,
 
-We have thoroughly reviewed your project brief and explored your interactive mockup at **tinyurl.com/groundwellcentersite** for **GroundWell Sound & Wellness Center**. We love the grounded, serene aesthetic, spacious editorial typography, and thoughtful community-first structure.
+I hope you're doing well.
 
-Our engineering team at **Axiom Global** is eager to build and launch this website for you on Wix with seamless Acuity Scheduling integration, adhering strictly to your **$2,000 fixed-price budget**.
+I came across your **GroundWell Sound & Wellness Center** website build opportunity on Upwork and reviewed your interactive mockup at `tinyurl.com/groundwellcentersite`. We are a five-member software development team from Sri Lanka (**Axiom Global**), and we would be very interested in working with you to bring this project to life.
 
-Our team members bring rich engineering backgrounds from Sri Lanka's leading enterprise software companies (including Arimac Digital and top international tech consultancies), having built high-traffic platforms for clients across the **US, UK, Australia, the UAE, and the Middle East**. This project will be technically led and architected by **Avishka Meddegoda**, our Senior Full-Stack Engineer and Systems Architect (6+ years experience), ensuring rock-solid data architecture, seamless room-conflict booking logic, and an effortless day-to-day management experience for you.
+Our team brings together experienced software developers, with individual experience ranging from 2+ to 6+ years. Our engineers come from leading software engineering firms in Sri Lanka (including Arimac Digital and top enterprise consultancies), developing and maintaining international platforms for clients across the US, UK, Australia, the UAE, and the Middle East.
 
----
+*OUR DEVELOPMENT TEAM*
 
-### Critical 2026 Subscription Guidance (Verified Current Pricing)
+1. *Avishka Meddegoda – Technical Lead & Senior Full-Stack Engineer (6+ Years)*  
+   Expertise in scalable system architecture, APIs, Java Spring Boot, microservices, secure authentication, and cloud infrastructure.
 
-To avoid unexpected operating expenses, here is the verified current 2026 platform pricing for your setup:
+2. *Chamara Lahiru – Senior Frontend Engineer (6+ Years)*  
+   Expertise in React, Next.js, responsive UI/UX architecture, mobile-first design, and frontend performance optimization.
 
-1. **Wix Core Plan:**
-   * **$29 / month** (billed annually at $348/year) or $36 / month (monthly).
-   * *Why it's required:* Provides custom domain connection, 50 GB storage (essential for audio sample streaming and high-res imagery), up to 5 collaborator seats, removal of Wix ads, and dynamic Wix CMS collection capability.
-2. **Acuity Scheduling — Standard Plan (formerly 'Growing'):**
-   * **$27 / month** (billed annually at $324/year) or $34 / month (monthly).
-   * *Why Standard is strictly mandatory for GroundWell:* The Starter tier ($16/mo) allows only 1 calendar and omits room resource conflict management, text/SMS reminders, and gift certificate purchasing. The **Standard tier includes up to 6 calendars**, allowing you to set up individual practitioner schedules and link them to physical treatment rooms using Acuity's **Rooms & Resources** engine, preventing double-bookings. It also enables client gift certificate sales and automatic SMS appointment reminders.
+3. *Viranga Lakshan – Lead Solutions Architect & CMS Specialist (2+ Years)*  
+   Expertise in Wix CMS dynamic collections, Wix Velo, headless CMS integrations, Sitecore, Umbraco, and third-party API booking workflows.
 
----
+4. *Janith Kavishka – Full-Stack Developer (2+ Years)*  
+   Expertise in React, Next.js, TypeScript, REST APIs, payment gateway setups, and backend integrations.
 
-### Answers to Your 6 Specific Review Questions
+5. *Lithumitha Ravikumar – Project Manager & QA Lead (2 Years)*  
+   Expertise in Agile delivery, sprint planning, cross-browser QA testing, client communication, and technical documentation.
 
-#### 1. How will you build the shared class and certification CMS templates so entering an offering once updates all relevant pages dynamically?
-We configure two structured dynamic collections in Wix CMS:
-* `Offerings_Events` (Classes, Sound Baths, Workshops, Mentorship)
-* `Offerings_Certifications` (Multi-day training, practitioner certifications)
+*OUR INTERNATIONAL PROJECT EXPERIENCE*
 
-Each entry contains: Title, Slug, Modality (Sound, Reiki, Tuning Forks, Somatics, Drumming), Summary, Body Rich Text, Image, Instructor, Date & Time, Duration, Price, Acuity Booking URL, and a Homepage Featured toggle (`isFeaturedHome`).
+We have contributed to the following international platforms and enterprise projects:
 
-We build **ONE master dynamic page template** for Events and **ONE for Certifications**. When you add an offering once in Wix:
-* It generates its own SEO-friendly detail page (`/events/{slug}`).
-* It automatically displays on the main **Classes & Events** hub, sorted chronologically (`Date >= Today`).
-* It automatically populates the filtered repeater on the matching **Modality page** (e.g. Reiki events appear on the Reiki page).
-* If toggled featured, it displays on the **Homepage**.
-You never duplicate pages or touch design code—you simply add content.
+*1. Al Ain Museum V2 – UAE | Sitecore Headless*  
+Multi-site government digital platform using Next.js, React, TypeScript and Sitecore Headless CMS.  
+Live: https://alainmuseum.ae
 
-#### 2. What is your experience with Acuity Scheduling? How will you handle multi-practitioner bookings and shared treatment room conflict prevention?
-We have configured Acuity across multiple multi-modality wellness and healthcare clinics. To prevent room conflicts:
-1. Each practitioner has their own dedicated calendar with custom working hours.
-2. We configure your physical rooms as **Resources** in Acuity (*Manage Calendars > Rooms/Resources*), such as "Treatment Room 1 - Sound Suite" and "Treatment Room 2 - Reiki Studio".
-3. Each individual service requires both the practitioner and the assigned Room Resource.
-4. When a client books Practitioner A in Treatment Room 1, Acuity locks that room resource for the duration of the session. Even if Practitioner B is available, any service requiring Treatment Room 1 automatically displays as unavailable for that time window, eliminating double-bookings completely.
-5. Intake forms, health waivers, payments (Stripe/PayPal), and automated confirmation/reminder sequences are fully wired into each service flow.
+*2. Natural History Museum Abu Dhabi – UAE | Sitecore*  
+Implemented reusable CMS components and multilingual digital experiences using Sitecore, C#/.NET and TypeScript.  
+Live: https://nhmad.ae
 
-#### 3. What are the key differences or limitations between desktop and mobile when embedding Acuity booking tools, and how will you optimize the mobile experience?
-* **Desktop:** The shared Individual Sessions page features a clean, seamless embedded Acuity widget with custom CSS padding matching the mockup's generous breathing room. Group offerings utilize clean lightbox pop-up modals containing the responsive Acuity scheduler so visitors never lose page context.
-* **Mobile:** Full embedded iFrames on mobile screens often create awkward double scrollbars and viewport clipping. To optimize mobile:
-  * For group classes and workshops, we use lightweight trigger buttons that open an optimized, full-screen overlay or initiate a dedicated, clean mobile-responsive Acuity booking flow.
-  * All touch targets meet accessibility standards (minimum 44x44px), and client modality parameters are pre-filled so clients can select dates, sign digital waivers, and complete checkout with zero horizontal scrolling or pinching.
+*3. Holsten Arabia | Umbraco Headless*  
+Developed a multilingual digital experience using Next.js, React, Umbraco Headless CMS and .NET.  
+Live: https://holstenarabia.me
 
-#### 4. Which content updates will the client manage in Wix CMS versus Acuity, and what would be required for full automated synchronization?
-* **Managed in Wix CMS:** Marketing copy, rich descriptions, practitioner bios & photography, modality categories, image galleries, FAQs, and homepage featured toggles.
-* **Managed in Acuity Scheduling:** Real-time practitioner calendar availability, working hours, pricing, payment gateways, coupon codes, digital intake waivers, and reminder sequences.
-* **Standard Workflow (Included in $2,000):** When you set up an offering in Acuity, you copy its direct booking URL (or appointment type ID) into the single `Acuity_URL` field in the Wix CMS item. The Wix template dynamically binds that link to the "Book Session" button/modal.
-* **Automated Sync Option (Quoted Separately):** If you desire two-way real-time programmatic sync (e.g., adding an event in Acuity automatically generating the Wix CMS item without manual copy-paste), we can deploy a webhook automation via **Make.com / Zapier or Wix Velo HTTP Functions** as an optional add-on for **$350**, or keep the straightforward standard workflow which takes less than 30 seconds per offering.
+*4. Gravitee.io | Storyblok Headless*  
+Contributed to a global enterprise website using Astro, Storyblok and TypeScript.  
+Live: https://gravitee.io
 
-#### 5. Have you reviewed the interactive mockup at tinyurl.com/groundwellcentersite, and do you see any functionality that requires adjustment for Wix or Acuity?
-Yes, we thoroughly audited `tinyurl.com/groundwellcentersite`. The layout, serene earthy color scheme, and typography are outstanding. Here are the practical implementation refinements we plan for:
-1. **Simulated Booking in Mockup vs. Real Acuity:** The mockup displays simulated booking steps. In production, we will replace these with real Acuity Scheduling embeds and styled pop-up modals while maintaining the mockup's sleek visual framing.
-2. **Compact Team Biographies:** The expandable "Read More / Read Less" bio functionality will be built using Wix Velo or native collapsibles to keep the About and Modality pages clean on mobile without page reflow lag.
-3. **Sound Sample Audio Player:** We will implement an unobtrusive, elegant custom HTML5 audio player widget that matches GroundWell's minimalist aesthetic, allowing visitors to sample sound bowls and tuning forks seamlessly without heavy third-party player branding.
-4. **Gift Certificate Flow:** Handled directly via Acuity's built-in gift certificate engine, allowing customers to purchase vouchers and recipients to redeem unique voucher codes during checkout.
+*5. Moolee – Multi-Tenant E-Commerce Platform*  
+Worked on a microservices-based e-commerce platform covering products, customers, orders, payments, promotions, shipping and tenant management using Node.js, Laravel Lumen, Strapi and Keycloak.  
+Live: https://moolee.mv
 
-#### 6. What is your timeline and process from project kickoff to launch and client handover?
-We deliver this in **3 structured weekly sprints**:
+*6. Adrik News & Media Platform – Kuwait*  
+Developed backend services for a bilingual English/Arabic media platform featuring subscriptions, authentication, content management, payment integrations and web/mobile applications.
 
-* **Sprint 1 (Days 1–7): Global Architecture, 14 Core Pages & CMS Setup**
-  * Global styling, typography, header/footer, mobile navigation drawer.
-  * Construction of 14 core pages following the mockup.
-  * Schema creation for `Offerings_Events` and `Offerings_Certifications`.
-  * Dynamic template construction, repeater bindings, category filters, and chronological sorting.
-* **Sprint 2 (Days 8–14): Acuity Scheduling Engine & Interactive Features**
-  * Acuity calendar, appointment type, and room resource setup.
-  * Treatment room conflict prevention logic and digital intake waivers.
-  * Modal lightboxes (Booking, FAQs/Policies, Terms).
-  * Audio sample player integration, Instagram feed, and newsletter signup.
-* **Sprint 3 (Days 15–21): Ingestion, Comprehensive Testing, SEO & Video Handover**
-  * Populating the initial ~17 CMS entries (13 events/workshops + 4 certifications).
-  * Cross-device QA (Desktop, Tablet, iOS Safari, Android Chrome).
-  * Live end-to-end payment and booking dry-runs.
-  * Foundational Local SEO, Schema markup (`HealthAndBeautyBusiness` / `LocalBusiness`), meta tags.
-  * Custom Loom video training walk-through for zero-stress client management.
+*WHY OUR TEAM COULD BE A GOOD FIT*
 
----
+• **Mockup & CMS Dynamic Architecture:** We will build the 14 core pages exactly to your established mockup, configuring the 2 shared dynamic Wix CMS collections (`Events` & `Certifications`) so entering an offering once dynamically updates detail pages, modality pages, and featured homepage listings chronologically.  
+• **Acuity Scheduling & Room Conflict Prevention:** We configure individual and group scheduling with Acuity's *Rooms & Resources* engine to prevent double-booking shared physical treatment spaces, complete with digital intake waivers, payments, and gift certificate flows.  
+• **Verified 2026 Subscription Guidance:** We have verified current pricing to avoid surprises—Wix Core ($29/mo annual) and Acuity Standard ($27/mo annual, required for up to 6 calendars, room conflict locks, and gift certificates).  
+• **Budget & Timeline Alignment:** We 100% accept your **$2,000.00 fixed-price budget**, delivered across 3 structured weekly sprints with zero hidden fees.  
 
-### Project Investment & Scope Confirmation
+I have attached our complete **14-Page Executive Proposal & Technical Blueprint PDF** (`GroundWell_Sound_Wellness_Wix_Acuity_Proposal.pdf`) for your review. It includes full database schemas, conflict prevention logic, mobile optimization plans, launch checklists, and in-depth answers to all of your project review questions.
 
-* **Total Fixed Investment:** **$2,000.00 USD** (100% matched to your budget)
-  * Milestone 1 (40% — $800): Structure, 14 Pages & Wix CMS Dynamic Templates
-  * Milestone 2 (40% — $800): Acuity Configuration, Room Conflicts, Waivers & Modals
-  * Milestone 3 (20% — $400): Ingestion of 17 Offerings, Testing, SEO, Handover & Launch
-* **Warranty:** 30 days of post-launch technical support and bug fixing included at no extra charge.
+We would appreciate the opportunity to discuss your website requirements, review the interactive mockup together, and explore how our team can contribute to the successful launch of GroundWell Sound & Wellness Center.
 
-We have attached our **14-page Executive Proposal & Technical Blueprint PDF** (`GroundWell_Sound_Wellness_Wix_Acuity_Proposal.pdf`) covering full database schemas, conflict prevention logic, mobile optimization plans, and launch checklists.
+If you are open to a brief 15–20-minute introductory meeting, we would be happy to schedule a call at your convenience, or continue the discussion directly here on Upwork.
 
-We are ready to start immediately. Let’s schedule a brief kickoff call or continue our discussion here on Upwork.
+Thank you for your time and consideration. Looking forward to hearing from you.
 
-Warm regards,
+Best regards,
 
-**Viranga Lakshan**  
+*Viranga Lakshan*  
 Lead Solutions Architect & Delivery Manager  
-*Axiom Global*  
-Technical Lead: **Avishka Meddegoda** (Senior Systems Architect, 6+ yrs)  
+On behalf of the Axiom Global Development Team  
+Sri Lanka  
 Email: virangalakshanz@gmail.com | Phone: +94 71 378 1359  
-Web: [https://axiomglobal.tech](https://axiomglobal.tech)
+Website: https://axiomglobal.tech
