@@ -17,11 +17,11 @@ To establish instant authority with founders, CTOs, and enterprise decision-make
 | Step | Day & Time | Descriptive Post Title | Visual Theme | Core Objective |
 | :--- | :--- | :--- | :--- | :--- |
 | **01** | **Week 1 · Monday (08:30 AM EST)** | **Official Launch & Vision: Introducing Axiom Global** | **Dark Wine Gradient** | Announce company mission, bridge the gap between AI hype and real full-stack systems. |
-| **02** | **Week 1 · Wednesday (09:00 AM EST)** | **The Capability Matrix: What Axiom Global Builds** | **Crisp Studio White** | Categorize our 4 core engineering pillars (AI, SaaS, HealthTech, Logistics). |
+| **02** | **Week 1 · Wednesday (09:00 AM EST)** | **The Capability Matrix: What Axiom Global Builds** | **Luminous Wine & White Blend** | Categorize our 4 core engineering pillars (AI, SaaS, HealthTech, Logistics). |
 | **03** | **Week 1 · Friday (10:00 AM EST)** | **PropTech Case Study: The 68% After-Hours Lead Leak** | **Dark Wine Gradient** | High-ticket problem/solution teardown showing direct revenue conversion & booking automation. |
-| **04** | **Week 2 · Tuesday (08:30 AM EST)** | **Engineering Rigor: Our Production Tech Stack & Standards** | **Crisp Studio White** | Technical authority breakdown (Next.js, Spring Boot, Supabase, LangChain) for CTOs. |
+| **04** | **Week 2 · Tuesday (08:30 AM EST)** | **Engineering Rigor: Our Production Tech Stack & Standards** | **Luminous Wine & White Blend** | Technical authority breakdown (Next.js, Spring Boot, Supabase, LangChain) for CTOs. |
 | **05** | **Week 2 · Thursday (09:00 AM EST)** | **High-Stakes Software: Engineering for Clinical Workflows** | **Dark Wine Gradient** | Enterprise reliability, HIPAA compliance, real-time doctor dispatch & pharmacy APIs. |
-| **06** | **Week 2 · Saturday (10:00 AM EST)** | **The Engagement Model: How Global Companies Partner With Us** | **Crisp Studio White** | Clear onboarding roadmap (Discovery → MVP → Scale) and direct invitation to collaborate. |
+| **06** | **Week 2 · Saturday (10:00 AM EST)** | **The Engagement Model: How Global Companies Partner With Us** | **Luminous Wine & White Blend** | Clear onboarding roadmap (Discovery → MVP → Scale) and direct invitation to collaborate. |
 
 ---
 

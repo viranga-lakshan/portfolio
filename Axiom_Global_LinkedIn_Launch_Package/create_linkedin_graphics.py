@@ -8,7 +8,6 @@ ASSET_DIR = os.path.join(OUT_DIR, "assets")
 os.makedirs(IMG_DIR, exist_ok=True)
 
 LOGO_PATH = os.path.join(ASSET_DIR, "axiom_logo_square.png").replace("\\", "/")
-BANNER_PATH = os.path.join(ASSET_DIR, "axiom_banner_clean.png").replace("\\", "/")
 
 # Shared CSS styles
 SHARED_CSS = f"""
@@ -68,7 +67,7 @@ body {{
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
-    opacity: 0.85;
+    opacity: 0.9;
 }}
 
 .brand-badge {{
@@ -80,7 +79,7 @@ body {{
     text-transform: uppercase;
 }}
 
-/* Bottom Footer */
+/* Bottom Footer (Clean, elegant, no URLs, no locations) */
 .brand-footer {{
     display: flex;
     justify-content: space-between;
@@ -94,13 +93,15 @@ body {{
 }}
 
 .brand-footer.light {{
-    border-top: 1px solid #E2E8F0;
+    border-top: 1.5px solid #F0CDD3;
 }}
 
-.footer-url {{
-    font-size: 17px;
+.footer-tagline {{
+    font-size: 13px;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #F4A5AE;
 }}
 
 .footer-action {{
@@ -108,12 +109,38 @@ body {{
     align-items: center;
     gap: 10px;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}}
+
+/* Ambient wine glow elements for light themes */
+.ambient-wine-glow-1 {{
+    position: absolute;
+    width: 650px;
+    height: 650px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(107, 20, 34, 0.12) 0%, rgba(107, 20, 34, 0) 70%);
+    top: -120px;
+    right: -100px;
+    pointer-events: none;
+    z-index: 1;
+}}
+
+.ambient-wine-glow-2 {{
+    position: absolute;
+    width: 550px;
+    height: 550px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139, 30, 45, 0.08) 0%, rgba(139, 30, 45, 0) 70%);
+    bottom: -80px;
+    left: -80px;
+    pointer-events: none;
+    z-index: 1;
 }}
 """
 
 HTML_TEMPLATES = {
-    # 1. Company Launch (Dark Burgundy Theme)
+    # 1. Company Launch (Dark Wine Velvet Theme)
     "post_1_announcement.png": f"""<!DOCTYPE html>
 <html>
 <head>
@@ -270,13 +297,13 @@ body {{
 </div>
 
 <div class="brand-footer">
-    <div class="footer-url">axiomglobal.tech</div>
-    <div class="footer-action">Global Enterprise Delivery ➔</div>
+    <div class="footer-tagline">AI-POWERED SOFTWARE SOLUTIONS</div>
+    <div class="footer-action" style="color:#F4A5AE;">Enterprise AI & Systems Engineering ➔</div>
 </div>
 </body>
 </html>""",
 
-    # 2. Capability Matrix (Clean Crisp White Theme)
+    # 2. Capability Matrix (White Background Mixed with Wine Red Logo Color)
     "post_2_capabilities.png": f"""<!DOCTYPE html>
 <html>
 <head>
@@ -284,7 +311,7 @@ body {{
 <style>
 {SHARED_CSS}
 body {{
-    background: #FFFFFF;
+    background: radial-gradient(circle at 85% 15%, #FDEEEF 0%, #FFF5F7 35%, #FFFFFF 68%, #FBF0F2 100%);
     color: #0F172A;
     padding: 70px 80px;
     display: flex;
@@ -293,13 +320,15 @@ body {{
 
 .brand-name {{ color: #4A0E17; }}
 .brand-tagline {{ color: #8B1E2D; }}
-.brand-badge {{ background: #F8EDEF; color: #6B1422; border: 1px solid #EAC4CA; }}
+.brand-badge {{ background: #FCE8EC; color: #6B1422; border: 1.5px solid #F0CDD3; }}
 
 .hero-content {{
     margin-top: 45px;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    position: relative;
+    z-index: 5;
 }}
 
 .category-pill {{
@@ -307,7 +336,7 @@ body {{
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: #4A0E17;
+    background: #6B1422;
     color: #FFFFFF;
     font-size: 13px;
     font-weight: 700;
@@ -315,6 +344,7 @@ body {{
     text-transform: uppercase;
     padding: 7px 16px;
     border-radius: 999px;
+    box-shadow: 0 4px 14px rgba(107, 20, 34, 0.25);
 }}
 
 .main-title {{
@@ -345,15 +375,16 @@ body {{
 }}
 
 .bento-card {{
-    background: #FAFAFC;
-    border: 1.5px solid #E2E8F0;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(12px);
+    border: 1.5px solid #F0CDD3;
     border-radius: 20px;
     padding: 28px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     position: relative;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 10px 28px rgba(74, 14, 23, 0.05);
 }}
 
 .bento-header {{
@@ -366,7 +397,7 @@ body {{
     font-size: 14px;
     font-weight: 800;
     color: #8B1E2D;
-    background: #F8EDEF;
+    background: #FCE8EC;
     padding: 4px 12px;
     border-radius: 6px;
 }}
@@ -397,15 +428,18 @@ body {{
 .bento-tag {{
     font-size: 12px;
     font-weight: 600;
-    background: #FFFFFF;
-    border: 1px solid #CBD5E1;
+    background: #FFF5F7;
+    border: 1px solid #F0CDD3;
     padding: 4px 10px;
     border-radius: 6px;
-    color: #334155;
+    color: #6B1422;
 }}
 </style>
 </head>
 <body>
+<div class="ambient-wine-glow-1"></div>
+<div class="ambient-wine-glow-2"></div>
+
 <div class="brand-header">
     <div class="brand-left">
         <img class="brand-logo-img" src="{LOGO_PATH}" alt="Axiom">
@@ -421,7 +455,7 @@ body {{
     <div class="category-pill">Core Engineering Pillars</div>
     <div class="main-title">What We Build: <span class="wine">The Axiom Stack</span></div>
     <div class="lead-text">
-        From napkin-sketch concepts to high-throughput platforms, we provide complete lifecycle engineering for fast-scaling companies.
+        From whiteboard architecture to high-throughput platforms, we provide complete lifecycle engineering for fast-scaling enterprises.
     </div>
 
     <div class="bento-grid">
@@ -485,13 +519,13 @@ body {{
 </div>
 
 <div class="brand-footer light">
-    <div class="footer-url" style="color:#4A0E17;">axiomglobal.tech</div>
-    <div class="footer-action" style="color:#475569;">Explore our technical case studies ➔</div>
+    <div class="footer-tagline" style="color:#6B1422;">AI-POWERED SOFTWARE SOLUTIONS</div>
+    <div class="footer-action" style="color:#6B1422;">Enterprise Architecture ➔</div>
 </div>
 </body>
 </html>""",
 
-    # 3. PropTech Case Study / Problem Fix (Dark Wine Theme)
+    # 3. PropTech Case Study / Problem Fix (Dark Wine Velvet Theme)
     "post_3_proptech_case.png": f"""<!DOCTYPE html>
 <html>
 <head>
@@ -715,13 +749,13 @@ body {{
 </div>
 
 <div class="brand-footer">
-    <div class="footer-url">axiomglobal.tech</div>
-    <div class="footer-action">Read the full 12-page executive proposal ➔</div>
+    <div class="footer-tagline">AI-POWERED SOFTWARE SOLUTIONS</div>
+    <div class="footer-action" style="color:#F4A5AE;">PropTech & Enterprise Systems ➔</div>
 </div>
 </body>
 </html>""",
 
-    # 4. Tech Stack & Engineering Rigor (Clean Crisp White Theme)
+    # 4. Tech Stack & Engineering Rigor (White Background Mixed with Wine Red Logo Color)
     "post_4_tech_stack.png": f"""<!DOCTYPE html>
 <html>
 <head>
@@ -729,7 +763,7 @@ body {{
 <style>
 {SHARED_CSS}
 body {{
-    background: #FFFFFF;
+    background: radial-gradient(circle at 85% 15%, #FDEEEF 0%, #FFF5F7 35%, #FFFFFF 68%, #FBF0F2 100%);
     color: #0F172A;
     padding: 70px 80px;
     display: flex;
@@ -738,13 +772,15 @@ body {{
 
 .brand-name {{ color: #4A0E17; }}
 .brand-tagline {{ color: #8B1E2D; }}
-.brand-badge {{ background: #F8EDEF; color: #6B1422; border: 1px solid #EAC4CA; }}
+.brand-badge {{ background: #FCE8EC; color: #6B1422; border: 1.5px solid #F0CDD3; }}
 
 .hero-content {{
     margin-top: 45px;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    position: relative;
+    z-index: 5;
 }}
 
 .category-pill {{
@@ -752,7 +788,7 @@ body {{
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: #4A0E17;
+    background: #6B1422;
     color: #FFFFFF;
     font-size: 13px;
     font-weight: 700;
@@ -760,6 +796,7 @@ body {{
     text-transform: uppercase;
     padding: 7px 16px;
     border-radius: 999px;
+    box-shadow: 0 4px 14px rgba(107, 20, 34, 0.25);
 }}
 
 .main-title {{
@@ -790,13 +827,15 @@ body {{
 }}
 
 .stack-row {{
-    background: #F8FAFC;
-    border: 1.5px solid #E2E8F0;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(12px);
+    border: 1.5px solid #F0CDD3;
     border-radius: 16px;
     padding: 20px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    box-shadow: 0 8px 24px rgba(74, 14, 23, 0.04);
 }}
 
 .stack-category {{
@@ -827,7 +866,7 @@ body {{
 
 .stack-pill {{
     background: #FFFFFF;
-    border: 1px solid #CBD5E1;
+    border: 1px solid #E2E8F0;
     color: #1E293B;
     font-size: 14px;
     font-weight: 700;
@@ -844,7 +883,7 @@ body {{
 
 .principle-banner {{
     margin-top: 10px;
-    background: #F8EDEF;
+    background: #FCE8EC;
     border-left: 4px solid #6B1422;
     padding: 16px 20px;
     border-radius: 8px;
@@ -858,6 +897,9 @@ body {{
 </style>
 </head>
 <body>
+<div class="ambient-wine-glow-1"></div>
+<div class="ambient-wine-glow-2"></div>
+
 <div class="brand-header">
     <div class="brand-left">
         <img class="brand-logo-img" src="{LOGO_PATH}" alt="Axiom">
@@ -939,13 +981,13 @@ body {{
 </div>
 
 <div class="brand-footer light">
-    <div class="footer-url" style="color:#4A0E17;">axiomglobal.tech</div>
-    <div class="footer-action" style="color:#475569;">Review our open engineering standards ➔</div>
+    <div class="footer-tagline" style="color:#6B1422;">AI-POWERED SOFTWARE SOLUTIONS</div>
+    <div class="footer-action" style="color:#6B1422;">Engineering Rigor & Scale ➔</div>
 </div>
 </body>
 </html>""",
 
-    # 5. Healthcare / High-Stakes Systems (Dark Wine Theme)
+    # 5. Healthcare / High-Stakes Systems (Dark Wine Velvet Theme)
     "post_5_healthtech_enterprise.png": f"""<!DOCTYPE html>
 <html>
 <head>
@@ -1124,13 +1166,13 @@ body {{
 </div>
 
 <div class="brand-footer">
-    <div class="footer-url">axiomglobal.tech</div>
-    <div class="footer-action">Schedule a technical consultation ➔</div>
+    <div class="footer-tagline">AI-POWERED SOFTWARE SOLUTIONS</div>
+    <div class="footer-action" style="color:#F4A5AE;">High-Assurance Systems ➔</div>
 </div>
 </body>
 </html>""",
 
-    # 6. Dedicated Squad Model / Partnership (Clean Crisp White Theme with Burgundy Callout)
+    # 6. Dedicated Squad Model / Partnership (White Background Mixed with Wine Red Logo Color)
     "post_6_collaboration_squad.png": f"""<!DOCTYPE html>
 <html>
 <head>
@@ -1138,7 +1180,7 @@ body {{
 <style>
 {SHARED_CSS}
 body {{
-    background: #FFFFFF;
+    background: radial-gradient(circle at 85% 15%, #FDEEEF 0%, #FFF5F7 35%, #FFFFFF 68%, #FBF0F2 100%);
     color: #0F172A;
     padding: 70px 80px;
     display: flex;
@@ -1147,13 +1189,15 @@ body {{
 
 .brand-name {{ color: #4A0E17; }}
 .brand-tagline {{ color: #8B1E2D; }}
-.brand-badge {{ background: #F8EDEF; color: #6B1422; border: 1px solid #EAC4CA; }}
+.brand-badge {{ background: #FCE8EC; color: #6B1422; border: 1.5px solid #F0CDD3; }}
 
 .hero-content {{
     margin-top: 45px;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    position: relative;
+    z-index: 5;
 }}
 
 .category-pill {{
@@ -1161,7 +1205,7 @@ body {{
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: #4A0E17;
+    background: #6B1422;
     color: #FFFFFF;
     font-size: 13px;
     font-weight: 700;
@@ -1169,6 +1213,7 @@ body {{
     text-transform: uppercase;
     padding: 7px 16px;
     border-radius: 999px;
+    box-shadow: 0 4px 14px rgba(107, 20, 34, 0.25);
 }}
 
 .main-title {{
@@ -1199,14 +1244,16 @@ body {{
 }}
 
 .timeline-card {{
-    background: #FAFAFC;
-    border: 1.5px solid #E2E8F0;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(12px);
+    border: 1.5px solid #F0CDD3;
     border-radius: 18px;
     padding: 24px 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     position: relative;
+    box-shadow: 0 8px 24px rgba(74, 14, 23, 0.05);
 }}
 
 .timeline-step {{
@@ -1270,6 +1317,9 @@ body {{
 </style>
 </head>
 <body>
+<div class="ambient-wine-glow-1"></div>
+<div class="ambient-wine-glow-2"></div>
+
 <div class="brand-header">
     <div class="brand-left">
         <img class="brand-logo-img" src="{LOGO_PATH}" alt="Axiom">
@@ -1324,8 +1374,8 @@ body {{
 </div>
 
 <div class="brand-footer light">
-    <div class="footer-url" style="color:#4A0E17;">axiomglobal.tech</div>
-    <div class="footer-action" style="color:#475569;">Global Solutions Practice · axiomglobal.tech ➔</div>
+    <div class="footer-tagline" style="color:#6B1422;">AI-POWERED SOFTWARE SOLUTIONS</div>
+    <div class="footer-action" style="color:#6B1422;">Global Dedicated Practice ➔</div>
 </div>
 </body>
 </html>"""
@@ -1350,4 +1400,3 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-
