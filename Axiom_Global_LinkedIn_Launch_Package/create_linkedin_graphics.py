@@ -271,7 +271,7 @@ body {{
 
 <div class="brand-footer">
     <div class="footer-url">axiomglobal.tech</div>
-    <div class="footer-action">Colombo · Worldwide Delivery ➔</div>
+    <div class="footer-action">Global Enterprise Delivery ➔</div>
 </div>
 </body>
 </html>""",
@@ -1285,7 +1285,7 @@ body {{
     <div class="category-pill">Rapid Delivery Lifecycle</div>
     <div class="main-title">How We Build: <span class="wine">From Idea to Production</span></div>
     <div class="lead-text">
-        Skip 6 months of hiring bottlenecks. Deploy a dedicated, cohesive 5-member engineering squad focused on rapid delivery, high velocity, and clean code.
+        Skip 6 months of hiring bottlenecks. Deploy dedicated, cross-functional engineering squads focused on rapid velocity, robust architecture, and enterprise scale.
     </div>
 
     <div class="timeline-grid">
@@ -1317,7 +1317,7 @@ body {{
     <div class="cta-banner">
         <div class="cta-left">
             <div class="cta-title">Ready to Architect Your Next System?</div>
-            <div class="cta-subtitle">Direct collaboration with our Client Solutions Architect & Delivery Lead.</div>
+            <div class="cta-subtitle">Partner with our Enterprise Solutions Architects & Engineering Leads.</div>
         </div>
         <div class="cta-btn">Book Architecture Call ➔</div>
     </div>
@@ -1325,7 +1325,7 @@ body {{
 
 <div class="brand-footer light">
     <div class="footer-url" style="color:#4A0E17;">axiomglobal.tech</div>
-    <div class="footer-action" style="color:#475569;">virangalakshanz@gmail.com · +94 71 378 1359</div>
+    <div class="footer-action" style="color:#475569;">Global Solutions Practice · axiomglobal.tech ➔</div>
 </div>
 </body>
 </html>"""
@@ -1338,21 +1338,16 @@ async def main():
         
         for filename, html in HTML_TEMPLATES.items():
             out_path = os.path.join(IMG_DIR, filename)
-            temp_html_path = os.path.join(IMG_DIR, f"temp_{filename}.html")
-            
-            with open(temp_html_path, "w", encoding="utf-8") as f:
-                f.write(html)
-                
-            await page.goto(f"file:///{temp_html_path}")
-            await page.wait_for_timeout(500)
-            await page.screenshot(path=out_path, type="png")
-            print(f"Rendered: {out_path}")
-            
-            if os.path.exists(temp_html_path):
-                os.remove(temp_html_path)
+            await page.set_content(html, wait_until="load")
+            await page.wait_for_timeout(400)
+            img_bytes = await page.screenshot(type="png")
+            with open(out_path, "wb") as f:
+                f.write(img_bytes)
+            print(f"Rendered: {out_path} ({len(img_bytes) / 1024:.1f} KB)")
                 
         await browser.close()
     print("All 6 LinkedIn post graphics rendered successfully!")
 
 if __name__ == "__main__":
     asyncio.run(main())
+

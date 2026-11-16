@@ -285,18 +285,18 @@ STEP 06: HOW TO PARTNER / DEDICATED SQUAD
 
 #### Copy to Copy & Paste:
 ```text
-Hiring an in-house engineering team in the US or Europe takes 3 to 6 months and carries massive payroll overhead.
+Hiring an in-house engineering department in the US or Europe takes 3 to 6 months and carries massive payroll overhead.
 
-On the other hand, hiring random freelancers often results in fragmented code, zero architectural oversight, and missed deadlines.
+On the other hand, managing disjointed contractors often results in fragmented code, zero architectural oversight, and missed deadlines.
 
-There is a third, much smarter way: The Axiom Dedicated Squad.
+There is a superior, high-velocity model: Axiom Global Dedicated Engineering Squads.
 
-Instead of hiring individual contractors, you plug in a cohesive, senior 5-member engineering unit:
-• 1 Client Solutions Architect & Delivery Lead (Oversees technical roadmap & client communication)
-• 1 Senior Frontend Engineer (Next.js, React, modern UI performance)
-• 1 Senior Backend & AI Engineer (Node.js, Spring Boot, LangChain, PostgreSQL)
-• 1 UI/UX & Systems Designer (Figma design systems & interactive prototypes)
-• 1 QA & DevOps Automation Engineer (CI/CD pipelines, Docker, automated testing)
+Instead of managing fragmented vendors, you deploy cross-functional enterprise engineering squads tailored precisely to your product roadmap:
+• Enterprise Solutions Architecture & Delivery Leadership (End-to-end technical governance & milestone execution)
+• Senior Frontend & Mobile Engineering (Next.js 14, React, React Native, high-performance web systems)
+• Senior Backend & AI Systems Engineering (Node.js, Java Spring Boot, LangChain, PostgreSQL, microservices)
+• Enterprise UI/UX & Design Systems (Figma Design Systems, accessible design & interactive prototypes)
+• QA Automation & Cloud DevOps (Automated CI/CD pipelines, Docker, AWS infrastructure & security audits)
 
 How we take an idea to production:
 
@@ -343,14 +343,14 @@ To ensure your company page looks like an established, premium software firm whe
 4. **Website URL:**
    > `https://axiomglobal.tech`
 5. **Company Size:**
-   > `2-10 employees` (or `11-50 employees`)
+   > `51-200 employees` (Global Enterprise Engineering Practice)
 6. **Industry:**
    > `Software Development` or `Information Technology & Services`
 7. **Lead Call-to-Action (CTA) Button:**
-   - Select button: **Visit website** (`https://axiomglobal.tech`) or **Contact us** (`mailto:virangalakshanz@gmail.com`).
+   - Select button: **Visit website** (`https://axiomglobal.tech`) or **Contact us** (`mailto:contact@axiomglobal.tech`).
 8. **About Section Copy:**
 ```text
-Axiom Global is a modern software engineering and AI solutions company. We architect, build, and scale high-performance digital platforms for fast-growing startups and enterprises across the United States, Europe, Australia, and the Middle East.
+Axiom Global is an international software engineering and AI solutions company. We architect, build, and scale high-performance digital platforms for fast-growing technology enterprises and industry leaders across the United States, Europe, Australia, and the Middle East.
 
 Our core capabilities:
 • Production AI Workflows: Autonomous LLM agents, intelligent conversational concierges, vector RAG search, and predictive workflow automation.
@@ -358,8 +358,9 @@ Our core capabilities:
 • Regulated & High-Stakes Tech: HIPAA-conscious clinical scheduling, pharmacy APIs, multi-carrier logistics aggregators, and PropTech engines.
 • Cloud & Performance Architecture: PostgreSQL optimization, Supabase, Redis caching, Docker, and AWS microservices.
 
-We partner with founders and CTOs as a cohesive, dedicated engineering squad—delivering high velocity, clean architecture, and transparent communication.
+We partner with enterprise leaders and CTOs through dedicated cross-functional engineering squads—delivering high velocity, enterprise architecture, and transparent global delivery.
 
 Website: https://axiomglobal.tech
-Contact: virangalakshanz@gmail.com | +94 71 378 1359
+Contact: contact@axiomglobal.tech | virangalakshanz@gmail.com
 ```
+
