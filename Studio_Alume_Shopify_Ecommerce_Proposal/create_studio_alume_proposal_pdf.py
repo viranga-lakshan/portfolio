@@ -1,0 +1,1754 @@
+import os
+import asyncio
+from playwright.async_api import async_playwright
+import pypdf
+
+BASE_DIR = r"c:\Users\Viranga\Downloads\upwrok new\Studio_Alume_Shopify_Ecommerce_Proposal"
+IMG_DIR = os.path.join(BASE_DIR, "images")
+HTML_PATH = os.path.join(BASE_DIR, "proposal_template.html")
+PDF_PATH = os.path.join(BASE_DIR, "Studio_Alume_Shopify_Ecommerce_Redesign_Proposal.pdf")
+
+# Convert Windows paths to forward slashes for CSS / HTML
+def to_uri(fname):
+    return os.path.join(IMG_DIR, fname).replace("\\", "/")
+
+COVER_IMG = to_uri("cover_lighting.jpg")
+PENDANT_IMG = to_uri("luxury_interior_pendant.jpg")
+SCONCE_IMG = to_uri("minimalist_lighting_sconce.jpg")
+TABLE_LAMP_IMG = to_uri("editorial_table_lamp.jpg")
+CONSULT_IMG = to_uri("interior_consultation.jpg")
+PORTFOLIO_IMG = to_uri("trade_portfolio.jpg")
+LOGO_IMG = to_uri("axiom_logo.png")
+TEAM_IMG = to_uri("team_office.jpg")
+
+CSS_STYLES = """
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+:root {
+  --black: #0F1115;
+  --dark-charcoal: #22252A;
+  --mid-grey: #5A606A;
+  --light-grey: #F4F5F7;
+  --border-grey: #E2E5E9;
+  --border-dark: #1E2229;
+  --white: #FFFFFF;
+  --accent-gold: #B38E5D;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--black);
+  background: #E5E7EB;
+  margin: 0;
+  padding: 0;
+  font-size: 7.6pt;
+  line-height: 1.42;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  width: 210mm;
+  height: 297mm;
+  max-height: 297mm;
+  overflow: hidden;
+  position: relative;
+  background: var(--white);
+  padding: 11mm 15mm 10mm 15mm;
+  page-break-after: always;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto 10mm auto;
+}
+
+/* Print Overrides */
+@media print {
+  body {
+    background: transparent;
+  }
+  .page {
+    margin: 0;
+    box-shadow: none;
+    page-break-after: always;
+  }
+}
+
+/* Running Header */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 5px;
+  margin-bottom: 9px;
+}
+
+.header-left {
+  font-size: 6.8pt;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--black);
+}
+
+.header-right {
+  font-size: 6.8pt;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--mid-grey);
+}
+
+/* Running Footer */
+.page-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-grey);
+  padding-top: 5px;
+  margin-top: auto;
+}
+
+.footer-left {
+  font-size: 6.2pt;
+  font-weight: 600;
+  color: var(--mid-grey);
+  letter-spacing: 0.5px;
+}
+
+.footer-page-num {
+  font-size: 6.5pt;
+  font-weight: 700;
+  color: var(--black);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Typography Hierarchy */
+.serif-heading {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.section-tag {
+  display: inline-block;
+  font-size: 6.2pt;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 2px;
+}
+
+.page-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 18pt;
+  font-weight: 700;
+  line-height: 1.12;
+  color: var(--black);
+  margin-bottom: 5px;
+}
+
+.lead-text {
+  font-size: 8.2pt;
+  line-height: 1.45;
+  color: var(--dark-charcoal);
+  margin-bottom: 8px;
+  max-width: 98%;
+}
+
+.block-title {
+  font-size: 9pt;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  color: var(--black);
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.body-text {
+  font-size: 7.2pt;
+  line-height: 1.4;
+  color: var(--mid-grey);
+}
+
+/* Grid Layouts */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+/* Cards & Containers */
+.card-bordered {
+  border: 1px solid var(--border-grey);
+  border-radius: 4px;
+  padding: 8px 10px;
+  background: var(--white);
+}
+
+.card-dark {
+  background: var(--black);
+  color: var(--white);
+  border-radius: 4px;
+  padding: 10px 12px;
+}
+
+.card-dark .block-title {
+  color: var(--white);
+}
+
+.card-dark .body-text {
+  color: #D1D5DB;
+}
+
+.card-editorial {
+  border-left: 2px solid var(--black);
+  padding-left: 8px;
+  margin-bottom: 6px;
+}
+
+/* Tables */
+table.editorial-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 6.9pt;
+  margin-bottom: 6px;
+}
+
+table.editorial-table th {
+  background: var(--black);
+  color: var(--white);
+  text-align: left;
+  padding: 5px 7px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 6.2pt;
+}
+
+table.editorial-table td {
+  padding: 4.5px 7px;
+  border-bottom: 1px solid var(--border-grey);
+  color: var(--dark-charcoal);
+  vertical-align: top;
+}
+
+table.editorial-table tr:nth-child(even) td {
+  background: #FAFAFC;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  font-size: 5.8pt;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-dark {
+  background: var(--black);
+  color: var(--white);
+}
+
+.badge-outline {
+  border: 1px solid var(--black);
+  color: var(--black);
+  background: transparent;
+}
+
+.badge-stage {
+  background: var(--light-grey);
+  border: 1px solid var(--border-grey);
+  color: var(--black);
+}
+
+/* Key Metrics Box */
+.stat-box {
+  background: #FAFAFA;
+  border: 1px solid var(--border-grey);
+  border-radius: 4px;
+  padding: 7px 9px;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 16pt;
+  font-weight: 800;
+  color: var(--black);
+  font-family: 'Playfair Display', Georgia, serif;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 5.8pt;
+  font-weight: 700;
+  color: var(--mid-grey);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+"""
+
+HTML_CONTENT = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Studio Alume — Shopify Ecommerce Redesign Proposal</title>
+<style>
+{CSS_STYLES}
+</style>
+</head>
+<body>
+
+<!-- ========================================== PAGE 01: COVER PAGE ========================================== -->
+<div class="page" style="padding: 12mm 15mm 12mm 15mm; justify-content: space-between;">
+  <div>
+    <!-- Top Meta Bar -->
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--black); padding-bottom: 10px; margin-bottom: 14px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="{LOGO_IMG}" style="width: 36px; height: 36px; border-radius: 8px;" alt="Axiom Global">
+        <div>
+          <div style="font-size: 13pt; font-weight: 800; letter-spacing: -0.4px;">AXIOM GLOBAL</div>
+          <div style="font-size: 6.2pt; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid-grey);">Software Engineering &amp; E-Commerce Practice</div>
+        </div>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-size: 6.5pt; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; background: var(--black); color: var(--white); padding: 3px 8px; border-radius: 3px; display: inline-block;">
+          COMMERCIAL PROPOSAL
+        </div>
+        <div style="font-size: 6.5pt; color: var(--mid-grey); margin-top: 3px;">Date: November 2026 &middot; Version 1.0</div>
+      </div>
+    </div>
+
+    <!-- Main Title Block -->
+    <div style="margin-top: 6px; margin-bottom: 14px;">
+      <div style="font-size: 7.2pt; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--mid-grey); margin-bottom: 4px;">
+        SHOPIFY ONLINE STORE 2.0 &middot; LUXURY TRANSFORMATION
+      </div>
+      <h1 class="serif-heading" style="font-size: 28pt; line-height: 1.05; color: var(--black); margin-bottom: 6px;">
+        Studio Alume
+      </h1>
+      <div style="font-size: 12pt; font-weight: 500; color: var(--dark-charcoal); letter-spacing: -0.2px; font-style: italic;">
+        Premium Lighting &amp; Interior Design E-Commerce Redesign
+      </div>
+    </div>
+
+    <!-- Editorial Full-Colour Feature Photograph -->
+    <div style="position: relative; width: 100%; height: 135mm; border-radius: 4px; overflow: hidden; border: 1px solid var(--black); margin-bottom: 14px;">
+      <img src="{COVER_IMG}" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="Architectural Lighting Studio Alume">
+      <div style="position: absolute; bottom: 12px; left: 14px; background: rgba(15, 17, 21, 0.88); color: #FFFFFF; padding: 6px 12px; border-radius: 3px; font-size: 6.8pt; letter-spacing: 0.5px;">
+        <strong>STUDIO ALUME FLAGSHIP CONCEPT</strong> &middot; Editorial Presentation, Tactile Materiality &amp; Architectural Poise
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Metadata Table -->
+  <div>
+    <div style="display: grid; grid-template-columns: 1.2fr 1.2fr 1fr 1fr; gap: 8px; border-top: 1px solid var(--black); padding-top: 10px; margin-bottom: 8px;">
+      <div>
+        <div style="font-size: 5.8pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">Prepared For</div>
+        <div style="font-size: 8pt; font-weight: 700; color: var(--black);">Australian Web Agency</div>
+        <div style="font-size: 6.5pt; color: var(--mid-grey);">On behalf of Studio Alume</div>
+      </div>
+      <div>
+        <div style="font-size: 5.8pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">Target Brand</div>
+        <div style="font-size: 8pt; font-weight: 700; color: var(--black);">Studio Alume</div>
+        <div style="font-size: 6.5pt; color: var(--mid-grey);">studioalume.com.au</div>
+      </div>
+      <div>
+        <div style="font-size: 5.8pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">Technical Partner</div>
+        <div style="font-size: 8pt; font-weight: 700; color: var(--black);">Axiom Global</div>
+        <div style="font-size: 6.5pt; color: var(--mid-grey);">Solutions Architecture Squad</div>
+      </div>
+      <div>
+        <div style="font-size: 5.8pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">Delivery Window</div>
+        <div style="font-size: 8pt; font-weight: 700; color: var(--black);">Pre-Christmas 2026</div>
+        <div style="font-size: 6.5pt; color: var(--mid-grey);">Stage 1 Flagship Launch</div>
+      </div>
+    </div>
+    <div style="font-size: 6pt; color: #9CA3AF; text-align: center; border-top: 1px solid var(--border-grey); padding-top: 4px;">
+      STRICTLY CONFIDENTIAL &middot; PREPARED EXCLUSIVELY FOR STUDIO ALUME AND DIGITAL AGENCY LEADERSHIP
+    </div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 02: EXECUTIVE SUMMARY ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Studio Alume &middot; Shopify E-Commerce Redesign</div>
+      <div class="header-right">01 &middot; Executive Summary</div>
+    </div>
+
+    <span class="section-tag">Strategic Vision &amp; Commercial Intent</span>
+    <h1 class="page-title">Executive Summary</h1>
+    
+    <p class="lead-text">
+      Studio Alume currently operates a brochure-style informational Shopify website. While it introduces the brand story and design services, it lacks transactional capability, structured catalog discovery, and the elevated editorial nuance expected of a premium Australian architectural lighting house.
+    </p>
+
+    <!-- 4 High-Level Impact Pillars -->
+    <div class="grid-4" style="margin-bottom: 10px;">
+      <div class="stat-box">
+        <div class="stat-number">20</div>
+        <div class="stat-label">Lighting SKUs</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">03</div>
+        <div class="stat-label">Design Packages</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">OS 2.0</div>
+        <div class="stat-label">Modern Architecture</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">&lt; 4 Wks</div>
+        <div class="stat-label">Pre-Holiday Launch</div>
+      </div>
+    </div>
+
+    <!-- Core Strategic Imperatives -->
+    <div class="grid-2" style="margin-bottom: 10px;">
+      <div class="card-bordered" style="border-left: 3px solid var(--black);">
+        <h2 class="block-title">The Strategic Challenge</h2>
+        <p class="body-text">
+          High-end lighting and bespoke interiors cannot be sold like conventional commodities. Buyers, architects, and interior designers require rich tactile storytelling, transparent dimensional specifications, and an immersive editorial aesthetic. Currently, Studio Alume has zero active products online, resulting in 100% bounce-off for commercial purchase intent.
+        </p>
+      </div>
+      <div class="card-bordered" style="border-left: 3px solid var(--black);">
+        <h2 class="block-title">The Proposed Solution</h2>
+        <p class="body-text">
+          We engineer an editorial, high-performance Shopify Online Store 2.0 digital flagship inspired by the benchmarked poise of <strong>Rachel Donath</strong>. This platform will support ~20 launch lighting fixtures with rich variant configurations, alongside 3 purchasable interior design service packages, seamless Australian checkout, and frictionless mobile responsiveness.
+        </p>
+      </div>
+    </div>
+
+    <!-- Dual Business Model Architecture -->
+    <div style="margin-bottom: 10px;">
+      <h2 class="block-title">Dual Revenue Engine Architecture</h2>
+      <div class="grid-2">
+        <div class="card-bordered">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <span style="font-weight:800; font-size:8pt;">STREAM A: Physical Lighting Products</span>
+            <span class="badge badge-dark">20 Curated SKUs</span>
+          </div>
+          <p class="body-text">
+            Custom product page templates supporting finishes (brass, bronze, ceramic, alabaster), technical lighting specifications (lumens, color temperature, IP ratings), dimensions, and instant slide-out cart purchasing with Australia-wide freight rules.
+          </p>
+        </div>
+        <div class="card-bordered">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <span style="font-weight:800; font-size:8pt;">STREAM B: Interior Design Services</span>
+            <span class="badge badge-outline">3 Consult Packages</span>
+          </div>
+          <p class="body-text">
+            A dedicated services section featuring 3 purchasable consultation tiers. Converts high-intent clients directly online with automated intake questionnaires and calendar appointment scheduling.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Australian Agency Collaboration Philosophy -->
+    <div class="card-dark" style="margin-bottom: 6px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+        <span style="font-size: 8.5pt; font-weight: 800; letter-spacing: 0.5px;">Agency White-Label Partnership Commitment</span>
+        <span class="badge" style="background:#FFFFFF; color:var(--black);">Direct Delivery Model</span>
+      </div>
+      <p style="font-size: 7.1pt; color: #E5E7EB; line-height: 1.4;">
+        Axiom Global operates as a seamless technical extension of your Australian web agency. We honor your established client relationships, execute within your project management workflows (JIRA/ClickUp/Slack), adhere strictly to client brand guidelines, and deliver clean, unbloated Liquid code that is effortless for Studio Alume to maintain long-term.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; SHOPIFY E-COMMERCE DEVELOPMENT PROPOSAL</div>
+    <div class="footer-page-num">Page 02 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 03: UNDERSTANDING CLIENT REQUIREMENTS ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Studio Alume &middot; Shopify E-Commerce Redesign</div>
+      <div class="header-right">02 &middot; Requirements Analysis</div>
+    </div>
+
+    <span class="section-tag">Audit &amp; Functional Scope</span>
+    <h1 class="page-title">Understanding Client Requirements</h1>
+    
+    <p class="lead-text">
+      Based on our comprehensive technical review of <code>https://studioalume.com.au/</code>, we have mapped the core requirements necessary to transition the brand from brochureware into a sophisticated e-commerce operation:
+    </p>
+
+    <!-- Visual Status Grid -->
+    <div class="grid-2" style="margin-bottom: 10px;">
+      <div class="card-bordered" style="background: #FAFAFC;">
+        <div style="font-weight:800; font-size:8pt; margin-bottom:4px; color:#DC2626;">Current State Audit (studioalume.com.au)</div>
+        <ul style="padding-left:14px; font-size:7pt; color:var(--dark-charcoal); line-height:1.45;">
+          <li>Informational brochure site only; zero transactional functionality.</li>
+          <li>Store catalog is unpopulated; products cannot be viewed or purchased.</li>
+          <li>Navigation structure lacks collection taxonomy and product discovery.</li>
+          <li>Interior design services presented as flat text without direct booking/checkout.</li>
+          <li>Theme code contains legacy constraints that limit mobile editorial poise.</li>
+        </ul>
+      </div>
+      <div class="card-bordered" style="background: #F0FDF4; border-color:#BBF7D0;">
+        <div style="font-weight:800; font-size:8pt; margin-bottom:4px; color:#166534;">Target Flagship State (Online Store 2.0)</div>
+        <ul style="padding-left:14px; font-size:7pt; color:var(--dark-charcoal); line-height:1.45;">
+          <li>Editorial luxury homepage with generous whitespace and high-res focal crops.</li>
+          <li>~20 lighting products populated with full finish variants, dimensions &amp; specs.</li>
+          <li>Slide-out Ajax cart with free-shipping indicators and seamless checkout.</li>
+          <li>3 purchasable interior design packages with automated intake flows.</li>
+          <li>Australian payment ecosystem (Shopify Payments, Apple Pay, Afterpay).</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 12 Core Functional Requirements Table -->
+    <table class="editorial-table">
+      <thead>
+        <tr>
+          <th style="width: 25%;">System Module</th>
+          <th style="width: 45%;">Functional Specification</th>
+          <th style="width: 15%;">Stage</th>
+          <th style="width: 15%;">Platform</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Theme Architecture</strong></td>
+          <td>Shopify Online Store 2.0 JSON templates; section-rendering on every page.</td>
+          <td><span class="badge badge-dark">Stage 1</span></td>
+          <td>OS 2.0 Liquid</td>
+        </tr>
+        <tr>
+          <td><strong>Editorial Homepage</strong></td>
+          <td>High-impact hero banners, curated collection vignettes, brand story module.</td>
+          <td><span class="badge badge-dark">Stage 1</span></td>
+          <td>Custom Sections</td>
+        </tr>
+        <tr>
+          <td><strong>Navigation Structure</strong></td>
+          <td>Minimalist desktop megamenu &amp; mobile drawer categorizing Lighting &amp; Services.</td>
+          <td><span class="badge badge-dark">Stage 1</span></td>
+          <td>Shopify Nav</td>
+        </tr>
+        <tr>
+          <td><strong>Catalog Population</strong></td>
+          <td>20 lighting products configured with finish variants (Brass, Bronze, Alabaster).</td>
+          <td><span class="badge badge-dark">Stage 1</span></td>
+          <td>Products API</td>
+        </tr>
+        <tr>
+          <td><strong>Product Templates (PDP)</strong></td>
+          <td>Editorial split layouts, sticky product details, accordion specifications, shipping tabs.</td>
+          <td><span class="badge badge-dark">Stage 1</span></td>
+          <td>JSON Template</td>
+        </tr>
+        <tr>
+          <td><strong>Design Consultation Tiers</strong></td>
+          <td>3 purchasable service packages with custom variant selectors &amp; intake forms.</td>
+          <td><span class="badge badge-dark">Stage 1</span></td>
+          <td>Shopify Services</td>
+        </tr>
+        <tr>
+          <td><strong>Cart &amp; Checkout</strong></td>
+          <td>Slide-out Ajax drawer cart, order notes, Australian GST-compliant checkout.</td>
+          <td><span class="badge badge-dark">Stage 1</span></td>
+          <td>Shopify Checkout</td>
+        </tr>
+        <tr>
+          <td><strong>Australian Payments &amp; Freight</strong></td>
+          <td>Shopify Payments, Afterpay, Klarna, regional Australian courier flat/weight rates.</td>
+          <td><span class="badge badge-dark">Stage 1</span></td>
+          <td>AU Settings</td>
+        </tr>
+        <tr>
+          <td><strong>Trade &amp; B2B Enquiries</strong></td>
+          <td>Wholesale portal for architects, interior designers, and commercial builders.</td>
+          <td><span class="badge badge-outline">Stage 2</span></td>
+          <td>Customer Tags</td>
+        </tr>
+        <tr>
+          <td><strong>Architectural Tear Sheets</strong></td>
+          <td>One-click downloadable PDF specification sheets for commercial trade clients.</td>
+          <td><span class="badge badge-outline">Stage 2</span></td>
+          <td>Metafields / PDF</td>
+        </tr>
+        <tr>
+          <td><strong>Finish &amp; Material Swatches</strong></td>
+          <td>Visual circular finish swatches on PDPs with live variant image switching.</td>
+          <td><span class="badge badge-outline">Stage 2</span></td>
+          <td>Liquid Metafields</td>
+        </tr>
+        <tr>
+          <td><strong>Speed &amp; SEO Hardening</strong></td>
+          <td>Core Web Vitals sub-second optimization, Schema.org Product structured data.</td>
+          <td><span class="badge badge-outline">Stage 2</span></td>
+          <td>JSON-LD / CDN</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; SHOPIFY E-COMMERCE DEVELOPMENT PROPOSAL</div>
+    <div class="footer-page-num">Page 03 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 04: PROPOSED DESIGN DIRECTION ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Studio Alume &middot; Shopify E-Commerce Redesign</div>
+      <div class="header-right">03 &middot; Design Direction</div>
+    </div>
+
+    <span class="section-tag">Aesthetic Benchmarking &amp; Visual Identity</span>
+    <h1 class="page-title">Proposed Design Direction</h1>
+    
+    <p class="lead-text">
+      The client has identified <strong>Rachel Donath (racheldonath.com.au)</strong> as the primary design benchmark. We will capture that identical standard of editorial sophistication, expansive whitespace, and refined typography without producing an exact replica:
+    </p>
+
+    <!-- Visual Reference Split -->
+    <div class="grid-2" style="margin-bottom: 9px;">
+      <div style="border: 1px solid var(--black); border-radius: 4px; overflow: hidden; height: 50mm; position: relative;">
+        <img src="{PENDANT_IMG}" style="width: 100%; height: 100%; object-fit: cover;" alt="Rachel Donath Reference Style">
+        <div style="position: absolute; bottom: 6px; left: 8px; background: rgba(0,0,0,0.85); color: #fff; padding: 3px 8px; font-size: 6pt; border-radius: 2px;">
+          BENCHMARK: Rachel Donath Editorial Aesthetic
+        </div>
+      </div>
+      <div style="border: 1px solid var(--black); border-radius: 4px; overflow: hidden; height: 50mm; position: relative;">
+        <img src="{SCONCE_IMG}" style="width: 100%; height: 100%; object-fit: cover;" alt="Studio Alume Architectural Lighting">
+        <div style="position: absolute; bottom: 6px; left: 8px; background: rgba(0,0,0,0.85); color: #fff; padding: 3px 8px; font-size: 6pt; border-radius: 2px;">
+          TARGET: Studio Alume Bespoke Lighting Presentation
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 Design Pillars -->
+    <div class="grid-3" style="margin-bottom: 8px;">
+      <div class="card-bordered">
+        <h3 class="block-title" style="font-size:7.8pt;">01. Editorial Typography</h3>
+        <p class="body-text">
+          Pairing a refined serif headline typeface (Playfair/Cormorant) with a clean, highly legible grotesque sans-serif for prices, specs, and navigation. Strong typographic hierarchy with deliberate letter-spacing.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <h3 class="block-title" style="font-size:7.8pt;">02. Generous Negative Space</h3>
+        <p class="body-text">
+          Luxury is communicated through restraint. We implement expansive padding (80px–120px desktop section gaps) that allows architectural luminaires to command full visual focus without visual clutter.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <h3 class="block-title" style="font-size:7.8pt;">03. Image-Led Storytelling</h3>
+        <p class="body-text">
+          Full-bleed hero vignettes paired with 4:5 vertical product ratios. Close-up textural crops highlighting brushed brass, turned timber, and etched alabaster finishes create visceral desire.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <h3 class="block-title" style="font-size:7.8pt;">04. Understated Navigation</h3>
+        <p class="body-text">
+          A floating, translucent header that recedes on downward scroll and subtly reappears on upward scroll. Minimalist desktop megamenu; effortless slide-out mobile drawer with clear taxonomy.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <h3 class="block-title" style="font-size:7.8pt;">05. Elevated Product Display</h3>
+        <p class="body-text">
+          Split PDP presentation with a sticky right-hand purchase column and a fluid, multi-angle left-hand image gallery. Technical dimensions and bulb recommendations tucked into clean accordion tabs.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <h3 class="block-title" style="font-size:7.8pt;">06. Responsive Consistency</h3>
+        <p class="body-text">
+          Mobile shopping represents over 65% of interior luxury traffic. Every interaction—from image pinch-to-zoom to the slide-out cart drawer—is designed touch-first with frictionless tap targets.
+        </p>
+      </div>
+    </div>
+
+    <!-- Strict Design Boundary Notice -->
+    <div class="card-bordered" style="background:#FAFAFA; border-left:3px solid var(--black);">
+      <div style="font-size:7pt; font-weight:700; color:var(--black);">Axiom Global Design Integrity Guarantee</div>
+      <p style="font-size:6.7pt; color:var(--mid-grey); margin-top:2px; line-height:1.35;">
+        We do not create a facsimile of Rachel Donath. Instead, we dissect what makes the benchmark successful—spatial balance, typographic dignity, and smooth micro-interactions—and apply those principles to forge Studio Alume’s distinct, proprietary brand presence.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; SHOPIFY E-COMMERCE DEVELOPMENT PROPOSAL</div>
+    <div class="footer-page-num">Page 04 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 05: TECHNICAL IMPLEMENTATION & THEME ARCHITECTURE ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Studio Alume &middot; Shopify E-Commerce Redesign</div>
+      <div class="header-right">04 &middot; Technical Architecture</div>
+    </div>
+
+    <span class="section-tag">Engineering Approach &amp; Platform Selection</span>
+    <h1 class="page-title">Technical Implementation</h1>
+    
+    <p class="lead-text">
+      We adopt an efficient, theme-based Shopify Online Store 2.0 implementation strategy. This maximizes speed-to-market, eliminates expensive app bloat, and guarantees the client can update content and products without touching code:
+    </p>
+
+    <!-- Theme Recommendation Analysis -->
+    <div class="card-bordered" style="margin-bottom: 9px; border: 1.5px solid var(--black);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+        <span style="font-weight:800; font-size:8.5pt;">THEME EVALUATION &amp; RECOMMENDATION</span>
+        <span class="badge badge-dark">Key Decision Analysis</span>
+      </div>
+      <div class="grid-2" style="gap:10px;">
+        <div>
+          <div style="font-weight:700; font-size:7.5pt; color:var(--black); margin-bottom:2px;">Option A: Retain Existing Shopify Theme</div>
+          <p class="body-text">
+            <strong>Pros:</strong> Preserves existing page templates and layout data.<br>
+            <strong>Cons:</strong> If the current theme is an older Online Store 1.0 or rigid architecture, adding custom sections, metafield accordions, and modern drawer carts will require extensive custom coding, increasing development hours and potential technical debt.
+          </p>
+        </div>
+        <div>
+          <div style="font-weight:700; font-size:7.5pt; color:var(--black); margin-bottom:2px;">Option B: Deploy Modern Luxury OS 2.0 Theme (Recommended)</div>
+          <p class="body-text">
+            <strong>Recommendation:</strong> We recommend deploying a proven, luxury editorial OS 2.0 theme (such as <strong>Prestige</strong>, <strong>Broadcast</strong>, or a custom-architected <strong>Dawn 15+</strong> baseline).<br>
+            <strong>Why:</strong> Provides native section-rendering on all pages, native metafield bindings, sub-second Core Web Vitals, and built-in editorial swatches—saving 30+ hours of custom coding.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Core Technology Stack -->
+    <div class="grid-3" style="margin-bottom: 9px;">
+      <div class="card-bordered">
+        <h3 class="block-title" style="font-size:7.8pt;">Shopify Liquid &amp; JSON</h3>
+        <p class="body-text">
+          Modular, reusable Liquid components adhering to modern Shopify theme standards. Native JSON templates allow complete drag-and-drop customization in the Theme Customizer.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <h3 class="block-title" style="font-size:7.8pt;">Product Metafields</h3>
+        <p class="body-text">
+          Structured custom data schemas for technical lighting attributes: Lumens, Color Temp (2700K/3000K), Voltage, Bulb Base, IP Rating, Weight, Materials, and Downloadable Spec Sheets.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <h3 class="block-title" style="font-size:7.8pt;">Vanilla JS &amp; Modern CSS</h3>
+        <p class="body-text">
+          Zero heavy jQuery or bloated external plugins. We write lightweight ES6+ JavaScript for drawer carts, image zoom, and swatch switching, ensuring blazing 90+ Lighthouse mobile speeds.
+        </p>
+      </div>
+    </div>
+
+    <!-- Metafield Data Architecture Diagram -->
+    <div class="card-dark" style="margin-bottom: 6px;">
+      <div style="font-size:8pt; font-weight:800; letter-spacing:0.5px; margin-bottom:5px;">
+        STUDIO ALUME CUSTOM METAFIELD DATA SCHEMA
+      </div>
+      <div class="grid-4" style="gap:6px; font-size:6.6pt;">
+        <div style="background:rgba(255,255,255,0.08); padding:6px; border-radius:3px;">
+          <div style="font-weight:700; color:#FBBF24;">spec.dimensions</div>
+          <div style="color:#D1D5DB; margin-top:2px;">Height, Width, Depth, Ceiling Canopy &amp; Drop Length</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.08); padding:6px; border-radius:3px;">
+          <div style="font-weight:700; color:#FBBF24;">spec.electrical</div>
+          <div style="color:#D1D5DB; margin-top:2px;">Voltage, Wattage, Lumens, CRI 90+, Dimmable status</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.08); padding:6px; border-radius:3px;">
+          <div style="font-weight:700; color:#FBBF24;">spec.materials</div>
+          <div style="color:#D1D5DB; margin-top:2px;">Hand-finished Brass, Honed Alabaster, Fluted Glass</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.08); padding:6px; border-radius:3px;">
+          <div style="font-weight:700; color:#FBBF24;">spec.tearsheet_pdf</div>
+          <div style="color:#D1D5DB; margin-top:2px;">Direct file link to architectural cut sheet / 2D CAD</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; SHOPIFY E-COMMERCE DEVELOPMENT PROPOSAL</div>
+    <div class="footer-page-num">Page 05 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 06: PROJECT SCOPE - STAGE 1 ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Studio Alume &middot; Shopify E-Commerce Redesign</div>
+      <div class="header-right">05 &middot; Stage 1 Scope</div>
+    </div>
+
+    <span class="section-tag">Phase 1 &middot; Core E-Commerce Launch</span>
+    <h1 class="page-title">Project Scope — Stage 1</h1>
+    
+    <p class="lead-text">
+      Stage 1 delivers a fully functional, luxury e-commerce store with 20 configured lighting products, 3 interior design consultation packages, and complete Australian checkout readiness before Christmas 2026:
+    </p>
+
+    <!-- 17 Workstream Matrix -->
+    <table class="editorial-table">
+      <thead>
+        <tr>
+          <th style="width: 5%;">#</th>
+          <th style="width: 25%;">Scope Item</th>
+          <th style="width: 50%;">Technical Implementation &amp; Deliverables</th>
+          <th style="width: 20%;">Milestone</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>01</strong></td>
+          <td><strong>Theme &amp; Setup Audit</strong></td>
+          <td>Audit existing theme, codebase, apps, and store settings; confirm retention vs. OS 2.0 upgrade.</td>
+          <td>Discovery</td>
+        </tr>
+        <tr>
+          <td><strong>02</strong></td>
+          <td><strong>Theme Recommendation</strong></td>
+          <td>Formally present architectural comparison and configure base Online Store 2.0 theme.</td>
+          <td>Discovery</td>
+        </tr>
+        <tr>
+          <td><strong>03</strong></td>
+          <td><strong>Editorial Homepage</strong></td>
+          <td>Full redesign with hero banner, brand intro, featured collection grids, and editorial highlights.</td>
+          <td>Design &amp; Build</td>
+        </tr>
+        <tr>
+          <td><strong>04</strong></td>
+          <td><strong>Typography &amp; Spacing</strong></td>
+          <td>Integrate brand serif + sans-serif font pairing, generous section paddings, and contrast rules.</td>
+          <td>Design &amp; Build</td>
+        </tr>
+        <tr>
+          <td><strong>05</strong></td>
+          <td><strong>Navigation Overhaul</strong></td>
+          <td>Restructure desktop header &amp; mobile menu into intuitive Lighting, Collections, Services, and Story.</td>
+          <td>Design &amp; Build</td>
+        </tr>
+        <tr>
+          <td><strong>06</strong></td>
+          <td><strong>Collection Architecture</strong></td>
+          <td>Configure collections: Pendants, Wall Sconces, Table Lamps, Flush Mounts, Floor Luminaires.</td>
+          <td>Catalog Setup</td>
+        </tr>
+        <tr>
+          <td><strong>07</strong></td>
+          <td><strong>Product Page Template</strong></td>
+          <td>Build high-end PDP with sticky purchase rail, image carousel, accordion specs, and shipping notice.</td>
+          <td>Catalog Setup</td>
+        </tr>
+        <tr>
+          <td><strong>08</strong></td>
+          <td><strong>20 Lighting Products</strong></td>
+          <td>Upload client photography, copy, technical attributes, tags, and SEO metadata for ~20 products.</td>
+          <td>Catalog Setup</td>
+        </tr>
+        <tr>
+          <td><strong>09</strong></td>
+          <td><strong>Pricing &amp; Variants</strong></td>
+          <td>Configure finish variants (e.g., Aged Brass, Bronzed Steel, Alabaster) with linked inventory.</td>
+          <td>Catalog Setup</td>
+        </tr>
+        <tr>
+          <td><strong>10</strong></td>
+          <td><strong>Cart Architecture</strong></td>
+          <td>Implement slide-out Ajax cart drawer with subtotal, order notes, and Australian shipping threshold.</td>
+          <td>Checkout &amp; Cart</td>
+        </tr>
+        <tr>
+          <td><strong>11</strong></td>
+          <td><strong>Checkout Branding</strong></td>
+          <td>Brand Shopify Checkout with Studio Alume logo, custom typography, and trust badges.</td>
+          <td>Checkout &amp; Cart</td>
+        </tr>
+        <tr>
+          <td><strong>12</strong></td>
+          <td><strong>Payments &amp; Shipping</strong></td>
+          <td>Configure Shopify Payments, Apple/Google Pay, Afterpay/Klarna; set Australia-wide shipping tiers.</td>
+          <td>AU Settings</td>
+        </tr>
+        <tr>
+          <td><strong>13</strong></td>
+          <td><strong>Services Section</strong></td>
+          <td>Design dedicated Interior Design Services landing section showcasing spatial lighting methodology.</td>
+          <td>Services Build</td>
+        </tr>
+        <tr>
+          <td><strong>14</strong></td>
+          <td><strong>3 Consult Packages</strong></td>
+          <td>Create purchasable products for 3 consultation packages with custom intake fields.</td>
+          <td>Services Build</td>
+        </tr>
+        <tr>
+          <td><strong>15</strong></td>
+          <td><strong>Responsive Execution</strong></td>
+          <td>Pixel-perfect testing across macOS Safari, Windows Chrome, iPad, iPhone, and Android devices.</td>
+          <td>Quality Assurance</td>
+        </tr>
+        <tr>
+          <td><strong>16</strong></td>
+          <td><strong>QA &amp; Transaction Tests</strong></td>
+          <td>Execute end-to-end sandbox test orders, tax validation (10% AU GST), and notification emails.</td>
+          <td>Quality Assurance</td>
+        </tr>
+        <tr>
+          <td><strong>17</strong></td>
+          <td><strong>Launch Preparation</strong></td>
+          <td>Domain cutover assistance, SSL verification, 301 URL redirect mapping, and agency handover.</td>
+          <td>Go-Live</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; SHOPIFY E-COMMERCE DEVELOPMENT PROPOSAL</div>
+    <div class="footer-page-num">Page 06 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 07: PROJECT SCOPE - STAGE 2 ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Studio Alume &middot; Shopify E-Commerce Redesign</div>
+      <div class="header-right">06 &middot; Stage 2 Scope</div>
+    </div>
+
+    <span class="section-tag">Phase 2 &middot; Advanced Scaling &amp; B2B Enhancements</span>
+    <h1 class="page-title">Project Scope — Stage 2</h1>
+    
+    <p class="lead-text">
+      Stage 2 builds directly on the launched store, introducing advanced architectural features tailored to high-value interior designers, commercial architects, and bespoke trade buyers:
+    </p>
+
+    <!-- 12 Advanced Workstreams in 2 Columns -->
+    <div class="grid-2" style="gap: 8px; margin-bottom: 9px;">
+      <div class="card-bordered">
+        <div class="block-title" style="font-size:8pt;">01. Advanced Filtering &amp; Facets</div>
+        <p class="body-text">
+          Configure Shopify Search &amp; Discovery for real-time faceted filtering by Material, Finish, Color Temperature, Location (Indoor/Outdoor), and In-Stock availability without page reloads.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <div class="block-title" style="font-size:8pt;">02. Visual Material &amp; Finish Swatches</div>
+        <p class="body-text">
+          Render circular tactile swatches on product and collection pages. Clicking a finish (e.g., Antique Brass vs. Brushed Nickel) dynamically switches the main image gallery to match.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <div class="block-title" style="font-size:8pt;">03. Downloadable Spec Tear Sheets</div>
+        <p class="body-text">
+          One-click architectural cut-sheet downloads on PDPs. Allows commercial specifiers and interior architects to immediately download high-resolution PDF dimension and electrical specs.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <div class="block-title" style="font-size:8pt;">04. Artisan Storytelling Sections</div>
+        <p class="body-text">
+          Rich editorial storytelling modules highlighting bespoke metal-spinning, glass-blowing, and ethical handcrafting techniques to reinforce high-ticket luxury pricing justification.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <div class="block-title" style="font-size:8pt;">05. Design Process &amp; Craft Pages</div>
+        <p class="body-text">
+          Dedicated narrative pages walking clients through the Studio Alume concept-to-fabrication journey, featuring full-bleed photography and subtle scroll-triggered micro-interactions.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <div class="block-title" style="font-size:8pt;">06. Portfolio &amp; Project Showcase</div>
+        <p class="body-text">
+          An editorial lookbook of completed residential and hospitality projects, complete with tagged product links so viewers can "Shop the Room" directly from interior photography.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <div class="block-title" style="font-size:8pt;">07. Trade &amp; Wholesale Enquiry Engine</div>
+        <p class="body-text">
+          A dedicated B2B trade portal allowing interior designers and architects to apply for commercial tier pricing, submit volume project indents, and receive automated trade tagging.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <div class="block-title" style="font-size:8pt;">08. Enhanced Consultation Intake</div>
+        <p class="body-text">
+          Automated multi-step client discovery questionnaire linked to the 3 consultation packages, collecting room plans, inspiration files, and preferred appointment windows.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <div class="block-title" style="font-size:8pt;">09. Technical SEO &amp; Structured Data</div>
+        <p class="body-text">
+          Complete JSON-LD schema implementation (Product, BreadcrumbList, LocalBusiness), canonical tag optimization, OpenGraph social cards, and XML sitemap configuration.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <div class="block-title" style="font-size:8pt;">10. Performance &amp; Core Web Vitals</div>
+        <p class="body-text">
+          Image compression using modern WebP formats, critical CSS prioritization, lazy-loading optimizations, and JavaScript deferral targeting 90+ Google PageSpeed mobile scores.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <div class="block-title" style="font-size:8pt;">11. Analytics &amp; Conversion Tracking</div>
+        <p class="body-text">
+          Integration of Google Analytics 4 (GA4) enhanced e-commerce events, Meta Pixel with Conversions API, and custom event tracking for consultation package purchases.
+        </p>
+      </div>
+
+      <div class="card-bordered">
+        <div class="block-title" style="font-size:8pt;">12. Codebase Cleanup &amp; Handover</div>
+        <p class="body-text">
+          Removal of unused Liquid assets, comprehensive theme documentation for agency developers, and a 60-minute recorded video walkthrough for store staff.
+        </p>
+      </div>
+    </div>
+
+    <!-- Visual Banner for Trade & Commercial Section -->
+    <div style="border: 1px solid var(--black); border-radius: 4px; overflow: hidden; height: 35mm; position: relative;">
+      <img src="{PORTFOLIO_IMG}" style="width: 100%; height: 100%; object-fit: cover;" alt="Trade Portfolio Showcase">
+      <div style="position: absolute; bottom: 6px; left: 8px; background: rgba(0,0,0,0.85); color: #fff; padding: 4px 10px; font-size: 6.2pt; border-radius: 2px;">
+        STAGE 2 B2B CAPABILITY: Dedicated Architecture Trade Portals &amp; Completed Project Galleries
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; SHOPIFY E-COMMERCE DEVELOPMENT PROPOSAL</div>
+    <div class="footer-page-num">Page 07 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 08: INTERIOR DESIGN SERVICES & PACKAGES ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Studio Alume &middot; Shopify E-Commerce Redesign</div>
+      <div class="header-right">07 &middot; Services Architecture</div>
+    </div>
+
+    <span class="section-tag">High-Touch Revenue Stream</span>
+    <h1 class="page-title">Interior Design Services &amp; Packages</h1>
+    
+    <p class="lead-text">
+      Unlike standard e-commerce retailers, Studio Alume possesses profound interior architecture expertise. We configure the services section as a premium transactional gateway, featuring 3 tiered purchasable consultation packages:
+    </p>
+
+    <!-- Consultation Visual Banner -->
+    <div style="border: 1px solid var(--black); border-radius: 4px; overflow: hidden; height: 42mm; position: relative; margin-bottom: 9px;">
+      <img src="{CONSULT_IMG}" style="width: 100%; height: 100%; object-fit: cover;" alt="Interior Design Consultation Studio Alume">
+      <div style="position: absolute; bottom: 6px; left: 8px; background: rgba(0,0,0,0.85); color: #fff; padding: 4px 10px; font-size: 6.2pt; border-radius: 2px;">
+        STUDIO ALUME DESIGN ADVISORY: Transforming Digital Visitors into High-Value Interior Design Clients
+      </div>
+    </div>
+
+    <!-- 3 Tiered Consultation Cards -->
+    <div class="grid-3" style="margin-bottom: 9px;">
+      <!-- Tier 1 -->
+      <div class="card-bordered" style="border-top: 3px solid var(--black);">
+        <div class="badge badge-stage" style="margin-bottom: 3px;">PACKAGE 01</div>
+        <div style="font-weight: 800; font-size: 8.5pt; color: var(--black); margin-bottom: 2px;">Virtual Lighting Audit</div>
+        <div style="font-size: 10pt; font-weight: 800; color: var(--black); font-family: 'Playfair Display', serif; margin-bottom: 4px;">Tier 1 Consultation</div>
+        <p class="body-text" style="margin-bottom: 6px;">
+          Tailored for residential renovators seeking remote architectural lighting direction for specific rooms.
+        </p>
+        <ul style="padding-left: 12px; font-size: 6.5pt; color: var(--dark-charcoal); line-height: 1.4;">
+          <li>60-minute video discovery session</li>
+          <li>Review of architectural floor plans</li>
+          <li>Curated luminaire mood board</li>
+          <li>Studio Alume product discount voucher</li>
+        </ul>
+      </div>
+
+      <!-- Tier 2 -->
+      <div class="card-bordered" style="border-top: 3px solid var(--black); background: #FAFAFC;">
+        <div class="badge badge-dark" style="margin-bottom: 3px;">PACKAGE 02 &middot; POPULAR</div>
+        <div style="font-weight: 800; font-size: 8.5pt; color: var(--black); margin-bottom: 2px;">On-Site Spatial Review</div>
+        <div style="font-size: 10pt; font-weight: 800; color: var(--black); font-family: 'Playfair Display', serif; margin-bottom: 4px;">Tier 2 Consultation</div>
+        <p class="body-text" style="margin-bottom: 6px;">
+          Comprehensive in-person spatial lighting and interior finish consultation for complete residences.
+        </p>
+        <ul style="padding-left: 12px; font-size: 6.5pt; color: var(--dark-charcoal); line-height: 1.4;">
+          <li>In-home or site walkthrough (up to 2h)</li>
+          <li>Tactile finish &amp; material swatches review</li>
+          <li>Room-by-room lux level recommendations</li>
+          <li>Complete fixture procurement schedule</li>
+        </ul>
+      </div>
+
+      <!-- Tier 3 -->
+      <div class="card-bordered" style="border-top: 3px solid var(--black);">
+        <div class="badge badge-stage" style="margin-bottom: 3px;">PACKAGE 03</div>
+        <div style="font-weight: 800; font-size: 8.5pt; color: var(--black); margin-bottom: 2px;">Full Architectural Spec</div>
+        <div style="font-size: 10pt; font-weight: 800; color: var(--black); font-family: 'Playfair Display', serif; margin-bottom: 4px;">Tier 3 Consultation</div>
+        <p class="body-text" style="margin-bottom: 6px;">
+          Full-scale interior architecture specification for luxury builds, hospitality venues, and major renovations.
+        </p>
+        <ul style="padding-left: 12px; font-size: 6.5pt; color: var(--dark-charcoal); line-height: 1.4;">
+          <li>End-to-end lighting electrical plan markup</li>
+          <li>Custom bespoke fixture fabrication liaison</li>
+          <li>Full interior finish &amp; hardware palette</li>
+          <li>On-site builder &amp; sparky coordination</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Booking Flow Architecture -->
+    <div class="card-bordered" style="background:#FAFAFA;">
+      <div style="font-weight:800; font-size:7.5pt; color:var(--black); margin-bottom:3px;">
+        Seamless Consultation E-Commerce Checkout Flow
+      </div>
+      <div class="grid-4" style="gap:6px; font-size:6.6pt;">
+        <div style="border-right:1px solid var(--border-grey); padding-right:6px;">
+          <strong>1. Selection</strong><br>
+          Client selects Package tier on the Services landing page.
+        </div>
+        <div style="border-right:1px solid var(--border-grey); padding-right:6px;">
+          <strong>2. Intake Form</strong><br>
+          Enters project location, renovation timeline, and room count.
+        </div>
+        <div style="border-right:1px solid var(--border-grey); padding-right:6px;">
+          <strong>3. Payment</strong><br>
+          Seamless Shopify checkout with immediate invoice generation.
+        </div>
+        <div>
+          <strong>4. Calendar Sync</strong><br>
+          Automated calendar link sent to book client’s preferred date.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; SHOPIFY E-COMMERCE DEVELOPMENT PROPOSAL</div>
+    <div class="footer-page-num">Page 08 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 09: OUR DEVELOPMENT TEAM ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Studio Alume &middot; Shopify E-Commerce Redesign</div>
+      <div class="header-right">08 &middot; Development Team</div>
+    </div>
+
+    <span class="section-tag">Talent &amp; Australian Track Record</span>
+    <h1 class="page-title">Our Development Team</h1>
+    
+    <p class="lead-text">
+      Axiom Global deploys a seasoned, dedicated engineering squad with proven experience delivering enterprise web systems for Australian market leaders, including <strong>McGrath Real Estate (Australia)</strong> and <strong>Guardian Funds (Australia)</strong>:
+    </p>
+
+    <!-- Key Leadership Team Profiles -->
+    <div class="grid-2" style="margin-bottom: 8px;">
+      <!-- Chamara Lahiru -->
+      <div class="card-bordered" style="border-left: 3px solid var(--black);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+          <div>
+            <div style="font-size: 9pt; font-weight: 800; color: var(--black);">Chamara Lahiru</div>
+            <div style="font-size: 6.8pt; font-weight: 700; color: var(--mid-grey);">Senior Frontend &amp; Shopify Lead &middot; 6+ Years Exp</div>
+          </div>
+          <span class="badge badge-dark">Frontend Lead</span>
+        </div>
+        <p class="body-text" style="margin-top: 4px; margin-bottom: 4px;">
+          <strong>Role &amp; Responsibilities:</strong> Leads Shopify Online Store 2.0 theme architecture, editorial Liquid development, responsive CSS layouts, and micro-interactions.
+        </p>
+        <div style="font-size: 6.3pt; color: var(--dark-charcoal); line-height: 1.35; background: #F8FAFC; padding: 5px; border-radius: 3px;">
+          <strong>Australian Proven Track Record:</strong> Delivered full-stack frontend for <strong>McGrath Real Estate Platform (Australia)</strong>, enabling high-performance listing discovery, GraphQL APIs, and luxury responsive UX. Expertise in Next.js, React, Liquid, Tailwind, and Redux.
+        </div>
+      </div>
+
+      <!-- Viranga Lakshan -->
+      <div class="card-bordered" style="border-left: 3px solid var(--black);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+          <div>
+            <div style="font-size: 9pt; font-weight: 800; color: var(--black);">Viranga Lakshan</div>
+            <div style="font-size: 6.8pt; font-weight: 700; color: var(--mid-grey);">Client Solutions Architect &amp; Delivery Lead &middot; 2+ Years Exp</div>
+          </div>
+          <span class="badge badge-dark">Agency Liaison</span>
+        </div>
+        <p class="body-text" style="margin-top: 4px; margin-bottom: 4px;">
+          <strong>Role &amp; Responsibilities:</strong> Direct technical liaison with your digital agency, scope governance, Shopify metafield schemas, checkout configuration, and QA oversight.
+        </p>
+        <div style="font-size: 6.3pt; color: var(--dark-charcoal); line-height: 1.35; background: #F8FAFC; padding: 5px; border-radius: 3px;">
+          <strong>Expertise &amp; Projects:</strong> Headless CMS, React/Next.js architectures, Shopify Online Store 2.0, REST APIs. Delivered international digital museum platforms (Al Ain Museum, National History Museum) and enterprise portals.
+        </div>
+      </div>
+    </div>
+
+    <!-- Supporting Squad Members -->
+    <div class="grid-3" style="margin-bottom: 8px;">
+      <!-- Avishka Meddegoda -->
+      <div class="card-bordered">
+        <div style="font-size: 8pt; font-weight: 800; color: var(--black);">Avishka Meddegoda</div>
+        <div style="font-size: 6.2pt; font-weight: 700; color: var(--mid-grey); margin-bottom: 2px;">Technical Lead &middot; 6+ Years Exp</div>
+        <p class="body-text" style="font-size: 6.4pt;">
+          <strong>Responsibilities:</strong> Code quality reviews, third-party API contracts, payment gateway security, and liquid performance audits.
+        </p>
+        <div style="font-size: 5.9pt; color: var(--mid-grey); margin-top: 2px;">
+          Java Spring Boot, Node.js, AWS, Keycloak, REST APIs.
+        </div>
+      </div>
+
+      <!-- Janith Kavishka -->
+      <div class="card-bordered">
+        <div style="font-size: 8pt; font-weight: 800; color: var(--black);">Janith Kavishka</div>
+        <div style="font-size: 6.2pt; font-weight: 700; color: var(--mid-grey); margin-bottom: 2px;">Full-Stack &amp; E-Commerce Dev &middot; 2+ Years Exp</div>
+        <p class="body-text" style="font-size: 6.4pt;">
+          <strong>Responsibilities:</strong> Product catalog data ingestion, variant mapping, automated inventory fields, and cross-browser testing.
+        </p>
+        <div style="font-size: 5.9pt; color: var(--mid-grey); margin-top: 2px;">
+          React, Node.js, PostgreSQL, AWS RDS, Shopify Liquid.
+        </div>
+      </div>
+
+      <!-- Lithumitha Ravikumar -->
+      <div class="card-bordered">
+        <div style="font-size: 8pt; font-weight: 800; color: var(--black);">Lithumitha Ravikumar</div>
+        <div style="font-size: 6.2pt; font-weight: 700; color: var(--mid-grey); margin-bottom: 2px;">Project Manager &middot; 2 Years Exp</div>
+        <p class="body-text" style="font-size: 6.4pt;">
+          <strong>Responsibilities:</strong> Agile sprint planning, daily asynchronous reporting, agency milestone verification, and JIRA tracking.
+        </p>
+        <div style="font-size: 5.9pt; color: var(--mid-grey); margin-top: 2px;">
+          Managed delivery for <strong>Guardian Funds (Australia)</strong>. BIS Honours.
+        </div>
+      </div>
+    </div>
+
+    <!-- Team Collaboration Environment -->
+    <div style="border: 1px solid var(--black); border-radius: 4px; overflow: hidden; height: 32mm; position: relative;">
+      <img src="{TEAM_IMG}" style="width: 100%; height: 100%; object-fit: cover;" alt="Axiom Global Engineering Office">
+      <div style="position: absolute; bottom: 6px; left: 8px; background: rgba(0,0,0,0.85); color: #fff; padding: 4px 10px; font-size: 6.2pt; border-radius: 2px;">
+        AXIOM GLOBAL SQUAD: Direct White-Label Collaboration with Australian Web Development Agencies
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; SHOPIFY E-COMMERCE DEVELOPMENT PROPOSAL</div>
+    <div class="footer-page-num">Page 09 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 10: PROJECT TIMELINE & PRE-CHRISTMAS ROADMAP ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Studio Alume &middot; Shopify E-Commerce Redesign</div>
+      <div class="header-right">09 &middot; Delivery Roadmap</div>
+    </div>
+
+    <span class="section-tag">Realistic Schedule &amp; Holiday Readiness</span>
+    <h1 class="page-title">Project Timeline &amp; Pre-Christmas Launch</h1>
+    
+    <p class="lead-text">
+      The client has requested launch before Christmas 2026. Based on our structured theme-based methodology, <strong>completing Stage 1 before Christmas is 100% achievable</strong> within a focused 3.5 to 4-week development sprint:
+    </p>
+
+    <!-- Honest Assessment Card -->
+    <div class="card-bordered" style="background:#F0FDF4; border:1.5px solid #22C55E; margin-bottom:9px;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-weight:800; font-size:8pt; color:#166534;">HONEST TIMELINE ASSESSMENT &middot; PRE-CHRISTMAS LAUNCH VERDICT</span>
+        <span class="badge" style="background:#166534; color:#fff;">CONFIRMED ACHIEVABLE</span>
+      </div>
+      <p style="font-size:7pt; color:#166534; margin-top:3px; line-height:1.4;">
+        <strong>Stage 1 (Launch-Critical):</strong> Can be delivered, tested, and launched by <strong>mid-December 2026</strong>, provided client photography and copy are supplied in Week 1.<br>
+        <strong>Stage 2 (Advanced Scaling):</strong> Recommended for execution in <strong>January 2027</strong> post-holiday freeze, ensuring zero disruption to holiday trade.
+      </p>
+    </div>
+
+    <!-- Weekly Milestone Table -->
+    <table class="editorial-table" style="margin-bottom:8px;">
+      <thead>
+        <tr>
+          <th style="width: 15%;">Phase / Week</th>
+          <th style="width: 45%;">Workstreams &amp; Key Milestones</th>
+          <th style="width: 25%;">Agency &amp; Client Action</th>
+          <th style="width: 15%;">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Week 01</strong><br><span style="font-size:5.8pt; color:var(--mid-grey);">Days 1–5</span></td>
+          <td>
+            <strong>Discovery &amp; Theme Architecture</strong><br>
+            Audit existing setup; theme selection &amp; setup; design direction approval; global typography &amp; spacing framework.
+          </td>
+          <td>Provide Shopify access; supply brand assets &amp; photography.</td>
+          <td><span class="badge badge-dark">Stage 1</span></td>
+        </tr>
+        <tr>
+          <td><strong>Week 02</strong><br><span style="font-size:5.8pt; color:var(--mid-grey);">Days 6–10</span></td>
+          <td>
+            <strong>Homepage &amp; Template Build</strong><br>
+            Editorial homepage development; navigation restructuring; custom PDP template; collection template layout.
+          </td>
+          <td>Review &amp; approve homepage staging preview.</td>
+          <td><span class="badge badge-dark">Stage 1</span></td>
+        </tr>
+        <tr>
+          <td><strong>Week 03</strong><br><span style="font-size:5.8pt; color:var(--mid-grey);">Days 11–15</span></td>
+          <td>
+            <strong>Catalog &amp; Services Ingestion</strong><br>
+            Upload 20 lighting products with variants &amp; specs; configure 3 interior design consultation packages; cart drawer build.
+          </td>
+          <td>Review product copy &amp; pricing schedules.</td>
+          <td><span class="badge badge-dark">Stage 1</span></td>
+        </tr>
+        <tr>
+          <td><strong>Week 04</strong><br><span style="font-size:5.8pt; color:var(--mid-grey);">Days 16–20</span></td>
+          <td>
+            <strong>QA, AU Settings &amp; Launch</strong><br>
+            Shopify Payments &amp; shipping configuration; responsive device testing; end-to-end checkout test; <strong>Pre-Christmas Go-Live</strong>.
+          </td>
+          <td>Sign-off on staging; authorize domain cutover.</td>
+          <td><span class="badge" style="background:#22C55E; color:#fff;">Go-Live!</span></td>
+        </tr>
+        <tr>
+          <td><strong>Post-Holiday</strong><br><span style="font-size:5.8pt; color:var(--mid-grey);">January 2027</span></td>
+          <td>
+            <strong>Stage 2 Advanced Enhancements</strong><br>
+            Faceted filters, finish swatches, downloadable tear sheets, trade B2B portal, speed optimization, and SEO hardening.
+          </td>
+          <td>Review Stage 2 roadmap based on live customer data.</td>
+          <td><span class="badge badge-outline">Stage 2</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Project Governance Guarantee -->
+    <div class="grid-3" style="gap:6px;">
+      <div class="card-bordered">
+        <div style="font-weight:700; font-size:6.8pt; color:var(--black);">Daily Async Standups</div>
+        <p class="body-text" style="font-size:6.2pt;">Direct Slack/Teams updates on completed tasks, blockers, and next milestones.</p>
+      </div>
+      <div class="card-bordered">
+        <div style="font-weight:700; font-size:6.8pt; color:var(--black);">Weekly Video Demos</div>
+        <p class="body-text" style="font-size:6.2pt;">Recorded Loom walkthroughs of staging progress for effortless agency review.</p>
+      </div>
+      <div class="card-bordered">
+        <div style="font-weight:700; font-size:6.8pt; color:var(--black);">Zero Launch Friction</div>
+        <p class="body-text" style="font-size:6.2pt;">Staged development on a duplicate theme prevents any downtime on the live site.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; SHOPIFY E-COMMERCE DEVELOPMENT PROPOSAL</div>
+    <div class="footer-page-num">Page 10 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 11: DELIVERABLES CHECKLIST ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Studio Alume &middot; Shopify E-Commerce Redesign</div>
+      <div class="header-right">10 &middot; Deliverables Matrix</div>
+    </div>
+
+    <span class="section-tag">Verification &amp; Handover Criteria</span>
+    <h1 class="page-title">Deliverables Matrix</h1>
+    
+    <p class="lead-text">
+      To ensure absolute clarity between our development team and your agency, every project deliverable is bound to a strict acceptance criteria:
+    </p>
+
+    <!-- Stage 1 vs Stage 2 Deliverables Comparison -->
+    <div class="grid-2" style="margin-bottom: 9px;">
+      <!-- Stage 1 Deliverables Box -->
+      <div class="card-bordered" style="border-top: 3px solid var(--black);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <span style="font-weight:800; font-size:8pt;">STAGE 1: LAUNCH DELIVERABLES</span>
+          <span class="badge badge-dark">Pre-Christmas 2026</span>
+        </div>
+        <ul style="padding-left:14px; font-size:6.6pt; color:var(--dark-charcoal); line-height:1.45;">
+          <li>✓ Complete theme codebase deployed to Studio Alume Shopify store.</li>
+          <li>✓ Editorial Homepage with dynamic modular OS 2.0 sections.</li>
+          <li>✓ Desktop mega-navigation and mobile drawer menu configured.</li>
+          <li>✓ Collection page templates with 2/3/4-column responsive grid toggles.</li>
+          <li>✓ Custom Product Page (PDP) template with sticky rail &amp; spec accordions.</li>
+          <li>✓ 20 lighting products fully populated with variants, copy &amp; images.</li>
+          <li>✓ Slide-out Ajax drawer cart with order notes &amp; shipping messaging.</li>
+          <li>✓ Branded Shopify Checkout with logo and trust badges.</li>
+          <li>✓ Payment gateway configuration (Shopify Payments, Apple Pay, Afterpay).</li>
+          <li>✓ Australian shipping zones, weight tiers, and free shipping triggers.</li>
+          <li>✓ Dedicated Interior Design Services section with editorial layout.</li>
+          <li>✓ 3 purchasable design consultation packages with intake questions.</li>
+          <li>✓ Cross-browser QA sign-off across iOS, Android, macOS, and Windows.</li>
+          <li>✓ Successful domain launch and legacy 301 URL redirects mapped.</li>
+        </ul>
+      </div>
+
+      <!-- Stage 2 Deliverables Box -->
+      <div class="card-bordered" style="border-top: 3px solid var(--black); background:#FAFAFC;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <span style="font-weight:800; font-size:8pt;">STAGE 2: ADVANCED SCALE DELIVERABLES</span>
+          <span class="badge badge-outline">Post-Holiday 2027</span>
+        </div>
+        <ul style="padding-left:14px; font-size:6.6pt; color:var(--dark-charcoal); line-height:1.45;">
+          <li>✓ Advanced collection filtering by material, finish, and availability.</li>
+          <li>✓ Tactile visual finish swatches on PDPs and collection cards.</li>
+          <li>✓ Downloadable architectural PDF cut sheets / tear sheets.</li>
+          <li>✓ Brand storytelling and craftsmanship narrative sections.</li>
+          <li>✓ Completed interior project gallery with "Shop the Look" tags.</li>
+          <li>✓ Trade and wholesale B2B enquiry portal with customer tagging.</li>
+          <li>✓ Enhanced consultation onboarding questionnaire.</li>
+          <li>✓ Foundational SEO schema (Product, Breadcrumbs, Organization).</li>
+          <li>✓ Core Web Vitals speed optimization targeting 90+ mobile scores.</li>
+          <li>✓ Cleaned Liquid theme repository and 60-min recorded handover video.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Agency Sign-Off Protocol -->
+    <div class="card-dark" style="margin-bottom: 6px;">
+      <div style="font-size:7.8pt; font-weight:800; margin-bottom:3px;">Agency White-Label Handover Protocol</div>
+      <p style="font-size:6.8pt; color:#E5E7EB; line-height:1.35;">
+        All code is developed on an isolated staging theme. The live Studio Alume brochure site remains untouched and operational until your agency conducts final user acceptance testing (UAT). Go-live occurs instantly via a single theme publication click.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; SHOPIFY E-COMMERCE DEVELOPMENT PROPOSAL</div>
+    <div class="footer-page-num">Page 11 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 12: COMMERCIAL PROPOSAL ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Studio Alume &middot; Shopify E-Commerce Redesign</div>
+      <div class="header-right">11 &middot; Commercial Proposal</div>
+    </div>
+
+    <span class="section-tag">Investment Structure &amp; Milestone Schedule</span>
+    <h1 class="page-title">Commercial Proposal</h1>
+    
+    <p class="lead-text">
+      We provide transparent, fixed-price commercial terms structured for agency wholesale partnerships. No hidden agency surcharges, no surprise hourly creep:
+    </p>
+
+    <!-- Pricing Summary Cards -->
+    <div class="grid-3" style="margin-bottom: 9px;">
+      <div class="card-bordered" style="border-top: 3px solid var(--black); text-align: center;">
+        <div class="badge badge-stage" style="margin-bottom: 3px;">STAGE 1 INVESTMENT</div>
+        <div style="font-size: 16pt; font-weight: 800; color: var(--black); font-family: 'Playfair Display', serif;">$3,200 AUD</div>
+        <div style="font-size: 6.5pt; color: var(--mid-grey); margin-top: 2px;">Fixed Price &middot; 3.5–4 Weeks</div>
+        <div style="font-size: 6pt; color: var(--dark-charcoal); margin-top: 4px; border-top: 1px solid var(--border-grey); padding-top: 4px;">
+          Complete Core E-Commerce Launch, 20 Products, 3 Consult Packages
+        </div>
+      </div>
+
+      <div class="card-bordered" style="border-top: 3px solid var(--black); text-align: center;">
+        <div class="badge badge-outline" style="margin-bottom: 3px;">STAGE 2 INVESTMENT</div>
+        <div style="font-size: 16pt; font-weight: 800; color: var(--black); font-family: 'Playfair Display', serif;">$1,800 AUD</div>
+        <div style="font-size: 6.5pt; color: var(--mid-grey); margin-top: 2px;">Fixed Price &middot; 2 Weeks</div>
+        <div style="font-size: 6pt; color: var(--dark-charcoal); margin-top: 4px; border-top: 1px solid var(--border-grey); padding-top: 4px;">
+          Trade Portal, Tear Sheets, Finish Swatches, Speed &amp; SEO
+        </div>
+      </div>
+
+      <div class="card-bordered" style="border-top: 3px solid var(--black); background: #FAFAFC; text-align: center;">
+        <div class="badge badge-dark" style="margin-bottom: 3px;">COMBINED PACKAGE</div>
+        <div style="font-size: 16pt; font-weight: 800; color: var(--black); font-family: 'Playfair Display', serif;">$4,750 AUD</div>
+        <div style="font-size: 6.5pt; color: var(--mid-grey); margin-top: 2px;">Full Scope &middot; Discounted Bundle</div>
+        <div style="font-size: 6pt; color: var(--dark-charcoal); margin-top: 4px; border-top: 1px solid var(--border-grey); padding-top: 4px;">
+          Includes $250 Agency Package Discount when commissioned together
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Milestones Table -->
+    <table class="editorial-table" style="margin-bottom:8px;">
+      <thead>
+        <tr>
+          <th style="width: 25%;">Milestone Trigger</th>
+          <th style="width: 45%;">Work Covered</th>
+          <th style="width: 15%;">Stage 1 Share</th>
+          <th style="width: 15%;">Amount (AUD)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Milestone 1: Project Kickoff</strong></td>
+          <td>Theme architecture setup, design system baseline, global typography &amp; navigation framework.</td>
+          <td>40%</td>
+          <td>$1,280 AUD</td>
+        </tr>
+        <tr>
+          <td><strong>Milestone 2: Staging Approval</strong></td>
+          <td>Homepage, PDP template, 20 lighting products configured, 3 design packages, cart drawer functional.</td>
+          <td>40%</td>
+          <td>$1,280 AUD</td>
+        </tr>
+        <tr>
+          <td><strong>Milestone 3: Final Launch</strong></td>
+          <td>Cross-device QA sign-off, Australian payment gateway tests, domain cutover, and live store launch.</td>
+          <td>20%</td>
+          <td>$640 AUD</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Third-Party Costs Transparency -->
+    <div class="card-bordered" style="background:#FAFAFA;">
+      <div style="font-weight:800; font-size:7.5pt; color:var(--black); margin-bottom:2px;">
+        Third-Party &amp; Software Application Costs (100% Transparent)
+      </div>
+      <div class="grid-2" style="font-size:6.6pt; color:var(--dark-charcoal); line-height:1.4;">
+        <div>
+          • <strong>Shopify Theme License (Optional):</strong> If Option B (e.g. Prestige/Broadcast) is chosen: ~$350–$380 USD one-time fee paid directly to Shopify Theme Store (zero recurring cost).<br>
+          • <strong>Shopify Subscription:</strong> Direct client account with Shopify (Basic or Shopify plan).
+        </div>
+        <div>
+          • <strong>Zero Monthly App Bloat:</strong> We deliberately engineer collection filtering, swatches, accordions, and cart drawers into native Liquid code, saving Studio Alume <strong>$50–$120/month</strong> in paid recurring apps.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; SHOPIFY E-COMMERCE DEVELOPMENT PROPOSAL</div>
+    <div class="footer-page-num">Page 12 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 13: ASSUMPTIONS & EXCLUSIONS ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Studio Alume &middot; Shopify E-Commerce Redesign</div>
+      <div class="header-right">12 &middot; Assumptions &amp; Exclusions</div>
+    </div>
+
+    <span class="section-tag">Governance &amp; Risk Mitigation</span>
+    <h1 class="page-title">Assumptions &amp; Exclusions</h1>
+    
+    <p class="lead-text">
+      To maintain project velocity and meet the critical pre-Christmas 2026 launch window, the commercial proposal is predicated on the following mutual operating assumptions:
+    </p>
+
+    <!-- Assumptions & Exclusions 2 Columns -->
+    <div class="grid-2" style="margin-bottom: 9px;">
+      <!-- Project Assumptions -->
+      <div class="card-bordered">
+        <div style="font-weight:800; font-size:8pt; color:var(--black); margin-bottom:4px; border-bottom:1px solid var(--border-grey); padding-bottom:3px;">
+          Working Assumptions
+        </div>
+        <ul style="padding-left:14px; font-size:6.8pt; color:var(--dark-charcoal); line-height:1.45;">
+          <li><strong>Client Assets:</strong> Client supplies professional product photography (high-res WebP/JPG), written descriptions, and technical specifications for the ~20 products.</li>
+          <li><strong>Shopify Access:</strong> Partner collaborator access to the Studio Alume Shopify store is provided within 24 hours of kickoff.</li>
+          <li><strong>Agency Feedback:</strong> Staging feedback and milestone approvals are returned within 48 business hours to safeguard the Christmas deadline.</li>
+          <li><strong>No AI Imagery:</strong> Per the project brief, all product and brand photography will be client-supplied; no AI imagery will be injected.</li>
+          <li><strong>Staging Environment:</strong> Development occurs on an un-published duplicate theme, preventing interference with current brochure traffic.</li>
+        </ul>
+      </div>
+
+      <!-- Scope Exclusions -->
+      <div class="card-bordered">
+        <div style="font-weight:800; font-size:8pt; color:var(--black); margin-bottom:4px; border-bottom:1px solid var(--border-grey); padding-bottom:3px;">
+          Scope Exclusions
+        </div>
+        <ul style="padding-left:14px; font-size:6.8pt; color:var(--dark-charcoal); line-height:1.45;">
+          <li><strong>Photography Creation:</strong> Physical photoshoots, 3D photorealistic rendering, or CAD drafting (must be supplied by client).</li>
+          <li><strong>Enterprise ERP / Custom WMS:</strong> Custom third-party warehouse management integration beyond standard Shopify inventory.</li>
+          <li><strong>Paid App Subscriptions:</strong> Third-party SaaS subscription fees (e.g. Klaviyo, Shopify Theme Store licenses) billed directly to client.</li>
+          <li><strong>Copywriting from Scratch:</strong> Original editorial writing (we polish, format, and structure client-provided draft text).</li>
+          <li><strong>Scope Creep:</strong> Substantial features outside the 17 Stage 1 items quoted via separate mutually agreed sprint indents.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Agency White-Label Governance Protocols -->
+    <div class="card-bordered" style="background:#FAFAFC; margin-bottom:6px;">
+      <div style="font-weight:800; font-size:7.5pt; color:var(--black); margin-bottom:3px;">
+        Agency White-Label SLA &amp; Communication Standards
+      </div>
+      <div class="grid-3" style="gap:6px; font-size:6.5pt; color:var(--dark-charcoal); line-height:1.35;">
+        <div>
+          <strong>Communication Channels</strong><br>
+          We communicate directly with your agency via your preferred platform (Slack, Microsoft Teams, Asana, or ClickUp).
+        </div>
+        <div>
+          <strong>Timezone Alignment</strong><br>
+          We operate across Australian Eastern Time (AEST/AEDT) business hours with dedicated daily overlap for rapid reviews.
+        </div>
+        <div>
+          <strong>Post-Launch Warranty</strong><br>
+          Includes a complimentary <strong>30-day post-launch technical bug-fix warranty</strong> for complete peace of mind.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; SHOPIFY E-COMMERCE DEVELOPMENT PROPOSAL</div>
+    <div class="footer-page-num">Page 13 of 14</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 14: WHY CHOOSE OUR TEAM & CLOSING ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">Studio Alume &middot; Shopify E-Commerce Redesign</div>
+      <div class="header-right">13 &middot; Agency Partnership</div>
+    </div>
+
+    <span class="section-tag">Why Axiom Global &middot; Partnership Commitment</span>
+    <h1 class="page-title">Why Partner With Axiom Global?</h1>
+    
+    <p class="lead-text">
+      Australian digital agencies partner with Axiom Global because we eliminate the risks of freelance inconsistency while delivering enterprise-grade engineering at attractive wholesale margins:
+    </p>
+
+    <!-- 4 Agency Value Pillars -->
+    <div class="grid-2" style="margin-bottom: 9px;">
+      <div class="card-bordered" style="border-left: 3px solid var(--black);">
+        <h3 class="block-title" style="font-size:8.2pt;">01. Australian Enterprise Track Record</h3>
+        <p class="body-text">
+          Our senior engineers have engineered platforms for prominent Australian institutions, including <strong>McGrath Real Estate (Australia)</strong> and <strong>Guardian Funds (Australia)</strong>. We understand Australian aesthetic sensibilities, GST compliance, and local checkout expectations.
+        </p>
+      </div>
+
+      <div class="card-bordered" style="border-left: 3px solid var(--black);">
+        <h3 class="block-title" style="font-size:8.2pt;">02. Editorial Nuance &amp; Design Respect</h3>
+        <p class="body-text">
+          We understand that Studio Alume is not a commodity storefront. We obsess over typographic tracking, micro-spacing, and subtle transitions, ensuring the final store possesses the poise of high-end international design houses.
+        </p>
+      </div>
+
+      <div class="card-bordered" style="border-left: 3px solid var(--black);">
+        <h3 class="block-title" style="font-size:8.2pt;">03. Zero App Bloat &amp; Clean Code</h3>
+        <p class="body-text">
+          We build with native Liquid and Shopify OS 2.0 sections rather than stacking 15 paid apps that slow down the store and break during Shopify core updates. Studio Alume gets a fast, maintainable store that lasts.
+        </p>
+      </div>
+
+      <div class="card-bordered" style="border-left: 3px solid var(--black);">
+        <h3 class="block-title" style="font-size:8.2pt;">04. Immediate Availability &amp; Holiday Focus</h3>
+        <p class="body-text">
+          Our squad is available to commence work within <strong>48 hours of approval</strong>. We reserve dedicated sprint capacity to guarantee the Studio Alume Stage 1 launch is achieved comfortably before Christmas.
+        </p>
+      </div>
+    </div>
+
+    <!-- Closing Callout Box -->
+    <div class="card-dark" style="padding: 14px 18px; margin-bottom: 9px;">
+      <div style="font-size: 11pt; font-weight: 800; font-family: 'Playfair Display', serif; margin-bottom: 4px;">
+        Let’s Build Something Exceptional Together.
+      </div>
+      <p style="font-size: 7.2pt; color: #D1D5DB; line-height: 1.45; margin-bottom: 8px;">
+        We appreciate the opportunity to submit this proposal for the Studio Alume transformation. We look forward to working directly with your digital agency team to deliver a stunning, revenue-generating e-commerce experience that sets a new benchmark in Australian architectural lighting.
+      </p>
+      <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(255,255,255,0.15); padding-top:8px;">
+        <div>
+          <div style="font-size:8pt; font-weight:800; color:#FFFFFF;">Viranga Lakshan</div>
+          <div style="font-size:6.5pt; color:#9CA3AF;">Client Solutions Architect &amp; Delivery Lead &middot; Axiom Global</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:7pt; color:#FBBF24; font-weight:700;">virangalakshanz@gmail.com &middot; +94 71 378 1359</div>
+          <div style="font-size:6.2pt; color:#9CA3AF;">axiomglobal.tech &middot; Global Enterprise Delivery</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; SHOPIFY E-COMMERCE DEVELOPMENT PROPOSAL</div>
+    <div class="footer-page-num">Page 14 of 14</div>
+  </div>
+</div>
+
+</body>
+</html>
+"""
+
+def generate_pdf():
+    # 1. Write HTML
+    with open(HTML_PATH, "w", encoding="utf-8") as f:
+        f.write(HTML_CONTENT)
+    print(f"HTML written to {HTML_PATH}")
+
+    # 2. Compile via Playwright
+    async def run():
+        async with async_playwright() as p:
+            browser = await p.chromium.launch(headless=True)
+            page = await browser.new_page()
+            await page.goto(f"file:///{HTML_PATH.replace(os.sep, '/')}", wait_until="networkidle")
+            await page.wait_for_timeout(1000)
+            await page.pdf(
+                path=PDF_PATH,
+                format="A4",
+                print_background=True,
+                margin={"top": "0mm", "right": "0mm", "bottom": "0mm", "left": "0mm"}
+            )
+            await browser.close()
+    
+    asyncio.run(run())
+    print(f"PDF successfully generated at: {PDF_PATH}")
+
+    # 3. Verify Page Count with PyPDF
+    reader = pypdf.PdfReader(PDF_PATH)
+    total_pages = len(reader.pages)
+    print(f"Total Page Count: {total_pages}")
+    assert total_pages == 14, f"Expected 14 pages, got {total_pages}"
+    print("PAGE COUNT VERIFICATION PASSED: Exactly 14 pages.")
+
+if __name__ == "__main__":
+    generate_pdf()
