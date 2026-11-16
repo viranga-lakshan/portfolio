@@ -34,9 +34,7 @@
 
 ## 2. Key Commercial & Technical Highlights
 
-- **Stage 1 Fixed Price:** $3,200 AUD (3.5–4 Weeks, Launch mid-December 2026).
-- **Stage 2 Fixed Price:** $1,800 AUD (2 Weeks, Post-holiday January 2027).
-- **Combined Package:** $4,750 AUD (Includes $250 AUD bundled agency partnership discount).
+- **Commercial Model:** Aligned 100% with client's posted fixed-price budget ($2,000 USD). Structured across 3 milestones: 40% Kickoff & Theme Setup, 40% Staging Approval & 20 Products Configured, 20% Live Handover.
 - **Theme Recommendation:** Deploying an elite editorial Online Store 2.0 theme (Prestige, Broadcast, or custom Dawn 15+ fork) to avoid ~30 hours of legacy code patching and save $50–$120/month in recurring app subscriptions.
 - **Pre-Christmas Launch Feasibility:** **100% Achievable for Stage 1** with focused 4-week execution.
 

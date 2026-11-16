@@ -60,9 +60,7 @@ Here are the most relevant e-commerce and Australian platforms our team has deli
 
 *KEY PROPOSAL DETAILS & TIMELINE*
 
-• *Stage 1 Fixed Price:* $3,200 AUD (3.5–4 Weeks)
-• *Stage 2 Fixed Price:* $1,800 AUD (2 Weeks)
-• *Combined Package:* $4,750 AUD (Includes $250 AUD bundled agency partnership discount)
+• *Commercial Terms:* We fully accept and align with your posted fixed-price budget of $2,000. We structure this across transparent milestone escrow releases (e.g. 40% Kickoff & Theme Setup, 40% Staging Approval & 20 Products Configured, 20% Final Launch & Handover).
 • *Pre-Christmas Launch Feasibility:* YES. Stage 1 can realistically be launched by mid-December 2026, well before the holiday trade, provided client assets are supplied in Week 1. Stage 2 is recommended for January 2027 post-holiday trade.
 • *Theme Recommendation:* We recommend deploying an elite modern Online Store 2.0 editorial theme (such as Prestige, Broadcast, or a customized Dawn 15+ baseline). This provides native sections everywhere, native spec metafields, and sub-second mobile speeds—saving ~30 hours of legacy patching and $0 in recurring monthly apps.
 • *Agency Collaboration:* We work directly behind your agency as your white-label technical team with daily async Slack/Teams standups and weekly recorded Loom demos.
@@ -81,3 +79,4 @@ Phone / WhatsApp: +94 71 378 1359
 Website: https://axiomglobal.tech  
 LinkedIn: https://www.linkedin.com/in/viranga-lakshan-869515279
 ```
+

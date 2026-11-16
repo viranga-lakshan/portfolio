@@ -28,15 +28,13 @@ ANSWERS TO YOUR 10 SPECIFIC PROPOSAL REQUIREMENTS
 ================================================================================
 
 1. Estimated Fixed Price for Stage 1:
-$3,200 AUD
-Covers the complete Core E-Commerce Launch: theme audit & architecture, editorial homepage redesign, navigation restructuring, custom Product Page (PDP) template with technical lighting spec accordions, upload and configuration of ~20 lighting products with finish variants, slide-out Ajax drawer cart, branded Australian checkout, 3 purchasable interior design consultation packages with intake flows, and cross-device QA testing.
+We fully accept and align with your posted fixed-price budget of $2,000. For Stage 1 (Core E-Commerce Launch), this covers the complete scope: theme audit & architecture, editorial homepage redesign, navigation restructuring, custom Product Page (PDP) template with technical lighting spec accordions, upload and configuration of ~20 lighting products with finish variants, slide-out Ajax drawer cart, branded Australian checkout, 3 purchasable interior design consultation packages with intake flows, and cross-device QA testing.
 
 2. Estimated Fixed Price for Stage 2:
-$1,800 AUD
-Covers Advanced Enhancements: collection faceted filtering (Search & Discovery), visual material & finish swatches, downloadable architectural PDF spec sheets (tear sheets), B2B trade/wholesale enquiry portal with customer tagging, completed project portfolio showcase ("Shop the Look"), Core Web Vitals speed optimization (90+ mobile), and technical SEO schema.
+Included and aligned within your overall fixed-price roadmap (Advanced Enhancements: collection faceted filtering, visual material & finish swatches, downloadable architectural PDF spec sheets, B2B trade portal, portfolio showcase, Core Web Vitals speed optimization, and technical SEO schema).
 
 3. Total Estimated Cost for Both Stages:
-$4,750 AUD (Includes a $250 AUD bundled agency partnership discount when commissioned together).
+$2,000 (Agreed client fixed price budget). Structured across transparent milestone releases (40% Kickoff & Setup / 40% Staging Approval & 20 Products / 20% Live Launch).
 
 4. Estimated Development Timeframe for Each Stage:
 • Stage 1: 3.5 to 4 weeks from project kickoff and asset receipt.
