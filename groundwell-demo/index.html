@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GroundWell Sound & Wellness Sanctuary | Interactive Wix CMS & Acuity Blueprint</title>
+  <meta name="description" content="Interactive prototype demonstration built for GroundWell Sound & Wellness Center by Axiom Global. Featuring dynamic CMS collections, Acuity room conflict prevention, and ambient sound player.">
+
+  <!-- Google Fonts: Editorial Luxury Serifs + Clean Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            display: ['"Cinzel"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            sanctuary: {
+              50: '#FBF9F6',
+              100: '#F5F2EB',
+              200: '#E8E1D5',
+              300: '#D5C7B3',
+              400: '#C29A72', // Warm terracotta / bronze
+              500: '#B0885D',
+              600: '#8E6842',
+              sage: '#8FA998', // Calming wellness sage
+              deep: '#0F1115', // Base obsidian
+              card: '#161922',
+              cardHover: '#1C202B',
+              border: 'rgba(255, 255, 255, 0.08)',
+              borderActive: '#C29A72'
+            }
+          },
+          animation: {
+            'breathe': 'breathe 8s ease-in-out infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+          },
+          keyframes: {
+            breathe: {
+              '0%, 100%': { transform: 'scale(1)', opacity: '0.85' },
+              '50%': { transform: 'scale(1.04)', opacity: '1' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 15px rgba(194, 154, 114, 0.2)' },
+              '50%': { boxShadow: '0 0 35px rgba(194, 154, 114, 0.5)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom 2026 Editorial Styling */
+    ::selection {
+      background-color: #C29A72;
+      color: #0F1115;
+    }
+
+    body {
+      background-color: #0F1115;
+      color: #F5F2EB;
+      overflow-x: hidden;
+      letter-spacing: -0.01em;
+    }
+
+    .glass-nav {
+      background: rgba(15, 17, 21, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .glass-panel {
+      background: rgba(22, 25, 34, 0.7);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .glass-panel:hover {
+      border-color: rgba(194, 154, 114, 0.35);
+      background: rgba(28, 32, 43, 0.85);
+    }
+
+    .modal-backdrop {
+      background: rgba(10, 12, 16, 0.82);
+      backdrop-filter: blur(10px);
+    }
+
+    /* Sound visualizer wave canvas */
+    #visualizerCanvas {
+      width: 100%;
+      height: 48px;
+    }
+
+    /* Smooth Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0F1115;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2A2F3D;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #C29A72;
+    }
+
+    /* Subtle image vignette */
+    .image-vignette {
+      position: relative;
+    }
+    .image-vignette::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(15,17,21,0.1) 0%, rgba(15,17,21,0.85) 100%);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="antialiased font-sans min-h-screen selection:bg-sanctuary-400 selection:text-sanctuary-deep">
+
+  <!-- TOP PROTOTYPE BAR (For Upwork Client) -->
+  <div class="bg-[#141720] border-b border-sanctuary-400/20 text-xs py-2.5 px-4 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono tracking-wider font-semibold bg-sanctuary-400/20 text-sanctuary-400 border border-sanctuary-400/30">
+          PROTOTYPE DEMO
+        </span>
+        <span class="text-sanctuary-200 hidden sm:inline">Crafted by <strong class="text-white">Axiom Global</strong> for <strong class="text-sanctuary-400">GroundWell Sound & Wellness Center</strong></span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="text-gray-400 hidden md:inline">Demonstrating: Wix CMS Dynamic Repeaters & Acuity Room Locks</span>
+        <button onclick="openModal('bookingModal')" class="bg-sanctuary-400 hover:bg-sanctuary-500 text-sanctuary-deep font-semibold px-3 py-1 rounded text-xs transition duration-200 flex items-center gap-1.5 shadow-sm">
+          <span>Test Acuity Modal</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN NAVIGATION -->
+  <header class="glass-nav sticky top-8 z-40 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo & Brand Name -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-full border border-sanctuary-400/40 flex items-center justify-center bg-sanctuary-deep/80 group-hover:border-sanctuary-400 transition">
+          <svg class="w-5 h-5 text-sanctuary-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 3v18"/>
+            <path d="M3 12h18"/>
+            <circle cx="12" cy="12" r="4" fill="currentColor" fill-opacity="0.3"/>
+          </svg>
+        </div>
+        <div>
+          <span class="font-display tracking-[0.25em] text-lg uppercase text-white font-semibold block leading-none">GroundWell</span>
+          <span class="text-[10px] tracking-[0.2em] uppercase text-sanctuary-400 font-mono block mt-1">Sound & Wellness Sanctuary</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu (14 Main Modality Pages) -->
+      <nav class="hidden lg:flex items-center gap-7 text-xs uppercase tracking-widest text-sanctuary-200">
+        <a href="#offerings" class="hover:text-sanctuary-400 transition py-1 border-b border-transparent hover:border-sanctuary-400">Offerings</a>
+        <a href="#modalities" class="hover:text-sanctuary-400 transition py-1 border-b border-transparent hover:border-sanctuary-400">Modalities</a>
+        <a href="#sound-healing" class="hover:text-sanctuary-400 transition py-1 border-b border-transparent hover:border-sanctuary-400">Sound</a>
+        <a href="#reiki" class="hover:text-sanctuary-400 transition py-1 border-b border-transparent hover:border-sanctuary-400">Reiki</a>
+        <a href="#team" class="hover:text-sanctuary-400 transition py-1 border-b border-transparent hover:border-sanctuary-400">Practitioners</a>
+        <a href="#acuity-engine" class="hover:text-sanctuary-400 transition py-1 border-b border-transparent hover:border-sanctuary-400">Acuity Engine</a>
+        <a href="#policies" onclick="openModal('policyModal')" class="hover:text-sanctuary-400 transition py-1">Policies</a>
+      </nav>
+
+      <!-- Right CTAs -->
+      <div class="flex items-center gap-4">
+        <!-- Ambient Sound Trigger Button -->
+        <button id="ambientSoundBtn" onclick="toggleAmbientSound()" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-sanctuary-400/30 bg-sanctuary-card/70 hover:bg-sanctuary-card text-xs text-sanctuary-400 transition group" title="Play relaxing 432Hz crystal sound bowl sound">
+          <span id="soundWaveIcon" class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sanctuary-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-sanctuary-400"></span>
+          </span>
+          <span id="soundBtnText" class="font-mono text-[11px] tracking-wide">Play 432Hz Sound</span>
+          <svg class="w-3.5 h-3.5 text-sanctuary-400 group-hover:scale-110 transition" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        </button>
+
+        <!-- Book Appointment Primary Button -->
+        <button onclick="openModal('bookingModal')" class="hidden sm:inline-flex items-center justify-center px-5 py-2 rounded-full bg-sanctuary-400 hover:bg-sanctuary-500 text-sanctuary-deep text-xs font-semibold tracking-wider uppercase transition shadow-lg hover:shadow-sanctuary-400/20">
+          Book Session
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-sanctuary-200 hover:text-white focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Drawer Navigation -->
+    <div id="mobileMenu" class="hidden lg:hidden border-t border-sanctuary-deep bg-sanctuary-deep/95 px-6 py-6 space-y-4">
+      <div class="flex flex-col space-y-3 text-sm tracking-wider uppercase font-medium">
+        <a href="#offerings" onclick="toggleMobileMenu()" class="text-sanctuary-200 hover:text-sanctuary-400">Classes & Events</a>
+        <a href="#modalities" onclick="toggleMobileMenu()" class="text-sanctuary-200 hover:text-sanctuary-400">Modalities & Sessions</a>
+        <a href="#sound-healing" onclick="toggleMobileMenu()" class="text-sanctuary-200 hover:text-sanctuary-400">Sound Bath Therapy</a>
+        <a href="#team" onclick="toggleMobileMenu()" class="text-sanctuary-200 hover:text-sanctuary-400">Practitioners</a>
+        <a href="#acuity-engine" onclick="toggleMobileMenu()" class="text-sanctuary-200 hover:text-sanctuary-400">Room Conflict Engine</a>
+        <button onclick="openModal('policyModal'); toggleMobileMenu()" class="text-left text-sanctuary-400">Studio Policies & FAQs</button>
+      </div>
+      <button onclick="openModal('bookingModal'); toggleMobileMenu()" class="w-full text-center py-3 rounded-full bg-sanctuary-400 text-sanctuary-deep font-semibold uppercase text-xs tracking-wider">
+        Book Session via Acuity
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO SECTION WITH LIVE AUDIO CANVAS & EDITORIAL HEADLINE -->
+  <section class="relative pt-16 pb-24 lg:pt-24 lg:pb-36 overflow-hidden">
+    <!-- Serene Background Ambient Glow -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-sanctuary-400/10 rounded-full blur-[130px] pointer-events-none"></div>
+    <div class="absolute top-1/2 right-10 w-[450px] h-[350px] bg-sanctuary-sage/10 rounded-full blur-[110px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        <!-- Left Editorial Copy -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-sanctuary-400/30 bg-sanctuary-card/80 text-xs font-mono text-sanctuary-400">
+            <span class="w-1.5 h-1.5 rounded-full bg-sanctuary-400 animate-pulse"></span>
+            GROUNDWELL SOUND & WELLNESS SANCTUARY
+          </div>
+
+          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-serif font-normal leading-[1.08] tracking-tight text-white">
+            Restore resonance, <br>
+            <span class="italic font-normal text-sanctuary-300">elevate inner stillness.</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-sanctuary-200/90 font-light max-w-xl leading-relaxed">
+            A serene sanctuary dedicated to acoustic vibration, energy alignment, and somatic presence. Experience bespoke sound therapy, Usui Reiki, solfeggio tuning forks, and restorative group sound journeys.
+          </p>
+
+          <!-- Interactive Ambient Waveform Player -->
+          <div class="glass-panel rounded-2xl p-4 sm:p-5 max-w-xl space-y-3">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-sanctuary-400 flex items-center gap-2">
+                <svg class="w-4 h-4 animate-spin text-sanctuary-400" id="soundSpinner" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke-width="4" stroke-dasharray="15 30"/></svg>
+                <span id="activeSoundTitle">Himalayan Singing Bowls (432 Hz)</span>
+              </span>
+              <span id="soundStatusLabel" class="text-gray-400">Status: Paused</span>
+            </div>
+
+            <!-- Canvas for Audio Wave Visualizer -->
+            <canvas id="visualizerCanvas" class="w-full h-10 rounded bg-[#0A0C10] border border-sanctuary-border"></canvas>
+
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+              <div class="flex items-center gap-2">
+                <button onclick="playSampleFrequency(432, 'Himalayan Singing Bowls (432 Hz)')" class="text-[11px] font-mono px-2.5 py-1 rounded bg-sanctuary-deep hover:bg-sanctuary-card text-sanctuary-300 border border-sanctuary-border hover:border-sanctuary-400 transition">432Hz Bowls</button>
+                <button onclick="playSampleFrequency(528, 'Solfeggio Tuning Forks (528 Hz)')" class="text-[11px] font-mono px-2.5 py-1 rounded bg-sanctuary-deep hover:bg-sanctuary-card text-sanctuary-300 border border-sanctuary-border hover:border-sanctuary-400 transition">528Hz Fork</button>
+                <button onclick="playSampleFrequency(216, 'Shamanic Grounding Drone (216 Hz)')" class="text-[11px] font-mono px-2.5 py-1 rounded bg-sanctuary-deep hover:bg-sanctuary-card text-sanctuary-300 border border-sanctuary-border hover:border-sanctuary-400 transition">Ground Drone</button>
+              </div>
+              <button onclick="stopSound()" class="text-[11px] font-mono text-red-400/80 hover:text-red-400 transition">Mute</button>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <button onclick="openModal('bookingModal')" class="px-7 py-3.5 rounded-full bg-sanctuary-400 hover:bg-sanctuary-500 text-sanctuary-deep font-semibold text-xs tracking-widest uppercase transition duration-200 shadow-xl hover:shadow-sanctuary-400/25 flex items-center gap-2">
+              <span>Book An Appointment</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </button>
+            <a href="#offerings" class="px-7 py-3.5 rounded-full border border-sanctuary-border hover:border-sanctuary-400 text-white font-medium text-xs tracking-widest uppercase transition bg-sanctuary-card/40 hover:bg-sanctuary-card">
+              Explore Group Offerings
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Right Hero Imagery Presentation -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative mx-auto max-w-md lg:max-w-none">
+            
+            <!-- Main Hero Image Frame -->
+            <div class="relative rounded-3xl overflow-hidden border border-sanctuary-400/30 shadow-2xl image-vignette group">
+              <img src="./images/sound_bowls_hero.jpg" alt="GroundWell Tibetan Sound Bowls" class="w-full h-[460px] object-cover group-hover:scale-105 transition duration-700 ease-out">
+              
+              <!-- Floating Badge over image -->
+              <div class="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-sanctuary-deep/85 backdrop-blur-md border border-white/10 text-xs">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <span class="text-sanctuary-400 font-mono text-[10px] uppercase tracking-wider block">Signature Experience</span>
+                    <strong class="text-white font-serif text-sm">Full Moon Gong & Singing Bowl Immersion</strong>
+                  </div>
+                  <span class="text-white/80 font-mono text-xs bg-sanctuary-card px-2 py-1 rounded border border-white/5">$55.00</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating Subtle Room Status Widget (Visual Proof for Client) -->
+            <div class="absolute -top-5 -left-5 bg-[#12151E] border border-sanctuary-border rounded-2xl p-3.5 shadow-2xl backdrop-blur-md hidden sm:flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-sanctuary-sage/20 border border-sanctuary-sage/40 flex items-center justify-center text-sanctuary-sage">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono uppercase tracking-wider text-gray-400 block">Acuity Conflict Engine</span>
+                <span class="text-xs font-semibold text-white">Treatment Rooms Synced</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WIX CMS DYNAMIC OFFERINGS & EVENTS SHOWCASE (Dynamic Repeaters Simulation) -->
+  <section id="offerings" class="py-20 bg-[#0C0E12] border-t border-sanctuary-border relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div class="space-y-3">
+          <span class="text-xs font-mono uppercase tracking-widest text-sanctuary-400 block">Wix Dynamic CMS Collection</span>
+          <h2 class="text-3xl sm:text-5xl font-serif text-white">Upcoming Offerings & Events</h2>
+          <p class="text-sm text-sanctuary-200/80 max-w-xl font-light">
+            Entering an offering once in Wix CMS dynamically propagates its canonical detail page, modality listings, and chronological grid below.
+          </p>
+        </div>
+
+        <!-- Dynamic Category Filter Tabs (Simulating Wix Dataset Category Filter) -->
+        <div class="flex flex-wrap items-center gap-1.5 p-1 rounded-full bg-[#151821] border border-sanctuary-border">
+          <button onclick="filterCategory('all', this)" class="cat-pill active px-4 py-1.5 rounded-full text-xs font-medium bg-sanctuary-400 text-sanctuary-deep transition">All (17)</button>
+          <button onclick="filterCategory('sound', this)" class="cat-pill px-4 py-1.5 rounded-full text-xs font-medium text-sanctuary-200 hover:text-white transition">Sound</button>
+          <button onclick="filterCategory('reiki', this)" class="cat-pill px-4 py-1.5 rounded-full text-xs font-medium text-sanctuary-200 hover:text-white transition">Reiki</button>
+          <button onclick="filterCategory('tuning', this)" class="cat-pill px-4 py-1.5 rounded-full text-xs font-medium text-sanctuary-200 hover:text-white transition">Tuning Forks</button>
+          <button onclick="filterCategory('somatics', this)" class="cat-pill px-4 py-1.5 rounded-full text-xs font-medium text-sanctuary-200 hover:text-white transition">Somatics</button>
+          <button onclick="filterCategory('cert', this)" class="cat-pill px-4 py-1.5 rounded-full text-xs font-medium text-sanctuary-200 hover:text-white transition">Certifications</button>
+        </div>
+      </div>
+
+      <!-- Offering Cards Grid -->
+      <div id="offeringsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Card 1: Sound Healing -->
+        <div class="offering-card glass-panel rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5" data-category="sound">
+          <div class="h-52 overflow-hidden relative">
+            <img src="./images/sound_bowls_hero.jpg" alt="Sound Bath" class="w-full h-full object-cover transition duration-500 hover:scale-105">
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-sanctuary-deep/80 backdrop-blur-md text-[10px] font-mono uppercase tracking-wider text-sanctuary-400 border border-sanctuary-400/30">
+              Sound Healing
+            </span>
+            <span class="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-sanctuary-deep/80 text-[10px] font-mono text-white">
+              75 Min
+            </span>
+          </div>
+          <div class="p-6 space-y-4">
+            <div class="flex items-center justify-between text-xs text-gray-400 font-mono">
+              <span>Nov 22, 2026 • 6:30 PM</span>
+              <span class="text-sanctuary-sage">● 4 Spots Open</span>
+            </div>
+            <h3 class="text-xl font-serif text-white font-medium">Sacred Crystal Bowl & Gong Immersion</h3>
+            <p class="text-xs text-sanctuary-200/80 leading-relaxed font-light">
+              An acoustic frequency meditation utilizing 432Hz crystal alchemy bowls to soothe the nervous system and dissolve energetic tension.
+            </p>
+            <div class="pt-2 border-t border-sanctuary-border flex items-center justify-between">
+              <div>
+                <span class="text-[10px] font-mono text-gray-400 block">Practitioner</span>
+                <span class="text-xs text-white font-medium">Maya Lin</span>
+              </div>
+              <div class="text-right">
+                <span class="text-lg font-serif text-sanctuary-400 font-medium">$45.00</span>
+              </div>
+            </div>
+            <button onclick="selectOfferingAndBook('Sacred Crystal Bowl & Gong Immersion', 'Maya Lin', 'Treatment Room 1 - Sound Suite', '$45.00')" class="w-full py-2.5 rounded-full bg-sanctuary-400 hover:bg-sanctuary-500 text-sanctuary-deep text-xs font-semibold uppercase tracking-wider transition">
+              Book via Acuity
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 2: Reiki -->
+        <div class="offering-card glass-panel rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5" data-category="reiki">
+          <div class="h-52 overflow-hidden relative">
+            <img src="./images/reiki_meditation.jpg" alt="Reiki Meditation" class="w-full h-full object-cover transition duration-500 hover:scale-105">
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-sanctuary-deep/80 backdrop-blur-md text-[10px] font-mono uppercase tracking-wider text-sanctuary-sage border border-sanctuary-sage/30">
+              Reiki Energy
+            </span>
+            <span class="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-sanctuary-deep/80 text-[10px] font-mono text-white">
+              60 Min
+            </span>
+          </div>
+          <div class="p-6 space-y-4">
+            <div class="flex items-center justify-between text-xs text-gray-400 font-mono">
+              <span>Nov 24, 2026 • 2:00 PM</span>
+              <span class="text-sanctuary-sage">● 1-on-1 Private</span>
+            </div>
+            <h3 class="text-xl font-serif text-white font-medium">Usui Reiki Chakra Balancing & Cleanse</h3>
+            <p class="text-xs text-sanctuary-200/80 leading-relaxed font-light">
+              Gentle hands-on energy work focused on realigning subtle energetic meridians, releasing stored trauma, and calming somatic stress.
+            </p>
+            <div class="pt-2 border-t border-sanctuary-border flex items-center justify-between">
+              <div>
+                <span class="text-[10px] font-mono text-gray-400 block">Practitioner</span>
+                <span class="text-xs text-white font-medium">David Vance</span>
+              </div>
+              <div class="text-right">
+                <span class="text-lg font-serif text-sanctuary-400 font-medium">$120.00</span>
+              </div>
+            </div>
+            <button onclick="selectOfferingAndBook('Usui Reiki Chakra Balancing & Cleanse', 'David Vance', 'Treatment Room 2 - Reiki Studio', '$120.00')" class="w-full py-2.5 rounded-full bg-sanctuary-400 hover:bg-sanctuary-500 text-sanctuary-deep text-xs font-semibold uppercase tracking-wider transition">
+              Book via Acuity
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 3: Tuning Forks -->
+        <div class="offering-card glass-panel rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5" data-category="tuning">
+          <div class="h-52 overflow-hidden relative">
+            <img src="./images/tuning_forks_sound.jpg" alt="Tuning Forks" class="w-full h-full object-cover transition duration-500 hover:scale-105">
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-sanctuary-deep/80 backdrop-blur-md text-[10px] font-mono uppercase tracking-wider text-sanctuary-400 border border-sanctuary-400/30">
+              Tuning Forks
+            </span>
+            <span class="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-sanctuary-deep/80 text-[10px] font-mono text-white">
+              50 Min
+            </span>
+          </div>
+          <div class="p-6 space-y-4">
+            <div class="flex items-center justify-between text-xs text-gray-400 font-mono">
+              <span>Nov 26, 2026 • 11:00 AM</span>
+              <span class="text-sanctuary-sage">● Available</span>
+            </div>
+            <h3 class="text-xl font-serif text-white font-medium">Biofield Tuning & Solfeggio Therapy</h3>
+            <p class="text-xs text-sanctuary-200/80 leading-relaxed font-light">
+              Precision weighted tuning forks applied around the human biofield to locate and discharge rhythmic distortions and emotional fatigue.
+            </p>
+            <div class="pt-2 border-t border-sanctuary-border flex items-center justify-between">
+              <div>
+                <span class="text-[10px] font-mono text-gray-400 block">Practitioner</span>
+                <span class="text-xs text-white font-medium">Elena Rostova</span>
+              </div>
+              <div class="text-right">
+                <span class="text-lg font-serif text-sanctuary-400 font-medium">$95.00</span>
+              </div>
+            </div>
+            <button onclick="selectOfferingAndBook('Biofield Tuning & Solfeggio Therapy', 'Elena Rostova', 'Treatment Room 1 - Sound Suite', '$95.00')" class="w-full py-2.5 rounded-full bg-sanctuary-400 hover:bg-sanctuary-500 text-sanctuary-deep text-xs font-semibold uppercase tracking-wider transition">
+              Book via Acuity
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 4: Somatics & Breath -->
+        <div class="offering-card glass-panel rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5" data-category="somatics">
+          <div class="h-52 overflow-hidden relative">
+            <img src="./images/wellness_sanctuary.jpg" alt="Somatic Sanctuary" class="w-full h-full object-cover transition duration-500 hover:scale-105">
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-sanctuary-deep/80 backdrop-blur-md text-[10px] font-mono uppercase tracking-wider text-sanctuary-sage border border-sanctuary-sage/30">
+              Somatics & Breath
+            </span>
+            <span class="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-sanctuary-deep/80 text-[10px] font-mono text-white">
+              90 Min
+            </span>
+          </div>
+          <div class="p-6 space-y-4">
+            <div class="flex items-center justify-between text-xs text-gray-400 font-mono">
+              <span>Nov 28, 2026 • 5:00 PM</span>
+              <span class="text-sanctuary-sage">● Group Studio</span>
+            </div>
+            <h3 class="text-xl font-serif text-white font-medium">Conscious Breathwork & Somatic Release</h3>
+            <p class="text-xs text-sanctuary-200/80 leading-relaxed font-light">
+              Transformational circular breathwork synchronized with low-frequency acoustic vibrations for deep emotional regulation and inner clarity.
+            </p>
+            <div class="pt-2 border-t border-sanctuary-border flex items-center justify-between">
+              <div>
+                <span class="text-[10px] font-mono text-gray-400 block">Practitioner</span>
+                <span class="text-xs text-white font-medium">Maya Lin & Marcus Lee</span>
+              </div>
+              <div class="text-right">
+                <span class="text-lg font-serif text-sanctuary-400 font-medium">$50.00</span>
+              </div>
+            </div>
+            <button onclick="selectOfferingAndBook('Conscious Breathwork & Somatic Release', 'Maya Lin', 'Main Sanctuary Hall', '$50.00')" class="w-full py-2.5 rounded-full bg-sanctuary-400 hover:bg-sanctuary-500 text-sanctuary-deep text-xs font-semibold uppercase tracking-wider transition">
+              Book via Acuity
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 5: Certifications -->
+        <div class="offering-card glass-panel rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5" data-category="cert">
+          <div class="h-52 overflow-hidden relative">
+            <img src="./images/community_sound_bath.jpg" alt="Certification Training" class="w-full h-full object-cover transition duration-500 hover:scale-105">
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-sanctuary-deep/80 backdrop-blur-md text-[10px] font-mono uppercase tracking-wider text-sanctuary-400 border border-sanctuary-400/30">
+              Certification
+            </span>
+            <span class="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-sanctuary-deep/80 text-[10px] font-mono text-white">
+              3-Day Intensive
+            </span>
+          </div>
+          <div class="p-6 space-y-4">
+            <div class="flex items-center justify-between text-xs text-gray-400 font-mono">
+              <span>Dec 04–06, 2026</span>
+              <span class="text-sanctuary-400">● 6 Seats Remaining</span>
+            </div>
+            <h3 class="text-xl font-serif text-white font-medium">Sound Therapy Practitioner Level I</h3>
+            <p class="text-xs text-sanctuary-200/80 leading-relaxed font-light">
+              Accredited professional certification covering acoustics, therapeutic mallet techniques, binaural resonance, and client intake ethics.
+            </p>
+            <div class="pt-2 border-t border-sanctuary-border flex items-center justify-between">
+              <div>
+                <span class="text-[10px] font-mono text-gray-400 block">Lead Trainer</span>
+                <span class="text-xs text-white font-medium">Maya Lin (Master)</span>
+              </div>
+              <div class="text-right">
+                <span class="text-lg font-serif text-sanctuary-400 font-medium">$850.00</span>
+              </div>
+            </div>
+            <button onclick="selectOfferingAndBook('Sound Therapy Practitioner Level I Certification', 'Maya Lin', 'Main Sanctuary Hall', '$850.00')" class="w-full py-2.5 rounded-full bg-sanctuary-400 hover:bg-sanctuary-500 text-sanctuary-deep text-xs font-semibold uppercase tracking-wider transition">
+              Enroll via Acuity
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 6: Gift Certificates -->
+        <div class="offering-card glass-panel rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5" data-category="sound">
+          <div class="h-52 overflow-hidden relative">
+            <img src="./images/acuity_booking_flow.jpg" alt="Gift Certificate" class="w-full h-full object-cover transition duration-500 hover:scale-105">
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-sanctuary-deep/80 backdrop-blur-md text-[10px] font-mono uppercase tracking-wider text-sanctuary-sage border border-sanctuary-sage/30">
+              Vouchers
+            </span>
+            <span class="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-sanctuary-deep/80 text-[10px] font-mono text-white">
+              Instant PDF
+            </span>
+          </div>
+          <div class="p-6 space-y-4">
+            <div class="flex items-center justify-between text-xs text-gray-400 font-mono">
+              <span>Digital & Physical</span>
+              <span class="text-sanctuary-sage">● Any Modality</span>
+            </div>
+            <h3 class="text-xl font-serif text-white font-medium">GroundWell Sanctuary Gift Certificate</h3>
+            <p class="text-xs text-sanctuary-200/80 leading-relaxed font-light">
+              Gift the experience of restorative tranquility. Directly integrated into Acuity with instant digital delivery and checkout voucher codes.
+            </p>
+            <div class="pt-2 border-t border-sanctuary-border flex items-center justify-between">
+              <div>
+                <span class="text-[10px] font-mono text-gray-400 block">Redemption</span>
+                <span class="text-xs text-white font-medium">All Practitioners</span>
+              </div>
+              <div class="text-right">
+                <span class="text-lg font-serif text-sanctuary-400 font-medium">Custom Amt</span>
+              </div>
+            </div>
+            <button onclick="selectOfferingAndBook('Sanctuary Gift Certificate', 'Studio Team', 'Online Voucher', '$100.00')" class="w-full py-2.5 rounded-full bg-sanctuary-400 hover:bg-sanctuary-500 text-sanctuary-deep text-xs font-semibold uppercase tracking-wider transition">
+              Purchase Gift Card
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ACUITY SCHEDULING & ROOM CONFLICT PREVENTION ENGINE (Visual Interactive Proof) -->
+  <section id="acuity-engine" class="py-24 bg-[#0F1115] relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <span class="text-xs font-mono uppercase tracking-widest text-sanctuary-400">Technical Solution to Upwork Question #2</span>
+        <h2 class="text-3xl sm:text-5xl font-serif text-white">Shared Treatment Room Conflict Prevention</h2>
+        <p class="text-sm text-sanctuary-200/80 font-light leading-relaxed">
+          How our architecture guarantees zero double-bookings when multiple independent practitioners share GroundWell’s physical treatment spaces.
+        </p>
+      </div>
+
+      <!-- Interactive Conflict Simulator Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Left: Interactive Diagram -->
+        <div class="lg:col-span-7 glass-panel rounded-3xl p-6 sm:p-8 space-y-6">
+          <div class="flex items-center justify-between border-b border-sanctuary-border pb-4">
+            <span class="font-mono text-xs uppercase text-gray-400">Simulated Booking Slot: Saturday 2:00 PM – 3:15 PM</span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-green-500/10 text-green-400 text-xs font-mono border border-green-500/20">
+              <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
+              Acuity Engine Active
+            </span>
+          </div>
+
+          <!-- Room 1 Status -->
+          <div class="p-4 rounded-2xl bg-sanctuary-deep/90 border border-sanctuary-border flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+              </div>
+              <div>
+                <h4 class="text-sm font-semibold text-white">Treatment Room 1 (Sound Sanctuary)</h4>
+                <p class="text-xs text-gray-400">Booked by: Maya Lin (Tibetan Sound Journey)</p>
+              </div>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 font-mono text-xs font-semibold self-start sm:self-auto">
+              LOCKED / CONFLICT BLOCKED
+            </span>
+          </div>
+
+          <!-- Room 2 Status -->
+          <div class="p-4 rounded-2xl bg-sanctuary-deep/90 border border-sanctuary-border flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              </div>
+              <div>
+                <h4 class="text-sm font-semibold text-white">Treatment Room 2 (Reiki & Energy Studio)</h4>
+                <p class="text-xs text-gray-400">Practitioner: David Vance available</p>
+              </div>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-xs font-semibold self-start sm:self-auto">
+              OPEN FOR BOOKING
+            </span>
+          </div>
+
+          <!-- Logic Explanation -->
+          <div class="p-4 rounded-xl bg-[#0B0D11] border border-sanctuary-border text-xs text-gray-300 space-y-2">
+            <div class="font-mono text-sanctuary-400 text-[11px] font-semibold uppercase">How Acuity Rooms & Resources Works:</div>
+            <p>
+              Even if Practitioner B is on duty, because Practitioner A has booked Treatment Room 1, Acuity’s resource lock prevents any client from selecting a service tied to Room 1. The client is seamlessly offered Room 2 or alternative timeslots.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: Acuity 2026 Subscription Callout -->
+        <div class="lg:col-span-5 space-y-5">
+          <div class="glass-panel rounded-3xl p-6 sm:p-7 space-y-4 border-l-4 border-l-sanctuary-400">
+            <span class="text-[10px] font-mono uppercase tracking-widest text-sanctuary-400 block">Verified 2026 Acuity Tier</span>
+            <h3 class="text-2xl font-serif text-white">Acuity Standard Plan ($27/mo)</h3>
+            <p class="text-xs text-sanctuary-200/80 leading-relaxed font-light">
+              We explicitly advise GroundWell on the <strong>Standard Tier ($27/mo billed annually)</strong>. The basic $16/mo plan only supports 1 calendar and cannot prevent room double-bookings.
+            </p>
+            <ul class="text-xs text-gray-300 space-y-2 font-light">
+              <li class="flex items-center gap-2 text-sanctuary-400">
+                <svg class="w-4 h-4 text-sanctuary-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                <span>Up to 6 Practitioner Calendars</span>
+              </li>
+              <li class="flex items-center gap-2 text-sanctuary-400">
+                <svg class="w-4 h-4 text-sanctuary-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                <span>Rooms & Resources Conflict Engine</span>
+              </li>
+              <li class="flex items-center gap-2 text-sanctuary-400">
+                <svg class="w-4 h-4 text-sanctuary-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                <span>Gift Certificate Sales & Redemption</span>
+              </li>
+              <li class="flex items-center gap-2 text-sanctuary-400">
+                <svg class="w-4 h-4 text-sanctuary-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                <span>Automated SMS / Text Appointment Reminders</span>
+              </li>
+            </ul>
+            <button onclick="openModal('bookingModal')" class="w-full py-2.5 rounded-full bg-sanctuary-400 hover:bg-sanctuary-500 text-sanctuary-deep text-xs font-semibold uppercase tracking-wider transition">
+              Launch Live Booking Modal Demo
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PRACTITIONERS WITH COMPACT BIO EXPANSION (Mockup Feature) -->
+  <section id="team" class="py-20 bg-[#0C0E12] border-t border-sanctuary-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <span class="text-xs font-mono uppercase tracking-widest text-sanctuary-400">Resident Healers</span>
+        <h2 class="text-3xl sm:text-4xl font-serif text-white">Practitioners & Guides</h2>
+        <p class="text-xs sm:text-sm text-sanctuary-200/80 font-light">
+          Demonstrating compact biographies with fluid "Read More / Less" expansion to preserve editorial breathing room.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Bio 1 -->
+        <div class="glass-panel rounded-3xl p-6 space-y-4">
+          <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-sanctuary-400/40 mx-auto">
+            <img src="./images/sound_bowls_hero.jpg" alt="Maya Lin" class="w-full h-full object-cover">
+          </div>
+          <div class="text-center">
+            <h3 class="text-lg font-serif text-white font-medium">Maya Lin</h3>
+            <span class="text-xs font-mono text-sanctuary-400">Master Sound Alchemist & Gong Practitioner</span>
+          </div>
+          <p class="text-xs text-sanctuary-200/80 leading-relaxed font-light">
+            Maya has over a decade of acoustic meditation experience in Nepal and Bali. She curates restorative crystal bowl baths that down-regulate the nervous system.
+          </p>
+          <div id="bioExtra1" class="hidden text-xs text-gray-400 font-light pt-2 border-t border-sanctuary-border space-y-2">
+            <p>Maya holds certifications in Psychoacoustics and Somatic Experiencing. She leads Level I & II Sound Therapy training cohorts at GroundWell Sanctuary.</p>
+          </div>
+          <button onclick="toggleBio('bioExtra1', this)" class="text-[11px] font-mono text-sanctuary-400 hover:underline uppercase block mx-auto">
+            + Read Full Bio
+          </button>
+        </div>
+
+        <!-- Bio 2 -->
+        <div class="glass-panel rounded-3xl p-6 space-y-4">
+          <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-sanctuary-sage/40 mx-auto">
+            <img src="./images/reiki_meditation.jpg" alt="David Vance" class="w-full h-full object-cover">
+          </div>
+          <div class="text-center">
+            <h3 class="text-lg font-serif text-white font-medium">David Vance</h3>
+            <span class="text-xs font-mono text-sanctuary-sage">Usui Reiki Master & Energy Practitioner</span>
+          </div>
+          <p class="text-xs text-sanctuary-200/80 leading-relaxed font-light">
+            Specializing in subtle body energetic clearing, David guides clients through transformative emotional releases and chakra recalibrations.
+          </p>
+          <div id="bioExtra2" class="hidden text-xs text-gray-400 font-light pt-2 border-t border-sanctuary-border space-y-2">
+            <p>David incorporates vibrational tuning forks into his private sessions to clear static charges in the client's outer energetic field.</p>
+          </div>
+          <button onclick="toggleBio('bioExtra2', this)" class="text-[11px] font-mono text-sanctuary-sage hover:underline uppercase block mx-auto">
+            + Read Full Bio
+          </button>
+        </div>
+
+        <!-- Bio 3 -->
+        <div class="glass-panel rounded-3xl p-6 space-y-4">
+          <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-sanctuary-400/40 mx-auto">
+            <img src="./images/tuning_forks_sound.jpg" alt="Elena Rostova" class="w-full h-full object-cover">
+          </div>
+          <div class="text-center">
+            <h3 class="text-lg font-serif text-white font-medium">Elena Rostova</h3>
+            <span class="text-xs font-mono text-sanctuary-400">Biofield Tuning & Somatic Facilitator</span>
+          </div>
+          <p class="text-xs text-sanctuary-200/80 leading-relaxed font-light">
+            Elena utilizes precision frequency tuning to assist clients coping with chronic fatigue, nervous exhaustion, and creative blockages.
+          </p>
+          <div id="bioExtra3" class="hidden text-xs text-gray-400 font-light pt-2 border-t border-sanctuary-border space-y-2">
+            <p>Trained in medical resonance therapy, Elena conducts private 1-on-1 biofield maps in GroundWell's dedicated Sound Suite.</p>
+          </div>
+          <button onclick="toggleBio('bioExtra3', this)" class="text-[11px] font-mono text-sanctuary-400 hover:underline uppercase block mx-auto">
+            + Read Full Bio
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#0A0C10] border-t border-sanctuary-border py-14 text-xs text-gray-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div class="space-y-3">
+          <span class="font-display tracking-[0.2em] text-white font-semibold uppercase text-sm block">GroundWell</span>
+          <p class="text-xs text-gray-400 font-light leading-relaxed">
+            Sound & Wellness Sanctuary. Reconnect with silence, frequency, and personal wholeness.
+          </p>
+        </div>
+        <div>
+          <h5 class="text-white font-mono uppercase text-xs mb-3">Modalities</h5>
+          <ul class="space-y-1.5 text-xs">
+            <li><a href="#offerings" class="hover:text-sanctuary-400 transition">Tibetan Sound Bowls</a></li>
+            <li><a href="#offerings" class="hover:text-sanctuary-400 transition">Usui Reiki Energy</a></li>
+            <li><a href="#offerings" class="hover:text-sanctuary-400 transition">Solfeggio Tuning Forks</a></li>
+            <li><a href="#offerings" class="hover:text-sanctuary-400 transition">Somatic Breathwork</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="text-white font-mono uppercase text-xs mb-3">Architecture & Info</h5>
+          <ul class="space-y-1.5 text-xs">
+            <li><button onclick="openModal('policyModal')" class="hover:text-sanctuary-400 transition">Studio Policies & FAQs</button></li>
+            <li><button onclick="openModal('waiverModal')" class="hover:text-sanctuary-400 transition">Digital Health Waiver</button></li>
+            <li><span class="text-sanctuary-400">Fixed Budget: $2,000 USD</span></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="text-white font-mono uppercase text-xs mb-3">Developed By</h5>
+          <p class="text-xs text-gray-300 font-light">
+            <strong>Axiom Global</strong><br>
+            Tech Lead: <strong>Avishka Meddegoda</strong> (6+ yrs)<br>
+            Solutions Lead: <strong>Viranga Lakshan</strong><br>
+            <a href="https://axiomglobal.tech" target="_blank" class="text-sanctuary-400 hover:underline">axiomglobal.tech</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-500 gap-4">
+        <p>© 2026 GroundWell Sound & Wellness Center. Prototype developed by Axiom Global.</p>
+        <div class="flex items-center gap-4">
+          <span class="font-mono text-sanctuary-400">Wix CMS Dynamic + Acuity Standard Integration</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL 1: REUSABLE ACUITY SCHEDULING BOOKING LIGHTBOX (Responsive 2026 UI) -->
+  <!-- ========================================================================= -->
+  <div id="bookingModal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4">
+    <div class="glass-panel bg-[#151821] border border-sanctuary-400/40 rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl relative animate-float">
+      
+      <!-- Close Button -->
+      <button onclick="closeModal('bookingModal')" class="absolute top-5 right-5 text-gray-400 hover:text-white p-1 rounded-full bg-white/5 hover:bg-white/10 transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div>
+        <span class="text-[10px] font-mono uppercase tracking-widest text-sanctuary-400">Acuity Scheduling Engine</span>
+        <h3 id="modalSessionTitle" class="text-2xl font-serif text-white font-medium mt-1">Book Your Sanctuary Session</h3>
+        <p class="text-xs text-gray-400 mt-1">Real-time calendar slot & room resource check</p>
+      </div>
+
+      <form onsubmit="handleSimulatedBooking(event)" class="space-y-4 text-xs">
+        <!-- Offering & Price Row -->
+        <div class="p-3.5 rounded-xl bg-sanctuary-deep border border-sanctuary-border flex items-center justify-between">
+          <div>
+            <span class="text-[10px] font-mono text-gray-400 block">Selected Offering</span>
+            <span id="modalOfferingName" class="font-semibold text-white">Sacred Crystal Bowl & Gong Immersion</span>
+          </div>
+          <div class="text-right">
+            <span class="text-[10px] font-mono text-gray-400 block">Session Fee</span>
+            <span id="modalOfferingPrice" class="font-serif text-sanctuary-400 font-bold text-sm">$45.00</span>
+          </div>
+        </div>
+
+        <!-- Practitioner & Room Lock Demonstration -->
+        <div class="space-y-1.5">
+          <label class="block font-mono text-gray-300 text-[11px] uppercase">Select Practitioner</label>
+          <select id="modalPractitionerSelect" onchange="updateRoomAvailability(this.value)" class="w-full bg-[#0C0E14] border border-sanctuary-border rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-sanctuary-400 font-sans">
+            <option value="Maya Lin">Maya Lin (Master Sound Practitioner)</option>
+            <option value="David Vance">David Vance (Usui Reiki Master)</option>
+            <option value="Elena Rostova">Elena Rostova (Biofield Tuning Specialist)</option>
+          </select>
+        </div>
+
+        <!-- Live Room Conflict Indicator -->
+        <div class="p-3 rounded-xl bg-[#0F121A] border border-sanctuary-border flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span id="roomStatusDot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span id="roomResourceLabel" class="text-gray-300 font-mono text-[11px]">Assigned: Treatment Room 1 (Sound Suite)</span>
+          </div>
+          <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Conflict-Free</span>
+        </div>
+
+        <!-- Date & Time Slot -->
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-mono text-gray-300 text-[11px] uppercase mb-1">Date</label>
+            <input type="date" value="2026-11-22" class="w-full bg-[#0C0E14] border border-sanctuary-border rounded-xl px-3 py-2 text-white focus:outline-none focus:border-sanctuary-400 font-mono text-xs">
+          </div>
+          <div>
+            <label class="block font-mono text-gray-300 text-[11px] uppercase mb-1">Time Slot</label>
+            <select class="w-full bg-[#0C0E14] border border-sanctuary-border rounded-xl px-3 py-2 text-white focus:outline-none focus:border-sanctuary-400 font-sans">
+              <option>10:00 AM - 11:15 AM</option>
+              <option selected>2:00 PM - 3:15 PM</option>
+              <option>5:30 PM - 6:45 PM</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Guest Details -->
+        <div class="space-y-2">
+          <input type="text" placeholder="Full Legal Name" required class="w-full bg-[#0C0E14] border border-sanctuary-border rounded-xl px-3.5 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-sanctuary-400">
+          <input type="email" placeholder="Email Address (for Acuity Confirmation & Reminders)" required class="w-full bg-[#0C0E14] border border-sanctuary-border rounded-xl px-3.5 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-sanctuary-400">
+        </div>
+
+        <!-- Digital Intake & Health Waiver Checkbox -->
+        <div class="flex items-start gap-2.5 pt-1">
+          <input type="checkbox" id="waiverAgree" required class="mt-0.5 rounded bg-sanctuary-deep border-gray-600 text-sanctuary-400 focus:ring-0">
+          <label for="waiverAgree" class="text-[11px] text-gray-400 leading-snug">
+            I agree to the GroundWell Sound Health Policy and consent to acoustic vibration therapy.
+          </label>
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-full bg-sanctuary-400 hover:bg-sanctuary-500 text-sanctuary-deep font-semibold uppercase tracking-wider text-xs transition duration-200 shadow-lg">
+          Complete Simulated Booking
+        </button>
+      </form>
+
+      <!-- Confirmation Feedback Toast -->
+      <div id="bookingSuccessToast" class="hidden p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs text-center space-y-1">
+        <p class="font-semibold text-sm">🎉 Booking Simulated Successfully!</p>
+        <p class="text-gray-400 text-[11px]">Acuity calendar booked, Room 1 locked, and confirmation email triggered.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL 2: STUDIO POLICIES & FAQS LIGHTBOX                                   -->
+  <!-- ========================================================================= -->
+  <div id="policyModal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4">
+    <div class="glass-panel bg-[#151821] border border-sanctuary-border rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl relative max-h-[85vh] overflow-y-auto">
+      <button onclick="closeModal('policyModal')" class="absolute top-5 right-5 text-gray-400 hover:text-white p-1 rounded-full bg-white/5 hover:bg-white/10 transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div>
+        <span class="text-[10px] font-mono uppercase tracking-widest text-sanctuary-400">GroundWell Sanctuary</span>
+        <h3 class="text-2xl font-serif text-white font-medium mt-1">Studio Policies & FAQs</h3>
+      </div>
+
+      <div class="space-y-4 text-xs text-sanctuary-200/90 leading-relaxed font-light">
+        <div class="p-3.5 rounded-xl bg-sanctuary-deep border border-sanctuary-border">
+          <strong class="text-white block font-serif text-sm mb-1">Arrival & Sacred Silence</strong>
+          <p>Please arrive 15 minutes before your scheduled sound session. To preserve tranquility, doors are locked promptly at start time; late entry is not permitted during sound baths.</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-sanctuary-deep border border-sanctuary-border">
+          <strong class="text-white block font-serif text-sm mb-1">Acuity Cancellation Policy</strong>
+          <p>Appointments may be rescheduled or cancelled via your Acuity confirmation link up to 24 hours prior without penalty. Late cancellations forfeit session deposit.</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-sanctuary-deep border border-sanctuary-border">
+          <strong class="text-white block font-serif text-sm mb-1">Contraindications & Health Notice</strong>
+          <p>Intense acoustic vibration may not be suitable for guests with cardiac pacemakers, epilepsy, or within the first trimester of pregnancy. Please notify your practitioner in your digital intake form.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL 3: DIGITAL HEALTH WAIVER LIGHTBOX                                    -->
+  <!-- ========================================================================= -->
+  <div id="waiverModal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4">
+    <div class="glass-panel bg-[#151821] border border-sanctuary-border rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl relative">
+      <button onclick="closeModal('waiverModal')" class="absolute top-5 right-5 text-gray-400 hover:text-white p-1 rounded-full bg-white/5 hover:bg-white/10 transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div>
+        <span class="text-[10px] font-mono uppercase tracking-widest text-sanctuary-400">Compliance & Safety</span>
+        <h3 class="text-2xl font-serif text-white font-medium mt-1">Digital Intake & Health Waiver</h3>
+      </div>
+
+      <div class="p-4 rounded-xl bg-sanctuary-deep border border-sanctuary-border text-xs text-gray-300 space-y-3 font-light max-h-60 overflow-y-auto">
+        <p>By participating in Sound Therapy, Reiki, and Somatic Movement at GroundWell Sound & Wellness Sanctuary, you acknowledge that vibrational acoustic work is for holistic stress reduction and energetic balance, not a substitute for licensed medical or psychiatric care.</p>
+        <p>Acuity Scheduling stores all signed intake forms securely under the client's private profile.</p>
+      </div>
+      <button onclick="closeModal('waiverModal')" class="w-full py-2.5 rounded-full bg-sanctuary-400 text-sanctuary-deep font-semibold uppercase tracking-wider text-xs">
+        Close Window
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- JAVASCRIPT: WEB AUDIO AMBIENT SYNTHESIZER, DYNAMIC FILTERS & MODALS        -->
+  <!-- ========================================================================= -->
+  <script>
+    // -------------------------------------------------------------
+    // 1. Web Audio API Ambient Tibetan Sound Bowl Synthesizer
+    // -------------------------------------------------------------
+    let audioCtx = null;
+    let osc1 = null;
+    let osc2 = null;
+    let gainNode = null;
+    let isPlaying = false;
+    let animFrame = null;
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+      }
+    }
+
+    function playSampleFrequency(freq, title) {
+      initAudio();
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      stopSound();
+
+      document.getElementById('activeSoundTitle').innerText = title;
+      document.getElementById('soundStatusLabel').innerText = 'Status: Playing Ambient Resonance';
+      document.getElementById('soundStatusLabel').className = 'text-sanctuary-400 font-semibold';
+      document.getElementById('soundSpinner').style.display = 'inline-block';
+      document.getElementById('soundBtnText').innerText = 'Playing Resonance';
+
+      // Create warm dual oscillator for singing bowl tone with gentle beating
+      osc1 = audioCtx.createOscillator();
+      osc2 = audioCtx.createOscillator();
+      gainNode = audioCtx.createGain();
+
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+      osc2.type = 'sine';
+      // Harmonic overtone + 1.5Hz beat frequency for meditative shimmer
+      osc2.frequency.setValueAtTime((freq * 2) + 1.2, audioCtx.currentTime);
+
+      // Smooth attack envelope
+      gainNode.gain.setValueAtTime(0.001, audioCtx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.18, audioCtx.currentTime + 1.5);
+
+      osc1.connect(gainNode);
+      osc2.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      osc1.start();
+      osc2.start();
+      isPlaying = true;
+
+      startVisualizer();
+    }
+
+    function toggleAmbientSound() {
+      if (isPlaying) {
+        stopSound();
+      } else {
+        playSampleFrequency(432, 'Himalayan Singing Bowls (432 Hz)');
+      }
+    }
+
+    function stopSound() {
+      if (gainNode && audioCtx) {
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.6);
+        setTimeout(() => {
+          if (osc1) { try { osc1.stop(); osc1.disconnect(); } catch(e){} }
+          if (osc2) { try { osc2.stop(); osc2.disconnect(); } catch(e){} }
+        }, 600);
+      }
+      isPlaying = false;
+      document.getElementById('soundStatusLabel').innerText = 'Status: Paused';
+      document.getElementById('soundStatusLabel').className = 'text-gray-400';
+      document.getElementById('soundSpinner').style.display = 'none';
+      document.getElementById('soundBtnText').innerText = 'Play 432Hz Sound';
+      stopVisualizer();
+    }
+
+    // HTML5 Canvas Waveform Animation
+    const canvas = document.getElementById('visualizerCanvas');
+    const ctx = canvas.getContext('2d');
+    let phase = 0;
+
+    function resizeCanvas() {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function drawWave() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = isPlaying ? '#C29A72' : '#2A3040';
+      ctx.beginPath();
+
+      const width = canvas.width;
+      const height = canvas.height;
+      const centerY = height / 2;
+      const amplitude = isPlaying ? 14 : 2;
+      const frequency = 0.02;
+
+      for (let x = 0; x < width; x++) {
+        const y = centerY + Math.sin(x * frequency + phase) * amplitude * Math.cos(x * 0.005);
+        if (x === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.stroke();
+
+      phase += isPlaying ? 0.08 : 0.01;
+      animFrame = requestAnimationFrame(drawWave);
+    }
+    drawWave();
+
+    function startVisualizer() {
+      // Visualizer runs in loop
+    }
+    function stopVisualizer() {
+      // Slow down wave
+    }
+
+    // -------------------------------------------------------------
+    // 2. Dynamic Wix CMS Category Filtering (Simulating Repeaters)
+    // -------------------------------------------------------------
+    function filterCategory(category, buttonEl) {
+      // Update active tab styles
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        btn.classList.remove('bg-sanctuary-400', 'text-sanctuary-deep');
+        btn.classList.add('text-sanctuary-200');
+      });
+      buttonEl.classList.add('bg-sanctuary-400', 'text-sanctuary-deep');
+      buttonEl.classList.remove('text-sanctuary-200');
+
+      // Filter cards
+      const cards = document.querySelectorAll('.offering-card');
+      cards.forEach(card => {
+        const cardCat = card.getAttribute('data-category');
+        if (category === 'all' || cardCat === category) {
+          card.style.display = 'block';
+          card.style.opacity = '1';
+          card.style.transform = 'scale(1)';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // -------------------------------------------------------------
+    // 3. Compact Bio Expansion
+    // -------------------------------------------------------------
+    function toggleBio(id, btn) {
+      const el = document.getElementById(id);
+      if (el.classList.contains('hidden')) {
+        el.classList.remove('hidden');
+        btn.innerText = '- Collapse Bio';
+      } else {
+        el.classList.add('hidden');
+        btn.innerText = '+ Read Full Bio';
+      }
+    }
+
+    // -------------------------------------------------------------
+    // 4. Modal Engine
+    // -------------------------------------------------------------
+    function openModal(id) {
+      document.getElementById(id).classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+      document.body.style.overflow = 'auto';
+      const toast = document.getElementById('bookingSuccessToast');
+      if (toast) toast.classList.add('hidden');
+    }
+
+    function selectOfferingAndBook(title, practitioner, room, price) {
+      document.getElementById('modalOfferingName').innerText = title;
+      document.getElementById('modalOfferingPrice').innerText = price;
+      document.getElementById('roomResourceLabel').innerText = 'Assigned: ' + room;
+      openModal('bookingModal');
+    }
+
+    function updateRoomAvailability(practitioner) {
+      const roomLabel = document.getElementById('roomResourceLabel');
+      const dot = document.getElementById('roomStatusDot');
+      if (practitioner.includes('Maya')) {
+        roomLabel.innerText = 'Assigned: Treatment Room 1 (Sound Sanctuary)';
+        dot.className = 'w-2 h-2 rounded-full bg-amber-400 animate-pulse';
+      } else if (practitioner.includes('David')) {
+        roomLabel.innerText = 'Assigned: Treatment Room 2 (Reiki Studio)';
+        dot.className = 'w-2 h-2 rounded-full bg-emerald-400 animate-pulse';
+      } else {
+        roomLabel.innerText = 'Assigned: Treatment Room 1 (Sound Sanctuary)';
+        dot.className = 'w-2 h-2 rounded-full bg-emerald-400 animate-pulse';
+      }
+    }
+
+    function handleSimulatedBooking(e) {
+      e.preventDefault();
+      const toast = document.getElementById('bookingSuccessToast');
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        closeModal('bookingModal');
+      }, 3000);
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+    }
+  </script>
+</body>
+</html>

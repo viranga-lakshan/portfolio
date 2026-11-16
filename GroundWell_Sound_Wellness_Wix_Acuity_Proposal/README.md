@@ -79,3 +79,4 @@ python "create_groundwell_proposal_pdf.py"
 ```
 
 The script automatically executes headless Chromium via Playwright, renders print styles, and asserts that the resulting PDF is strictly 14 pages.
+
