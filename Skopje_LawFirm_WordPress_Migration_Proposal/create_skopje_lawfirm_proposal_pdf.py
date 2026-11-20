@@ -1,0 +1,1221 @@
+import os
+import pypdf
+from playwright.sync_api import sync_playwright
+
+def generate_pdf():
+    base_dir = r"c:\Users\Viranga\Downloads\upwrok new\Skopje_LawFirm_WordPress_Migration_Proposal"
+    images_dir = os.path.join(base_dir, "images")
+    output_pdf = os.path.join(base_dir, "Skopje_LawFirm_WordPress_Migration_Proposal.pdf")
+    html_file = os.path.join(base_dir, "proposal_template.html")
+
+    # Image URLs or local paths formatted for file://
+    hero_img = "file:///" + os.path.join(images_dir, "law_firm_hero.jpg").replace("\\", "/")
+    library_img = "file:///" + os.path.join(images_dir, "law_library.jpg").replace("\\", "/")
+    meeting_img = "file:///" + os.path.join(images_dir, "law_meeting.jpg").replace("\\", "/")
+    editorial_img = "file:///" + os.path.join(images_dir, "wordpress_editorial.jpg").replace("\\", "/")
+    team_img = "file:///" + os.path.join(images_dir, "team_office.jpg").replace("\\", "/")
+    logo_img = "file:///" + os.path.join(images_dir, "axiom_logo.png").replace("\\", "/")
+
+    html_content = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Skopje Law Firm — WordPress Architecture, Multilingual Rebuild & SEO Migration</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  @page {{
+    size: A4 portrait;
+    margin: 0;
+  }}
+
+  *, *::before, *::after {{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }}
+
+  :root {{
+    --black: #111111;
+    --dark: #222222;
+    --charcoal: #333333;
+    --muted: #555555;
+    --light-muted: #777777;
+    --border: #e2e2e2;
+    --card-bg: #f8f9fa;
+    --pure-white: #ffffff;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }}
+
+  body {{
+    font-family: var(--font-sans);
+    background: #ffffff;
+    color: var(--black);
+    font-size: 8.5pt;
+    line-height: 1.45;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }}
+
+  .page {{
+    width: 210mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    position: relative;
+    page-break-after: always;
+    overflow: hidden;
+    background: #ffffff;
+    padding: 16mm 20mm 18mm 20mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }}
+
+  /* HEADER & FOOTER */
+  .page-header {{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 3.5mm;
+    margin-bottom: 4mm;
+  }}
+
+  .header-left {{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }}
+
+  .header-brand {{
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--black);
+  }}
+
+  .header-right {{
+    font-size: 7pt;
+    color: var(--light-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }}
+
+  .page-footer {{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 3mm;
+    margin-top: 4mm;
+    font-size: 7pt;
+    color: var(--light-muted);
+  }}
+
+  .page-body {{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }}
+
+  /* COVER PAGE */
+  .cover-page {{
+    padding: 22mm 22mm 20mm 22mm;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }}
+
+  .cover-brand {{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }}
+
+  .cover-brand-logo {{
+    height: 34px;
+    object-fit: contain;
+  }}
+
+  .cover-tag {{
+    font-size: 7.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--charcoal);
+    border: 1px solid var(--black);
+    padding: 3px 9px;
+  }}
+
+  .cover-hero-title {{
+    margin-top: 6mm;
+    margin-bottom: 5mm;
+  }}
+
+  .cover-kicker {{
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 3mm;
+  }}
+
+  .cover-h1 {{
+    font-family: var(--font-serif);
+    font-size: 26pt;
+    line-height: 1.15;
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -0.02em;
+    margin-bottom: 3.5mm;
+  }}
+
+  .cover-subtitle {{
+    font-size: 10pt;
+    color: var(--charcoal);
+    line-height: 1.45;
+    max-width: 90%;
+    font-weight: 400;
+  }}
+
+  .cover-image-container {{
+    width: 100%;
+    height: 70mm;
+    margin-bottom: 6mm;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }}
+
+  .cover-image-container img {{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }}
+
+  .cover-meta-grid {{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    border-top: 1px solid var(--black);
+    padding-top: 4mm;
+  }}
+
+  .cover-meta-item {{
+    display: flex;
+    flex-direction: column;
+  }}
+
+  .cover-meta-label {{
+    font-size: 6.8pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--light-muted);
+    margin-bottom: 1.5px;
+  }}
+
+  .cover-meta-value {{
+    font-size: 8pt;
+    font-weight: 600;
+    color: var(--black);
+  }}
+
+  /* SECTION TYPOGRAPHY */
+  .section-tag {{
+    font-size: 7pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 1.5mm;
+  }}
+
+  .section-title {{
+    font-family: var(--font-serif);
+    font-size: 16pt;
+    line-height: 1.2;
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -0.01em;
+    margin-bottom: 3.5mm;
+  }}
+
+  .lead-paragraph {{
+    font-size: 9pt;
+    line-height: 1.5;
+    color: var(--dark);
+    margin-bottom: 3.5mm;
+  }}
+
+  p {{
+    margin-bottom: 3mm;
+  }}
+
+  /* GRIDS & CARDS */
+  .grid-2 {{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 3.5mm;
+  }}
+
+  .grid-3 {{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 3.5mm;
+  }}
+
+  .card {{
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 3.5mm 4mm;
+  }}
+
+  .card-white {{
+    background: #ffffff;
+    border: 1px solid var(--border);
+    padding: 3.5mm 4mm;
+  }}
+
+  .card-title {{
+    font-family: var(--font-serif);
+    font-size: 9.5pt;
+    font-weight: 700;
+    margin-bottom: 1.5mm;
+    color: var(--black);
+  }}
+
+  .card-desc {{
+    font-size: 8pt;
+    color: var(--charcoal);
+    line-height: 1.4;
+  }}
+
+  /* DATA TABLES */
+  table {{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 7.8pt;
+    margin-bottom: 3.5mm;
+  }}
+
+  th {{
+    background: #111111;
+    color: #ffffff;
+    text-align: left;
+    padding: 5px 8px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 6.8pt;
+  }}
+
+  td {{
+    padding: 5px 8px;
+    border-bottom: 1px solid var(--border);
+    color: var(--charcoal);
+    vertical-align: top;
+  }}
+
+  tr:nth-child(even) td {{
+    background: #fafafa;
+  }}
+
+  /* BADGES & CODE */
+  .badge {{
+    display: inline-block;
+    padding: 1.5px 6px;
+    font-size: 6.8pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: #eaeaea;
+    color: #222;
+  }}
+
+  .badge-dark {{
+    background: #111;
+    color: #fff;
+  }}
+
+  .code-pill {{
+    font-family: var(--font-mono);
+    font-size: 7.5pt;
+    background: #f1f1f1;
+    padding: 1px 4px;
+    border: 1px solid #ddd;
+    color: #222;
+  }}
+
+  /* CALLOUT BOX */
+  .callout-box {{
+    border-left: 3px solid var(--black);
+    background: var(--card-bg);
+    padding: 3.5mm 4.5mm;
+    margin-bottom: 3.5mm;
+  }}
+
+  .callout-title {{
+    font-weight: 700;
+    font-size: 8.5pt;
+    margin-bottom: 1mm;
+    color: var(--black);
+  }}
+
+  .callout-text {{
+    font-size: 8pt;
+    color: var(--charcoal);
+    line-height: 1.45;
+  }}
+
+  /* IMAGE IN BODY */
+  .body-image {{
+    width: 100%;
+    height: 38mm;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    margin-bottom: 3.5mm;
+  }}
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: COVER PAGE -->
+<div class="page cover-page">
+  <div class="cover-brand">
+    <img src="{logo_img}" alt="Axiom Global" class="cover-brand-logo">
+    <span class="cover-tag">Legal Engineering & WordPress Architecture</span>
+  </div>
+
+  <div class="cover-hero-title">
+    <div class="cover-kicker">Technical Rebuild & Content Migration Proposal</div>
+    <h1 class="cover-h1">WordPress Architecture, Multilingual Rebuild & SEO-Safe Migration</h1>
+    <div class="cover-subtitle">
+      A complete, code-free editorial system built from Figma designs, with automated Divi shortcode cleansing, relational Custom Post Types, and strict Google ranking preservation for 400+ indexed URLs.
+    </div>
+  </div>
+
+  <div class="cover-image-container">
+    <img src="{hero_img}" alt="Law Practice Modern Architecture">
+  </div>
+
+  <div class="cover-meta-grid">
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Client</span>
+      <span class="cover-meta-value">Five-Lawyer Business Law Firm</span>
+      <span style="font-size:7pt; color:var(--muted);">Skopje, North Macedonia</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Target Launch Date</span>
+      <span class="cover-meta-value">17 December 2026</span>
+      <span style="font-size:7pt; color:var(--muted);">Hard Stop: 30 Dec 2026</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Fixed Investment</span>
+      <span class="cover-meta-value">$1,050 USD</span>
+      <span style="font-size:7pt; color:var(--muted);">4 Structured Milestones</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Engineering Leads</span>
+      <span class="cover-meta-value">Chamara L. & Avishka M.</span>
+      <span style="font-size:7pt; color:var(--muted);">Axiom Global Technologies</span>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2: EXECUTIVE SUMMARY & ARCHITECTURAL DIAGNOSIS -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-left">
+      <span class="header-brand">Axiom Global Technologies</span>
+      <span style="color:var(--border);">|</span>
+      <span class="header-right">Technical Proposal</span>
+    </div>
+    <div class="header-right">Executive Summary & Diagnosis</div>
+  </div>
+
+  <div class="page-body">
+    <div class="section-tag">01. Architectural Diagnosis</div>
+    <h2 class="section-title">Safeguarding Search Authority While Modernizing Core Infrastructure</h2>
+    <p class="lead-paragraph">
+      Your five-lawyer corporate law practice operates in a high-trust digital environment where reputation and search visibility directly drive client acquisition. Having recovered from a spam-URL injection earlier this year, preserving your firm's ~400 legitimate indexed URLs is not simply a technical checklist item—it is the paramount commercial priority of this website migration.
+    </p>
+
+    <div class="callout-box">
+      <div class="callout-title">Critical Insight: Transitioning from Divi to Native Block Architecture</div>
+      <div class="callout-text">
+        The current WordPress + Divi installation imposes heavy technical debt: bloated layout shortcodes, sluggish DOM rendering, and rigid content boundaries. By rebuilding your 9 Figma templates into a clean block child theme and migrating ~200 articles into clean semantic blocks, we eliminate all Divi dependencies while ensuring your internal team can manage all 70 structured use-case fields without touching code.
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top:2mm;">
+      <div class="card">
+        <div class="card-title">1. Search Index Protection</div>
+        <div class="card-desc">
+          Complete pre-development crawl of all 400+ legitimate URLs. Preservation of clean permalinks, 1:1 server-level 301 redirects for modified paths, language-specific XML sitemaps, and strict hreflang matching across MK, EN, and DE.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">2. Automated Divi Cleansing</div>
+        <div class="card-desc">
+          Automated PHP regex sanitation script that completely strips legacy <code>[et_pb_*]</code> shortcode wrappers from ~200 posts, unwrapping pure semantic HTML, preserving images, and mapping author categories into real author profiles.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">3. Relational Content Model</div>
+        <div class="card-desc">
+          Custom Post Types for Expertise Areas (7), Audiences (4), Use Cases (~70 fields), and Lawyers (5). Dynamic relational queries populate lawyer and area profiles automatically without manual copy-pasting.
+        </div>
+      </div>
+    </div>
+
+    <div class="section-tag" style="margin-top:3mm;">Scope & Governance Summary</div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:25%;">Component</th>
+          <th style="width:35%;">Current State (Divi)</th>
+          <th style="width:40%;">Target Modernized Architecture (Figma Rebuild)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Theme Engine</strong></td>
+          <td>Monolithic Divi Page Builder with excessive CSS/JS overhead</td>
+          <td>Lean Block-Theme Child (Twenty Twenty-Five / Custom Block Theme) built to Figma</td>
+        </tr>
+        <tr>
+          <td><strong>Multilingual Engine</strong></td>
+          <td>Mixed legacy translation setups with URL overlap risks</td>
+          <td>Polylang (Free) with synchronized language switcher, translated slugs & hreflang</td>
+        </tr>
+        <tr>
+          <td><strong>Data & Use Cases</strong></td>
+          <td>Unstructured post text with manual formatting</td>
+          <td>Secure Custom Fields (SCF) with ~70 structured fields, tabs & repeatable rows</td>
+        </tr>
+        <tr>
+          <td><strong>Contact & Scheduling</strong></td>
+          <td>Generic contact forms</td>
+          <td>Forminator (Free) multi-step form routed by area + 15-min call slot request</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    <span>Skopje Business Law Firm — WordPress Rebuild</span>
+    <span>Page 2 of 10</span>
+  </div>
+</div>
+
+<!-- PAGE 3: LEAN WORDPRESS STACK & FREE PLUGIN ARCHITECTURE -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-left">
+      <span class="header-brand">Axiom Global Technologies</span>
+      <span style="color:var(--border);">|</span>
+      <span class="header-right">Technical Proposal</span>
+    </div>
+    <div class="header-right">Plugin & Theme Architecture</div>
+  </div>
+
+  <div class="page-body">
+    <div class="section-tag">02. Technical Implementation Stack</div>
+    <h2 class="section-title">Zero-License Overhead: Enterprise Power Using Free Plugins Only</h2>
+    <p class="lead-paragraph">
+      Per your explicit requirement, the entire platform is engineered strictly with open-source, free WordPress plugins. We avoid expensive recurring SaaS licenses, vendor lock-in, and fragile bloated dependencies.
+    </p>
+
+    <div class="grid-2">
+      <div class="card-white">
+        <div class="card-title">Custom Theme Architecture</div>
+        <p class="card-desc">
+          We implement a modern, high-performance child theme (e.g. extending Twenty Twenty-Five) or a bespoke lean block theme built precisely to your 9 Figma templates and component library.
+        </p>
+        <ul style="margin-left:4mm; font-size:7.8pt; color:var(--charcoal); margin-top:2mm; line-height:1.4;">
+          <li>Zero page builder footprint: 100% native Gutenberg block patterns.</li>
+          <li>Full mobile responsiveness tested across iPhone, Android, iPad, and desktop viewports.</li>
+          <li>Tailored <code>theme.json</code> enforcing your firm's exact typography, brand colors, and spacing tokens.</li>
+          <li>High performance: Minimal asset delivery ensuring Core Web Vitals compliance.</li>
+        </ul>
+      </div>
+
+      <div class="card-white">
+        <div class="card-title">Free Plugin Selection Matrix</div>
+        <table style="margin-bottom:0; font-size:7.5pt;">
+          <thead>
+            <tr>
+              <th>Functional Domain</th>
+              <th>Selected Free Plugin</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Structured Data & Fields</td>
+              <td><strong>Secure Custom Fields (SCF)</strong> (WordPress.org free ACF fork)</td>
+            </tr>
+            <tr>
+              <td>Multilingual Synchronization</td>
+              <td><strong>Polylang (Free)</strong> (MK default, EN, DE translations)</td>
+            </tr>
+            <tr>
+              <td>Routing Form & Booking</td>
+              <td><strong>Forminator (Free)</strong> (Multi-step routing + 15-min call slot)</td>
+            </tr>
+            <tr>
+              <td>Technical SEO & Schema</td>
+              <td><strong>The SEO Framework (Free)</strong> (Lightweight, zero bloat)</td>
+            </tr>
+            <tr>
+              <td>301 Redirect Engine</td>
+              <td><strong>Redirection (Free)</strong> + Server <code>.htaccess</code> Rules</td>
+            </tr>
+            <tr>
+              <td>Security Hardening</td>
+              <td><strong>Solid Security / WP Hardening (Free)</strong> + Staging Lockdown</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-tag" style="margin-top:2mm;">Why Secure Custom Fields (SCF) Over Native Blocks Alone</div>
+    <div class="callout-box">
+      <div class="callout-title">The Engineering Justification for 70 Structured Fields</div>
+      <div class="callout-text">
+        While native Gutenberg blocks are perfect for general article copy, managing 70 structured legal parameters (filing courts, statutory references, procedural timelines, counsel bylines) inside raw block sidebars is unwieldy for content authors. <strong>Secure Custom Fields (SCF)</strong> stores clean metadata in post-meta tables, allowing template files to programmatically query and filter use cases across Lawyer and Area pages. Furthermore, SCF provides UI tabs that break the 70 fields into manageable visual sections.
+      </div>
+    </div>
+
+    <img src="{editorial_img}" alt="Editorial WordPress Dashboard" class="body-image" style="height:32mm;">
+  </div>
+
+  <div class="page-footer">
+    <span>Skopje Business Law Firm — WordPress Rebuild</span>
+    <span>Page 3 of 10</span>
+  </div>
+</div>
+
+<!-- PAGE 4: RELATIONAL CONTENT MODEL & 70-FIELD USE CASE BLUEPRINT -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-left">
+      <span class="header-brand">Axiom Global Technologies</span>
+      <span style="color:var(--border);">|</span>
+      <span class="header-right">Technical Proposal</span>
+    </div>
+    <div class="header-right">Content Modeling & Taxonomies</div>
+  </div>
+
+  <div class="page-body">
+    <div class="section-tag">03. Content Model & Relational Architecture</div>
+    <h2 class="section-title">Automated Relational Publishing for 5 Lawyers & 7 Practice Areas</h2>
+    <p class="lead-paragraph">
+      We establish a robust custom post type (CPT) architecture that mirrors your firm's real-world legal hierarchy. Content is entered once and dynamically rendered across interconnected views without manual duplication.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:20%;">Content Entity</th>
+          <th style="width:20%;">Structure Type</th>
+          <th style="width:30%;">Key Attributes & Fields</th>
+          <th style="width:30%;">Relational Connections</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Expertise Areas (7)</strong></td>
+          <td>Custom Post Type / Taxonomy</td>
+          <td>Overview, statutory framework, service offerings, FAQ schema</td>
+          <td>Auto-aggregates all linked Use Cases and assigned Lawyers.</td>
+        </tr>
+        <tr>
+          <td><strong>Audiences (4)</strong></td>
+          <td>Custom Post Type / Taxonomy</td>
+          <td>Target client profile, commercial focus, tailored legal insights</td>
+          <td>Dynamically filters 1–3 assigned client personas per Use Case.</td>
+        </tr>
+        <tr>
+          <td><strong>Lawyers (5)</strong></td>
+          <td>Custom Post Type</td>
+          <td>Bio, Bar admissions, education, practice areas, direct routing email</td>
+          <td>Auto-lists authored and reviewed Use Cases; receives targeted inquiries.</td>
+        </tr>
+        <tr>
+          <td><strong>Use Cases</strong></td>
+          <td>Structured CPT (~70 fields)</td>
+          <td>Repeatable timeline rows, dispute facts, judgment outcome, court data</td>
+          <td>Strictly linked to 1 Area, 1–3 Audiences, 1 Lead Author & 1 Reviewer.</td>
+        </tr>
+        <tr>
+          <td><strong>Articles (~200)</strong></td>
+          <td>Native WordPress Posts</td>
+          <td>Migrated legal analyses, categories mapped to 7 Areas, real author bylines</td>
+          <td>Retains historical publication dates, clean tags, and SEO authority.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="grid-2" style="margin-top:2mm;">
+      <div class="card">
+        <div class="card-title">70-Field Tabbed SCF Interface</div>
+        <p class="card-desc">
+          To ensure effortless content entry for your team, the 70 fields are categorized into 4 logical tabs:
+        </p>
+        <ul style="margin-left:4mm; font-size:7.5pt; color:var(--charcoal); margin-top:1.5mm; line-height:1.4;">
+          <li><strong>Tab 1: Core Facts:</strong> Jurisdiction, industry, client type, summary.</li>
+          <li><strong>Tab 2: Procedural Milestones:</strong> Repeatable rows (Date, Filing, Ruling).</li>
+          <li><strong>Tab 3: Legal Impact:</strong> Key precedents, statutory citations, takeaways.</li>
+          <li><strong>Tab 4: Bylines & Attribution:</strong> Lead lawyer selector & peer reviewer.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Category Canonical & Duplicate Safeguard</div>
+        <p class="card-desc">
+          When category archive views repeat the exact content of an Expertise Area landing page, search engines can penalize the domain for duplicate content.
+        </p>
+        <div class="callout-box" style="margin-top:2mm; margin-bottom:0; padding:2mm 3mm;">
+          <div class="callout-title" style="font-size:7.5pt;">Automated Canonical Enforcement:</div>
+          <div class="callout-text" style="font-size:7.2pt;">
+            Our theme template automatically detects when a category view mirrors an Expertise Area page and injects a <code>rel="canonical"</code> tag pointing directly to the primary Area permalink, consolidating all ranking authority.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Skopje Business Law Firm — WordPress Rebuild</span>
+    <span>Page 4 of 10</span>
+  </div>
+</div>
+
+<!-- PAGE 5: DIVI MIGRATION & SHORTCODE CLEANSING PIPELINE -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-left">
+      <span class="header-brand">Axiom Global Technologies</span>
+      <span style="color:var(--border);">|</span>
+      <span class="header-right">Technical Proposal</span>
+    </div>
+    <div class="header-right">Divi Migration Pipeline</div>
+  </div>
+
+  <div class="page-body">
+    <div class="section-tag">04. Legacy Divi Migration & Cleansing</div>
+    <h2 class="section-title">Automated Scripting: Eradicating Shortcodes from ~200 Articles</h2>
+    <p class="lead-paragraph">
+      Divi is notoriously difficult to deactivate because it wraps all body content in proprietary shortcodes. If simply disabled, visitors and search engine crawlers see raw broken code strings like <code>[et_pb_section][et_pb_row][et_pb_text]</code>. We execute a disciplined, automated database sanitization workflow.
+    </p>
+
+    <div class="callout-box">
+      <div class="callout-title">Two-Stage Automated Sanitization & Block Normalization</div>
+      <div class="callout-text">
+        Instead of error-prone manual copy-pasting, our Senior Backend Engineer runs a custom PHP / WP-CLI migration script directly against the staging database. The script parses <code>post_content</code> using tested regular expressions, strips Divi layout containers, extracts inner semantic HTML tags, and converts the clean content into standard WordPress Gutenberg blocks.
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:2mm;">
+      <div class="card-white">
+        <div class="card-title">Automated Transformation Rules</div>
+        <table style="font-size:7.2pt; margin-bottom:0;">
+          <thead>
+            <tr>
+              <th>Divi Shortcode Artifact</th>
+              <th>Sanitization Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>[et_pb_section]</code> / <code>[et_pb_row]</code></td>
+              <td>Completely stripped; outer DOM unwrapped.</td>
+            </tr>
+            <tr>
+              <td><code>[et_pb_column]</code></td>
+              <td>Layout classes removed; child elements preserved.</td>
+            </tr>
+            <tr>
+              <td><code>[et_pb_text]</code></td>
+              <td>Unwrapped; clean <code>&lt;p&gt;</code>, <code>&lt;h2&gt;</code>, <code>&lt;ul&gt;</code> preserved.</td>
+            </tr>
+            <tr>
+              <td><code>[et_pb_image src="..."]</code></td>
+              <td>Converted to native WordPress <code>&lt;!-- wp:image --&gt;</code> block.</td>
+            </tr>
+            <tr>
+              <td>Author Category Tags</td>
+              <td>Mapped to genuine WordPress User IDs with author profiles.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card-white">
+        <div class="card-title">Integrity Verification Checklist</div>
+        <ul style="margin-left:4mm; font-size:7.5pt; color:var(--charcoal); margin-top:2mm; line-height:1.5;">
+          <li><strong>Heading Hierarchy:</strong> Verify that <code>&lt;h1&gt;</code> remains unique to post title; subheadings mapped cleanly to <code>&lt;h2&gt;</code> and <code>&lt;h3&gt;</code>.</li>
+          <li><strong>Image Attachments:</strong> Ensure all embedded case graphics and diagrams maintain correct WordPress Media Library ID links and alt attributes.</li>
+          <li><strong>Historical Bylines:</strong> Ensure that lawyer attribution is transferred from category strings to formal author meta boxes, preserving legal authorship credibility.</li>
+          <li><strong>Internal Links:</strong> Automated regex check ensuring internal article cross-links update to new canonical permalinks without 404 breaks.</li>
+        </ul>
+      </div>
+    </div>
+
+    <img src="{library_img}" alt="Law Library & Legal Research" class="body-image" style="height:34mm; margin-top:2mm;">
+  </div>
+
+  <div class="page-footer">
+    <span>Skopje Business Law Firm — WordPress Rebuild</span>
+    <span>Page 5 of 10</span>
+  </div>
+</div>
+
+<!-- PAGE 6: TECHNICAL SEO PROTECTION & MULTILINGUAL STRATEGY -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-left">
+      <span class="header-brand">Axiom Global Technologies</span>
+      <span style="color:var(--border);">|</span>
+      <span class="header-right">Technical Proposal</span>
+    </div>
+    <div class="header-right">SEO Preservation & Multilingual</div>
+  </div>
+
+  <div class="page-body">
+    <div class="section-tag">05. Search Engine Optimization & Multilingual Engine</div>
+    <h2 class="section-title">Safeguarding 400+ Legitimate URLs Across MK, EN & DE</h2>
+    <p class="lead-paragraph">
+      Website redesigns often cause severe traffic drops due to overlooked URLs, redirect chains, or misconfigured multilingual tags. We apply a rigorous technical SEO framework that shields your hard-earned Google rankings.
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">1:1 Server-Level 301 Redirect Architecture</div>
+        <p class="card-desc">
+          Prior to development, we perform a comprehensive Screaming Frog crawl capturing your complete indexable inventory.
+        </p>
+        <ul style="margin-left:4mm; font-size:7.5pt; color:var(--charcoal); margin-top:1.5mm; line-height:1.4;">
+          <li><strong>Inventory Baseline:</strong> Immutable log of all 400+ legitimate URLs, title tags, H1s, and status codes.</li>
+          <li><strong>Zero Chains:</strong> Every redirected legacy URL routes directly to its target page in a single hop.</li>
+          <li><strong>Server-Level Execution:</strong> Mappings deployed via Apache <code>.htaccess</code> or Nginx rewrites for sub-millisecond execution.</li>
+          <li><strong>GSC Monitoring:</strong> Continuous post-launch tracking of 404 error logs and indexation rates.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Multilingual Engine via Polylang (Free)</div>
+        <p class="card-desc">
+          Clean language synchronization across Macedonian (default), English, and German without database bloat.
+        </p>
+        <ul style="margin-left:4mm; font-size:7.5pt; color:var(--charcoal); margin-top:1.5mm; line-height:1.4;">
+          <li><strong>Dedicated Slugs:</strong> Translated permalinks per language (e.g. <code>/delovn-pravo/</code>, <code>/en/business-law/</code>, <code>/de/wirtschaftsrecht/</code>).</li>
+          <li><strong>Synchronized Switching:</strong> Changing languages keeps the user on the translated counterpart of the exact same page.</li>
+          <li><strong>Bidirectional hreflang:</strong> Strict <code>hreflang="mk"</code>, <code>"en"</code>, <code>"de"</code> tags injected into the HTML <code>&lt;head&gt;</code> to prevent duplicate content penalties.</li>
+          <li><strong>Independent Sitemaps:</strong> Separate XML sitemaps per language submitted to Google Search Console.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-tag" style="margin-top:2mm;">Structured Schema Markup (JSON-LD)</div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:25%;">Schema Entity</th>
+          <th style="width:35%;">Target Placement</th>
+          <th style="width:40%;">Commercial Benefit to Law Practice</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>LegalService</code></td>
+          <td>Sitewide / Organization Footer</td>
+          <td>Validates firm identity, Skopje address, phone, bar affiliation & opening hours for Google Knowledge Graph.</td>
+        </tr>
+        <tr>
+          <td><code>Person</code></td>
+          <td>5 Lawyer Profile Pages</td>
+          <td>Establishes E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) by linking lawyer credentials and bar numbers.</td>
+        </tr>
+        <tr>
+          <td><code>Article</code></td>
+          <td>~200 Migrated Posts</td>
+          <td>Enables rich Google search cards, dateModified, and accurate author attribution.</td>
+        </tr>
+        <tr>
+          <td><code>FAQPage</code> & <code>BreadcrumbList</code></td>
+          <td>Expertise Area Pages</td>
+          <td>Generates expandable accordion snippets in search engine results pages (SERPs), boosting click-through rates.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    <span>Skopje Business Law Firm — WordPress Rebuild</span>
+    <span>Page 6 of 10</span>
+  </div>
+</div>
+
+<!-- PAGE 7: MULTI-STEP ROUTING, PERFORMANCE & SECURITY -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-left">
+      <span class="header-brand">Axiom Global Technologies</span>
+      <span style="color:var(--border);">|</span>
+      <span class="header-right">Technical Proposal</span>
+    </div>
+    <div class="header-right">Forms, Performance & Security</div>
+  </div>
+
+  <div class="page-body">
+    <div class="section-tag">06. Lead Routing, Performance & Hardening</div>
+    <h2 class="section-title">Conditional Lead Routing & Sub-3-Second Performance</h2>
+    <p class="lead-paragraph">
+      We transform your contact interface from a static email box into an intelligent, GDPR-compliant client acquisition funnel—paired with aggressive server-level performance optimization.
+    </p>
+
+    <div class="grid-2">
+      <div class="card-white">
+        <div class="card-title">Area-Routed Multi-Step Contact Funnel</div>
+        <p class="card-desc">
+          Implemented via <strong>Forminator (Free)</strong>, delivering a friction-free experience without third-party SaaS fees:
+        </p>
+        <ul style="margin-left:4mm; font-size:7.5pt; color:var(--charcoal); margin-top:2mm; line-height:1.45;">
+          <li><strong>Step 1: Expertise Selection:</strong> Prospective client selects from your 7 practice areas (e.g. M&A, Corporate, Dispute Resolution).</li>
+          <li><strong>Step 2: Case Summary & Documents:</strong> Client provides brief facts and optional NDA-protected file attachments.</li>
+          <li><strong>Conditional Inbox Routing:</strong> Inquiries route directly to the designated lead lawyer's inbox based on practice area.</li>
+          <li><strong>15-Minute Call Slot Request:</strong> Clean date/time picker allowing clients to propose meeting slots without external booking tools.</li>
+          <li><strong>Spam & Privacy:</strong> Invisible Honeypot + Google reCAPTCHA v3 + explicit GDPR/Macedonian privacy consent checkboxes.</li>
+        </ul>
+      </div>
+
+      <div class="card-white">
+        <div class="card-title">Performance & Core Web Vitals Targets</div>
+        <p class="card-desc">
+          Built to achieve your strict launch criteria on staging prior to deployment:
+        </p>
+        <ul style="margin-left:4mm; font-size:7.5pt; color:var(--charcoal); margin-top:2mm; line-height:1.45;">
+          <li><strong>Lighthouse Mobile Score:</strong> 85+ target score across simulated mobile networks.</li>
+          <li><strong>Accessibility Score:</strong> 90+ rating conforming to WCAG 2.1 AA contrast and screen-reader standards.</li>
+          <li><strong>Largest Contentful Paint (LCP):</strong> Sub-3.0 second render on standard 4G connections.</li>
+          <li><strong>Asset Optimization:</strong> Native WebP image delivery, deferred non-critical JavaScript, and inline critical CSS.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-tag" style="margin-top:2mm;">Security Hardening & Post-Spam Recovery Shield</div>
+    <div class="callout-box">
+      <div class="callout-title">Preventing Future Injection Vulnerabilities</div>
+      <div class="callout-text">
+        Having suffered a spam injection earlier this year, your new environment will be secured against common attack vectors:
+        <br>• Complete elimination of unused plugins, themes, and outdated database tables.
+        <br>• Disabled XML-RPC API and user enumeration endpoints to prevent automated brute-force attempts.
+        <br>• Hardened file permissions (<code>wp-config.php</code> 400/440; <code>.htaccess</code> 444; uploads directory execution blocked).
+        <br>• Automated daily off-site database and asset backups configured on staging and production.
+      </div>
+    </div>
+
+    <img src="{meeting_img}" alt="Executive Legal Consultation" class="body-image" style="height:32mm;">
+  </div>
+
+  <div class="page-footer">
+    <span>Skopje Business Law Firm — WordPress Rebuild</span>
+    <span>Page 7 of 10</span>
+  </div>
+</div>
+
+<!-- PAGE 8: TIMELINE, MILESTONES & FIXED BUDGET -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-left">
+      <span class="header-brand">Axiom Global Technologies</span>
+      <span style="color:var(--border);">|</span>
+      <span class="header-right">Technical Proposal</span>
+    </div>
+    <div class="header-right">Delivery Schedule & Milestones</div>
+  </div>
+
+  <div class="page-body">
+    <div class="section-tag">07. Project Plan & Fixed Investment</div>
+    <h2 class="section-title">Guaranteed Launch by 17 December 2026 for $1,050 USD</h2>
+    <p class="lead-paragraph">
+      We operate on a strictly committed delivery schedule aligned perfectly with your timeline. Work is structured into 4 transparent, deliverable-based milestones paid safely through Upwork escrow.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:16%;">Milestone</th>
+          <th style="width:14%;">Payment</th>
+          <th style="width:45%;">Deliverables & Activities</th>
+          <th style="width:25%;">Target Completion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Milestone 1</strong><br>Staging & Model</td>
+          <td><strong>20%</strong><br>($210 USD)</td>
+          <td>
+            • Staging copy created; Divi & unused plugins removed.<br>
+            • Complete URL inventory (400+ URLs) & security hardening.<br>
+            • CPTs established: Areas (7), Audiences (4), Use Cases, Lawyers (5).<br>
+            • SCF metaboxes and tabs configured per your field guide.
+          </td>
+          <td><strong>23 November 2026</strong><br>(Ready for team entry)</td>
+        </tr>
+        <tr>
+          <td><strong>Milestone 2</strong><br>Theme & Templates</td>
+          <td><strong>40%</strong><br>($420 USD)</td>
+          <td>
+            • 9 Figma templates built into responsive block theme.<br>
+            • Component library, typography, and spacing tokens coded.<br>
+            • Forminator area-routed contact form & 15-min call request.<br>
+            • Category canonical rules and automated relational loops coded.
+          </td>
+          <td><strong>4 December 2026</strong><br>(Template freeze)</td>
+        </tr>
+        <tr>
+          <td><strong>Milestone 3</strong><br>Migration & Launch</td>
+          <td><strong>30%</strong><br>($315 USD)</td>
+          <td>
+            • Automated Divi shortcode cleansing across ~200 articles.<br>
+            • Polylang setup (MK, EN, DE), translated slugs & hreflang tags.<br>
+            • 301 redirect map deployed & tested; schema markup injected.<br>
+            • Final QA (Lighthouse 85+, LCP &lt; 3s) & one-push live launch.
+          </td>
+          <td><strong>17 December 2026</strong><br>(Official Public Launch)</td>
+        </tr>
+        <tr>
+          <td><strong>Milestone 4</strong><br>Warranty & Handover</td>
+          <td><strong>10%</strong><br>($105 USD)</td>
+          <td>
+            • 14 days of dedicated post-launch bug fixes and monitoring.<br>
+            • Google Search Console crawl validation & 404 resolution.<br>
+            • 30-minute recorded video handover + 1-page editing guide.
+          </td>
+          <td><strong>31 December 2026</strong><br>(Final Sign-off)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout-box" style="margin-top:2mm;">
+      <div class="callout-title">Timeline Alignment With Your Content Team</div>
+      <div class="callout-text">
+        <strong>• 18 – 23 Nov:</strong> We configure staging, URL inventory, and CPT content structures so your team can begin testing entry.<br>
+        <strong>• 24 Nov – 4 Dec:</strong> We build the Figma block templates while your team prepares draft copy.<br>
+        <strong>• 30 Nov – 11 Dec:</strong> Your team enters content into the finished staging templates with our live engineering support.<br>
+        <strong>• 9 – 15 Dec:</strong> Rigorous cross-browser QA, mobile testing, 301 redirect map verification, and form routing tests.<br>
+        <strong>• 17 Dec:</strong> Live deployment (well ahead of the 30 December hard stop).
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Skopje Business Law Firm — WordPress Rebuild</span>
+    <span>Page 8 of 10</span>
+  </div>
+</div>
+
+<!-- PAGE 9: ENGINEERING POD & VERIFIED ENTERPRISE CREDENTIALS -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-left">
+      <span class="header-brand">Axiom Global Technologies</span>
+      <span style="color:var(--border);">|</span>
+      <span class="header-right">Technical Proposal</span>
+    </div>
+    <div class="header-right">Team & Verified Credentials</div>
+  </div>
+
+  <div class="page-body">
+    <div class="section-tag">08. Engineering Pod & Credentials</div>
+    <h2 class="section-title">Enterprise CMS Experience Applied to Your Law Practice</h2>
+    <p class="lead-paragraph">
+      You are partnering with seasoned engineers with deep backgrounds in custom WordPress themes, relational database architecture, and multilingual international portals across Europe, Australia, and the UAE.
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Chamara Lahiru</div>
+        <div class="badge badge-dark" style="margin-bottom:1.5mm;">Senior WordPress & Frontend Engineer (6+ Years)</div>
+        <p class="card-desc">
+          Specialist in custom WordPress theme development, custom post types, Gutenberg block patterns, and responsive UI from Figma. Built enterprise WordPress portals for financial, corporate, and infrastructure clients.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Avishka Meddegoda</div>
+        <div class="badge badge-dark" style="margin-bottom:1.5mm;">Senior Backend & Systems Architect (6+ Years)</div>
+        <p class="card-desc">
+          Expert in PHP, MySQL, automated database migration scripts, and server optimization. Author of our automated regex scripts for stripping Divi shortcodes, database sanitation, and 301 redirect map verification.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:1mm;">
+      <div class="card">
+        <div class="card-title">Viranga Lakshan</div>
+        <div class="badge badge-dark" style="margin-bottom:1.5mm;">Lead Solutions Architect (2+ Years)</div>
+        <p class="card-desc">
+          Experience in structured CMS architecture (Sitecore, Umbraco, Storyblok) and multilingual synchronization for government institutions and enterprise brands. Leads taxonomy design and technical SEO mapping.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Lithumitha Ravikumar</div>
+        <div class="badge badge-dark" style="margin-bottom:1.5mm;">Agile Project Manager & QA Specialist (2 Years)</div>
+        <p class="card-desc">
+          Oversees sprint scheduling, cross-device testing (iOS, Android, Chrome, Safari), Lighthouse performance auditing, and creates your team's recorded handover video and one-page editing guide.
+        </p>
+      </div>
+    </div>
+
+    <div class="section-tag" style="margin-top:2mm;">Verified Live International Platforms</div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:28%;">Platform / Client</th>
+          <th style="width:22%;">Technology</th>
+          <th style="width:50%;">Architectural Highlights</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Castle Renewables Australia</strong><br><a href="https://castlerenewables.com.au" style="color:var(--black); text-decoration:underline;">castlerenewables.com.au</a></td>
+          <td>WordPress / Custom CPTs</td>
+          <td>Custom WordPress architecture with custom post types for case studies/projects, corporate capabilities, and responsive UI.</td>
+        </tr>
+        <tr>
+          <td><strong>LB Finance PLC</strong><br><a href="https://www.lbfinance.com" style="color:var(--black); text-decoration:underline;">lbfinance.com</a> | <a href="https://sustainability.lbfinance.com" style="color:var(--black); text-decoration:underline;">sustainability</a></td>
+          <td>WordPress Enterprise</td>
+          <td>Corporate financial portal featuring custom post types for governance disclosures, financial reporting, and structured publishing.</td>
+        </tr>
+        <tr>
+          <td><strong>Natural History Museum Abu Dhabi</strong><br><a href="https://nhmad.ae" style="color:var(--black); text-decoration:underline;">nhmad.ae</a></td>
+          <td>Multilingual CMS</td>
+          <td>High-traffic multilingual enterprise platform with bidirectional English/Arabic taxonomy synchronization and schema.</td>
+        </tr>
+        <tr>
+          <td><strong>Holsten Arabia</strong><br><a href="https://holstenarabia.me" style="color:var(--black); text-decoration:underline;">holstenarabia.me</a></td>
+          <td>Multilingual Brand CMS</td>
+          <td>Multilingual digital experience featuring reusable content components, localized assets, and strict SEO compliance.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    <span>Skopje Business Law Firm — WordPress Rebuild</span>
+    <span>Page 9 of 10</span>
+  </div>
+</div>
+
+<!-- PAGE 10: SCREENING QUESTIONS, TECHNICAL Q&A & SIGN-OFF -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-left">
+      <span class="header-brand">Axiom Global Technologies</span>
+      <span style="color:var(--border);">|</span>
+      <span class="header-right">Technical Proposal</span>
+    </div>
+    <div class="header-right">Direct Client Commitments</div>
+  </div>
+
+  <div class="page-body">
+    <div class="section-tag">09. Application Screening Answers</div>
+    <h2 class="section-title">Direct Answers to Your Five Screening Questions</h2>
+
+    <div class="card" style="margin-bottom:2.5mm; padding:2.5mm 3.5mm;">
+      <div style="font-weight:700; font-size:7.8pt; color:var(--black); margin-bottom:1mm;">1. Link 2 live WordPress sites you built with custom post types and Polylang or WPML:</div>
+      <div style="font-size:7.5pt; color:var(--charcoal); line-height:1.35;">
+        • <strong>Castle Renewables Australia:</strong> <a href="https://castlerenewables.com.au" style="color:var(--black); text-decoration:underline;">https://castlerenewables.com.au</a> (Custom WordPress CPTs for case studies, infrastructure projects, and capabilities).<br>
+        • <strong>LB Finance PLC Portal:</strong> <a href="https://www.lbfinance.com" style="color:var(--black); text-decoration:underline;">https://www.lbfinance.com</a> / <a href="https://sustainability.lbfinance.com" style="color:var(--black); text-decoration:underline;">https://sustainability.lbfinance.com</a> (Custom post types for financial disclosures and multi-tier reports).<br>
+        <em>In addition, our team has built high-traffic multilingual platforms with bidirectional translation synchronization and strict hreflang matching: NHM Abu Dhabi (<a href="https://nhmad.ae" style="color:var(--black); text-decoration:underline;">nhmad.ae</a>) and Holsten Arabia (<a href="https://holstenarabia.me" style="color:var(--black); text-decoration:underline;">holstenarabia.me</a>).</em>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:2.5mm; padding:2.5mm 3.5mm;">
+      <div style="font-weight:700; font-size:7.8pt; color:var(--black); margin-bottom:1mm;">2. In 3–4 lines: how do you keep rankings when a site's templates and URLs change?</div>
+      <div style="font-size:7.5pt; color:var(--charcoal); line-height:1.35;">
+        We crawl all 400+ indexed URLs using Screaming Frog to create an immutable baseline of titles, H1s, and canonicals. For any URL whose slug must change, we implement strict 1:1 server-level 301 redirects (tested for zero loops or chains). We preserve identical heading hierarchy, content structure, and internal link equity in the new block templates, configure clean XML sitemaps per language with proper hreflang tags, and monitor Google Search Console indexing and 404 logs continuously post-launch.
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:2.5mm; padding:2.5mm 3.5mm;">
+      <div style="font-weight:700; font-size:7.8pt; color:var(--black); margin-bottom:1mm;">3. 70 structured fields with repeatable rows: What free plugin would you use and why?</div>
+      <div style="font-size:7.5pt; color:var(--charcoal); line-height:1.35;">
+        We use <strong>Secure Custom Fields (SCF)</strong> (WordPress.org open-source fork of ACF). Why SCF over native blocks? <strong>1. Relational querying:</strong> Use-case fields (Area, Audiences, Lawyer) must be queried dynamically via <code>WP_Query</code> in PHP templates to auto-populate Area and Lawyer pages without manual duplication. <strong>2. Validation:</strong> SCF enforces character limits and required fields from your field guide. <strong>3. Usability:</strong> SCF tabs break 70 fields into intuitive sections so your lawyers are not overwhelmed by an unorganized vertical list.
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:2.5mm; padding:2.5mm 3.5mm;">
+      <div style="font-weight:700; font-size:7.8pt; color:var(--black); margin-bottom:1mm;">4. Have you migrated off Divi? How do you handle leftover shortcodes in old posts?</div>
+      <div style="font-size:7.5pt; color:var(--charcoal); line-height:1.35;">
+        Yes. On staging, our backend engineer runs a custom automated PHP / WP-CLI script that parses <code>post_content</code> via regex, completely strips Divi layout shortcodes (<code>[et_pb_*]</code>), and extracts pure semantic HTML (headings, paragraphs, lists, quotes, and image attachments). The clean HTML is converted into native Gutenberg blocks, mapping historical author categories into true WordPress author profiles, verified across all ~200 articles.
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:2.5mm; padding:2.5mm 3.5mm;">
+      <div style="font-weight:700; font-size:7.8pt; color:var(--black); margin-bottom:1mm;">5. Can you launch by 17 December? Who besides you works on the project?</div>
+      <div style="font-size:7.5pt; color:var(--charcoal); line-height:1.35;">
+        Yes, we commit to the 17 December 2026 launch. Delivered by our focused pod: <strong>Chamara Lahiru</strong> (Lead WordPress Engineer, Figma to block theme, SCF, Polylang), <strong>Avishka Meddegoda</strong> (Backend Systems Architect, staging, Divi cleansing script, 301 redirects), and <strong>Lithumitha Ravikumar</strong> (Project Manager, milestone governance, QA & recorded handover).
+      </div>
+    </div>
+
+    <div class="callout-box" style="margin-top:1mm; margin-bottom:0; padding:2mm 3.5mm;">
+      <div class="callout-title" style="font-size:7.8pt;">Immediate Kickoff Readiness</div>
+      <div class="callout-text" style="font-size:7.5pt;">
+        We are prepared to receive staging access immediately and commence Milestone 1 (URL inventory, security hardening, and CPT content model setup). We look forward to delivering an exceptional, high-ranking digital platform for your firm.
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Skopje Business Law Firm — WordPress Rebuild</span>
+    <span>Page 10 of 10</span>
+  </div>
+</div>
+
+</body>
+</html>
+"""
+
+    with open(html_file, "w", encoding="utf-8") as f:
+        f.write(html_content)
+    print(f"HTML written to {html_file}")
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        page.goto("file:///" + html_file.replace("\\", "/"), wait_until="networkidle")
+        page.pdf(
+            path=output_pdf,
+            format="A4",
+            print_background=True,
+            margin={"top": "0mm", "right": "0mm", "bottom": "0mm", "left": "0mm"}
+        )
+        browser.close()
+
+    print(f"PDF successfully generated at: {output_pdf}")
+
+    # Verify Page Count with pypdf
+    reader = pypdf.PdfReader(output_pdf)
+    total_pages = len(reader.pages)
+    print(f"Total Page Count: {total_pages}")
+    if total_pages == 10:
+        print("PAGE COUNT VERIFICATION PASSED: Exactly 10 pages.")
+    else:
+        print(f"WARNING: Expected 10 pages, but got {total_pages}. Check layout heights.")
+
+if __name__ == "__main__":
+    generate_pdf()
