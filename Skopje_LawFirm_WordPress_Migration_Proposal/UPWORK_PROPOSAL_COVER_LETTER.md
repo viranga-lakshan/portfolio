@@ -16,7 +16,9 @@ Dear Partners and Team,
 
 Preserving the search authority of your ~400 legitimate indexed URLs while migrating away from Divi into a clean, multilingual block architecture is the central technical challenge of this rebuild—and it is exactly what we have engineered our workflow to safeguard. 
 
-Having recovered from a spam-URL injection earlier this year, your firm cannot afford indexation drops, broken backlinks, or messy redirect chains. We are a focused software engineering team from Sri Lanka with direct expertise in enterprise WordPress development, custom post type architecture, multilingual CMS platforms, and technical SEO migrations.
+Having recovered from a spam-URL injection earlier this year, your firm cannot afford indexation drops, broken backlinks, or messy redirect chains. We are a senior software engineering team from Sri Lanka with direct expertise in custom WordPress engineering, relational post types, multilingual architectures, and technical SEO migrations. 
+
+Our engineers come from Sri Lanka’s premier software engineering institutions, building massive international enterprise platforms for government cultural authorities, global corporations, and financial institutions across the UAE, Australia, and Europe. Compared to the complex enterprise CMS platforms we architect daily (such as Sitecore Headless and Umbraco), WordPress is a comparatively lightweight, straightforward technology—giving you absolute certainty that your 70-field relational schema, Divi shortcode cleansing, and URL protection will be executed with zero bugs.
 
 --------------------------------------------------
 HOW WE SOLVE YOUR THREE PRIMARY CONCERNS
@@ -41,20 +43,27 @@ RECOMMENDED FREE PLUGIN STACK
 • 301 Redirect Management: Redirection (Free) / Server-level .htaccess rules.
 
 --------------------------------------------------
-LIVE VERIFIED PROJECTS WITH CUSTOM POST TYPES & MULTILINGUAL ARCHITECTURE
+PROVEN WORDPRESS & ENTERPRISE CMS CREDENTIALS
 --------------------------------------------------
-1. Castle Renewables Australia (Custom WordPress Architecture):
-   https://castlerenewables.com.au
-   Built with custom post types for case studies/projects and service capabilities, responsive corporate layout, and custom taxonomy filtering.
+WordPress Platforms with Custom Post Types:
+1. Castle Renewables Australia: https://castlerenewables.com.au
+   Custom WordPress architecture utilizing Custom Post Types (CPTs) for renewable infrastructure projects, case studies, and corporate capabilities with custom taxonomy filtering.
+2. Data Management Systems (Pvt) Ltd – Software Division: https://dmssw.com/
+   WordPress platform for Sri Lanka's pioneer software enterprise, featuring structured custom software solutions, responsive UI, and enterprise product showcases.
+3. LB Finance PLC & Sustainability Portal: https://www.lbfinance.com | https://sustainability.lbfinance.com
+   Enterprise portal with custom post types for multi-tier financial governance disclosures and publications.
 
-2. LB Finance PLC & Corporate Sustainability Portal:
-   https://www.lbfinance.com | https://sustainability.lbfinance.com
-   Enterprise portal featuring custom post types for financial disclosures, multi-category governance reports, and structured publishing workflows.
+Our International Enterprise CMS Projects (Multilingual & High-Traffic):
+• Al Ain Museum V1 (Sitecore Headless CMS): https://www.alainmuseum.ae/en
+  Government cultural institution platform. Headless Sitecore with Next.js, React, C#/.NET, and GraphQL Layout Service delivering personalized, multilingual visitor experiences.
+• Natural History Museum Abu Dhabi (Sitecore CMS): https://www.nhmad.ae/
+  High-traffic government digital experience platform. Built custom Sitecore components/templates in C#/.NET for personalized, multilingual content delivery.
+• Holsten Arabia (Umbraco Headless CMS): https://holstenarabia.me/en/
+  Global beverage brand. Headless CMS using Umbraco with Next.js, C#/.NET REST APIs, and multi-market localization.
+• Gravitee.io (Storyblok Headless CMS): https://www.gravitee.io/
+  Global enterprise API platform using Storyblok headless CMS and Astro for modular, scalable content delivery.
 
-3. Multilingual Enterprise Digital Platforms:
-   • Natural History Museum Abu Dhabi: https://nhmad.ae (Multilingual English/Arabic enterprise platform with structured taxonomy relationships).
-   • Holsten Arabia: https://holstenarabia.me (Multilingual brand experience).
-   • Al Ain Museum: https://alainmuseum.ae (Multilingual cultural institution platform).
+These enterprise CMS engines are significantly more complex and strict than WordPress. Having successfully architected and maintained these multi-million dollar platforms, delivering your WordPress block theme and content migration is a streamlined, low-risk process.
 
 --------------------------------------------------
 WHO WORKS ON YOUR PROJECT & TIMELINE GUARANTEE
@@ -87,9 +96,18 @@ Axiom Global Technologies
 **Answer:**  
 1. **Castle Renewables Australia:** https://castlerenewables.com.au  
    Custom WordPress architecture utilizing Custom Post Types (CPTs) for renewable infrastructure projects, case studies, and corporate capabilities with custom taxonomy filtering.  
-2. **LB Finance PLC & Sustainability Portal:** https://www.lbfinance.com / https://sustainability.lbfinance.com  
-   Enterprise corporate platform utilizing custom post types for multi-tier financial publications, governance reports, and structured content models.  
-*In addition, our team leads enterprise multilingual architectures with bidirectional translation synchronization, language-specific slugs, and strict hreflang matching on platforms such as the Natural History Museum Abu Dhabi (https://nhmad.ae) and Holsten Arabia (https://holstenarabia.me).*
+2. **Data Management Systems (Pvt) Ltd – Software Division:** https://dmssw.com/  
+   WordPress platform for Sri Lanka's pioneer software enterprise, featuring structured custom software solutions, responsive UI, and enterprise product showcases.  
+*(Additional reference: LB Finance PLC & Sustainability: https://www.lbfinance.com / https://sustainability.lbfinance.com)*
+
+**Enterprise Multilingual CMS Context (Why You Are in Safe Hands):**  
+Our engineering team comes from Sri Lanka's premier software engineering institutions, building massive international enterprise platforms across the UAE, Australia, and Europe. In addition to WordPress, we architect enterprise-grade CMS platforms:
+• **Al Ain Museum V1 (Sitecore Headless CMS):** https://www.alainmuseum.ae/en (Multilingual government cultural platform using Sitecore Helix, Next.js, React, C#/.NET, and GraphQL Layout Service).  
+• **Natural History Museum Abu Dhabi (Sitecore CMS):** https://www.nhmad.ae/ (High-traffic multilingual government platform with C#/.NET custom templates, bidirectional Arabic/English synchronization, and structured schema).  
+• **Holsten Arabia (Umbraco Headless CMS):** https://holstenarabia.me/en/ (Multilingual digital platform for a global beverage brand using Umbraco, Next.js, and C#/.NET REST APIs).  
+• **Gravitee.io (Storyblok Headless CMS):** https://www.gravitee.io/ (Global API platform utilizing Storyblok headless CMS and Astro).  
+
+Compared to enterprise engines like Sitecore and Umbraco—which require strict Helix architecture, headless GraphQL layouts, and complex multilingual synchronization—WordPress is comparatively lightweight and basic. Having mastered these multi-million dollar platforms, architecting your 70-field relational structure and executing a clean Divi migration is a straightforward, zero-risk task for our team.
 
 ---
 

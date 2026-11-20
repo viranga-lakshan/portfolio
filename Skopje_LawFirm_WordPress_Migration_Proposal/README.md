@@ -28,3 +28,4 @@ This comprehensive proposal package is prepared for the **Five-Lawyer Independen
 - **SEO & Canonical Strategy:** Full Screaming Frog crawl, 1:1 server-level 301 redirect map, category-to-area canonical links, XML sitemaps per language, and `LegalService` / `Person` / `Article` schema.
 - **Timeline:** Launch on 17 December 2026 + 14 days of post-launch warranty.
 - **Pricing:** Fixed price of $1,050 USD across 4 milestones (20% $210, 40% $420, 30% $315, 10% $105).
+
