@@ -8,24 +8,37 @@
 ### Question 1: Link 2 live WordPress sites you built with custom post types and Polylang or WPML.
 
 **Answer:**
-1. **Castle Renewables Australia (Custom WordPress Architecture):**  
-   https://castlerenewables.com.au  
-   Custom WordPress architecture utilizing Custom Post Types (CPTs) for renewable infrastructure projects, case studies, and corporate capabilities with custom taxonomy filtering.  
 
-2. **Data Management Systems (Pvt) Ltd – Software Division:**  
-   https://dmssw.com/  
-   WordPress platform for Sri Lanka's pioneer software enterprise, featuring structured custom software solutions, responsive UI, and enterprise product showcases.  
+• **Castle Renewables Australia (Custom WordPress Architecture):**  
+  Live URL: https://castlerenewables.com.au  
+  Details: Custom WordPress build featuring Custom Post Types (CPTs) for renewable infrastructure assets, case study portfolios, and corporate capabilities with custom taxonomy filtering.
 
-*(Additional live reference: LB Finance PLC & Sustainability Portal: https://www.lbfinance.com / https://sustainability.lbfinance.com)*
+• **Data Management Systems (Pvt) Ltd – Software Division:**  
+  Live URL: https://dmssw.com/  
+  Details: Production WordPress platform for Sri Lanka’s pioneer software engineering house, built with custom post types for enterprise software solutions and responsive corporate design.  
+
+*(Additional reference: LB Finance PLC & Sustainability Portal: https://www.lbfinance.com / https://sustainability.lbfinance.com)*
 
 **Enterprise Multilingual CMS Context (Why You Are in Safe Hands):**  
 Our core engineering team originates from Sri Lanka’s premier software engineering institutions, building massive international enterprise platforms across the UAE, Australia, and Europe. In addition to WordPress, we architect enterprise-grade CMS platforms:
-• **Al Ain Museum V1 (Sitecore Headless CMS):** https://www.alainmuseum.ae/en (Multilingual government cultural platform using Sitecore Helix, Next.js, React, C#/.NET, and GraphQL Layout Service to fetch and render structured content).  
-• **Natural History Museum Abu Dhabi (Sitecore CMS):** https://www.nhmad.ae/ (High-traffic multilingual government platform with C#/.NET custom templates, bidirectional Arabic/English synchronization, and structured schema).  
-• **Holsten Arabia (Umbraco Headless CMS):** https://holstenarabia.me/en/ (Multilingual digital platform for a global beverage brand using Umbraco, Next.js, and C#/.NET REST APIs).  
-• **Gravitee.io (Storyblok Headless CMS):** https://www.gravitee.io/ (Global enterprise API platform utilizing Storyblok headless CMS and Astro framework for fast, content-driven page delivery).  
 
-Compared to enterprise platforms like Sitecore and Umbraco—which require strict Helix architecture, headless GraphQL layouts, and complex multilingual synchronization—WordPress is comparatively lightweight and basic. Having mastered these multi-million dollar platforms, architecting your 70-field relational structure and executing a clean Divi migration is a straightforward, zero-risk task for our team.
+• **Al Ain Museum V1 (Sitecore Headless CMS):**  
+  Live URL: https://www.alainmuseum.ae/en  
+  Details: Live government cultural institution platform. Headless Sitecore built on Helix principles, using GraphQL Layout Service, Next.js, React, and C#/.NET to deliver a high-speed, personalized multilingual experience.
+
+• **Natural History Museum Abu Dhabi (Sitecore CMS):**  
+  Live URL: https://www.nhmad.ae/  
+  Details: High-traffic government digital experience platform. Built custom Sitecore components and templates in C#/.NET for personalized, multilingual content delivery and structured schema markup.
+
+• **Holsten Arabia (Umbraco Headless CMS):**  
+  Live URL: https://holstenarabia.me/en/  
+  Details: Multilingual digital platform for a global beverage brand using Umbraco, Next.js frontend, and C#/.NET REST APIs for multi-market localization.
+
+• **Gravitee.io (Storyblok Headless CMS):**  
+  Live URL: https://www.gravitee.io/  
+  Details: Global enterprise API platform utilizing Storyblok headless CMS and Astro framework for fast, content-driven page delivery.
+
+*Comparison to WordPress:* Compared to enterprise engines like Sitecore and Umbraco—which require strict Helix architecture, headless GraphQL layouts, and complex multi-region multilingual synchronization—WordPress is comparatively lightweight and basic. Having mastered these multi-million dollar platforms, architecting your 70-field relational structure and executing a clean Divi migration is a straightforward, zero-risk task for our team.
 
 ---
 

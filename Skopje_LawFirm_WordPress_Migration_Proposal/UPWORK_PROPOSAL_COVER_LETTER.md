@@ -12,61 +12,71 @@
 ```text
 Skopje
 
-Dear Partners and Team,
+Dear Partners and Hiring Team,
 
-Preserving the search authority of your ~400 legitimate indexed URLs while migrating away from Divi into a clean, multilingual block architecture is the central technical challenge of this rebuild—and it is exactly what we have engineered our workflow to safeguard. 
-
-Having recovered from a spam-URL injection earlier this year, your firm cannot afford indexation drops, broken backlinks, or messy redirect chains. We are a senior software engineering team from Sri Lanka with direct expertise in custom WordPress engineering, relational post types, multilingual architectures, and technical SEO migrations. 
-
-Our engineers come from Sri Lanka’s premier software engineering institutions, building massive international enterprise platforms for government cultural authorities, global corporations, and financial institutions across the UAE, Australia, and Europe. Compared to the complex enterprise CMS platforms we architect daily (such as Sitecore Headless and Umbraco), WordPress is a comparatively lightweight, straightforward technology—giving you absolute certainty that your 70-field relational schema, Divi shortcode cleansing, and URL protection will be executed with zero bugs.
+We have prepared this proposal specifically for your five-lawyer business law practice in Skopje, directly answering every requirement and question in your brief:
 
 --------------------------------------------------
-HOW WE SOLVE YOUR THREE PRIMARY CONCERNS
+1. TWO LIVE WORDPRESS SITES WITH CUSTOM POST TYPES & MULTILINGUAL ARCHITECTURE
+--------------------------------------------------
+
+• Project 1: Castle Renewables Australia
+  Live URL: https://castlerenewables.com.au
+  Architecture: Custom WordPress build utilizing Custom Post Types (CPTs) for renewable infrastructure assets, case study portfolios, and corporate capabilities with custom taxonomy filtering.
+
+• Project 2: Data Management Systems (Pvt) Ltd – Software Division
+  Live URL: https://dmssw.com/
+  Architecture: Production WordPress platform for Sri Lanka’s pioneer software engineering house, built with custom post types for enterprise software solutions and responsive corporate design.
+
+(Additional Live WordPress Reference: LB Finance PLC & Corporate Sustainability Portal – https://www.lbfinance.com / https://sustainability.lbfinance.com – Custom post types for multi-tier financial governance disclosures and publications).
+
+--------------------------------------------------
+WHY OUR TEAM GUARANTEES ZERO-RISK DELIVERY (ENTERPRISE CMS vs. WORDPRESS)
+--------------------------------------------------
+Our core engineers come from Sri Lanka’s premier software engineering institutions, building mission-critical international digital platforms across the UAE, Australia, and Europe. In addition to WordPress, we architect massive government and corporate platforms on heavyweight enterprise CMS engines:
+
+• Al Ain Museum V1 (Sitecore Headless CMS):
+  Live URL: https://www.alainmuseum.ae/en
+  Scope: Public government cultural institution website. Architected a headless Sitecore solution using Helix principles, Next.js, React, C#/.NET, and GraphQL Layout Service to fetch and render structured content for a personalized, multilingual visitor experience.
+
+• Natural History Museum Abu Dhabi (Sitecore CMS):
+  Live URL: https://www.nhmad.ae/
+  Scope: High-traffic government digital experience platform. Built custom Sitecore components and templates in C#/.NET for personalized, multilingual content delivery and structured schema markup.
+
+• Holsten Arabia (Umbraco Headless CMS):
+  Live URL: https://holstenarabia.me/en/
+  Scope: Multilingual digital platform for a global beverage brand. Developed a headless CMS using Umbraco with Next.js frontend, C#/.NET REST APIs, and multi-market localization.
+
+• Gravitee.io (Storyblok Headless CMS):
+  Live URL: https://www.gravitee.io/
+  Scope: Global enterprise API platform utilizing Storyblok headless CMS and Astro framework for ultra-fast, modular content management.
+
+Compared to Sitecore, Umbraco, and Storyblok—which require strict Helix architecture, headless GraphQL layouts, and complex multi-region multilingual synchronization—WordPress is comparatively lightweight and basic. If we routinely deliver multi-million dollar government portals with zero downtime, your WordPress block theme, 70-field relational use cases, and 200-article Divi migration will be delivered smoothly, cleanly, and on schedule.
+
+--------------------------------------------------
+2. COMPLETE FREE PLUGIN STACK (ZERO RECURRING LICENSES)
+--------------------------------------------------
+• Structured Content & Repeaters: Secure Custom Fields (SCF) – Free, open-source WordPress.org fork of ACF. Clean post-meta storage, zero bloat, native WP_Query compatibility.
+• Multilingual Engine: Polylang (Free) – Language-specific permalinks (/mk/, /en/, /de/), synchronized language switcher that keeps visitors on the same translated page, and automatic bidirectional hreflang injection.
+• Lead Routing & Consultation Booking: Forminator (Free) – Multi-step contact form routed conditionally by practice area to 5 lawyer inboxes, custom 15-minute call slot request with date/time pickers, Honeypot/reCAPTCHA v3 anti-spam, and privacy consent.
+• Technical SEO & Schema: The SEO Framework (Free) – Unbranded, ultra-fast, native schema (LegalService, Person, Article, FAQPage, BreadcrumbList), and canonical controls.
+• 301 Redirect Management: Redirection (Free) + Server-level Apache .htaccess rewrite rules for sub-millisecond redirect execution.
+
+--------------------------------------------------
+3. HOW WE SOLVE YOUR THREE PRIMARY CONCERNS
 --------------------------------------------------
 
 1. Protecting Your 400+ Indexed URLs & SEO Rankings:
-Before touching code or deactivating plugins, we run a full crawl of your current site to create an immutable inventory of all 400+ indexed URLs, HTTP status codes, titles, H1 tags, and meta descriptions. Wherever possible, existing URL structures are preserved 1:1. For any modified slugs, we implement tested server-level 301 redirects (zero redirect chains or loops). We will configure language-specific XML sitemaps, accurate bidirectional hreflang tags across Macedonian, English, and German, and structured JSON-LD schema (LegalService, Person, Article, FAQPage, BreadcrumbList).
+Before touching code or deactivating plugins, we run a full crawl of your current site using Screaming Frog to create an immutable inventory of all 400+ indexed URLs, HTTP status codes, titles, H1 tags, and meta descriptions. Wherever possible, existing URL structures are preserved 1:1. For any modified slugs, we implement tested server-level 301 redirects (zero redirect chains or loops). We will configure language-specific XML sitemaps, accurate bidirectional hreflang tags across Macedonian, English, and German, and structured JSON-LD schema (LegalService, Person, Article, FAQPage, BreadcrumbList).
 
 2. Clean Divi Removal & Shortcode Cleansing Across ~200 Articles:
 Deactivating Divi leaves behind unusable wrapper shortcodes ([et_pb_section], [et_pb_row], [et_pb_text]). Instead of risky manual copy-pasting, our backend engineer runs a custom automated PHP/WP-CLI sanitization script on staging. This extracts the semantic HTML content (headings, paragraphs, lists, quotes, image attachments) while completely stripping Divi layout artifacts. We convert the cleaned content into native WordPress core blocks and map historical author categories into true WordPress author profiles so your bylines remain intact.
 
 3. 70-Field Structured Content Architecture Without Code:
-For your Use Cases, we use Secure Custom Fields (SCF—the free, open-source community standard on WordPress.org). We organize the 70 fields and repeatable rows into clear, tabbed metaboxes matching your field guide. Using relational taxonomy queries in the theme templates, Use Cases automatically link to Expertise Areas (7), Audiences (4), and Lawyers (5). When your team publishes a Use Case, it automatically displays on the corresponding Lawyer's profile, Area page, and Audience view without duplicating content. Category views that mirror Area pages will point canonical URLs directly to the primary Area permalink to prevent duplicate content penalties.
+For your Use Cases, we use Secure Custom Fields (SCF). We organize the 70 fields and repeatable rows into clear, tabbed metaboxes matching your field guide. Using relational taxonomy queries in the theme templates, Use Cases automatically link to Expertise Areas (7), Audiences (4), and Lawyers (5). When your team publishes a Use Case, it automatically displays on the corresponding Lawyer's profile, Area page, and Audience view without duplicating content. Category views that mirror Area pages will point canonical URLs directly to the primary Area permalink to prevent duplicate content penalties.
 
 --------------------------------------------------
-RECOMMENDED FREE PLUGIN STACK
---------------------------------------------------
-• Custom Content & Fields: Secure Custom Fields (SCF) – Free, lightweight, zero bloat.
-• Multilingual: Polylang (Free) – Language-specific slugs, menu switching on current page, clean database footprint.
-• Multi-Step Routing Form: Forminator (Free) – Multi-step logic routed by expertise area to 5 lawyer inboxes, custom 15-minute call slot request, built-in Honeypot/reCAPTCHA v3 anti-spam, and privacy consent checkboxes.
-• Technical SEO: The SEO Framework (Free) – Unbranded, ultra-fast, native schema, canonical control, and automatic OpenGraph/Twitter cards.
-• 301 Redirect Management: Redirection (Free) / Server-level .htaccess rules.
-
---------------------------------------------------
-PROVEN WORDPRESS & ENTERPRISE CMS CREDENTIALS
---------------------------------------------------
-WordPress Platforms with Custom Post Types:
-1. Castle Renewables Australia: https://castlerenewables.com.au
-   Custom WordPress architecture utilizing Custom Post Types (CPTs) for renewable infrastructure projects, case studies, and corporate capabilities with custom taxonomy filtering.
-2. Data Management Systems (Pvt) Ltd – Software Division: https://dmssw.com/
-   WordPress platform for Sri Lanka's pioneer software enterprise, featuring structured custom software solutions, responsive UI, and enterprise product showcases.
-3. LB Finance PLC & Sustainability Portal: https://www.lbfinance.com | https://sustainability.lbfinance.com
-   Enterprise portal with custom post types for multi-tier financial governance disclosures and publications.
-
-Our International Enterprise CMS Projects (Multilingual & High-Traffic):
-• Al Ain Museum V1 (Sitecore Headless CMS): https://www.alainmuseum.ae/en
-  Government cultural institution platform. Headless Sitecore with Next.js, React, C#/.NET, and GraphQL Layout Service delivering personalized, multilingual visitor experiences.
-• Natural History Museum Abu Dhabi (Sitecore CMS): https://www.nhmad.ae/
-  High-traffic government digital experience platform. Built custom Sitecore components/templates in C#/.NET for personalized, multilingual content delivery.
-• Holsten Arabia (Umbraco Headless CMS): https://holstenarabia.me/en/
-  Global beverage brand. Headless CMS using Umbraco with Next.js, C#/.NET REST APIs, and multi-market localization.
-• Gravitee.io (Storyblok Headless CMS): https://www.gravitee.io/
-  Global enterprise API platform using Storyblok headless CMS and Astro for modular, scalable content delivery.
-
-These enterprise CMS engines are significantly more complex and strict than WordPress. Having successfully architected and maintained these multi-million dollar platforms, delivering your WordPress block theme and content migration is a streamlined, low-risk process.
-
---------------------------------------------------
-WHO WORKS ON YOUR PROJECT & TIMELINE GUARANTEE
+4. WHO WORKS ON YOUR PROJECT & TIMELINE GUARANTEE
 --------------------------------------------------
 We commit fully to your launch date of 17 December 2026. Your project will be executed by our dedicated two-engineer delivery pod:
 • Chamara Lahiru (Senior Frontend & WordPress Engineer, 6+ Years): Builds the lean block theme from your Figma templates, configures SCF field interfaces, and handles Polylang synchronization.
@@ -74,7 +84,7 @@ We commit fully to your launch date of 17 December 2026. Your project will be ex
 • Lithumitha Ravikumar (Agile PM & QA): Manages the daily milestone schedule, mobile/accessibility QA, and your recorded video handover.
 
 --------------------------------------------------
-FIXED-PRICE MILESTONE PROPOSAL ($1,050 USD)
+5. FIXED-PRICE MILESTONE PROPOSAL ($1,050 USD)
 --------------------------------------------------
 • Milestone 1 (20% – $210): Staging setup, Divi deactivation, security hardening, full URL inventory & CPT/SCF content model architecture (By 23 Nov).
 • Milestone 2 (40% – $420): Custom block theme development from Figma designs, responsive styling, and Forminator area-routed forms (By 4 Dec).
@@ -94,20 +104,36 @@ Axiom Global Technologies
 
 #### Question 1: Link 2 live WordPress sites you built with custom post types and Polylang or WPML.
 **Answer:**  
-1. **Castle Renewables Australia:** https://castlerenewables.com.au  
-   Custom WordPress architecture utilizing Custom Post Types (CPTs) for renewable infrastructure projects, case studies, and corporate capabilities with custom taxonomy filtering.  
-2. **Data Management Systems (Pvt) Ltd – Software Division:** https://dmssw.com/  
-   WordPress platform for Sri Lanka's pioneer software enterprise, featuring structured custom software solutions, responsive UI, and enterprise product showcases.  
-*(Additional reference: LB Finance PLC & Sustainability: https://www.lbfinance.com / https://sustainability.lbfinance.com)*
+• **Castle Renewables Australia (Custom WordPress Architecture):**  
+  Live URL: https://castlerenewables.com.au  
+  Details: Custom WordPress build featuring Custom Post Types (CPTs) for renewable infrastructure projects, case studies, and corporate capabilities with custom taxonomy filtering.
+
+• **Data Management Systems (Pvt) Ltd – Software Division:**  
+  Live URL: https://dmssw.com/  
+  Details: Production WordPress platform for Sri Lanka’s pioneer software engineering house, built with custom post types for enterprise software solutions and responsive corporate design.  
+
+*(Additional reference: LB Finance PLC & Sustainability Portal: https://www.lbfinance.com / https://sustainability.lbfinance.com)*
 
 **Enterprise Multilingual CMS Context (Why You Are in Safe Hands):**  
-Our engineering team comes from Sri Lanka's premier software engineering institutions, building massive international enterprise platforms across the UAE, Australia, and Europe. In addition to WordPress, we architect enterprise-grade CMS platforms:
-• **Al Ain Museum V1 (Sitecore Headless CMS):** https://www.alainmuseum.ae/en (Multilingual government cultural platform using Sitecore Helix, Next.js, React, C#/.NET, and GraphQL Layout Service).  
-• **Natural History Museum Abu Dhabi (Sitecore CMS):** https://www.nhmad.ae/ (High-traffic multilingual government platform with C#/.NET custom templates, bidirectional Arabic/English synchronization, and structured schema).  
-• **Holsten Arabia (Umbraco Headless CMS):** https://holstenarabia.me/en/ (Multilingual digital platform for a global beverage brand using Umbraco, Next.js, and C#/.NET REST APIs).  
-• **Gravitee.io (Storyblok Headless CMS):** https://www.gravitee.io/ (Global API platform utilizing Storyblok headless CMS and Astro).  
+Our core engineering team originates from Sri Lanka’s premier software engineering institutions, building massive international enterprise platforms across the UAE, Australia, and Europe. In addition to WordPress, we architect enterprise-grade CMS platforms:
 
-Compared to enterprise engines like Sitecore and Umbraco—which require strict Helix architecture, headless GraphQL layouts, and complex multilingual synchronization—WordPress is comparatively lightweight and basic. Having mastered these multi-million dollar platforms, architecting your 70-field relational structure and executing a clean Divi migration is a straightforward, zero-risk task for our team.
+• **Al Ain Museum V1 (Sitecore Headless CMS):**  
+  Live URL: https://www.alainmuseum.ae/en  
+  Details: Live government cultural institution platform. Headless Sitecore built on Helix principles, using GraphQL Layout Service, Next.js, React, and C#/.NET to deliver a high-speed, personalized multilingual experience.
+
+• **Natural History Museum Abu Dhabi (Sitecore CMS):**  
+  Live URL: https://www.nhmad.ae/  
+  Details: High-traffic government digital experience platform. Built custom Sitecore components and templates in C#/.NET for personalized, multilingual content delivery and structured schema markup.
+
+• **Holsten Arabia (Umbraco Headless CMS):**  
+  Live URL: https://holstenarabia.me/en/  
+  Details: Multilingual digital platform for a global beverage brand using Umbraco, Next.js frontend, and C#/.NET REST APIs for multi-market localization.
+
+• **Gravitee.io (Storyblok Headless CMS):**  
+  Live URL: https://www.gravitee.io/  
+  Details: Global enterprise API platform utilizing Storyblok headless CMS and Astro framework for fast, content-driven page delivery.
+
+*Comparison to WordPress:* Compared to enterprise engines like Sitecore and Umbraco—which require strict Helix architecture, headless GraphQL layouts, and complex multi-region multilingual synchronization—WordPress is comparatively lightweight and basic. Having mastered these multi-million dollar platforms, architecting your 70-field relational structure and executing a clean Divi migration is a straightforward, zero-risk task for our team.
 
 ---
 
