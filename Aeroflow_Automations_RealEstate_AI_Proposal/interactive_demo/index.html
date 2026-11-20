@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aeroflow Automations &middot; Omnichannel Real Estate AI Sales Assistant &amp; Appointment Setter</title>
+  <meta name="description" content="Interactive prototype demonstration of a custom real estate AI appointment setter built with Make.com, Voiceflow, and OpenAI API for Aeroflow Automations.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'sans-serif'],
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              gold: '#C5A059',
+              goldLight: '#DFBA73',
+              dark: '#0A0E17',
+              card: '#121826',
+              border: 'rgba(255, 255, 255, 0.08)',
+              accent: '#3B82F6',
+              emerald: '#10B981',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #0A0E17;
+      color: #F3F4F6;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .glass-card {
+      background: rgba(18, 24, 38, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #0A0E17;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #253046;
+      border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #C5A059;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 15px rgba(197, 160, 89, 0.2); }
+      50% { box-shadow: 0 0 25px rgba(197, 160, 89, 0.45); }
+    }
+    .pulse-glow {
+      animation: pulseGlow 3s infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-brand-gold selection:text-black">
+
+  <!-- TOP BANNER (White-Label Showcase for Aeroflow Automations) -->
+  <header class="bg-[#0E131F] border-b border-brand-border py-2.5 px-4 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-brand-gold/20 text-brand-gold border border-brand-gold/30">
+          WHITE-LABEL REAL ESTATE AI DEMO
+        </span>
+        <span class="text-gray-300 hidden sm:inline">Engineered for <strong class="text-white">Aeroflow Automations</strong> US Brokerage Pipeline</span>
+      </div>
+      <div class="flex items-center gap-3 font-mono text-[11px]">
+        <span class="text-emerald-400 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Sub-30s Omnichannel Response Active
+        </span>
+        <span class="text-gray-400 hidden md:inline">&bull; Make.com + Voiceflow + OpenAI Function Calling</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN INTERACTIVE WORKSPACE -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+    
+    <!-- Hero Header -->
+    <div class="mb-8 text-center max-w-3xl mx-auto">
+      <span class="text-xs font-mono text-brand-gold uppercase tracking-widest block mb-2">Turnkey Client Build Template</span>
+      <h1 class="text-3xl sm:text-4xl font-serif text-white font-medium mb-3">
+        Omnichannel AI Sales Assistant &amp; Appointment Setter
+      </h1>
+      <p class="text-xs sm:text-sm text-gray-400 font-light leading-relaxed">
+        Test the live conversational qualification flow below. Simulates automated lead capture across <strong>Website, Instagram DM, SMS</strong> and <strong>AI Voice</strong> with real-time Google Calendar / Calendly appointment booking.
+      </p>
+
+      <!-- Channel Toggle Bar -->
+      <div class="inline-flex p-1 rounded-full bg-[#141B2B] border border-brand-border mt-5 gap-1">
+        <button onclick="setChannel('web', this)" class="channel-btn active px-4 py-1.5 rounded-full text-xs font-medium bg-brand-gold text-black transition">Website Chatbot</button>
+        <button onclick="setChannel('instagram', this)" class="channel-btn px-4 py-1.5 rounded-full text-xs font-medium text-gray-300 hover:text-white transition">Instagram DM</button>
+        <button onclick="setChannel('sms', this)" class="channel-btn px-4 py-1.5 rounded-full text-xs font-medium text-gray-300 hover:text-white transition">SMS / iMessage</button>
+        <button onclick="setChannel('voice', this)" class="channel-btn px-4 py-1.5 rounded-full text-xs font-medium text-gray-300 hover:text-white transition">AI Voice Call (Vapi)</button>
+      </div>
+    </div>
+
+    <!-- 2-Column Application Shell -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- LEFT: Live Interactive Chat Simulator (7 Cols) -->
+      <div class="lg:col-span-7 glass-card rounded-3xl overflow-hidden shadow-2xl flex flex-col h-[620px] border border-brand-border">
+        
+        <!-- Chat Header -->
+        <div class="p-4 bg-[#141A28] border-b border-brand-border flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="relative">
+              <div class="w-10 h-10 rounded-full bg-brand-gold/20 border border-brand-gold/40 flex items-center justify-center text-brand-gold font-serif font-bold text-base">
+                A
+              </div>
+              <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-[#141A28]"></span>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span id="agentName" class="text-sm font-semibold text-white">Austin Luxury Realty &middot; Sarah AI</span>
+                <span class="px-1.5 py-0.5 rounded text-[9px] font-mono bg-blue-500/20 text-blue-400 border border-blue-500/30">Verified AI Setter</span>
+              </div>
+              <span id="channelLabel" class="text-[10px] text-gray-400 font-mono">Channel: Web Chat &bull; Response Time: &lt; 2s</span>
+            </div>
+          </div>
+          <button onclick="resetConversation()" class="text-xs text-gray-400 hover:text-white font-mono flex items-center gap-1 border border-white/10 px-2.5 py-1 rounded-lg">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            Reset
+          </button>
+        </div>
+
+        <!-- Chat Messages Container -->
+        <div id="chatMessages" class="flex-grow p-4 overflow-y-auto space-y-4 custom-scrollbar text-xs">
+          
+          <!-- Bot Welcome Message -->
+          <div class="flex items-start gap-2.5">
+            <div class="w-7 h-7 rounded-full bg-brand-gold/20 flex-shrink-0 flex items-center justify-center text-brand-gold text-xs font-bold">
+              AI
+            </div>
+            <div class="bg-[#192236] border border-brand-border p-3.5 rounded-2xl rounded-tl-none max-w-[82%] text-gray-200 leading-relaxed space-y-2">
+              <p>Hi there! Welcome to Austin Premier Realty. Are you looking to buy, sell, or explore upcoming luxury listings in the area?</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Quick Response Suggestion Pills -->
+        <div class="p-2.5 bg-[#101522] border-t border-brand-border flex items-center gap-1.5 overflow-x-auto text-[11px] font-mono text-gray-300">
+          <span class="text-gray-500 text-[10px] uppercase pl-1">Quick Prompts:</span>
+          <button onclick="sendQuickPrompt('Looking for a 3-4 bedroom home in Westlake under $1.2M')" class="whitespace-nowrap px-2.5 py-1 rounded-full bg-[#182030] hover:bg-brand-gold hover:text-black border border-white/5 transition">
+            🏡 3-4 Bed in Westlake &lt; $1.2M
+          </button>
+          <button onclick="sendQuickPrompt('Need to move within 30 days, already pre-approved')" class="whitespace-nowrap px-2.5 py-1 rounded-full bg-[#182030] hover:bg-brand-gold hover:text-black border border-white/5 transition">
+            ⚡ Move in 30 Days &middot; Pre-approved
+          </button>
+          <button onclick="sendQuickPrompt('Can I book a private property showing for this Saturday?')" class="whitespace-nowrap px-2.5 py-1 rounded-full bg-[#182030] hover:bg-brand-gold hover:text-black border border-white/5 transition">
+            📅 Book Saturday Showing
+          </button>
+        </div>
+
+        <!-- Chat Input Bar -->
+        <form onsubmit="handleUserMessage(event)" class="p-3 bg-[#141A28] border-t border-brand-border flex items-center gap-2">
+          <input type="text" id="userInput" placeholder="Type a message or test lead objection..." class="flex-grow bg-[#0A0E17] border border-brand-border rounded-xl px-4 py-2.5 text-white text-xs placeholder-gray-500 focus:outline-none focus:border-brand-gold font-sans">
+          <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-gold hover:bg-brand-goldLight text-black font-semibold text-xs transition flex items-center gap-1.5 shadow-md">
+            <span>Send</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </button>
+        </form>
+
+      </div>
+
+      <!-- RIGHT: Real-Time Lead Qualification & Calendar State (5 Cols) -->
+      <div class="lg:col-span-5 space-y-6">
+        
+        <!-- Live Lead Extraction Telemetry -->
+        <div class="glass-card rounded-3xl p-6 border border-brand-border space-y-5">
+          <div class="flex items-center justify-between border-b border-brand-border pb-3">
+            <div>
+              <span class="text-[10px] font-mono uppercase text-brand-gold tracking-wider block">Real-Time Extraction</span>
+              <h3 class="text-base font-semibold text-white">Lead Qualification State</h3>
+            </div>
+            <span id="leadScoreBadge" class="px-2.5 py-0.5 rounded text-[10px] font-mono bg-blue-500/20 text-blue-400 border border-blue-500/30 font-bold">
+              ENGAGING (40%)
+            </span>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <!-- Parameter 1: Buyer Budget -->
+            <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0F1420] border border-brand-border">
+              <span class="text-gray-400 font-mono text-[11px]">Buyer Budget:</span>
+              <span id="leadBudget" class="font-semibold text-brand-gold font-mono">Detecting...</span>
+            </div>
+
+            <!-- Parameter 2: Property Criteria -->
+            <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0F1420] border border-brand-border">
+              <span class="text-gray-400 font-mono text-[11px]">Property Criteria:</span>
+              <span id="leadCriteria" class="font-semibold text-white">Detecting...</span>
+            </div>
+
+            <!-- Parameter 3: Purchase Timeline -->
+            <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0F1420] border border-brand-border">
+              <span class="text-gray-400 font-mono text-[11px]">Purchase Timeline:</span>
+              <span id="leadTimeline" class="font-semibold text-white font-mono">Evaluating...</span>
+            </div>
+
+            <!-- Parameter 4: Pre-Approval -->
+            <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0F1420] border border-brand-border">
+              <span class="text-gray-400 font-mono text-[11px]">Pre-Approval Status:</span>
+              <span id="leadFinancing" class="font-semibold text-white">Pending Check</span>
+            </div>
+          </div>
+
+          <!-- CRM Sync Simulator -->
+          <div class="p-3.5 rounded-2xl bg-[#0A0D15] border border-brand-border text-[11px] text-gray-400 space-y-2">
+            <div class="flex items-center justify-between font-mono text-[10px] text-emerald-400">
+              <span>CRM SYNC: Follow Up Boss / Lofty</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+            </div>
+            <p class="leading-relaxed">All parameters parse into structured JSON via Make.com webhooks and inject into client CRM with automated agent task alerts.</p>
+          </div>
+
+          <!-- Calendar Booking Trigger Button -->
+          <button onclick="openBookingModal()" class="w-full py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-black font-semibold text-xs uppercase tracking-wider transition shadow-lg flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <span>Simulate Google Calendar Booking</span>
+          </button>
+        </div>
+
+        <!-- Inbound Voice Call Demo Panel -->
+        <div class="glass-card rounded-3xl p-6 border border-brand-border space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-mono text-brand-gold uppercase tracking-wider block">Vapi / Retell AI Voice</span>
+              <h4 class="text-sm font-semibold text-white">Inbound Phone Call Agent</h4>
+            </div>
+            <span class="badge text-[10px] font-mono bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2 py-0.5 rounded">
+              &lt; 600ms Latency
+            </span>
+          </div>
+          <p class="text-xs text-gray-400 font-light leading-relaxed">
+            Listen to the AI voice agent speak real estate qualification lines aloud (using Web Speech API):
+          </p>
+          <div class="flex items-center gap-3">
+            <button onclick="playVoiceSample()" class="px-4 py-2 rounded-xl bg-[#1C253B] hover:bg-brand-gold hover:text-black text-xs text-brand-gold font-mono transition flex items-center gap-2 border border-brand-border">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+              <span>Play Voice Agent Sample</span>
+            </button>
+            <span id="voiceStatus" class="text-[11px] font-mono text-gray-400">Idle</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- MODAL: GOOGLE CALENDAR / CALENDLY BOOKING SIMULATOR -->
+  <div id="bookingModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="glass-card bg-[#121826] border border-brand-gold/40 rounded-3xl max-w-md w-full p-6 space-y-5 shadow-2xl relative">
+      <button onclick="closeBookingModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div>
+        <span class="text-[10px] font-mono uppercase text-brand-gold tracking-widest">Calendar Integration</span>
+        <h3 class="text-xl font-serif text-white font-medium mt-1">Schedule VIP Property Showing</h3>
+        <p class="text-xs text-gray-400 mt-1">Direct sync with Agent's Google Calendar / Calendly</p>
+      </div>
+
+      <form onsubmit="confirmBooking(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block text-gray-400 text-[11px] font-mono mb-1">Target Property</label>
+          <input type="text" value="3804 Westlake Ridge Dr, Austin TX ($1,150,000)" readonly class="w-full bg-[#0A0D15] border border-brand-border rounded-xl px-3 py-2 text-white text-xs">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-gray-400 text-[11px] font-mono mb-1">Showing Date</label>
+            <input type="date" value="2026-11-28" class="w-full bg-[#0A0D15] border border-brand-border rounded-xl px-3 py-2 text-white font-mono text-xs">
+          </div>
+          <div>
+            <label class="block text-gray-400 text-[11px] font-mono mb-1">Time Slot</label>
+            <select class="w-full bg-[#0A0D15] border border-brand-border rounded-xl px-3 py-2 text-white text-xs">
+              <option>10:00 AM - 10:45 AM</option>
+              <option selected>2:00 PM - 2:45 PM</option>
+              <option>4:30 PM - 5:15 PM</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-gray-400 text-[11px] font-mono mb-1">Lead Contact Details</label>
+          <input type="text" placeholder="Buyer Full Name" required class="w-full bg-[#0A0D15] border border-brand-border rounded-xl px-3 py-2 text-white mb-2">
+          <input type="tel" placeholder="Mobile Phone (for SMS confirmation)" required class="w-full bg-[#0A0D15] border border-brand-border rounded-xl px-3 py-2 text-white">
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-brand-gold hover:bg-brand-goldLight text-black font-semibold uppercase tracking-wider text-xs transition shadow-lg">
+          Confirm Showing &amp; Trigger SMS Reminders
+        </button>
+      </form>
+
+      <div id="bookingToast" class="hidden p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs text-center">
+        &check; Appointment synced to Google Calendar. SMS confirmation sent!
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#080B12] border-t border-brand-border py-6 text-center text-xs text-gray-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <span>Aeroflow Automations White-Label AI Pipeline &middot; Confidential Client Build</span>
+      <span class="font-mono text-gray-400">Make.com &bull; Voiceflow &bull; OpenAI GPT-4o &bull; Vapi AI</span>
+    </div>
+  </footer>
+
+  <!-- SCRIPT ENGINE -->
+  <script>
+    let step = 0;
+    const chatContainer = document.getElementById('chatMessages');
+
+    function appendMessage(sender, text, isAi = false) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = isAi ? "flex items-start gap-2.5" : "flex items-start justify-end gap-2.5";
+      
+      const avatar = isAi ? 
+        `<div class="w-7 h-7 rounded-full bg-brand-gold/20 flex-shrink-0 flex items-center justify-center text-brand-gold text-xs font-bold">AI</div>` :
+        `<div class="w-7 h-7 rounded-full bg-blue-500/20 flex-shrink-0 flex items-center justify-center text-blue-400 text-xs font-bold">You</div>`;
+
+      const bubble = isAi ? 
+        `<div class="bg-[#192236] border border-brand-border p-3.5 rounded-2xl rounded-tl-none max-w-[82%] text-gray-200 leading-relaxed">${text}</div>` :
+        `<div class="bg-brand-gold text-black font-medium p-3.5 rounded-2xl rounded-tr-none max-w-[82%] leading-relaxed">${text}</div>`;
+
+      msgDiv.innerHTML = isAi ? (avatar + bubble) : (bubble + avatar);
+      chatContainer.appendChild(msgDiv);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    function handleUserMessage(e) {
+      e.preventDefault();
+      const input = document.getElementById('userInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      appendMessage('user', text, false);
+      input.value = '';
+
+      processAiResponse(text);
+    }
+
+    function sendQuickPrompt(promptText) {
+      appendMessage('user', promptText, false);
+      processAiResponse(promptText);
+    }
+
+    function processAiResponse(input) {
+      setTimeout(() => {
+        const lower = input.toLowerCase();
+
+        if (lower.includes('westlake') || lower.includes('bedroom') || lower.includes('1.2m') || lower.includes('budget') || lower.includes('750k')) {
+          document.getElementById('leadBudget').innerText = '$850k - $1.2M';
+          document.getElementById('leadCriteria').innerText = '3-4 Beds &bull; Westlake';
+          document.getElementById('leadScoreBadge').innerText = 'HOT BUYER (75%)';
+          document.getElementById('leadScoreBadge').className = 'px-2.5 py-0.5 rounded text-[10px] font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold';
+          
+          appendMessage('ai', "Westlake has some incredible options right now in that $900k–$1.2M bracket! We have 2 off-market modern properties with large yards in the Eanes School District. How soon are you hoping to move into the new home?", true);
+        }
+        else if (lower.includes('30 days') || lower.includes('pre-approved') || lower.includes('preapproved')) {
+          document.getElementById('leadTimeline').innerText = 'Within 30 Days (High Priority)';
+          document.getElementById('leadFinancing').innerText = 'Pre-Approved Verified';
+          document.getElementById('leadScoreBadge').innerText = 'VIP QUALIFIED (95%)';
+          document.getElementById('leadScoreBadge').className = 'px-2.5 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold';
+
+          appendMessage('ai', "That's fantastic! Having your pre-approval ready gives you immense leverage in Westlake. Our senior buyer specialist has private viewing access this Saturday. Would 10:00 AM or 2:00 PM work best for a 30-minute private tour?", true);
+        }
+        else if (lower.includes('saturday') || lower.includes('showing') || lower.includes('book') || lower.includes('tour')) {
+          appendMessage('ai', "Perfect! Let me lock that in directly with our agent's Google Calendar. Opening your booking window right now...", true);
+          setTimeout(() => {
+            openBookingModal();
+          }, 800);
+        }
+        else {
+          appendMessage('ai', "Understood! Could you share what general price range you're targeting and whether you're currently working with a real estate agent or lender?", true);
+        }
+      }, 700);
+    }
+
+    function setChannel(channel, btn) {
+      document.querySelectorAll('.channel-btn').forEach(b => {
+        b.classList.remove('active', 'bg-brand-gold', 'text-black');
+        b.classList.add('text-gray-300');
+      });
+      btn.classList.add('active', 'bg-brand-gold', 'text-black');
+      btn.classList.remove('text-gray-300');
+
+      const label = document.getElementById('channelLabel');
+      if (channel === 'instagram') {
+        label.innerText = 'Channel: Instagram DM @austin_realty • Instant Webhook Trigger';
+      } else if (channel === 'sms') {
+        label.innerText = 'Channel: SMS / Twilio Integration • Delivery < 15s';
+      } else if (channel === 'voice') {
+        label.innerText = 'Channel: Vapi AI Inbound SIP • Latency: 580ms';
+        playVoiceSample();
+      } else {
+        label.innerText = 'Channel: Web Chat Widget • Response Time < 2s';
+      }
+    }
+
+    function playVoiceSample() {
+      const status = document.getElementById('voiceStatus');
+      status.innerText = 'Speaking...';
+      status.className = 'text-[11px] font-mono text-emerald-400';
+
+      if ('speechSynthesis' in window) {
+        const text = "Hi there! This is Sarah calling from Austin Luxury Realty regarding your inquiry on Westlake homes. Do you have two minutes to discuss your timeline?";
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 1.0;
+        utterance.pitch = 1.05;
+        utterance.onend = () => {
+          status.innerText = 'Call Ended &middot; Idle';
+          status.className = 'text-[11px] font-mono text-gray-400';
+        };
+        window.speechSynthesis.speak(utterance);
+      } else {
+        status.innerText = 'Audio simulated';
+      }
+    }
+
+    function resetConversation() {
+      chatContainer.innerHTML = `
+        <div class="flex items-start gap-2.5">
+          <div class="w-7 h-7 rounded-full bg-brand-gold/20 flex-shrink-0 flex items-center justify-center text-brand-gold text-xs font-bold">AI</div>
+          <div class="bg-[#192236] border border-brand-border p-3.5 rounded-2xl rounded-tl-none max-w-[82%] text-gray-200 leading-relaxed space-y-2">
+            <p>Hi there! Welcome to Austin Premier Realty. Are you looking to buy, sell, or explore upcoming luxury listings in the area?</p>
+          </div>
+        </div>`;
+      document.getElementById('leadBudget').innerText = 'Detecting...';
+      document.getElementById('leadCriteria').innerText = 'Detecting...';
+      document.getElementById('leadTimeline').innerText = 'Evaluating...';
+      document.getElementById('leadFinancing').innerText = 'Pending Check';
+      document.getElementById('leadScoreBadge').innerText = 'ENGAGING (40%)';
+      document.getElementById('leadScoreBadge').className = 'px-2.5 py-0.5 rounded text-[10px] font-mono bg-blue-500/20 text-blue-400 border border-blue-500/30 font-bold';
+    }
+
+    function openBookingModal() {
+      document.getElementById('bookingModal').classList.remove('hidden');
+    }
+    function closeBookingModal() {
+      document.getElementById('bookingModal').classList.add('hidden');
+      document.getElementById('bookingToast').classList.add('hidden');
+    }
+    function confirmBooking(e) {
+      e.preventDefault();
+      const toast = document.getElementById('bookingToast');
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        closeBookingModal();
+        appendMessage('ai', "🎉 Showing officially confirmed for Saturday at 2:00 PM! Calendar invite and SMS confirmation have been sent to your phone. Our agent looks forward to meeting you!", true);
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
