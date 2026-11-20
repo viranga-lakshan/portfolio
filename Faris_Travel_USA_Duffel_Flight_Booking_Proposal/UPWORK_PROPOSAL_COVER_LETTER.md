@@ -92,3 +92,4 @@ Lead Solutions Architect & Delivery Manager
 *Axiom Global*  
 Technical Lead: **Avishka Meddegoda** (Senior Systems Architect, 6+ yrs)  
 *(All communication exclusively via Upwork)*
+
