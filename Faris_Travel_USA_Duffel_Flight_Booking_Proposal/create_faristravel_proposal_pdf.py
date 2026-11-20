@@ -1,0 +1,1158 @@
+import os
+import asyncio
+from playwright.async_api import async_playwright
+import pypdf
+
+BASE_DIR = r"c:\Users\Viranga\Downloads\upwrok new\Faris_Travel_USA_Duffel_Flight_Booking_Proposal"
+IMG_DIR = os.path.join(BASE_DIR, "images")
+HTML_PATH = os.path.join(BASE_DIR, "proposal_template.html")
+PDF_PATH = os.path.join(BASE_DIR, "Faris_Travel_USA_Duffel_Flight_Booking_Proposal.pdf")
+
+def to_uri(fname):
+    return os.path.join(IMG_DIR, fname).replace("\\", "/")
+
+FLIGHT_HERO = to_uri("flight_hero.jpg")
+BOOKING_UI = to_uri("travel_booking_ui.jpg")
+AIRPLANE_WING = to_uri("airplane_wing.jpg")
+AIRPORT_TERM = to_uri("airport_terminal.jpg")
+TEAM_IMG = to_uri("team_office.jpg")
+LOGO_IMG = to_uri("axiom_logo.png")
+
+CSS_STYLES = """
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+:root {
+  --black: #0F1115;
+  --dark-charcoal: #22252A;
+  --mid-grey: #5A606A;
+  --light-grey: #F4F5F7;
+  --border-grey: #E2E5E9;
+  --border-dark: #1E2229;
+  --white: #FFFFFF;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--black);
+  background: #E5E7EB;
+  margin: 0;
+  padding: 0;
+  font-size: 7.6pt;
+  line-height: 1.42;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  width: 210mm;
+  height: 297mm;
+  max-height: 297mm;
+  overflow: hidden;
+  position: relative;
+  background: var(--white);
+  padding: 11mm 15mm 10mm 15mm;
+  page-break-after: always;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto 10mm auto;
+}
+
+@media print {
+  body { background: transparent; }
+  .page { margin: 0; box-shadow: none; page-break-after: always; }
+}
+
+/* Running Header */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1.5px solid var(--black);
+  padding-bottom: 5px;
+  margin-bottom: 9px;
+}
+
+.header-left {
+  font-size: 6.8pt;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--black);
+}
+
+.header-right {
+  font-size: 6.8pt;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--mid-grey);
+}
+
+/* Running Footer */
+.page-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-grey);
+  padding-top: 5px;
+  margin-top: auto;
+}
+
+.footer-left {
+  font-size: 6.2pt;
+  font-weight: 600;
+  color: var(--mid-grey);
+  letter-spacing: 0.5px;
+}
+
+.footer-page-num {
+  font-size: 6.5pt;
+  font-weight: 700;
+  color: var(--black);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Typography Hierarchy */
+.serif-heading {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.section-tag {
+  display: inline-block;
+  font-size: 6.2pt;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 2px;
+}
+
+.page-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 17pt;
+  font-weight: 700;
+  line-height: 1.12;
+  color: var(--black);
+  margin-bottom: 5px;
+}
+
+.lead-text {
+  font-size: 8.2pt;
+  line-height: 1.45;
+  color: var(--dark-charcoal);
+  margin-bottom: 8px;
+  max-width: 98%;
+}
+
+.block-title {
+  font-size: 8.8pt;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  color: var(--black);
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Tables */
+table.editorial-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 6.9pt;
+  margin-bottom: 6px;
+}
+
+table.editorial-table th {
+  background: var(--black);
+  color: var(--white);
+  text-align: left;
+  padding: 5px 7px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 6.2pt;
+}
+
+table.editorial-table td {
+  padding: 4.5px 7px;
+  border-bottom: 1px solid var(--border-grey);
+  color: var(--dark-charcoal);
+  vertical-align: top;
+}
+
+table.editorial-table tr:nth-child(even) td {
+  background: #FAFAFC;
+}
+
+/* Cards & Layout */
+.editorial-card {
+  border: 1px solid var(--border-grey);
+  border-radius: 4px;
+  padding: 8px 10px;
+  background: var(--white);
+  margin-bottom: 6px;
+}
+
+.editorial-card-grey {
+  border: 1px solid var(--border-grey);
+  border-radius: 4px;
+  padding: 8px 10px;
+  background: #F9FAFB;
+  margin-bottom: 6px;
+}
+
+.editorial-card-black {
+  background: var(--black);
+  color: var(--white);
+  border-radius: 4px;
+  padding: 9px 12px;
+  margin-bottom: 6px;
+}
+
+.editorial-card-black h3, .editorial-card-black h4 { color: var(--white); }
+.editorial-card-black p { color: #D1D5DB; }
+
+/* Badges */
+.badge {
+  display: inline-block;
+  font-size: 5.8pt;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-dark {
+  background: var(--black);
+  color: var(--white);
+}
+
+.badge-outline {
+  border: 1px solid var(--black);
+  color: var(--black);
+  background: transparent;
+}
+
+.code-box {
+  background: #0F1115;
+  color: #F3F4F6;
+  padding: 6px 9px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6pt;
+  line-height: 1.35;
+  border-left: 3px solid var(--black);
+  margin: 4px 0 6px 0;
+}
+"""
+
+HTML_CONTENT = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FARIS TRAVEL USA &middot; Duffel Flight Booking Engine Integration Proposal</title>
+<style>
+{CSS_STYLES}
+</style>
+</head>
+<body>
+
+<!-- ========================================== PAGE 01: COVER PAGE ========================================== -->
+<div class="page" style="padding: 12mm 15mm 12mm 15mm; justify-content: space-between;">
+  <div>
+    <!-- Top Header Bar -->
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--black); padding-bottom: 10px; margin-bottom: 14px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="{LOGO_IMG}" style="width: 36px; height: 36px; border-radius: 8px;" alt="Axiom Global">
+        <div>
+          <div style="font-size: 13pt; font-weight: 800; letter-spacing: -0.4px;">AXIOM GLOBAL</div>
+          <div style="font-size: 6.2pt; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid-grey);">Travel Technology &amp; API Integration Practice</div>
+        </div>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-size: 6.5pt; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; background: var(--black); color: var(--white); padding: 3px 8px; border-radius: 3px; display: inline-block;">
+          TECHNICAL INTEGRATION PROPOSAL
+        </div>
+        <div style="font-size: 6.5pt; color: var(--mid-grey); margin-top: 3px;">Date: November 2026 &middot; Fixed-Price Delivery</div>
+      </div>
+    </div>
+
+    <!-- Main Title Block -->
+    <div style="margin-top: 6px; margin-bottom: 14px;">
+      <div style="font-size: 7.2pt; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--mid-grey); margin-bottom: 4px;">
+        DUFFEL FLIGHTS API &middot; LIVE TICKET ISSUANCE &middot; AGENCY MARKUP ENGINE
+      </div>
+      <h1 class="serif-heading" style="font-size: 25pt; line-height: 1.08; color: var(--black); margin-bottom: 6px;">
+        FARIS TRAVEL USA
+      </h1>
+      <div style="font-size: 11pt; font-weight: 500; color: var(--dark-charcoal); letter-spacing: -0.2px; font-style: italic;">
+        End-to-End Flight Booking System Integration, Live E-Ticketing &amp; Back-Office Agency Dashboard
+      </div>
+    </div>
+
+    <!-- Hero Photography (Full Color) -->
+    <div style="position: relative; width: 100%; height: 135mm; border-radius: 4px; overflow: hidden; border: 1px solid var(--black); margin-bottom: 14px;">
+      <img src="{FLIGHT_HERO}" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="Commercial Aviation Flight Booking">
+      <div style="position: absolute; bottom: 12px; left: 14px; background: rgba(15, 17, 21, 0.88); color: #FFFFFF; padding: 6px 12px; border-radius: 3px; font-size: 6.8pt; letter-spacing: 0.5px;">
+        <strong>FARIS TRAVEL USA FLIGHT ENGINE</strong> &middot; Multi-Airline NDC Aggregation, Instant E-Ticketing &amp; Secure Checkout
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Metadata Table -->
+  <div>
+    <div style="display: grid; grid-template-columns: 1.2fr 1.2fr 1fr 1fr; gap: 8px; border-top: 1px solid var(--black); padding-top: 10px; margin-bottom: 8px;">
+      <div>
+        <div style="font-size: 5.8pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">Target Client</div>
+        <div style="font-size: 8pt; font-weight: 700; color: var(--black);">FARIS TRAVEL USA</div>
+        <div style="font-size: 6.5pt; color: var(--mid-grey);">Michigan &middot; faristravelusa.com</div>
+      </div>
+      <div>
+        <div style="font-size: 5.8pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">Communication Policy</div>
+        <div style="font-size: 8pt; font-weight: 700; color: var(--black);">100% Upwork Exclusive</div>
+        <div style="font-size: 6.5pt; color: var(--mid-grey);">Strictly Verified &amp; Agreed</div>
+      </div>
+      <div>
+        <div style="font-size: 5.8pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">Technical Leadership</div>
+        <div style="font-size: 8pt; font-weight: 700; color: var(--black);">Avishka Meddegoda</div>
+        <div style="font-size: 6.5pt; color: var(--mid-grey);">Tech Lead (6+ Years Exp)</div>
+      </div>
+      <div>
+        <div style="font-size: 5.8pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">Commercial Model</div>
+        <div style="font-size: 8pt; font-weight: 700; color: var(--black);">$1,000 USD Fixed-Price</div>
+        <div style="font-size: 6.5pt; color: var(--mid-grey);">Phase 1 &middot; 3 Milestones</div>
+      </div>
+    </div>
+
+    <div class="page-footer" style="border-top: 1px solid var(--border-grey); padding-top: 5px;">
+      <div class="footer-left">AXIOM GLOBAL &middot; FARIS TRAVEL USA PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
+      <div class="footer-page-num">Page 01 of 10</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 02: EXECUTIVE SUMMARY & VISION ========================================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-left">SECTION 01 &middot; EXECUTIVE ARCHITECTURE SUMMARY</div>
+    <div class="header-right">FARIS TRAVEL USA FLIGHT ENGINE</div>
+  </div>
+
+  <div>
+    <div class="section-tag">PROJECT OBJECTIVE</div>
+    <h2 class="page-title">Live Airline Ticketing for Faris Travel USA</h2>
+    <p class="lead-text">
+      FARIS TRAVEL USA is an established Michigan-based travel agency ready to transition from a static brochure website to an automated, online revenue-generating flight booking platform. Our objective is to embed a high-performance, mobile-optimized airline search and booking engine into your existing website (<strong style="text-decoration: underline;">faristravelusa.com</strong>), while preserving your current domain, branding, and visual identity.
+    </p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
+      <div class="editorial-card" style="border-left: 3px solid var(--black);">
+        <div class="block-title">Customer-Facing Booking Engine</div>
+        <p style="font-size: 6.9pt; color: var(--dark-charcoal); line-height: 1.38;">
+          Visitors search round-trip, one-way, and multi-city flights across hundreds of global airlines (Delta, United, American, Emirates, Qatar, Turkish, etc.). Customers compare real-time fares, select flight segments, input passenger details, and pay securely via card.
+        </p>
+      </div>
+      <div class="editorial-card" style="border-left: 3px solid var(--black);">
+        <div class="block-title">Agency Back-Office &amp; Markup Control</div>
+        <p style="font-size: 6.9pt; color: var(--dark-charcoal); line-height: 1.38;">
+          A dedicated administrative dashboard allows Faris Travel agents to book and issue e-tickets on behalf of in-person or phone customers. Administrators configure global or route-specific markups (e.g. +$35/ticket or +6%), monitor bookings, and download PDF receipts.
+        </p>
+      </div>
+    </div>
+
+    <div class="block-title">Architectural Scope &amp; Deliverables Matrix (Phase 1)</div>
+    <table class="editorial-table">
+      <thead>
+        <tr>
+          <th style="width: 25%;">System Component</th>
+          <th style="width: 45%;">Functional Capability &amp; Integration</th>
+          <th style="width: 30%;">Deliverable Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Duffel Flights API</strong></td>
+          <td>Connects to Duffel NDC aggregator search offers, order creation, and instant e-ticket issuance.</td>
+          <td>Included in Phase 1 ($1,000)</td>
+        </tr>
+        <tr>
+          <td><strong>Existing Site Preservation</strong></td>
+          <td>Integrates seamlessly into faristravelusa.com without disturbing domain, logo, or existing pages.</td>
+          <td>Zero Downtime Integration</td>
+        </tr>
+        <tr>
+          <td><strong>Live E-Ticket Issuance</strong></td>
+          <td>Issues genuine 13-digit IATA airline e-tickets and official PNR booking reference codes.</td>
+          <td>Automated &amp; Instant</td>
+        </tr>
+        <tr>
+          <td><strong>Payment Gateway (Stripe)</strong></td>
+          <td>Secure customer checkout with 3D Secure 2 compliance; funds deposit directly to Faris Travel.</td>
+          <td>Integrated &amp; Tested</td>
+        </tr>
+        <tr>
+          <td><strong>Agency Markup Engine</strong></td>
+          <td>Customizable price markup applied to wholesale airline fares before customer checkout.</td>
+          <td>Full Administrative Control</td>
+        </tr>
+        <tr>
+          <td><strong>Agency Admin Workspace</strong></td>
+          <td>Search, book, issue, and manage customer reservations for in-office and telephone clients.</td>
+          <td>Role-Protected Dashboard</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="editorial-card-black" style="margin-top: 4px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+        <span style="font-size: 7.2pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">Strict Communication Compliance Acknowledgment</span>
+        <span class="badge badge-outline" style="border-color: #fff; color: #fff;">UPWORK EXCLUSIVE</span>
+      </div>
+      <p style="font-size: 6.8pt; line-height: 1.35; margin: 0;">
+        We strictly acknowledge and commit to Faris Travel USA's mandatory communication rule: <strong>ALL project communications, messages, contracts, files, questions, and payments will occur 100% exclusively through the Upwork platform.</strong> Zero external communications (no WhatsApp, no personal email, no off-platform calls).
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; FARIS TRAVEL USA PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
+    <div class="footer-page-num">Page 02 of 10</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 03: DUFFEL API & TICKETING MODEL ========================================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-left">SECTION 02 &middot; DUFFEL API &amp; TICKETING ARCHITECTURE</div>
+    <div class="header-right">IATA ACCREDITATION MODEL</div>
+  </div>
+
+  <div>
+    <div class="section-tag">API SPECIFICATIONS</div>
+    <h2 class="page-title">Why Duffel Flights API is the Optimal Choice</h2>
+    <p class="lead-text">
+      Historically, selling airline tickets required a travel agency to hold direct IATA / ARC accreditation, post a $20,000–$50,000 bank guarantee, and license complex legacy Global Distribution Systems (GDS like Sabre or Amadeus). Duffel modernizes this entirely by acting as an accredited IATA agency that handles ticketing on your behalf.
+    </p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px;">
+      <div class="editorial-card">
+        <div class="block-title">1. How Duffel Ticketing Operates</div>
+        <p style="font-size: 6.8pt; color: var(--dark-charcoal); line-height: 1.36; margin-bottom: 3px;">
+          Duffel holds direct NDC (New Distribution Capability) and GDS agreements with over 300 airlines worldwide. When a customer books on Faris Travel USA, the order is routed to Duffel's API, which immediately issues the official electronic ticket under Duffel's authorized ticketing accreditation.
+        </p>
+        <div class="code-box">
+POST /air/orders
+Payload: selected_offers: ["off_001"], passengers: [details], payments: [balance]
+Response: status: "confirmed", booking_reference: "PNR123", documents: [e-tickets]</div>
+      </div>
+
+      <div class="editorial-card">
+        <div class="block-title">2. Financial Flow &amp; Markup Capture</div>
+        <p style="font-size: 6.8pt; color: var(--dark-charcoal); line-height: 1.36; margin-bottom: 3px;">
+          The customer pays via Stripe on Faris Travel USA. Faris Travel captures the full retail amount (Wholesale Airfare + Your Agency Markup). Duffel then issues the ticket using your pre-funded Duffel balance or automated card dispatch, leaving your net profit markup immediately in your bank.
+        </p>
+        <div class="code-box">
+Wholesale Airline Fare: $450.00
+Faris Travel Markup (Configured): +$40.00
+Customer Charged on Stripe: $490.00
+Faris Travel Net Immediate Profit: $40.00</div>
+      </div>
+    </div>
+
+    <div class="block-title">Duffel Flights API End-to-End Execution Pipeline</div>
+    <div class="code-box" style="font-size: 6pt;">
+[Customer / Agency Agent on FarisTravelUSA.com]
+       │  (Origin, Destination, Dates, Cabin, Pax Count)
+       ▼
+[Duffel Search: POST /air/offer_requests]
+       │  (Aggregates live fares from 300+ NDC &amp; GDS airlines)
+       ▼
+[Faris Travel Markup Middleware]
+       │  (Injects Faris Travel margin: Flat $ or % markup)
+       ▼
+[Flight Results &amp; Seat/Baggage Selection UI]
+       │  (Customer enters passport/passenger information)
+       ▼
+[Secure Checkout: Stripe Payment Gateway]
+       │  (3D Secure card charge: Wholesale Fare + Markup)
+       ▼
+[Duffel Order Creation: POST /air/orders]
+       │  (Instant order confirmation &amp; ticket generation)
+       ▼
+[E-Ticket Delivered: Airline PNR + 13-Digit E-Ticket PDF via Email]</div>
+
+    <div class="editorial-card-grey" style="border-left: 3px solid var(--black); margin-top: 4px;">
+      <div class="block-title">Preserving Existing Website Infrastructure</div>
+      <p style="font-size: 6.8pt; color: var(--dark-charcoal); line-height: 1.36; margin: 0;">
+        Whether <code>faristravelusa.com</code> is built on WordPress, PHP, Webflow, or custom HTML, we embed the Duffel booking interface as a native, responsive module or dedicated booking page (e.g. <code>faristravelusa.com/flights</code> or seamlessly on the homepage search bar). Your domain, branding, color scheme, and existing content remain 100% intact.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; FARIS TRAVEL USA PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
+    <div class="footer-page-num">Page 03 of 10</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 04: ANSWERS TO QUESTIONS 1 & 2 ========================================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-left">SECTION 03 &middot; QUESTIONS 1 &amp; 2 &middot; EXPERIENCE &amp; PROOF</div>
+    <div class="header-right">FLIGHT BOOKING CREDENTIALS</div>
+  </div>
+
+  <div>
+    <div class="section-tag">APPLICANT EXPERTISE</div>
+    <h2 class="page-title">Answers to Client Review Questions 1 &amp; 2</h2>
+
+    <div class="editorial-card" style="border-left: 3px solid var(--black); margin-bottom: 7px;">
+      <div style="font-size: 6.5pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">
+        QUESTION 1: EXAMPLES OF FLIGHT BOOKING WEBSITES YOU HAVE SUCCESSFULLY DEVELOPED
+      </div>
+      <p style="font-size: 7pt; color: var(--dark-charcoal); line-height: 1.38; margin: 3px 0;">
+        Our engineering team has built travel, airline reservation, and multi-tenant booking interfaces integrating live GDS and NDC aggregator APIs. Relevant platforms developed by our team include:
+      </p>
+      <ul style="font-size: 6.8pt; color: var(--dark-charcoal); line-height: 1.38; margin-left: 14px; margin-bottom: 3px;">
+        <li><strong>International Travel &amp; Tour Booking Portal:</strong> Integrated flight search, dynamic airline fare comparison, multi-passenger booking, and ancillary baggage add-ons with automated Stripe payments.</li>
+        <li><strong>Moolee Multi-Tenant Commerce &amp; Logistics Hub:</strong> Scalable microservices platform handling high-volume transactional order dispatch, dynamic payment splits, and real-time carrier tracking (<a href="https://moolee.mv" style="color:var(--black); text-decoration:underline;">moolee.mv</a>).</li>
+        <li><strong>Enterprise Ticketing &amp; Visitor Gateways:</strong> High-security government platforms for UAE digital experiences with automated digital voucher and ticket generation (<a href="https://alainmuseum.ae" style="color:var(--black); text-decoration:underline;">alainmuseum.ae</a>).</li>
+      </ul>
+    </div>
+
+    <div class="editorial-card" style="border-left: 3px solid var(--black); margin-bottom: 7px;">
+      <div style="font-size: 6.5pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">
+        QUESTION 2: YOUR EXPERIENCE WITH DUFFEL API OR SIMILAR AIRLINE BOOKING SYSTEMS
+      </div>
+      <p style="font-size: 7pt; color: var(--dark-charcoal); line-height: 1.38; margin: 3px 0;">
+        Our Technical Lead, <strong>Avishka Meddegoda</strong>, and our engineering team have hands-on experience with the <strong>Duffel Flights API</strong> and modern NDC airline booking standards. Key integration capabilities we have implemented include:
+      </p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 4px;">
+        <div class="editorial-card-grey" style="margin: 0;">
+          <strong style="font-size: 6.8pt; color: var(--black); display: block;">Offer Request &amp; Search Caching</strong>
+          <span style="font-size: 6.3pt; color: var(--mid-grey); line-height: 1.3;">
+            Configuring <code>/air/offer_requests</code> with cabin class filtering, non-stop flags, multi-passenger queries (adults, children, infants), and sorting algorithms by price, duration, and departure.
+          </span>
+        </div>
+        <div class="editorial-card-grey" style="margin: 0;">
+          <strong style="font-size: 6.8pt; color: var(--black); display: block;">Instant Order &amp; Ticketing</strong>
+          <span style="font-size: 6.3pt; color: var(--mid-grey); line-height: 1.3;">
+            Executing <code>/air/orders</code> with hold or instant ticketing, passenger data validation (passport requirements, DOB, gender), seat selection, and e-ticket document retrieval.
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Image insert -->
+    <div style="position: relative; width: 100%; height: 60mm; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-grey); margin-top: 2px;">
+      <img src="{BOOKING_UI}" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="Travel Booking UI Experience">
+      <div style="position: absolute; bottom: 8px; left: 10px; background: rgba(15, 17, 21, 0.85); color: #fff; padding: 4px 8px; border-radius: 2px; font-size: 6pt;">
+        <strong>DUFFEL COMPONENTS INTEGRATION</strong> &middot; Responsive Mobile Search, Flight Cards &amp; Frictionless Checkout
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; FARIS TRAVEL USA PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
+    <div class="footer-page-num">Page 04 of 10</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 05: ANSWERS TO QUESTIONS 3 & 4 ========================================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-left">SECTION 04 &middot; QUESTIONS 3 &amp; 4 &middot; SOLUTION &amp; TIMELINE</div>
+    <div class="header-right">$1,000 BUDGET REALISTIC DELIVERY</div>
+  </div>
+
+  <div>
+    <div class="section-tag">BUDGET &amp; DELIVERY ALIGNMENT</div>
+    <h2 class="page-title">Answers to Client Review Questions 3 &amp; 4</h2>
+
+    <div class="editorial-card" style="border-left: 3px solid var(--black); margin-bottom: 7px;">
+      <div style="font-size: 6.5pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">
+        QUESTION 3: YOUR PROPOSED SOLUTION WITHIN OUR $1,000 BUDGET
+      </div>
+      <p style="font-size: 7pt; color: var(--dark-charcoal); line-height: 1.38; margin: 3px 0;">
+        "If full functionality cannot realistically be completed within this budget, explain what can be delivered for $1,000."
+      </p>
+      <p style="font-size: 7pt; color: var(--dark-charcoal); line-height: 1.38; margin-bottom: 4px;">
+        <strong>Our Commitment: Yes, 100% of Phase 1 requirements can and will be delivered for exactly $1,000 USD.</strong> To deliver an enterprise-grade booking engine within $1,000 without cutting corners, we leverage <strong>Duffel’s proven pre-built embeddable UI Components</strong> coupled with a custom lightweight Node.js/PHP backend middleware on your server.
+      </p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 7px;">
+        <div style="background: #FAFAFC; padding: 5px 7px; border: 1px solid var(--border-grey); border-radius: 4px; font-size: 6.4pt; line-height: 1.35;">
+          <strong>Included in the $1,000 Fixed-Price:</strong><br>
+          • Duffel API account setup &amp; sandbox-to-live activation.<br>
+          • Flight search (one-way, round-trip, multi-city).<br>
+          • Passenger details &amp; passport input validation.<br>
+          • Stripe secure card payment integration.<br>
+          • Automated live e-ticket generation and PDF email confirmation.<br>
+          • Admin panel to set agency markups and book for walk-in clients.<br>
+          • Testing, launch, and 30 minutes of live staff video training.
+        </div>
+        <div style="background: #FAFAFC; padding: 5px 7px; border: 1px solid var(--border-grey); border-radius: 4px; font-size: 6.4pt; line-height: 1.35;">
+          <strong>Why this fits your $1,000 budget:</strong><br>
+          Building a flight search UI from scratch usually costs $6,000+. By using Duffel’s official UI Components, we avoid re-inventing complex flight matrix tables and focus our engineering on seamless integration, markup calculations, payment security, and your agency admin panel.
+        </div>
+      </div>
+    </div>
+
+    <div class="editorial-card" style="border-left: 3px solid var(--black); margin-bottom: 7px;">
+      <div style="font-size: 6.5pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">
+        QUESTION 4: YOUR ESTIMATED COMPLETION TIME
+      </div>
+      <p style="font-size: 7pt; color: var(--dark-charcoal); line-height: 1.38; margin: 3px 0;">
+        We estimate completion in <strong>2 to 3 weeks (15 business days)</strong> from project kickoff:
+      </p>
+      <table class="editorial-table">
+        <thead>
+          <tr>
+            <th>Sprint Stage</th>
+            <th>Timeline</th>
+            <th>Deliverable Focus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Week 1 (Days 1–5)</strong></td>
+            <td>Sprint 1</td>
+            <td>Duffel account linking, API credentials, search interface embedded on FarisTravelUSA.com.</td>
+          </tr>
+          <tr>
+            <td><strong>Week 2 (Days 6–10)</strong></td>
+            <td>Sprint 2</td>
+            <td>Stripe payment gateway integration, passenger data flows, agency markup engine, and admin portal.</td>
+          </tr>
+          <tr>
+            <td><strong>Week 3 (Days 11–15)</strong></td>
+            <td>Sprint 3</td>
+            <td>End-to-end sandbox booking test runs, live mode activation, staff training session, and launch.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="editorial-card-grey" style="border-left: 3px solid var(--black);">
+      <div class="block-title">Zero Additional Charges Guarantee</div>
+      <p style="font-size: 6.8pt; color: var(--dark-charcoal); line-height: 1.36; margin: 0;">
+        In strict accordance with your guidelines: <strong>No additional charges or recurring fees will ever be introduced without your prior approval.</strong> The $1,000 price is fixed, all-inclusive, and milestone-governed on Upwork.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; FARIS TRAVEL USA PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
+    <div class="footer-page-num">Page 05 of 10</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 06: ANSWER TO QUESTION 5 ========================================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-left">SECTION 05 &middot; QUESTION 5 &middot; LIVE TICKETING &amp; LIMITATIONS</div>
+    <div class="header-right">TICKETING CONFIRMATION</div>
+  </div>
+
+  <div>
+    <div class="section-tag">OPERATIONAL FEASIBILITY</div>
+    <h2 class="page-title">Question 5: Live Flight Booking &amp; Ticket Issuance</h2>
+    <p class="lead-text">
+      "Confirmation that your solution supports live flight booking and ticket issuance, or a clear explanation of any limitations."
+    </p>
+
+    <div class="editorial-card-grey" style="border: 2px solid var(--black); padding: 8px 12px; margin-bottom: 7px;">
+      <div style="font-size: 6.5pt; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid-grey);">
+        OFFICIAL STATEMENT OF CONFIRMATION
+      </div>
+      <div style="font-size: 9.5pt; font-weight: 800; color: var(--black); margin-top: 2px;">
+        YES &mdash; Our proposed solution fully supports live flight booking and automated electronic ticket issuance.
+      </div>
+    </div>
+
+    <div class="block-title">How Live E-Ticketing Works in Production</div>
+    <p style="font-size: 6.9pt; color: var(--dark-charcoal); line-height: 1.38; margin-bottom: 5px;">
+      When an order is confirmed, Duffel automatically interfaces with the issuing airline's reservation system. The customer and Faris Travel receive:
+    </p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px;">
+      <div class="editorial-card">
+        <strong style="font-size: 7.2pt; color: var(--black); display: block; margin-bottom: 2px;">1. Airline Booking Reference (PNR)</strong>
+        <p style="font-size: 6.5pt; color: var(--dark-charcoal); line-height: 1.34; margin: 0;">
+          A genuine 6-character airline locator (e.g. <code>W3X8KZ</code>). The passenger can immediately take this PNR to the airline's official website (e.g. delta.com, emirates.com) to check in or view their itinerary.
+        </p>
+      </div>
+      <div class="editorial-card">
+        <strong style="font-size: 7.2pt; color: var(--black); display: block; margin-bottom: 2px;">2. Official 13-Digit E-Ticket Numbers</strong>
+        <p style="font-size: 6.5pt; color: var(--dark-charcoal); line-height: 1.34; margin: 0;">
+          Duffel generates valid IATA electronic ticket numbers (e.g. <code>006-2384920192</code> for Delta or <code>176-9283748291</code> for Emirates). These are live, valid boarding documents.
+        </p>
+      </div>
+    </div>
+
+    <div class="block-title">Clear Explanation of Industry Limitations &amp; Boundaries</div>
+    <p style="font-size: 6.9pt; color: var(--dark-charcoal); line-height: 1.38; margin-bottom: 4px;">
+      To ensure 100% transparency, here are the real-world operational rules common to all airline aggregators:
+    </p>
+    <table class="editorial-table">
+      <thead>
+        <tr>
+          <th>Operation</th>
+          <th>Capabilities Supported</th>
+          <th>Known Limitations / Workflow Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Instant Ticketing</strong></td>
+          <td>Supported for all major scheduled carriers.</td>
+          <td>Requires funding in your Duffel balance or automated card billing.</td>
+        </tr>
+        <tr>
+          <td><strong>Low-Cost Carriers (LCCs)</strong></td>
+          <td>Supported (Ryanair, EasyJet, Spirit, etc.).</td>
+          <td>Some LCCs issue direct confirmation codes instead of 13-digit IATA e-tickets.</td>
+        </tr>
+        <tr>
+          <td><strong>Ticket Changes / Post-Booking</strong></td>
+          <td>Duffel API supports order change requests.</td>
+          <td>Changes and refunds are subject to airline fare rules and fees.</td>
+        </tr>
+        <tr>
+          <td><strong>Unpublished Consolidator Fares</strong></td>
+          <td>Available if Faris Travel has private airline contracts.</td>
+          <td>Private negotiated fares require loading specific airline corporate discount codes.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="position: relative; width: 100%; height: 50mm; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-grey); margin-top: 2px;">
+      <img src="{AIRPLANE_WING}" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="Commercial Aviation Travel">
+      <div style="position: absolute; bottom: 8px; left: 10px; background: rgba(15, 17, 21, 0.85); color: #fff; padding: 4px 8px; border-radius: 2px; font-size: 6pt;">
+        <strong>GLOBAL NETWORK</strong> &middot; Direct Access to 300+ Airlines with Real-Time PNR and E-Ticket Fulfillment
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; FARIS TRAVEL USA PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
+    <div class="footer-page-num">Page 06 of 10</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 07: ANSWER TO QUESTION 6 ========================================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-left">SECTION 06 &middot; QUESTION 6 &middot; THIRD-PARTY ACCOUNTS &amp; FEES</div>
+    <div class="header-right">TRANSPARENT COST BREAKDOWN</div>
+  </div>
+
+  <div>
+    <div class="section-tag">FINANCIAL TRANSPARENCY</div>
+    <h2 class="page-title">Question 6: Required Third-Party Accounts &amp; Fees</h2>
+    <p class="lead-text">
+      "Details of any required third-party accounts, approvals, or recurring fees. No additional charges or recurring fees should be introduced without prior approval."
+    </p>
+
+    <div class="block-title">Complete Third-Party Ecosystem Breakdown</div>
+    <table class="editorial-table" style="margin-bottom: 8px;">
+      <thead>
+        <tr>
+          <th>Provider</th>
+          <th>Account Required</th>
+          <th>Approval / Setup Time</th>
+          <th>Cost Structure / Recurring Fees</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Duffel (Flights API)</strong></td>
+          <td>Duffel Business Account (duffel.com)</td>
+          <td>Instant Sandbox; 1–2 days for live account verification.</td>
+          <td>
+            <strong>$0 / month</strong> (Starter Plan has no monthly subscription fee).<br>
+            Pay-as-you-go: Typically ~$3.00 per booked order or small % per ticket.
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Stripe (Payments)</strong></td>
+          <td>Stripe US Business Account (stripe.com)</td>
+          <td>Instant for US registered business (Faris Travel USA).</td>
+          <td>
+            <strong>$0 / month</strong> subscription fee.<br>
+            Standard US credit card processing: <strong>2.9% + 30&cent;</strong> per transaction.
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Hosting &amp; Domain</strong></td>
+          <td>Existing FarisTravelUSA.com hosting</td>
+          <td>Already active.</td>
+          <td><strong>$0 additional</strong> &mdash; we utilize your existing server infrastructure.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 7px;">
+      <div class="editorial-card" style="border-left: 3px solid var(--black);">
+        <div class="block-title">How Duffel Funding Works for Ticketing</div>
+        <p style="font-size: 6.7pt; color: var(--dark-charcoal); line-height: 1.36;">
+          To issue tickets, airlines require payment at the moment of ticketing. Faris Travel USA maintains a small pre-funded balance in your Duffel dashboard (e.g. $1,000–$2,000 deposit via bank transfer) or connects a business card. When a customer pays $500 on your website, Stripe deposits $500 into your bank, while Duffel deducts the wholesale $460 from your balance.
+        </p>
+      </div>
+
+      <div class="editorial-card" style="border-left: 3px solid var(--black);">
+        <div class="block-title">Zero Hidden Subscriptions Guarantee</div>
+        <p style="font-size: 6.7pt; color: var(--dark-charcoal); line-height: 1.36;">
+          You will <strong>never</strong> be locked into expensive monthly GDS leases (which often cost $500–$1,500/month). The Duffel + Stripe model is strictly <strong>pay-as-you-go</strong>: if you sell zero tickets in a quiet week, your cost is $0. When you sell tickets, fees are deducted directly from the customer's payment.
+        </p>
+      </div>
+    </div>
+
+    <!-- Image insert -->
+    <div style="position: relative; width: 100%; height: 55mm; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-grey);">
+      <img src="{AIRPORT_TERM}" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="Airport Terminal Boarding Gate">
+      <div style="position: absolute; bottom: 8px; left: 10px; background: rgba(15, 17, 21, 0.85); color: #fff; padding: 4px 8px; border-radius: 2px; font-size: 6pt;">
+        <strong>LEAN OPERATIONAL COSTS</strong> &middot; Zero Monthly Software Subscriptions &middot; 100% Pay-As-You-Earn Architecture
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; FARIS TRAVEL USA PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
+    <div class="footer-page-num">Page 07 of 10</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 08: CUSTOMER UI VS AGENCY ADMIN ========================================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-left">SECTION 07 &middot; BOOKING INTERFACE &amp; ADMIN PORTAL</div>
+    <div class="header-right">DUAL OPERATIONAL WORKFLOWS</div>
+  </div>
+
+  <div>
+    <div class="section-tag">USER &amp; AGENT WORKFLOWS</div>
+    <h2 class="page-title">Customer Experience vs. Agency Back-Office</h2>
+    <p class="lead-text">
+      The system is designed with dual workflows: a sleek, high-conversion frontend for website visitors, and an administrative control panel for Faris Travel staff.
+    </p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 7px;">
+      <!-- Customer Flow -->
+      <div class="editorial-card" style="border-top: 2px solid var(--black);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+          <div class="block-title" style="margin: 0;">1. Online Customer Experience</div>
+          <span class="badge badge-dark">MOBILE-FIRST</span>
+        </div>
+        <ul style="font-size: 6.6pt; color: var(--dark-charcoal); line-height: 1.36; margin-left: 12px;">
+          <li><strong>Flight Search:</strong> Clean autocomplete origin/destination airport selector, departure/return calendar, and passenger breakdown (adults, children, infants).</li>
+          <li><strong>Flight Comparison:</strong> Filter by airline, non-stop flights, baggage allowance, and departure time slots. Clear display of cabin class (Economy, Premium, Business).</li>
+          <li><strong>Passenger Input:</strong> Streamlined passenger details entry, passport expiry validation, and frequent flyer number fields.</li>
+          <li><strong>Secure Payment:</strong> Stripe card checkout with instant confirmation screen and automated PDF receipt delivery.</li>
+        </ul>
+      </div>
+
+      <!-- Agency Admin Flow -->
+      <div class="editorial-card" style="border-top: 2px solid var(--black);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+          <div class="block-title" style="margin: 0;">2. Agency Back-Office Workspace</div>
+          <span class="badge badge-dark">ADMIN DASHBOARD</span>
+        </div>
+        <ul style="font-size: 6.6pt; color: var(--dark-charcoal); line-height: 1.36; margin-left: 12px;">
+          <li><strong>In-Office Walk-In Booking:</strong> Travel agents search and issue tickets directly for clients visiting your Michigan office or calling over the phone.</li>
+          <li><strong>Markup Control Engine:</strong> Easily set global markup (e.g. flat +$30/ticket or +5%) or override markups on specific routes with instant application.</li>
+          <li><strong>Order Management:</strong> View all customer bookings, airline PNRs, ticket numbers, passenger manifests, and payment statuses in one unified table.</li>
+          <li><strong>Re-Send Tickets &amp; Invoices:</strong> One-click button to download or email booking confirmations to passengers.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block-title">Agency Admin Markup Configuration Engine</div>
+    <table class="editorial-table">
+      <thead>
+        <tr>
+          <th>Markup Strategy</th>
+          <th>Configuration Method</th>
+          <th>Calculation Example</th>
+          <th>Faris Travel Net Margin</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Fixed Dollar per Ticket</strong></td>
+          <td>Set a flat dollar amount added to each ticket</td>
+          <td>Wholesale: $400 &rarr; Markup: +$35 &rarr; Retail: $435</td>
+          <td><strong>+$35.00</strong> profit per passenger</td>
+        </tr>
+        <tr>
+          <td><strong>Percentage Markup</strong></td>
+          <td>Set a percentage margin added to base fare</td>
+          <td>Wholesale: $800 &rarr; Markup: +6% &rarr; Retail: $848</td>
+          <td><strong>+$48.00</strong> profit per passenger</td>
+        </tr>
+        <tr>
+          <td><strong>International / Premium</strong></td>
+          <td>Configure specific rules for long-haul/Business</td>
+          <td>Wholesale: $2,500 &rarr; Markup: +$120 &rarr; Retail: $2,620</td>
+          <td><strong>+$120.00</strong> profit per passenger</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="editorial-card-black" style="margin-top: 4px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+        <span style="font-size: 7.2pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">Staff Training &amp; Handover Session</span>
+        <span class="badge badge-outline" style="border-color: #fff; color: #fff;">INCLUDED IN $1,000</span>
+      </div>
+      <p style="font-size: 6.8pt; line-height: 1.34; margin: 0; color: #D1D5DB;">
+        Upon deployment, we will conduct a <strong>live video training walkthrough</strong> with Faris Travel staff to demonstrate how to adjust markups, create agent bookings, and manage customer tickets, supplemented by a recorded video guide.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; FARIS TRAVEL USA PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
+    <div class="footer-page-num">Page 08 of 10</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 09: QUESTION 7 & UPWORK POLICY ========================================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-left">SECTION 08 &middot; QUESTION 7 &middot; TEAM &amp; UPWORK COMPLIANCE</div>
+    <div class="header-right">COMMUNICATION POLICY AGREEMENT</div>
+  </div>
+
+  <div>
+    <!-- Strict Communication Agreement Box -->
+    <div class="editorial-card-grey" style="border: 2px solid var(--black); padding: 8px 12px; margin-bottom: 7px;">
+      <div style="font-size: 6.5pt; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid-grey);">
+        QUESTION 7: CONFIRMATION OF EXCLUSIVE UPWORK COMMUNICATION
+      </div>
+      <div style="font-size: 9.5pt; font-weight: 800; color: var(--black); margin-top: 2px;">
+        &ldquo;We confirm 100% agreement to communicate exclusively through the Upwork platform.&rdquo;
+      </div>
+      <p style="font-size: 6.6pt; color: var(--dark-charcoal); line-height: 1.34; margin-top: 3px;">
+        We strictly respect Faris Travel USA's mandatory communication rule. No WhatsApp, no external phone calls, no FaceTime, no personal emails, and no external payment requests. All discussions, deliverables, and milestone agreements will remain entirely within Upwork.
+      </p>
+    </div>
+
+    <div class="section-tag">ENGINEERING LEADERSHIP</div>
+    <h2 class="page-title">Dedicated Engineering Squad</h2>
+
+    <!-- Lead Engineer Box -->
+    <div class="editorial-card-black" style="margin-bottom: 6px; padding: 8px 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+        <h3 class="serif-heading" style="font-size: 10pt; color: var(--white); margin: 0;">Avishka Meddegoda &middot; Technical Lead &amp; Systems Architect</h3>
+        <span class="badge badge-outline" style="border-color: #fff; color: #fff;">PRIMARY ASSIGNED ENGINEER</span>
+      </div>
+      <p style="font-size: 6.9pt; line-height: 1.36; color: #E5E7EB; margin: 0;">
+        <strong>6+ Years Experience:</strong> Senior Full-Stack &amp; Enterprise Systems Architect. Specialist in flight API integrations, transactional booking pipelines, secure payment gateways, and backend web architectures. Avishka will personally architect the Duffel connection, payment middleware, and markup engine.
+      </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px;">
+      <div class="editorial-card">
+        <div class="block-title">Viranga Lakshan &middot; Solutions Architect &amp; Delivery Lead</div>
+        <div style="font-size: 6pt; color: var(--mid-grey); font-weight: 700; margin-bottom: 2px;">2+ Years Experience &middot; Lead Solutions Architect</div>
+        <p style="font-size: 6.5pt; color: var(--dark-charcoal); line-height: 1.32; margin: 0;">
+          Coordinates milestone delivery, API contract testing, and technical documentation. Manages all Upwork communications and client coordination.
+        </p>
+      </div>
+
+      <div class="editorial-card">
+        <div class="block-title">Chamara Lahiru &middot; Senior Frontend Engineer</div>
+        <div style="font-size: 6pt; color: var(--mid-grey); font-weight: 700; margin-bottom: 2px;">6+ Years Experience &middot; UI/UX &amp; Responsive Web</div>
+        <p style="font-size: 6.5pt; color: var(--dark-charcoal); line-height: 1.32; margin: 0;">
+          Specialist in responsive flight search components, interactive cabin selection, mobile form accessibility, and cross-browser performance.
+        </p>
+      </div>
+    </div>
+
+    <div class="block-title">Proven International Enterprise References</div>
+    <table class="editorial-table">
+      <thead>
+        <tr>
+          <th>Platform / Project</th>
+          <th>Domain &amp; Client</th>
+          <th>Architecture &amp; Features</th>
+          <th>Live Verification</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Al Ain Museum V2</strong></td>
+          <td>Government Digital Experience &middot; UAE</td>
+          <td>Next.js, TypeScript, Headless CMS, Enterprise APIs</td>
+          <td><a href="https://alainmuseum.ae" style="color:var(--black); text-decoration:underline;">alainmuseum.ae</a></td>
+        </tr>
+        <tr>
+          <td><strong>Moolee Multi-Tenant Platform</strong></td>
+          <td>Enterprise E-Commerce &amp; Logistics</td>
+          <td>Node.js, Microservices, Order Routing, Payments</td>
+          <td><a href="https://moolee.mv" style="color:var(--black); text-decoration:underline;">moolee.mv</a></td>
+        </tr>
+        <tr>
+          <td><strong>Holsten Arabia</strong></td>
+          <td>Enterprise Web Experience &middot; Middle East</td>
+          <td>Next.js, Umbraco Headless, .NET Core APIs</td>
+          <td><a href="https://holstenarabia.me" style="color:var(--black); text-decoration:underline;">holstenarabia.me</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; FARIS TRAVEL USA PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
+    <div class="footer-page-num">Page 09 of 10</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 10: INVESTMENT & MILESTONES ========================================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="header-left">SECTION 09 &middot; FIXED-PRICE MILESTONES &amp; HANDOVER</div>
+    <div class="header-right">$1,000 BUDGET COMMITMENT</div>
+  </div>
+
+  <div>
+    <div class="section-tag">COMMERCIAL AGREEMENT</div>
+    <h2 class="page-title">Phase 1 Milestone Breakdown ($1,000 USD Fixed Price)</h2>
+    <p class="lead-text">
+      Our proposal honors your exact <strong>$1,000.00 USD fixed-price budget</strong>, structured across 3 clear milestones tied to concrete verification deliverables on Upwork.
+    </p>
+
+    <table class="editorial-table" style="margin-bottom: 7px;">
+      <thead>
+        <tr>
+          <th>Milestone</th>
+          <th>Deliverable &amp; Scope Summary</th>
+          <th>Verification Criteria</th>
+          <th>Timeline</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Milestone 1</strong><br>Setup &amp; Search Engine</td>
+          <td>
+            Duffel developer account configuration; embedding responsive flight search engine into FarisTravelUSA.com; live multi-airline fare discovery.
+          </td>
+          <td>Live flight search operational on staging/production with real airline fares.</td>
+          <td>Days 1–5</td>
+          <td><strong>$400.00</strong><br><span style="font-size:5.5pt; color:var(--mid-grey);">(40%)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Milestone 2</strong><br>Booking, Markup &amp; Payments</td>
+          <td>
+            Passenger details form; Stripe card payment gateway integration; agency markup calculation engine; admin booking workspace.
+          </td>
+          <td>End-to-end sandbox booking test successful; markup correctly calculated.</td>
+          <td>Days 6–10</td>
+          <td><strong>$400.00</strong><br><span style="font-size:5.5pt; color:var(--mid-grey);">(40%)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Milestone 3</strong><br>Ticketing QA &amp; Training</td>
+          <td>
+            Live mode activation with Duffel; live booking test with real e-ticket generation; staff training session and documentation handover.
+          </td>
+          <td>Verified e-ticket issuance; staff training complete; 30-day warranty active.</td>
+          <td>Days 11–15</td>
+          <td><strong>$200.00</strong><br><span style="font-size:5.5pt; color:var(--mid-grey);">(20%)</span></td>
+        </tr>
+        <tr style="background: #F1F5F9; font-weight: 700;">
+          <td colspan="4" style="text-align: right; text-transform: uppercase;">Total Fixed-Price Investment:</td>
+          <td style="color: var(--black); font-size: 8.5pt;">$1,000.00 USD</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 7px;">
+      <div class="editorial-card" style="border-left: 3px solid var(--black);">
+        <div class="block-title">Post-Launch Warranty &amp; Support</div>
+        <p style="font-size: 6.5pt; color: var(--dark-charcoal); line-height: 1.34; margin: 0;">
+          We include <strong>30 days of complimentary post-launch support and warranty</strong> to monitor live ticketing transactions, answer staff questions, and ensure complete operational stability.
+        </p>
+      </div>
+
+      <div class="editorial-card" style="border-left: 3px solid var(--black);">
+        <div class="block-title">Future Expansion Opportunities</div>
+        <p style="font-size: 6.5pt; color: var(--dark-charcoal); line-height: 1.34; margin: 0;">
+          Following a successful Phase 1 launch, our team is available for future development phases, including hotel booking integrations, car rentals, automated WhatsApp notifications via Upwork agreements, and corporate client accounts.
+        </p>
+      </div>
+    </div>
+
+    <div class="editorial-card-black" style="padding: 9px 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+        <div>
+          <span style="font-size: 6pt; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; color: #D1D5DB;">Immediate Kickoff Readiness</span>
+          <h3 class="serif-heading" style="font-size: 9.5pt; color: #fff; margin: 0;">Ready to Start Immediately via Upwork</h3>
+        </div>
+        <div style="text-align: right;">
+          <span style="font-size: 6pt; color: #9CA3AF;">Lead Solutions Architect</span>
+          <div style="font-size: 7.8pt; font-weight: 700; color: #fff;">Viranga Lakshan</div>
+        </div>
+      </div>
+      <p style="font-size: 6.7pt; line-height: 1.35; color: #D1D5DB; margin: 0;">
+        We are ready to begin work immediately upon contract creation on Upwork. We look forward to partnering with Faris Travel USA to launch your online flight booking platform.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; FARIS TRAVEL USA PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
+    <div class="footer-page-num">Page 10 of 10</div>
+  </div>
+</div>
+
+</body>
+</html>
+"""
+
+def generate_pdf():
+    with open(HTML_PATH, "w", encoding="utf-8") as f:
+        f.write(HTML_CONTENT)
+    print(f"HTML written to {HTML_PATH}")
+
+    async def run():
+        async with async_playwright() as p:
+            browser = await p.chromium.launch(headless=True)
+            page = await browser.new_page()
+            await page.goto(f"file:///{HTML_PATH.replace(os.sep, '/')}", wait_until="networkidle")
+            await page.wait_for_timeout(1000)
+            await page.pdf(
+                path=PDF_PATH,
+                format="A4",
+                print_background=True,
+                margin={"top": "0mm", "right": "0mm", "bottom": "0mm", "left": "0mm"}
+            )
+            await browser.close()
+    
+    asyncio.run(run())
+    print(f"PDF successfully generated at: {PDF_PATH}")
+
+    reader = pypdf.PdfReader(PDF_PATH)
+    total_pages = len(reader.pages)
+    print(f"Total Page Count: {total_pages}")
+    assert total_pages == 10, f"Expected 10 pages, got {total_pages}"
+    print("PAGE COUNT VERIFICATION PASSED: Exactly 10 pages.")
+
+if __name__ == "__main__":
+    generate_pdf()
