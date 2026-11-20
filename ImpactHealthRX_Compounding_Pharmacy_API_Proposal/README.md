@@ -65,3 +65,4 @@ python "create_impacthealthrx_proposal_pdf.py"
 ```
 
 The script compiles headless Chromium via Playwright, renders print styles, and asserts `total_pages == 12`.
+

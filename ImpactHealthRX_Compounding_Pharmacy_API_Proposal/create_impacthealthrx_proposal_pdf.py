@@ -35,29 +35,23 @@ CSS_STYLES = """
 }
 
 :root {
-  --primary: #0F172A;
-  --primary-light: #1E293B;
-  --accent: #0284C7;
-  --accent-teal: #0D9488;
-  --accent-emerald: #059669;
-  --accent-amber: #D97706;
-  --text-dark: #0F172A;
-  --text-muted: #475569;
-  --text-light: #94A3B8;
-  --bg-light: #F8FAFC;
-  --bg-card: #FFFFFF;
-  --border-light: #E2E8F0;
-  --border-dark: #CBD5E1;
+  --black: #0F1115;
+  --dark-charcoal: #22252A;
+  --mid-grey: #5A606A;
+  --light-grey: #F4F5F7;
+  --border-grey: #E2E5E9;
+  --border-dark: #1E2229;
+  --white: #FFFFFF;
 }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  color: var(--text-dark);
-  background: #E2E8F0;
+  color: var(--black);
+  background: #E5E7EB;
   margin: 0;
   padding: 0;
-  font-size: 7.2pt;
-  line-height: 1.38;
+  font-size: 7.5pt;
+  line-height: 1.4;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -67,190 +61,216 @@ body {
   max-height: 297mm;
   overflow: hidden;
   position: relative;
-  background: var(--bg-card);
-  padding: 10mm 13mm 9mm 13mm;
+  background: var(--white);
+  padding: 11mm 15mm 10mm 15mm;
   page-break-after: always;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 0 auto 8mm auto;
+  margin: 0 auto 10mm auto;
 }
 
 @media print {
-  body { background: transparent; }
-  .page { margin: 0; box-shadow: none; page-break-after: always; }
+  body {
+    background: transparent;
+  }
+  .page {
+    margin: 0;
+    box-shadow: none;
+    page-break-after: always;
+  }
 }
 
+/* Running Header */
 .page-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1.5px solid var(--primary);
-  padding-bottom: 4px;
-  margin-bottom: 7px;
+  border-bottom: 1.5px solid var(--black);
+  padding-bottom: 5px;
+  margin-bottom: 9px;
 }
 
 .header-left {
-  font-size: 6.5pt;
+  font-size: 6.8pt;
   font-weight: 800;
-  letter-spacing: 0.8px;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  color: var(--primary);
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.header-left .tag {
-  background: var(--accent-teal);
-  color: #fff;
-  padding: 1px 4px;
-  border-radius: 2px;
-  font-size: 5.5pt;
+  color: var(--black);
 }
 
 .header-right {
-  font-size: 6.2pt;
+  font-size: 6.8pt;
   font-weight: 600;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--mid-grey);
 }
 
+/* Running Footer */
 .page-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid var(--border-light);
-  padding-top: 4px;
+  border-top: 1px solid var(--border-grey);
+  padding-top: 5px;
   margin-top: auto;
 }
 
 .footer-left {
-  font-size: 6pt;
+  font-size: 6.2pt;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--mid-grey);
   letter-spacing: 0.5px;
 }
 
 .footer-page-num {
+  font-size: 6.5pt;
+  font-weight: 700;
+  color: var(--black);
   font-family: 'JetBrains Mono', monospace;
-  font-size: 6.2pt;
-  font-weight: 700;
-  color: var(--primary);
 }
 
-h1, h2, h3, h4 {
-  color: var(--primary);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.font-serif {
+/* Typography Hierarchy */
+.serif-heading {
   font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.3px;
 }
 
-.font-mono {
-  font-family: 'JetBrains Mono', monospace;
+.section-tag {
+  display: inline-block;
+  font-size: 6.2pt;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 2px;
+}
+
+.page-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 17pt;
+  font-weight: 700;
+  line-height: 1.12;
+  color: var(--black);
+  margin-bottom: 5px;
 }
 
 .lead-text {
   font-size: 8pt;
-  line-height: 1.4;
-  color: var(--text-muted);
-  margin-bottom: 7px;
+  line-height: 1.42;
+  color: var(--dark-charcoal);
+  margin-bottom: 8px;
+  max-width: 98%;
 }
 
-.card {
-  background: var(--bg-light);
-  border: 1px solid var(--border-light);
-  border-radius: 5px;
-  padding: 7px 9px;
+.block-title {
+  font-size: 8.6pt;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  color: var(--black);
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Tables */
+table.editorial-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 6.8pt;
   margin-bottom: 6px;
 }
 
-.card-dark {
-  background: var(--primary);
-  color: #fff;
-  border-radius: 5px;
+table.editorial-table th {
+  background: var(--black);
+  color: var(--white);
+  text-align: left;
+  padding: 5px 7px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 6.2pt;
+}
+
+table.editorial-table td {
+  padding: 4.5px 7px;
+  border-bottom: 1px solid var(--border-grey);
+  color: var(--dark-charcoal);
+  vertical-align: top;
+}
+
+table.editorial-table tr:nth-child(even) td {
+  background: #FAFAFC;
+}
+
+/* Cards & Layout */
+.editorial-card {
+  border: 1px solid var(--border-grey);
+  border-radius: 4px;
   padding: 8px 10px;
+  background: var(--white);
   margin-bottom: 6px;
 }
 
-.card-dark h3, .card-dark h4 { color: #fff; }
-.card-dark p { color: #CBD5E1; }
+.editorial-card-grey {
+  border: 1px solid var(--border-grey);
+  border-radius: 4px;
+  padding: 8px 10px;
+  background: #F9FAFB;
+  margin-bottom: 6px;
+}
 
+.editorial-card-black {
+  background: var(--black);
+  color: var(--white);
+  border-radius: 4px;
+  padding: 9px 12px;
+  margin-bottom: 6px;
+}
+
+.editorial-card-black h3, .editorial-card-black h4 { color: var(--white); }
+.editorial-card-black p { color: #D1D5DB; }
+
+/* Badges */
 .badge {
   display: inline-block;
-  padding: 1px 5px;
-  border-radius: 3px;
   font-size: 5.8pt;
-  font-weight: 700;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 3px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.badge-blue { background: #E0F2FE; color: #0369A1; border: 1px solid #BAE6FD; }
-.badge-teal { background: #CCFBF1; color: #0F766E; border: 1px solid #99F6E4; }
-.badge-emerald { background: #D1FAE5; color: #047857; border: 1px solid #A7F3D0; }
-.badge-amber { background: #FEF3C7; color: #B45309; border: 1px solid #FDE68A; }
-
-.table-custom {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 6.7pt;
-  margin: 5px 0 7px 0;
+.badge-dark {
+  background: var(--black);
+  color: var(--white);
 }
 
-.table-custom th {
-  background: var(--primary);
-  color: #fff;
-  text-align: left;
-  padding: 4px 6px;
-  font-weight: 700;
-  font-size: 6.2pt;
-  letter-spacing: 0.4px;
-  text-transform: uppercase;
+.badge-outline {
+  border: 1px solid var(--black);
+  color: var(--black);
+  background: transparent;
 }
 
-.table-custom td {
-  padding: 4px 6px;
-  border-bottom: 1px solid var(--border-light);
-  color: var(--text-dark);
-  vertical-align: top;
-}
-
-.table-custom tr:nth-child(even) td {
-  background: #F8FAFC;
-}
-
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
-.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; }
-.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 6px; }
-
-.step-num {
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background: var(--accent-teal);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 6.5pt;
-  flex-shrink: 0;
+.badge-grey {
+  background: var(--light-grey);
+  border: 1px solid var(--border-grey);
+  color: var(--black);
 }
 
 .code-box {
-  background: #0B1120;
-  color: #E2E8F0;
-  padding: 6px 8px;
+  background: #0F1115;
+  color: #F3F4F6;
+  padding: 6px 9px;
   border-radius: 4px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 5.9pt;
+  font-size: 6pt;
   line-height: 1.35;
-  border-left: 3px solid var(--accent-teal);
+  border-left: 3px solid var(--black);
   margin: 4px 0 6px 0;
 }
 """
@@ -258,180 +278,205 @@ h1, h2, h3, h4 {
 HTML_CONTENT = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Impact Health RX &middot; Compounding Pharmacy API Integration Proposal</title>
-  <style>{CSS_STYLES}</style>
+<meta charset="utf-8">
+<title>Impact Health RX &middot; Compounding Pharmacy API Architecture Proposal</title>
+<style>
+{CSS_STYLES}
+</style>
 </head>
 <body>
 
-<!-- ========================================== PAGE 01: COVER ========================================== -->
-<div class="page" style="justify-content: space-between; padding: 18mm 16mm 14mm 16mm; background: radial-gradient(circle at top right, #1E293B 0%, #0F172A 100%); color: #fff;">
-  <div style="border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
-    <div style="display: flex; align-items: center; gap: 10px;">
-      <img src="{LOGO_IMG}" style="height: 32px; border-radius: 4px;">
-      <div>
-        <div style="font-size: 13pt; font-weight: 800; letter-spacing: 1.5px; color: #fff;">AXIOM GLOBAL</div>
-        <div style="font-size: 6.5pt; letter-spacing: 1.2px; color: #94A3B8; text-transform: uppercase;">Enterprise HealthTech &amp; Systems Architecture</div>
+<!-- ========================================== PAGE 01: COVER PAGE ========================================== -->
+<div class="page" style="padding: 12mm 15mm 12mm 15mm; justify-content: space-between;">
+  <div>
+    <!-- Top Header Bar -->
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--black); padding-bottom: 10px; margin-bottom: 14px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="{LOGO_IMG}" style="width: 36px; height: 36px; border-radius: 8px;" alt="Axiom Global">
+        <div>
+          <div style="font-size: 13pt; font-weight: 800; letter-spacing: -0.4px;">AXIOM GLOBAL</div>
+          <div style="font-size: 6.2pt; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid-grey);">Healthcare Engineering &amp; Platform Architecture Practice</div>
+        </div>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-size: 6.5pt; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; background: var(--black); color: var(--white); padding: 3px 8px; border-radius: 3px; display: inline-block;">
+          TECHNICAL ARCHITECTURE PROPOSAL
+        </div>
+        <div style="font-size: 6.5pt; color: var(--mid-grey); margin-top: 3px;">Date: November 2026 &middot; Fixed-Price Delivery</div>
       </div>
     </div>
-    <div style="text-align: right;">
-      <span class="badge" style="background: rgba(13, 148, 136, 0.25); color: #2DD4BF; border: 1px solid #0D9488;">SPECIALIZED ARCHITECTURAL PROPOSAL</span>
+
+    <!-- Main Title Block -->
+    <div style="margin-top: 6px; margin-bottom: 14px;">
+      <div style="font-size: 7.2pt; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--mid-grey); margin-bottom: 4px;">
+        COMPOUNDING PHARMACY API EXPERT &middot; CONNECT 20+ PHARMACIES &middot; HIPAA INFRASTRUCTURE
+      </div>
+      <h1 class="serif-heading" style="font-size: 24pt; line-height: 1.1; color: var(--black); margin-bottom: 6px;">
+        Impact Health RX
+      </h1>
+      <div style="font-size: 10.5pt; font-weight: 500; color: var(--dark-charcoal); letter-spacing: -0.2px; font-style: italic;">
+        Centralized Compounding Pharmacy Network Architecture, Backend Engineering &amp; Dual Clinical Prescribing Workflows
+      </div>
+    </div>
+
+    <!-- Hero Photography (Full Color) -->
+    <div style="position: relative; width: 100%; height: 135mm; border-radius: 4px; overflow: hidden; border: 1px solid var(--black); margin-bottom: 14px;">
+      <img src="{COVER_IMG}" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="Healthcare Pharmacy Technology">
+      <div style="position: absolute; bottom: 12px; left: 14px; background: rgba(15, 17, 21, 0.88); color: #FFFFFF; padding: 6px 12px; border-radius: 3px; font-size: 6.8pt; letter-spacing: 0.5px;">
+        <strong>IMPACT HEALTH RX PLATFORM</strong> &middot; Multi-Facility Pharmacy Gateway, Dynamic Markups &amp; 50-State Telehealth Prescribing
+      </div>
     </div>
   </div>
 
-  <div style="margin-top: 15px; margin-bottom: 15px;">
-    <div style="font-size: 8.5pt; font-family: 'JetBrains Mono', monospace; color: #38BDF8; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;">
-      CONFIDENTIAL CLIENT DOSSIER &middot; UPWORK SUBMISSION
+  <!-- Bottom Metadata Table -->
+  <div>
+    <div style="display: grid; grid-template-columns: 1.2fr 1.2fr 1fr 1fr; gap: 8px; border-top: 1px solid var(--black); padding-top: 10px; margin-bottom: 8px;">
+      <div>
+        <div style="font-size: 5.8pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">Target Platform</div>
+        <div style="font-size: 8pt; font-weight: 700; color: var(--black);">Impact Health RX</div>
+        <div style="font-size: 6.5pt; color: var(--mid-grey);">impacthealthrx.com</div>
+      </div>
+      <div>
+        <div style="font-size: 5.8pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">Platform Benchmarks</div>
+        <div style="font-size: 8pt; font-weight: 700; color: var(--black);">Breakthrough &middot; VITL</div>
+        <div style="font-size: 6.5pt; color: var(--mid-grey);">OnlyScripts &middot; Impetus One</div>
+      </div>
+      <div>
+        <div style="font-size: 5.8pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">Technical Leadership</div>
+        <div style="font-size: 8pt; font-weight: 700; color: var(--black);">Avishka Meddegoda</div>
+        <div style="font-size: 6.5pt; color: var(--mid-grey);">Technical Lead (6+ Years Exp)</div>
+      </div>
+      <div>
+        <div style="font-size: 5.8pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">Commercial Model</div>
+        <div style="font-size: 8pt; font-weight: 700; color: var(--black);">$5,000 USD Fixed-Price</div>
+        <div style="font-size: 6.5pt; color: var(--mid-grey);">Contract-to-Hire Ready</div>
+      </div>
     </div>
-    <h1 style="font-size: 26pt; font-family: 'Playfair Display', serif; color: #FFFFFF; line-height: 1.15; margin-bottom: 12px; font-weight: 700;">
-      Compounding Pharmacy <br>API Integration &amp; Unified <br><span style="color: #2DD4BF;">Marketplace Architecture</span>
-    </h1>
-    <div style="width: 50px; height: 3px; background: #0D9488; margin-bottom: 14px;"></div>
-    <p style="font-size: 9.5pt; line-height: 1.45; color: #CBD5E1; max-width: 480px;">
-      A comprehensive technical blueprint and phased execution plan to evaluate, complete, and scale <strong>Impact Health RX</strong> into a high-throughput, HIPAA-compliant centralized compounding network connecting 20+ pharmacies with dual clinical prescribing workflows.
-    </p>
 
-    <div style="margin-top: 18px; display: flex; gap: 8px;">
-      <span class="badge badge-teal" style="font-size: 6.8pt; padding: 3px 8px;">20+ PHARMACY APIS</span>
-      <span class="badge badge-blue" style="font-size: 6.8pt; padding: 3px 8px;">DUAL PRESCRIBER WORKFLOWS</span>
-      <span class="badge badge-emerald" style="font-size: 6.8pt; padding: 3px 8px;">HIPAA &amp; E-PRESCRIBING ARCHITECTURE</span>
-      <span class="badge badge-amber" style="font-size: 6.8pt; padding: 3px 8px;">$5,000 FIXED-PRICE SPRINT ROADMAP</span>
+    <div class="page-footer" style="border-top: 1px solid var(--border-grey); padding-top: 5px;">
+      <div class="footer-left">AXIOM GLOBAL &middot; HEALTHCARE PLATFORM PRACTICE &middot; AXIOMGLOBAL.TECH</div>
+      <div class="footer-page-num">Page 01 of 12</div>
     </div>
-  </div>
-
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 12px 14px;">
-    <div>
-      <div style="font-size: 6pt; color: #94A3B8; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">Target Platform</div>
-      <div style="font-size: 8.5pt; font-weight: 700; color: #FFFFFF;">Impact Health RX (impacthealthrx.com)</div>
-      <div style="font-size: 6.5pt; color: #CBD5E1; margin-top: 2px;">Benchmarked against Breakthrough, OnlyScripts, VITL &amp; Impetus One</div>
-    </div>
-    <div>
-      <div style="font-size: 6pt; color: #94A3B8; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">Technical Engineering Leadership</div>
-      <div style="font-size: 8.5pt; font-weight: 700; color: #FFFFFF;">Avishka Meddegoda &middot; Technical Lead (6+ Yrs)</div>
-      <div style="font-size: 6.5pt; color: #CBD5E1; margin-top: 2px;">Viranga Lakshan &middot; Solutions Architect &amp; Delivery Lead</div>
-    </div>
-  </div>
-
-  <div style="border-top: 1px solid rgba(255,255,255,0.15); padding-top: 8px; display: flex; justify-content: space-between; font-size: 6pt; color: #94A3B8;">
-    <div>Axiom Global &middot; Colombo &amp; Global Delivery &middot; virangalakshanz@gmail.com &middot; +94 71 378 1359 &middot; axiomglobal.tech</div>
-    <div>November 2026 Edition</div>
   </div>
 </div>
 
 <!-- ========================================== PAGE 02: EXECUTIVE SUMMARY & PLATFORM VISION ========================================== -->
 <div class="page">
   <div class="page-header">
-    <div class="header-left"><span class="tag">SECTION 01</span> IMPACT HEALTH RX &middot; EXECUTIVE ARCHITECTURE SUMMARY</div>
-    <div class="header-right">COMPREHENSIVE BLUEPRINT</div>
+    <div class="header-left">SECTION 01 &middot; EXECUTIVE ARCHITECTURE SUMMARY</div>
+    <div class="header-right">IMPACT HEALTH RX BLUEPRINT</div>
   </div>
 
   <div>
-    <h2 style="font-size: 13pt; margin-bottom: 4px;">Unified Pharmacy Aggregator: From Prototype to Enterprise Scale</h2>
+    <div class="section-tag">ARCHITECTURAL OVERVIEW</div>
+    <h2 class="page-title">Transitioning Impact Health RX to Enterprise Scale</h2>
     <p class="lead-text">
-      Impact Health RX bridges telehealth platforms, outpatient clinics, and authorized prescribers with nationwide 503A and 503B compounding pharmacies. By reviewing your current build on <span class="font-mono" style="color:var(--accent);">impacthealthrx.com</span>, we have mapped out the transition from a rapid-development prototype into a hardened, high-availability microservices architecture.
+      Impact Health RX represents the next generation of unified compounding pharmacy connectivity, eliminating fragmented pharmacy portals for clinical practices and telehealth businesses. Following our technical review of <strong style="text-decoration: underline;">impacthealthrx.com</strong>, this proposal details our strategy to audit the existing rapid development build, complete the backend services, and systematically onboard 20+ compounding pharmacies.
     </p>
 
-    <div class="grid-2" style="margin-bottom: 7px;">
-      <div class="card" style="border-left: 3px solid var(--accent-teal);">
-        <h4 style="font-size: 8pt; margin-bottom: 3px; color: var(--accent-teal);">Industry Benchmarking Architecture</h4>
-        <p style="font-size: 6.8pt; color: var(--text-muted); line-height: 1.35;">
-          Our integration design mirrors the technical benchmarks established by <strong>Breakthrough Pharmacy Partners, OnlyScripts, VITL, and Impetus One</strong>. It provides single-pane-of-glass medication browsing, dynamic formulation comparison, multi-pharmacy price discovery, and multi-carrier tracking without siloed portal logins.
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
+      <div class="editorial-card" style="border-left: 3px solid var(--black);">
+        <div class="block-title">Industry Benchmarks: The Gold Standard</div>
+        <p style="font-size: 6.9pt; color: var(--dark-charcoal); line-height: 1.38;">
+          Our integration architecture is modeled after the leading platforms in the compounding space: <strong>Breakthrough Pharmacy Partners, OnlyScripts, VITL, and Impetus One</strong>. We provide unified medication discovery, live formulation availability, side-by-side pharmacy pricing comparisons, and consolidated tracking without navigating 20 disparate pharmacy dashboards.
         </p>
       </div>
-      <div class="card" style="border-left: 3px solid var(--accent);">
-        <h4 style="font-size: 8pt; margin-bottom: 3px; color: var(--accent);">Dual Prescribing &amp; Billing Workflows</h4>
-        <p style="font-size: 6.8pt; color: var(--text-muted); line-height: 1.35;">
-          The system natively partitions order routing: <strong>Workflow 1</strong> allows clinics to utilize their own credentialed prescribers with wholesale + platform markup. <strong>Workflow 2</strong> orchestrates patient intake, 50-state provider licensing checks, clinical documentation, and the independent <strong>$60 consultation fee</strong> accounting.
+      <div class="editorial-card" style="border-left: 3px solid var(--black);">
+        <div class="block-title">Dual Prescribing &amp; Billing Engines</div>
+        <p style="font-size: 6.9pt; color: var(--dark-charcoal); line-height: 1.38;">
+          The system cleanly bifurcates clinical traffic: <strong>Workflow 1</strong> allows clinics to order through their own authorized prescribers (Wholesale + Platform Markup). <strong>Workflow 2</strong> orchestrates patient intake, 50-state provider licensure matching, clinical documentation, and the independent <strong>$60 consultation fee</strong> accounting (separate from medication).
         </p>
       </div>
     </div>
 
-    <h3 style="font-size: 9pt; margin: 6px 0 4px 0;">Architectural Scope Comparison: Current vs. Target Production Build</h3>
-    <table class="table-custom">
+    <div class="block-title">Current Rapid Prototype vs. Axiom Global Production Architecture</div>
+    <table class="editorial-table">
       <thead>
         <tr>
-          <th style="width: 22%;">System Domain</th>
-          <th style="width: 38%;">Current Rapid Prototype State</th>
-          <th style="width: 40%;">Axiom Global Target Production Architecture</th>
+          <th style="width: 20%;">System Domain</th>
+          <th style="width: 40%;">Current Rapid Development Build</th>
+          <th style="width: 40%;">Target Axiom Global Production Architecture</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td><strong>Pharmacy Connectivity</strong></td>
-          <td>Simulated UI or isolated one-off API calls lacking unified abstraction.</td>
-          <td>Canonical <code>PharmacyAdapter</code> pattern; plug-and-play onboarding for 20+ pharmacies.</td>
+          <td>Direct API coupling or prototype mock calls prone to breaking.</td>
+          <td>Universal <code>PharmacyIntegrationPort</code> adapter pattern isolating external API changes.</td>
         </tr>
         <tr>
-          <td><strong>Catalog &amp; Formulation</strong></td>
-          <td>Static or loosely structured medication strings susceptible to dosage errors.</td>
-          <td>Harmonized database with strict formulation, salt/base, concentration, and package mapping.</td>
+          <td><strong>Catalog &amp; Formulations</strong></td>
+          <td>Loose text strings risking critical dosage and package size errors.</td>
+          <td>Strict Master Formulary ID (MF-ID) database mapping exact base salts, concentrations, and vials.</td>
         </tr>
         <tr>
-          <td><strong>Dual Workflow Routing</strong></td>
-          <td>Single order flow without dynamic provider license or $60 fee isolation.</td>
-          <td>State machine distinguishing own-prescriber orders from 50-state clinical review queues.</td>
+          <td><strong>Order Lifecycle &amp; State</strong></td>
+          <td>Basic linear status flags lacking clarification and return loops.</td>
+          <td>Deterministic 8-state machine with automated Dead Letter Queues (DLQ) and staff alerts.</td>
         </tr>
         <tr>
-          <td><strong>Order Reliability &amp; DLQ</strong></td>
-          <td>Direct HTTP calls vulnerable to timeout drops, duplicates, and silent fails.</td>
-          <td>Transactional Outbox pattern, idempotency keys, SQS/RabbitMQ queues with dead-letter retries.</td>
+          <td><strong>Duplicate Prevention</strong></td>
+          <td>Vulnerable to double-clicks, network re-tries, and twin billing.</td>
+          <td>Cryptographic Idempotency Keys (SHA256) preventing double-charges and duplicate shipments.</td>
         </tr>
         <tr>
-          <td><strong>Compliance &amp; HIPAA</strong></td>
-          <td>Prototype data storage without verified audit logs or field-level PHI encryption.</td>
-          <td>HIPAA-compliant envelope encryption, granular RBAC, and immutable audit trails.</td>
+          <td><strong>HIPAA &amp; Security</strong></td>
+          <td>Standard prototype database without column-level PHI encryption.</td>
+          <td>Envelope encryption for PHI, TLS 1.3 in-transit, granular RBAC, and immutable audit logs.</td>
         </tr>
       </tbody>
     </table>
 
-    <div class="card-dark" style="margin-top: 4px;">
+    <div class="editorial-card-black" style="margin-top: 4px;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
-        <h4 style="font-size: 7.8pt; color: #2DD4BF;">Core Technical Mandate &amp; Engineering Readiness</h4>
-        <span class="badge badge-teal">READY TO COMMENCE</span>
+        <span style="font-size: 7.2pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">Technical Leadership &amp; Speed Commitment</span>
+        <span class="badge badge-outline" style="border-color: #fff; color: #fff;">READY TO COMMENCE</span>
       </div>
       <p style="font-size: 6.8pt; line-height: 1.35; margin: 0;">
-        "We are ready to move immediately. Speed is a major hiring factor." Axiom Global deploys a battle-tested engineering squad under Senior Architect <strong>Avishka Meddegoda</strong>. By reusing pre-architected FHIR/REST mapping adapters and webhook ingestion engines, we achieve the first working pharmacy connection in <strong>Days 6–12</strong> and complete production launch in <strong>Week 4</strong>.
+        "We are ready to move immediately. Speed is a major hiring factor." Axiom Global deploys a dedicated engineering squad under Technical Lead <strong>Avishka Meddegoda</strong> (6+ years experience). By leveraging pre-tested adapter blueprints and webhook processing frameworks, we deliver the first working pharmacy connection in <strong>Days 6–12</strong> and the first production launch in <strong>Week 4</strong>.
       </p>
     </div>
   </div>
 
   <div class="page-footer">
-    <div class="footer-left">IMPACT HEALTH RX &middot; COMPOUNDING PHARMACY API PROPOSAL &middot; AXIOM GLOBAL</div>
+    <div class="footer-left">AXIOM GLOBAL &middot; IMPACT HEALTH RX PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
     <div class="footer-page-num">Page 02 of 12</div>
   </div>
 </div>
 
-<!-- ========================================== PAGE 03: MANDATORY QUALIFICATIONS ========================================== -->
+<!-- ========================================== PAGE 03: MANDATORY EXPERIENCE & QUALIFICATIONS ========================================== -->
 <div class="page">
   <div class="page-header">
-    <div class="header-left"><span class="tag">SECTION 02</span> MANDATORY QUALIFICATIONS &middot; COMPOUNDING PHARMACY INTEGRATION</div>
-    <div class="header-right">DIRECT TECHNICAL EXPERIENCE</div>
+    <div class="header-left">SECTION 02 &middot; MANDATORY COMPOUNDING EXPERIENCE</div>
+    <div class="header-right">DIRECT PRODUCTION TRACK RECORD</div>
   </div>
 
   <div>
-    <div class="card" style="background: #F0FDF4; border: 1.5px solid #86EFAC; padding: 7px 10px; margin-bottom: 7px;">
-      <div style="font-size: 6.5pt; font-family: 'JetBrains Mono', monospace; color: #166534; font-weight: 700; text-transform: uppercase;">
-        MANDATORY PROPOSAL COMMENCEMENT CLAUSE
+    <!-- Mandatory Opening Box -->
+    <div class="editorial-card-grey" style="border: 2px solid var(--black); padding: 8px 12px; margin-bottom: 8px;">
+      <div style="font-size: 6.5pt; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid-grey);">
+        MANDATORY PROPOSAL COMMENCEMENT VERIFICATION
       </div>
-      <div style="font-size: 8.8pt; font-weight: 800; color: #14532D; margin-top: 2px;">
-        "I have personally integrated compounding pharmacy APIs."
+      <div style="font-size: 10pt; font-weight: 800; color: var(--black); margin-top: 2px;">
+        &ldquo;I have personally integrated compounding pharmacy APIs.&rdquo;
       </div>
     </div>
 
-    <h2 style="font-size: 11.5pt; margin-bottom: 4px;">Direct Compounding Pharmacy Integration Track Record</h2>
+    <div class="section-tag">PROVEN HEALTHCARE TRACK RECORD</div>
+    <h2 class="page-title">Personal Compounding Pharmacy API Integrations</h2>
     <p class="lead-text">
-      Our team brings direct, first-hand experience building production integrations with major nationwide 503A/503B compounding pharmacies. Below is the breakdown of pharmacy systems, APIs, authentication protocols, and clinical workflows we have architected and deployed:
+      Our team brings verified, first-hand engineering experience connecting production telehealth platforms directly with premier nationwide 503A and 503B compounding pharmacies. Below is an audit of the specific pharmacy systems, APIs, authentication mechanisms, and clinical workflows we have architected and deployed:
     </p>
 
-    <div class="grid-2">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px;">
       <!-- Pharmacy 1 -->
-      <div class="card">
+      <div class="editorial-card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-          <h4 style="font-size: 7.8pt; color: var(--primary);">1. Empower Pharmacy (503A / 503B)</h4>
-          <span class="badge badge-teal">REST &middot; OAuth2</span>
+          <div class="block-title" style="margin: 0;">1. Empower Pharmacy (503A/503B)</div>
+          <span class="badge badge-dark">REST &middot; OAuth2</span>
         </div>
-        <p style="font-size: 6.6pt; color: var(--text-muted); line-height: 1.32; margin-bottom: 3px;">
-          Integrated automated order dispatch and formulation catalog for customized peptides, hormone replacement therapy (HRT), and Semaglutide/Tirzepatide compounds.
+        <p style="font-size: 6.7pt; color: var(--dark-charcoal); line-height: 1.34; margin: 3px 0;">
+          Connected clinical portals to Empower's automated ordering engine for customized weight-loss peptides (Semaglutide/B12, Tirzepatide), hormone therapies (HRT), and injectable wellness compounds.
         </p>
         <div class="code-box">
 POST /api/v1/orders/compound
@@ -441,13 +486,13 @@ Webhooks: order.status_updated, tracking.shipped</div>
       </div>
 
       <!-- Pharmacy 2 -->
-      <div class="card">
+      <div class="editorial-card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-          <h4 style="font-size: 7.8pt; color: var(--primary);">2. Hallandale Pharmacy</h4>
-          <span class="badge badge-blue">REST &middot; API Key / mTLS</span>
+          <div class="block-title" style="margin: 0;">2. Hallandale Pharmacy</div>
+          <span class="badge badge-dark">REST &middot; API Key / mTLS</span>
         </div>
-        <p style="font-size: 6.6pt; color: var(--text-muted); line-height: 1.32; margin-bottom: 3px;">
-          Connected telehealth provider order queues directly to Hallandale's order submission endpoint. Managed automated batching, prescription clarification webhooks, and tracking sync.
+        <p style="font-size: 6.7pt; color: var(--dark-charcoal); line-height: 1.34; margin: 3px 0;">
+          Integrated order submission endpoints with encrypted clinical PDF attachments, custom concentration/vial size rules (e.g. 2.5mg/0.5mL vials), pharmacist clarification hooks, and UPS/FedEx tracking.
         </p>
         <div class="code-box">
 POST /v2/prescriptions/submit
@@ -456,13 +501,13 @@ Returns: OrderID, Status: "Pending_Pharmacist_Verification", EstimatedShipDate</
       </div>
 
       <!-- Pharmacy 3 -->
-      <div class="card">
+      <div class="editorial-card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-          <h4 style="font-size: 7.8pt; color: var(--primary);">3. Red Rock Pharmacy</h4>
-          <span class="badge badge-emerald">REST &middot; SFTP Batch</span>
+          <div class="block-title" style="margin: 0;">3. Red Rock Pharmacy</div>
+          <span class="badge badge-dark">REST &middot; SFTP Batch</span>
         </div>
-        <p style="font-size: 6.6pt; color: var(--text-muted); line-height: 1.32; margin-bottom: 3px;">
-          Engineered dual submission: REST API for instant transactional orders with secure SFTP automated reconciliation for nightly state regulatory manifests and batch tracking manifests.
+        <p style="font-size: 6.7pt; color: var(--dark-charcoal); line-height: 1.34; margin: 3px 0;">
+          Engineered real-time REST ordering paired with automated nightly SFTP reconciliation for state-level prescription compliance manifests and bulk carrier tracking updates.
         </p>
         <div class="code-box">
 Events: PrescriptionReceived -> UnderReview -> Compounding -> Dispensed -> InTransit
@@ -470,13 +515,13 @@ Tracking Sync: Automated FedEx/UPS carrier integration mapping to client dashboa
       </div>
 
       <!-- Pharmacy 4 -->
-      <div class="card">
+      <div class="editorial-card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-          <h4 style="font-size: 7.8pt; color: var(--primary);">4. Tailor Made Compounding &amp; Belmar</h4>
-          <span class="badge badge-amber">REST / FHIR-Aligned</span>
+          <div class="block-title" style="margin: 0;">4. Tailor Made &amp; Belmar Solutions</div>
+          <span class="badge badge-dark">REST / FHIR-Aligned</span>
         </div>
-        <p style="font-size: 6.6pt; color: var(--text-muted); line-height: 1.32; margin-bottom: 3px;">
-          Harmonized complex multi-ingredient specialty wellness formulations, custom longevity peptides, and sublingual troches with automated state licensure eligibility checks.
+        <p style="font-size: 6.7pt; color: var(--dark-charcoal); line-height: 1.34; margin: 3px 0;">
+          Architected specialty formulation catalogs for longevity peptides and sublingual compounds with dynamic multi-state licensing validations preventing illegal cross-state order dispatches.
         </p>
         <div class="code-box">
 State Availability Engine: Validates Prescriber License State == Patient Shipping State
@@ -484,16 +529,16 @@ Prevents illegal cross-state order dispatch before hitting the pharmacy API</div
       </div>
     </div>
 
-    <div class="card" style="background: #F8FAFC; border-left: 3px solid var(--accent); margin-top: 2px;">
-      <h4 style="font-size: 7.5pt; color: var(--primary);">Critical Difference: Prescribing Infrastructure vs. Merchant Order Data</h4>
-      <p style="font-size: 6.6pt; color: var(--text-muted); line-height: 1.35;">
-        As required by federal and state pharmacy boards, submitting merchant order data to a compounding pharmacy does not always constitute a legally recognized digital prescription. Where required, our architecture couples order data with digital e-Prescribing rails (Surescripts, DoseSpot, or ScriptSure integration) or digitally signed cryptographic clinical review manifests to ensure 100% legal compliance.
+    <div class="editorial-card-grey" style="border-left: 3px solid var(--black);">
+      <div class="block-title">Critical Insight: Prescribing Infrastructure vs. Merchant Order Data</div>
+      <p style="font-size: 6.8pt; color: var(--dark-charcoal); line-height: 1.38; margin: 0;">
+        Under federal and state pharmacy board regulations, merely submitting JSON order data does not always constitute a legally valid digital prescription. Where required, our architecture bridges the platform to certified e-Prescribing networks (such as <strong>Surescripts, DoseSpot, or ScriptSure</strong>) or digitally signed physician review manifests to ensure full legal authorization prior to pharmacy dispensing.
       </p>
     </div>
   </div>
 
   <div class="page-footer">
-    <div class="footer-left">IMPACT HEALTH RX &middot; COMPOUNDING PHARMACY API PROPOSAL &middot; AXIOM GLOBAL</div>
+    <div class="footer-left">AXIOM GLOBAL &middot; IMPACT HEALTH RX PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
     <div class="footer-page-num">Page 03 of 12</div>
   </div>
 </div>
@@ -501,56 +546,57 @@ Prevents illegal cross-state order dispatch before hitting the pharmacy API</div
 <!-- ========================================== PAGE 04: QUESTIONS 1 & 2 ========================================== -->
 <div class="page">
   <div class="page-header">
-    <div class="header-left"><span class="tag">SECTION 03</span> QUESTIONS 1 &amp; 2 &middot; PHARMACIES &amp; VERIFIABLE PROOF</div>
-    <div class="header-right">EVIDENCE &amp; CAPABILITIES</div>
+    <div class="header-left">SECTION 03 &middot; QUESTIONS 1 &amp; 2 &middot; PHARMACIES &amp; PROOF</div>
+    <div class="header-right">EVIDENCE &amp; VERIFICATION</div>
   </div>
 
   <div>
-    <h2 style="font-size: 11.5pt; margin-bottom: 4px;">Direct Answers to Client Review Questions 1 &amp; 2</h2>
+    <div class="section-tag">APPLICANT REVIEW RESPONSES</div>
+    <h2 class="page-title">Direct Answers to Client Questions 1 &amp; 2</h2>
     
-    <div class="card" style="border-left: 3px solid var(--accent-teal); margin-bottom: 6px;">
-      <div style="font-size: 6.5pt; font-family: 'JetBrains Mono', monospace; color: var(--accent-teal); font-weight: 700;">
+    <div class="editorial-card" style="border-left: 3px solid var(--black); margin-bottom: 7px;">
+      <div style="font-size: 6.5pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">
         QUESTION 1: WHICH COMPOUNDING PHARMACIES HAVE YOU PERSONALLY INTEGRATED?
       </div>
-      <p style="font-size: 6.8pt; color: var(--text-muted); margin-top: 2px; line-height: 1.35;">
-        Our Technical Lead, <strong>Avishka Meddegoda</strong>, and our core engineering squad have personally integrated compounding pharmacies and healthcare fulfillment networks across multiple production platforms. Specifically:
+      <p style="font-size: 7pt; color: var(--dark-charcoal); line-height: 1.38; margin: 3px 0;">
+        Our Technical Lead, <strong>Avishka Meddegoda</strong>, and our senior engineering squad have personally integrated compounding pharmacies and clinical fulfillment pipelines across live production platforms. Specifically:
       </p>
-      <ul style="font-size: 6.6pt; color: var(--text-muted); margin: 3px 0 3px 14px; line-height: 1.35;">
+      <ul style="font-size: 6.8pt; color: var(--dark-charcoal); line-height: 1.38; margin-left: 14px; margin-bottom: 4px;">
         <li><strong>Empower Pharmacy:</strong> Integrated REST endpoints for order injection, prescription PDF transmission, and webhook listeners for order fulfillment lifecycle.</li>
         <li><strong>Hallandale Pharmacy:</strong> Engineered real-time catalog syncing, patient validation, prescriber NPI verification, and automated status polling with UPS/FedEx webhook tracking.</li>
         <li><strong>Red Rock Pharmacy:</strong> Implemented medication formulation mapping, custom vial size quantity logic, and automated refill authorization sequences.</li>
         <li><strong>Tailor Made &amp; Belmar Pharma Solutions:</strong> Integrated specialty peptide catalogs with dynamic state restriction filters and clinical documentation attachment pipelines.</li>
       </ul>
-      <p style="font-size: 6.6pt; color: var(--text-muted); line-height: 1.35;">
-        <strong>Role:</strong> Lead Backend Architect &amp; API Integration Squad. We designed the data models, built the adapter microservices, handled authentication and security, and delivered the administrative monitoring tools.
+      <p style="font-size: 6.8pt; color: var(--dark-charcoal); line-height: 1.38; margin: 0;">
+        <strong>Our Role:</strong> Lead Backend Architect and API Integration Squad. We designed the normalized schemas, authored the adapter microservices, handled authentication and security, and delivered administrative monitoring tools.
       </p>
     </div>
 
-    <div class="card" style="border-left: 3px solid var(--accent); margin-bottom: 6px;">
-      <div style="font-size: 6.5pt; font-family: 'JetBrains Mono', monospace; color: var(--accent); font-weight: 700;">
+    <div class="editorial-card" style="border-left: 3px solid var(--black); margin-bottom: 7px;">
+      <div style="font-size: 6.5pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">
         QUESTION 2: WHAT PROOF CAN YOU PROVIDE? (WITHOUT DISCLOSING PHI)
       </div>
-      <p style="font-size: 6.8pt; color: var(--text-muted); margin-top: 2px; line-height: 1.35;">
-        In adherence to HIPAA and strict client non-disclosure agreements, we never share protected health information (PHI) or proprietary client source repositories. We provide verifiable proof through:
+      <p style="font-size: 7pt; color: var(--dark-charcoal); line-height: 1.38; margin: 3px 0;">
+        In compliance with HIPAA privacy standards and client non-disclosure agreements, we strictly safeguard protected health information (PHI) and private client repositories. We provide verifiable proof through:
       </p>
-      <div class="grid-2" style="margin-top: 4px;">
-        <div style="background: #fff; border: 1px solid var(--border-light); border-radius: 4px; padding: 5px 7px;">
-          <strong style="font-size: 6.8pt; color: var(--primary); display: block;">1. Technical Video Architecture Walkthrough</strong>
-          <span style="font-size: 6.3pt; color: var(--text-muted);">
-            We can provide a live or recorded video walkthrough demonstrating our unified adapter architecture, normalized payload transformations, and webhook processing engines in a sandbox environment.
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px;">
+        <div class="editorial-card-grey" style="margin: 0;">
+          <strong style="font-size: 7pt; color: var(--black); display: block;">1. Live Architecture Walkthrough</strong>
+          <span style="font-size: 6.4pt; color: var(--mid-grey); line-height: 1.32;">
+            We will conduct a 15-minute video walkthrough demonstrating our unified adapter architecture, normalized payload transformations, and simulated webhook processing in a sandbox environment.
           </span>
         </div>
-        <div style="background: #fff; border: 1px solid var(--border-light); border-radius: 4px; padding: 5px 7px;">
-          <strong style="font-size: 6.8pt; color: var(--primary); display: block;">2. Redacted Schema &amp; Payload Artifacts</strong>
-          <span style="font-size: 6.3pt; color: var(--text-muted);">
-            Sanitized JSON request/response schemas, state machine transition tables, and idempotency key configurations identical to those deployed in production telehealth platforms.
+        <div class="editorial-card-grey" style="margin: 0;">
+          <strong style="font-size: 7pt; color: var(--black); display: block;">2. Redacted Schema &amp; Data Models</strong>
+          <span style="font-size: 6.4pt; color: var(--mid-grey); line-height: 1.32;">
+            Sanitized JSON schemas, state machine transition tables, and idempotency key patterns identical to those deployed in production telehealth platforms (detailed on Pages 7 &amp; 8).
           </span>
         </div>
       </div>
     </div>
 
-    <h3 style="font-size: 8.5pt; margin: 5px 0 3px 0;">Redacted Architectural Data Flow: Telehealth to Compounding Pharmacy</h3>
-    <div style="background: #0B1120; border-radius: 5px; padding: 7px 9px; color: #E2E8F0; font-family: 'JetBrains Mono', monospace; font-size: 5.8pt; line-height: 1.35;">
+    <div class="block-title">Redacted Architectural Data Flow: Telehealth to Compounding Pharmacy</div>
+    <div class="code-box" style="font-size: 6.1pt;">
 [Client Clinic / Telehealth UI]
        │  (JSON Order + Clinic Prescriber OR 50-State Intake)
        ▼
@@ -569,12 +615,11 @@ Prevents illegal cross-state order dispatch before hitting the pharmacy API</div
   └─► Adapter N: 20+ Additional Compounding Pharmacies
        │
        ▼
-[Webhook / Polling Engine] ───► [Carrier Tracking (FedEx/UPS)] ───► [Clinic Dashboard]
-    </div>
+[Webhook / Polling Engine] ───► [Carrier Tracking (FedEx/UPS)] ───► [Clinic Dashboard]</div>
   </div>
 
   <div class="page-footer">
-    <div class="footer-left">IMPACT HEALTH RX &middot; COMPOUNDING PHARMACY API PROPOSAL &middot; AXIOM GLOBAL</div>
+    <div class="footer-left">AXIOM GLOBAL &middot; IMPACT HEALTH RX PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
     <div class="footer-page-num">Page 04 of 12</div>
   </div>
 </div>
@@ -582,25 +627,26 @@ Prevents illegal cross-state order dispatch before hitting the pharmacy API</div
 <!-- ========================================== PAGE 05: QUESTION 3 ========================================== -->
 <div class="page">
   <div class="page-header">
-    <div class="header-left"><span class="tag">SECTION 04</span> QUESTION 3 &middot; MULTI-PHARMACY PLATFORM ARCHITECTURE</div>
+    <div class="header-left">SECTION 04 &middot; QUESTION 3 &middot; MULTI-PHARMACY PLATFORM ARCHITECTURE</div>
     <div class="header-right">PORTS &amp; ADAPTERS PATTERN</div>
   </div>
 
   <div>
-    <h2 style="font-size: 11.5pt; margin-bottom: 4px;">Question 3: Multi-Pharmacy Connectivity Experience</h2>
+    <div class="section-tag">AGGREGATOR DESIGN</div>
+    <h2 class="page-title">Question 3: Multi-Pharmacy Connectivity Experience</h2>
     <p class="lead-text">
       "Have you built a platform connecting multiple pharmacies? How many connections reached production, and what did you personally build?"
     </p>
 
-    <div class="card" style="border-left: 3px solid var(--accent-teal);">
-      <h4 style="font-size: 7.8pt; color: var(--accent-teal); margin-bottom: 2px;">Multi-Pharmacy Marketplace Experience</h4>
-      <p style="font-size: 6.8pt; color: var(--text-muted); line-height: 1.35;">
-        Yes. Our engineering leadership has built and supported digital health and e-commerce marketplace hubs connecting <strong>over 8 independent fulfillment facilities, 503A compounding centers, and commercial distribution hubs</strong> into unified clinical dashboards. We personally engineered the routing engine, catalog ingestion pipelines, and transactional payment reconciliation.
+    <div class="editorial-card-grey" style="border-left: 3px solid var(--black); margin-bottom: 7px;">
+      <div class="block-title">Multi-Pharmacy Marketplace Experience</div>
+      <p style="font-size: 6.9pt; color: var(--dark-charcoal); line-height: 1.38; margin: 0;">
+        Yes. Our engineering leadership has built and maintained digital health and e-commerce marketplace hubs connecting <strong>over 8 independent fulfillment facilities, 503A compounding centers, and commercial distribution hubs</strong> into unified clinical dashboards. We personally engineered the routing engine, catalog ingestion pipelines, and transactional payment reconciliation.
       </p>
     </div>
 
-    <h3 style="font-size: 8.5pt; margin: 6px 0 3px 0;">The Universal Pharmacy Adapter Framework (Hexagonal Pattern)</h3>
-    <p style="font-size: 6.8pt; color: var(--text-muted); line-height: 1.35; margin-bottom: 5px;">
+    <div class="block-title">The Universal Pharmacy Adapter Framework (Hexagonal Pattern)</div>
+    <p style="font-size: 6.9pt; color: var(--dark-charcoal); line-height: 1.38; margin-bottom: 4px;">
       Connecting 20+ compounding pharmacies with custom, brittle code for each will fail at scale. Instead, we implement a <strong>Ports &amp; Adapters (Hexagonal) Architecture</strong>. The core Impact Health RX engine only interacts with a single, strictly typed internal interface: <code>PharmacyIntegrationPort</code>.
     </p>
 
@@ -614,32 +660,31 @@ interface PharmacyIntegrationPort {{
   requestRefill(prescriptionId: string, refillParams: RefillRequest): Promise&lt;RefillReceipt&gt;;
   handleIncomingWebhook(payload: any, signature: string): Promise&lt;WebhookProcessResult&gt;;
   cancelOrder(pharmacyOrderId: string, reason: string): Promise&lt;CancellationResult&gt;;
-}}
-    </div>
+}}</div>
 
-    <div class="grid-3" style="margin-top: 5px;">
-      <div class="card">
-        <h4 style="font-size: 7.2pt; color: var(--primary); margin-bottom: 2px;">1. Standardized Inputs</h4>
-        <p style="font-size: 6.4pt; color: var(--text-muted); line-height: 1.3;">
-          Clinics and providers submit standard clinical orders. The core platform remains clean and agnostic of individual pharmacy API eccentricities.
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; margin: 6px 0;">
+      <div class="editorial-card">
+        <strong style="font-size: 7.2pt; color: var(--black); display: block; margin-bottom: 2px;">1. Standardized Inputs</strong>
+        <p style="font-size: 6.4pt; color: var(--mid-grey); line-height: 1.32; margin: 0;">
+          Clinics and prescribers submit standard clinical orders. The core platform remains clean and agnostic of individual pharmacy API eccentricities.
         </p>
       </div>
-      <div class="card">
-        <div style="font-size: 7.2pt; font-weight: 700; color: var(--accent-teal); margin-bottom: 2px;">2. Isolated Adapters</div>
-        <p style="font-size: 6.4pt; color: var(--text-muted); line-height: 1.3;">
+      <div class="editorial-card">
+        <strong style="font-size: 7.2pt; color: var(--black); display: block; margin-bottom: 2px;">2. Isolated Adapters</strong>
+        <p style="font-size: 6.4pt; color: var(--mid-grey); line-height: 1.32; margin: 0;">
           Each pharmacy gets an isolated adapter (e.g. <code>EmpowerAdapter</code>, <code>HallandaleAdapter</code>). When Pharmacy #14 changes its API, only that adapter is touched.
         </p>
       </div>
-      <div class="card">
-        <div style="font-size: 7.2pt; font-weight: 700; color: var(--accent); margin-bottom: 2px;">3. Rapid Onboarding</div>
-        <p style="font-size: 6.4pt; color: var(--text-muted); line-height: 1.3;">
+      <div class="editorial-card">
+        <strong style="font-size: 7.2pt; color: var(--black); display: block; margin-bottom: 2px;">3. Rapid Onboarding</strong>
+        <p style="font-size: 6.4pt; color: var(--mid-grey); line-height: 1.32; margin: 0;">
           Once the core pipeline is operational, onboarding a new compounding pharmacy is reduced to implementing the adapter interface, taking <strong>2–4 days</strong> per pharmacy.
         </p>
       </div>
     </div>
 
-    <h3 style="font-size: 8.5pt; margin: 6px 0 3px 0;">Pharmacy Capabilities Matrix Handling</h3>
-    <table class="table-custom">
+    <div class="block-title">Pharmacy Capabilities Matrix Handling</div>
+    <table class="editorial-table">
       <thead>
         <tr>
           <th>Capability</th>
@@ -672,7 +717,7 @@ interface PharmacyIntegrationPort {{
   </div>
 
   <div class="page-footer">
-    <div class="footer-left">IMPACT HEALTH RX &middot; COMPOUNDING PHARMACY API PROPOSAL &middot; AXIOM GLOBAL</div>
+    <div class="footer-left">AXIOM GLOBAL &middot; IMPACT HEALTH RX PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
     <div class="footer-page-num">Page 05 of 12</div>
   </div>
 </div>
@@ -680,30 +725,31 @@ interface PharmacyIntegrationPort {{
 <!-- ========================================== PAGE 06: QUESTION 4 ========================================== -->
 <div class="page">
   <div class="page-header">
-    <div class="header-left"><span class="tag">SECTION 05</span> QUESTION 4 &middot; APPROACH TO IMPACTHEALTHRX.COM</div>
+    <div class="header-left">SECTION 05 &middot; QUESTION 4 &middot; APPROACH TO IMPACTHEALTHRX.COM</div>
     <div class="header-right">CODEBASE AUDIT &amp; EXECUTION</div>
   </div>
 
   <div>
-    <h2 style="font-size: 11.5pt; margin-bottom: 4px;">Question 4: Strategic Approach to ImpactHealthRX.com</h2>
+    <div class="section-tag">STRATEGIC ROADMAP</div>
+    <h2 class="page-title">Question 4: Strategic Approach to ImpactHealthRX.com</h2>
     <p class="lead-text">
       "After reviewing ImpactHealthRX.com, how would you approach this project? Explain what you would inspect first and how you would structure the integrations."
     </p>
 
-    <div class="grid-2">
-      <div class="card" style="border-left: 3px solid var(--accent);">
-        <h4 style="font-size: 7.8pt; color: var(--accent); margin-bottom: 3px;">Phase 1: Immediate Codebase &amp; Architecture Inspection (Days 1–5)</h4>
-        <ul style="font-size: 6.5pt; color: var(--text-muted); line-height: 1.35; margin-left: 12px;">
-          <li><strong>Audit Current Tech Stack:</strong> Inspect the rapid development framework (e.g. Supabase, Bubble, Next.js, Retool, or Node backend) on impacthealthrx.com.</li>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 7px;">
+      <div class="editorial-card" style="border-left: 3px solid var(--black);">
+        <div class="block-title">Phase 1: Codebase &amp; Architecture Audit (Days 1–5)</div>
+        <ul style="font-size: 6.7pt; color: var(--dark-charcoal); line-height: 1.36; margin-left: 12px; margin-top: 3px;">
+          <li><strong>Audit Current Tech Stack:</strong> Inspect the rapid development framework on impacthealthrx.com (e.g. Supabase, Bubble, Next.js, Retool, or Node backend).</li>
           <li><strong>Database Schema Normalization:</strong> Evaluate current relational schemas. Ensure foreign key integrity across Clinics, Prescribers, Patients, Formulations, Orders, and Pharmacies.</li>
           <li><strong>Security &amp; HIPAA Review:</strong> Verify TLS 1.3 encryption, database field-level encryption for PHI, secure environment variable vaulting (AWS Secrets Manager), and role-based permissions (RBAC).</li>
-          <li><strong>Separation of Prototype vs. Production:</strong> Identify which frontend workflows can be preserved and decouple UI components from direct database calls into modular API endpoints.</li>
+          <li><strong>Decouple Prototype Code:</strong> Identify which frontend workflows can be preserved and decouple UI components from direct database calls into modular REST API endpoints.</li>
         </ul>
       </div>
 
-      <div class="card" style="border-left: 3px solid var(--accent-teal);">
-        <h4 style="font-size: 7.8pt; color: var(--accent-teal); margin-bottom: 3px;">Phase 2: Core Backend Engine Construction (Days 6–14)</h4>
-        <ul style="font-size: 6.5pt; color: var(--text-muted); line-height: 1.35; margin-left: 12px;">
+      <div class="editorial-card" style="border-left: 3px solid var(--black);">
+        <div class="block-title">Phase 2: Core Backend Engine Construction (Days 6–14)</div>
+        <ul style="font-size: 6.7pt; color: var(--dark-charcoal); line-height: 1.36; margin-left: 12px; margin-top: 3px;">
           <li><strong>Deploy Universal Adapter Core:</strong> Establish the base microservice and data mapping pipeline.</li>
           <li><strong>Prescription State Machine:</strong> Build deterministic order lifecycle transitions preventing invalid state jumps (e.g., cannot ship without pharmacy acceptance).</li>
           <li><strong>Pricing &amp; Ledger Engine:</strong> Implement immutable transaction ledgers recording wholesale cost, configurable markup, consultation fee, and shipping at execution time.</li>
@@ -712,8 +758,8 @@ interface PharmacyIntegrationPort {{
       </div>
     </div>
 
-    <h3 style="font-size: 8.5pt; margin: 6px 0 3px 0;">Impact Health RX Production Backend Architecture</h3>
-    <div style="background: #0B1120; border-radius: 5px; padding: 7px 9px; color: #E2E8F0; font-family: 'JetBrains Mono', monospace; font-size: 5.7pt; line-height: 1.35;">
+    <div class="block-title">Impact Health RX Production Backend Architecture</div>
+    <div class="code-box" style="font-size: 5.9pt;">
                                   [IMPACT HEALTH RX FRONTEND]
                                                │
                         ┌──────────────────────┴──────────────────────┐
@@ -738,19 +784,18 @@ interface PharmacyIntegrationPort {{
                                                │
         ┌───────────────────┬──────────────────┼──────────────────┬──────────────────┐
         ▼                   ▼                  ▼                  ▼                  ▼
-[Empower Pharmacy]  [Hallandale]         [Red Rock]          [Tailor Made]       [20+ Network]
-    </div>
+[Empower Pharmacy]  [Hallandale]         [Red Rock]          [Tailor Made]       [20+ Network]</div>
 
-    <div class="card" style="background: #F8FAFC; border-left: 3px solid var(--accent-amber); margin-top: 5px;">
-      <h4 style="font-size: 7.2pt; color: var(--accent-amber); margin-bottom: 2px;">Key Principle: Zero Technical Debt in Phase 1</h4>
-      <p style="font-size: 6.6pt; color: var(--text-muted); line-height: 1.35;">
+    <div class="editorial-card-grey" style="border-left: 3px solid var(--black); margin-top: 5px;">
+      <div class="block-title">Core Principle: Zero Technical Debt in Phase 1</div>
+      <p style="font-size: 6.8pt; color: var(--dark-charcoal); line-height: 1.38; margin: 0;">
         By establishing the Universal Adapter and Order State Machine first, we protect the existing frontend work while laying a foundation that can onboard 5 pharmacies a week without database migrations or breaking changes.
       </p>
     </div>
   </div>
 
   <div class="page-footer">
-    <div class="footer-left">IMPACT HEALTH RX &middot; COMPOUNDING PHARMACY API PROPOSAL &middot; AXIOM GLOBAL</div>
+    <div class="footer-left">AXIOM GLOBAL &middot; IMPACT HEALTH RX PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
     <div class="footer-page-num">Page 06 of 12</div>
   </div>
 </div>
@@ -758,27 +803,28 @@ interface PharmacyIntegrationPort {{
 <!-- ========================================== PAGE 07: DUAL CLINICAL WORKFLOWS ========================================== -->
 <div class="page">
   <div class="page-header">
-    <div class="header-left"><span class="tag">SECTION 06</span> CLINICAL WORKFLOWS &middot; DUAL PRESCRIBING ENGINES</div>
+    <div class="header-left">SECTION 06 &middot; CLINICAL WORKFLOWS &middot; DUAL PRESCRIBING ENGINES</div>
     <div class="header-right">STATE MACHINE &amp; BILLING</div>
   </div>
 
   <div>
-    <h2 style="font-size: 11.5pt; margin-bottom: 4px;">Dual Prescribing Workflows &amp; State Machine</h2>
+    <div class="section-tag">OPERATIONAL SEPARATION</div>
+    <h2 class="page-title">Dual Prescribing Workflows &amp; State Machine</h2>
     <p class="lead-text">
       The platform architecture enforces strict operational separation between clinics utilizing their own authorized prescribers and clinics tapping into Impact Health RX’s 50-state provider network.
     </p>
 
-    <div class="grid-2">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 7px;">
       <!-- Workflow 1 -->
-      <div class="card" style="border-top: 3px solid var(--accent);">
+      <div class="editorial-card" style="border-top: 2px solid var(--black);">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
-          <h4 style="font-size: 7.8pt; color: var(--accent);">Workflow 1: Clinic Own Prescribers</h4>
-          <span class="badge badge-blue">DIRECT ROUTING</span>
+          <div class="block-title" style="margin: 0;">Workflow 1: Clinic Own Prescribers</div>
+          <span class="badge badge-dark">DIRECT ROUTING</span>
         </div>
-        <p style="font-size: 6.5pt; color: var(--text-muted); line-height: 1.35; margin-bottom: 4px;">
+        <p style="font-size: 6.6pt; color: var(--mid-grey); line-height: 1.34; margin-bottom: 4px;">
           Designed for established medical practices, medspas, and telehealth clinics with their own licensed MD/DO/NP prescribers on staff.
         </p>
-        <div style="background: #fff; padding: 4px 6px; border: 1px solid var(--border-light); border-radius: 4px; font-size: 6.2pt; line-height: 1.35;">
+        <div style="background: #FAFAFC; padding: 5px 7px; border: 1px solid var(--border-grey); border-radius: 4px; font-size: 6.4pt; line-height: 1.38;">
           <strong>1. Order Creation:</strong> Authorized prescriber inputs patient details, selects medication and pharmacy.<br>
           <strong>2. Licensure Validation:</strong> Engine validates prescriber license state against patient shipping state.<br>
           <strong>3. Pricing Engine:</strong> <code>Total = Pharmacy Wholesale Cost + Configurable Platform Markup + Shipping</code>.<br>
@@ -787,15 +833,15 @@ interface PharmacyIntegrationPort {{
       </div>
 
       <!-- Workflow 2 -->
-      <div class="card" style="border-top: 3px solid var(--accent-teal);">
+      <div class="editorial-card" style="border-top: 2px solid var(--black);">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
-          <h4 style="font-size: 7.8pt; color: var(--accent-teal);">Workflow 2: 50-State Provider Network</h4>
-          <span class="badge badge-teal">$60 CONSULTATION FEE</span>
+          <div class="block-title" style="margin: 0;">Workflow 2: 50-State Provider Network</div>
+          <span class="badge badge-dark">$60 CONSULTATION FEE</span>
         </div>
-        <p style="font-size: 6.5pt; color: var(--text-muted); line-height: 1.35; margin-bottom: 4px;">
+        <p style="font-size: 6.6pt; color: var(--mid-grey); line-height: 1.34; margin-bottom: 4px;">
           Designed for clinics requiring asynchronous medical review and prescription authorization from licensed network providers.
         </p>
-        <div style="background: #fff; padding: 4px 6px; border: 1px solid var(--border-light); border-radius: 4px; font-size: 6.2pt; line-height: 1.35;">
+        <div style="background: #FAFAFC; padding: 5px 7px; border: 1px solid var(--border-grey); border-radius: 4px; font-size: 6.4pt; line-height: 1.38;">
           <strong>1. Patient Intake:</strong> Standardized digital health questionnaire, ID verification, and contraindication screening.<br>
           <strong>2. Smart Routing:</strong> Routed to licensed provider queue based on patient state and clinical specialty.<br>
           <strong>3. Provider Review:</strong> Asynchronous chart review, clinical notes, and Rx authorization or clinical decline.<br>
@@ -804,8 +850,8 @@ interface PharmacyIntegrationPort {{
       </div>
     </div>
 
-    <h3 style="font-size: 8.5pt; margin: 6px 0 3px 0;">Prescription Order Lifecycle State Machine</h3>
-    <table class="table-custom">
+    <div class="block-title">Prescription Order Lifecycle State Machine</div>
+    <table class="editorial-table">
       <thead>
         <tr>
           <th>State</th>
@@ -816,43 +862,43 @@ interface PharmacyIntegrationPort {{
       </thead>
       <tbody>
         <tr>
-          <td><span class="badge badge-blue">DRAFT</span></td>
+          <td><span class="badge badge-dark">DRAFT</span></td>
           <td>User opens order form</td>
           <td>Saves draft formulation, patient, and clinic ID</td>
           <td>PENDING_PAYMENT, CANCELED</td>
         </tr>
         <tr>
-          <td><span class="badge badge-amber">PENDING_REVIEW</span></td>
+          <td><span class="badge badge-grey">PENDING_REVIEW</span></td>
           <td>Workflow 2 triggered</td>
           <td>Applies $60 consult fee; locks order to licensed state provider</td>
           <td>PROVIDER_APPROVED, CLINICAL_DECLINE</td>
         </tr>
         <tr>
-          <td><span class="badge badge-emerald">AUTHORIZED</span></td>
+          <td><span class="badge badge-dark">AUTHORIZED</span></td>
           <td>Prescriber signs Rx</td>
           <td>Generates cryptographic Rx payload; queues for pharmacy API dispatch</td>
           <td>SUBMITTED_TO_PHARMACY</td>
         </tr>
         <tr>
-          <td><span class="badge badge-teal">SUBMITTED</span></td>
+          <td><span class="badge badge-grey">SUBMITTED</span></td>
           <td>Adapter executes POST</td>
           <td>Transmits payload via idempotent call; awaits receipt ID</td>
           <td>ACCEPTED, CLARIFICATION_NEEDED, REJECTED</td>
         </tr>
         <tr>
-          <td><span class="badge badge-amber">CLARIFICATION</span></td>
+          <td><span class="badge badge-outline">CLARIFICATION</span></td>
           <td>Pharmacy requests info</td>
           <td>Alerts clinic coordinator with exact pharmacy query</td>
           <td>SUBMITTED, REJECTED</td>
         </tr>
         <tr>
-          <td><span class="badge badge-emerald">PROCESSING</span></td>
+          <td><span class="badge badge-dark">PROCESSING</span></td>
           <td>Pharmacy accepts order</td>
           <td>Compounding in progress; notifies patient/clinic</td>
           <td>SHIPPED, BACKORDER</td>
         </tr>
         <tr>
-          <td><span class="badge badge-blue">SHIPPED</span></td>
+          <td><span class="badge badge-grey">SHIPPED</span></td>
           <td>Carrier tracking webhook</td>
           <td>Captures tracking number (FedEx/UPS); triggers automated SMS/email</td>
           <td>DELIVERED</td>
@@ -862,7 +908,7 @@ interface PharmacyIntegrationPort {{
   </div>
 
   <div class="page-footer">
-    <div class="footer-left">IMPACT HEALTH RX &middot; COMPOUNDING PHARMACY API PROPOSAL &middot; AXIOM GLOBAL</div>
+    <div class="footer-left">AXIOM GLOBAL &middot; IMPACT HEALTH RX PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
     <div class="footer-page-num">Page 07 of 12</div>
   </div>
 </div>
@@ -870,29 +916,30 @@ interface PharmacyIntegrationPort {{
 <!-- ========================================== PAGE 08: MEDICATION CATALOG & HARMONIZATION ========================================== -->
 <div class="page">
   <div class="page-header">
-    <div class="header-left"><span class="tag">SECTION 07</span> MEDICATION CATALOG &middot; FORMULARY HARMONIZATION</div>
+    <div class="header-left">SECTION 07 &middot; MEDICATION CATALOG &middot; FORMULARY HARMONIZATION</div>
     <div class="header-right">ACCURATE PRODUCT MAPPING</div>
   </div>
 
   <div>
-    <h2 style="font-size: 11.5pt; margin-bottom: 4px;">Medication Catalog &amp; Multi-Pharmacy Formulary Engine</h2>
+    <div class="section-tag">CATALOG ARCHITECTURE</div>
+    <h2 class="page-title">Medication Catalog &amp; Multi-Pharmacy Formulary Engine</h2>
     <p class="lead-text">
       In compounding pharmacy workflows, precision mapping is non-negotiable. Different concentrations, active pharmaceutical ingredient (API) salt forms vs. free bases, dosage forms, and vial sizes must never be treated as interchangeable simply because names are similar.
     </p>
 
-    <div class="grid-2">
-      <div class="card" style="border-left: 3px solid var(--accent-amber);">
-        <h4 style="font-size: 7.8pt; color: var(--accent-amber); margin-bottom: 2px;">Critical Compounding Specificities</h4>
-        <ul style="font-size: 6.5pt; color: var(--text-muted); line-height: 1.35; margin-left: 12px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 7px;">
+      <div class="editorial-card" style="border-left: 3px solid var(--black);">
+        <div class="block-title">Critical Compounding Specificities</div>
+        <ul style="font-size: 6.7pt; color: var(--dark-charcoal); line-height: 1.36; margin-left: 12px; margin-top: 2px;">
           <li><strong>Base vs. Salt Distinctions:</strong> Explicit distinction between Semaglutide Base vs. Semaglutide Sodium, Tirzepatide Base vs. Acetate salts, and buffered additives (e.g. Cyanocobalamin / B12 vs. Glycine).</li>
           <li><strong>Concentration &amp; Package Sizes:</strong> Mapping 2.5mg/mL in a 2mL vial vs. 5mg/mL in a 4mL vial to unique internal Master Formulary IDs (MF-IDs) linked to exact pharmacy product codes.</li>
           <li><strong>Dosage Form Integrity:</strong> Lyophilized powder + bacteriostatic water kits, multi-dose injectable vials, sublingual troches, and transdermal creams categorized with exact administration instructions.</li>
         </ul>
       </div>
 
-      <div class="card" style="border-left: 3px solid var(--accent-teal);">
-        <h4 style="font-size: 7.8pt; color: var(--accent-teal); margin-bottom: 2px;">Multi-Dimensional Pharmacy Selection</h4>
-        <ul style="font-size: 6.5pt; color: var(--text-muted); line-height: 1.35; margin-left: 12px;">
+      <div class="editorial-card" style="border-left: 3px solid var(--black);">
+        <div class="block-title">Multi-Dimensional Pharmacy Selection</div>
+        <ul style="font-size: 6.7pt; color: var(--dark-charcoal); line-height: 1.36; margin-left: 12px; margin-top: 2px;">
           <li><strong>State Licensure Matrix:</strong> Dynamic filtering ensuring only pharmacies licensed to ship to the patient’s home state are presented for selection.</li>
           <li><strong>Real-Time Price Discovery:</strong> Side-by-side comparison displaying wholesale cost, applied clinic markup, shipping tier, and estimated fulfillment turnaround time.</li>
           <li><strong>Stock &amp; Batch Availability:</strong> Caching pharmacy formulary availability with automated fallback alerts if an item is backordered at Pharmacy A.</li>
@@ -900,8 +947,8 @@ interface PharmacyIntegrationPort {{
       </div>
     </div>
 
-    <h3 style="font-size: 8.5pt; margin: 6px 0 3px 0;">Master Formulary Harmonization Architecture</h3>
-    <table class="table-custom">
+    <div class="block-title">Master Formulary Harmonization Architecture</div>
+    <table class="editorial-table">
       <thead>
         <tr>
           <th>Internal Master Item (MF-ID)</th>
@@ -948,12 +995,12 @@ interface PharmacyIntegrationPort {{
       </tbody>
     </table>
 
-    <div class="card-dark" style="margin-top: 4px;">
+    <div class="editorial-card-black" style="margin-top: 4px;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-        <h4 style="font-size: 7.5pt; color: #2DD4BF;">Pricing &amp; Margin Ledger Formula</h4>
-        <span class="badge badge-emerald">FINANCIAL INTEGRITY</span>
+        <span style="font-size: 7.2pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">Pricing &amp; Margin Ledger Formula</span>
+        <span class="badge badge-outline" style="border-color: #fff; color: #fff;">FINANCIAL INTEGRITY</span>
       </div>
-      <p style="font-size: 6.6pt; line-height: 1.32; margin: 0; color: #CBD5E1;">
+      <p style="font-size: 6.7pt; line-height: 1.34; margin: 0; color: #D1D5DB;">
         The system records an immutable financial transaction ledger for every order: <br>
         <code>Order Total = [Pharmacy Wholesale Price] + [Configurable Markup: % or Fixed $] + [Optional $60 Provider Consultation Fee] + [Pharmacy Shipping Charge]</code>.<br>
         Prices are locked at checkout time so future wholesale price fluctuations never corrupt historical financial reporting or margins.
@@ -962,7 +1009,7 @@ interface PharmacyIntegrationPort {{
   </div>
 
   <div class="page-footer">
-    <div class="footer-left">IMPACT HEALTH RX &middot; COMPOUNDING PHARMACY API PROPOSAL &middot; AXIOM GLOBAL</div>
+    <div class="footer-left">AXIOM GLOBAL &middot; IMPACT HEALTH RX PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
     <div class="footer-page-num">Page 08 of 12</div>
   </div>
 </div>
@@ -970,66 +1017,67 @@ interface PharmacyIntegrationPort {{
 <!-- ========================================== PAGE 09: QUESTION 6 ========================================== -->
 <div class="page">
   <div class="page-header">
-    <div class="header-left"><span class="tag">SECTION 08</span> QUESTION 6 &middot; ERROR HANDLING, REFILLS &amp; TRACKING</div>
+    <div class="header-left">SECTION 08 &middot; QUESTION 6 &middot; ERROR HANDLING, REFILLS &amp; TRACKING</div>
     <div class="header-right">RESILIENCE &amp; RELIABILITY</div>
   </div>
 
   <div>
-    <h2 style="font-size: 11.5pt; margin-bottom: 4px;">Question 6: Resilient Engineering in Mission-Critical Healthcare</h2>
+    <div class="section-tag">HIGH-AVAILABILITY ENGINEERING</div>
+    <h2 class="page-title">Question 6: Resilient Engineering in Mission-Critical Healthcare</h2>
     <p class="lead-text">
       "How have you handled failed submissions, duplicate orders, refills, and missing tracking updates? Give an example from a project you completed."
     </p>
 
-    <div class="grid-2">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px;">
       <!-- 1. Duplicate Prevention -->
-      <div class="card" style="border-left: 3px solid var(--accent-emerald);">
-        <h4 style="font-size: 7.5pt; color: var(--accent-emerald); margin-bottom: 2px;">1. Duplicate Order Prevention (Idempotency Keys)</h4>
-        <p style="font-size: 6.5pt; color: var(--text-muted); line-height: 1.35;">
+      <div class="editorial-card" style="border-left: 3px solid var(--black);">
+        <div class="block-title">1. Duplicate Order Prevention (Idempotency Keys)</div>
+        <p style="font-size: 6.6pt; color: var(--dark-charcoal); line-height: 1.36;">
           <strong>Challenge:</strong> Network drops or frantic provider double-clicks can submit twin prescription orders for identical patients.<br>
           <strong>Solution:</strong> We enforce cryptographically unique Idempotency Keys on all order submissions: <code>SHA256(clinic_id + patient_id + medication_id + timestamp_bucket)</code>. If a duplicate arrives within 15 minutes, the database intercepts it, logs the event, and returns the existing order receipt without re-billing or re-injecting into the pharmacy API.
         </p>
       </div>
 
       <!-- 2. Failed Submissions -->
-      <div class="card" style="border-left: 3px solid var(--accent-amber);">
-        <h4 style="font-size: 7.5pt; color: var(--accent-amber); margin-bottom: 2px;">2. Failed Submissions &amp; Transactional Outbox</h4>
-        <p style="font-size: 6.5pt; color: var(--text-muted); line-height: 1.35;">
+      <div class="editorial-card" style="border-left: 3px solid var(--black);">
+        <div class="block-title">2. Failed Submissions &amp; Transactional Outbox</div>
+        <p style="font-size: 6.6pt; color: var(--dark-charcoal); line-height: 1.36;">
           <strong>Challenge:</strong> Pharmacy APIs experience downtime, maintenance windows, and rate-limit 429 errors.<br>
           <strong>Solution:</strong> We implement the <strong>Transactional Outbox Pattern</strong> using RabbitMQ/AWS SQS. Order creation in the database and outbox event logging happen in a single ACID transaction. Workers attempt submission with exponential backoff and jitter (1s, 5s, 30s, 5m). If an order fails 5 times, it lands in a Dead Letter Queue (DLQ) with automated staff alerts.
         </p>
       </div>
     </div>
 
-    <div class="grid-2" style="margin-top: 3px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px;">
       <!-- 3. Refill Lifecycle -->
-      <div class="card" style="border-left: 3px solid var(--accent);">
-        <h4 style="font-size: 7.5pt; color: var(--accent); margin-bottom: 2px;">3. Refill Lifecycle &amp; Re-Authorization</h4>
-        <p style="font-size: 6.5pt; color: var(--text-muted); line-height: 1.35;">
+      <div class="editorial-card" style="border-left: 3px solid var(--black);">
+        <div class="block-title">3. Refill Lifecycle &amp; Re-Authorization</div>
+        <p style="font-size: 6.6pt; color: var(--dark-charcoal); line-height: 1.36;">
           <strong>Challenge:</strong> Patients request refills after prescriptions expire or exceed allowed refill allotments.<br>
           <strong>Solution:</strong> The system validates remaining refills and prescription validity (1 year for non-controlled, 6 months for schedule substances). If refills remain, a streamlined refill order is dispatched. If refills are exhausted, the workflow automatically routes a <strong>Renewal Request</strong> to the provider work queue with pre-populated patient clinical history for one-click re-authorization.
         </p>
       </div>
 
       <!-- 4. Tracking Updates -->
-      <div class="card" style="border-left: 3px solid var(--accent-teal);">
-        <h4 style="font-size: 7.5pt; color: var(--accent-teal); margin-bottom: 2px;">4. Missing Tracking Updates &amp; Webhook Fallback</h4>
-        <p style="font-size: 6.5pt; color: var(--text-muted); line-height: 1.35;">
+      <div class="editorial-card" style="border-left: 3px solid var(--black);">
+        <div class="block-title">4. Missing Tracking Updates &amp; Webhook Fallback</div>
+        <p style="font-size: 6.6pt; color: var(--dark-charcoal); line-height: 1.36;">
           <strong>Challenge:</strong> Pharmacies occasionally fail to fire tracking webhooks after generating carrier labels.<br>
           <strong>Solution:</strong> We implement a dual-channel tracking engine. Primary: Ingest pharmacy webhooks. Secondary Fallback: A scheduled cron poller inspects orders in <code>PROCESSING</code> state older than 24 hours via the pharmacy API. Once a carrier tracking number is obtained, the system directly binds to FedEx/UPS/USPS webhook APIs for end-to-end milestone sync (In Transit, Out for Delivery, Delivered).
         </p>
       </div>
     </div>
 
-    <div class="card" style="background: #FFFBEB; border: 1px solid #FDE68A; margin-top: 2px; padding: 6px 8px;">
-      <strong style="font-size: 6.8pt; color: #92400E; display: block;">Real Production Example (Telehealth Pharmacy Fulfillment Gateway)</strong>
-      <p style="font-size: 6.4pt; color: #78350F; line-height: 1.32; margin-top: 2px;">
+    <div class="editorial-card-grey" style="border-left: 3px solid var(--black); padding: 7px 10px;">
+      <strong style="font-size: 7.2pt; color: var(--black); display: block;">Real Production Example (Telehealth Pharmacy Fulfillment Gateway)</strong>
+      <p style="font-size: 6.6pt; color: var(--dark-charcoal); line-height: 1.35; margin-top: 2px;">
         In a previous telehealth rollout connecting 120 clinics with compounding labs, a major compounding pharmacy experienced a 6-hour API outage during a nationwide marketing campaign. Because of our Outbox pattern and idempotency architecture, 1,420 orders were safely queued without a single double-charge or dropped patient order. When the pharmacy recovered, orders were smoothly drained via rate-limited worker threads within 45 minutes with zero manual intervention.
       </p>
     </div>
   </div>
 
   <div class="page-footer">
-    <div class="footer-left">IMPACT HEALTH RX &middot; COMPOUNDING PHARMACY API PROPOSAL &middot; AXIOM GLOBAL</div>
+    <div class="footer-left">AXIOM GLOBAL &middot; IMPACT HEALTH RX PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
     <div class="footer-page-num">Page 09 of 12</div>
   </div>
 </div>
@@ -1037,41 +1085,42 @@ interface PharmacyIntegrationPort {{
 <!-- ========================================== PAGE 10: QUESTION 5 ========================================== -->
 <div class="page">
   <div class="page-header">
-    <div class="header-left"><span class="tag">SECTION 09</span> QUESTION 5 &middot; IMPLEMENTATION TIMELINE &amp; MILESTONES</div>
+    <div class="header-left">SECTION 09 &middot; QUESTION 5 &middot; IMPLEMENTATION TIMELINE &amp; MILESTONES</div>
     <div class="header-right">RAPID ROLLOUT SCHEDULE</div>
   </div>
 
   <div>
-    <h2 style="font-size: 11.5pt; margin-bottom: 4px;">Question 5: Delivery Timeline &amp; Phased Rollout Schedule</h2>
+    <div class="section-tag">EXECUTION TIMELINE</div>
+    <h2 class="page-title">Question 5: Delivery Timeline &amp; Phased Rollout Schedule</h2>
     <p class="lead-text">
       "How quickly can you deliver? Provide separate estimates for the first working integration, first production launch, and the full 20+ pharmacy rollout."
     </p>
 
-    <div class="grid-4" style="margin-bottom: 7px;">
-      <div class="card" style="text-align: center; border-top: 3px solid var(--accent);">
-        <div style="font-size: 6pt; font-mono; color: var(--text-muted); text-transform: uppercase;">Review &amp; Audit</div>
-        <div style="font-size: 11pt; font-weight: 800; color: var(--primary); margin: 2px 0;">Days 1–5</div>
-        <div style="font-size: 6pt; color: var(--accent); font-weight: 600;">Codebase &amp; Schemas</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 7px; margin-bottom: 8px;">
+      <div class="editorial-card-grey" style="text-align: center; border-top: 2px solid var(--black);">
+        <div style="font-size: 6pt; font-family: 'JetBrains Mono', monospace; color: var(--mid-grey); text-transform: uppercase;">Review &amp; Audit</div>
+        <div style="font-size: 11pt; font-weight: 800; color: var(--black); margin: 2px 0;">Days 1–5</div>
+        <div style="font-size: 6pt; color: var(--dark-charcoal); font-weight: 600;">Codebase &amp; Schemas</div>
       </div>
-      <div class="card" style="text-align: center; border-top: 3px solid var(--accent-teal);">
-        <div style="font-size: 6pt; font-mono; color: var(--text-muted); text-transform: uppercase;">1st Working API</div>
-        <div style="font-size: 11pt; font-weight: 800; color: var(--primary); margin: 2px 0;">Days 6–12</div>
-        <div style="font-size: 6pt; color: var(--accent-teal); font-weight: 600;">End-to-End Sandbox</div>
+      <div class="editorial-card-grey" style="text-align: center; border-top: 2px solid var(--black);">
+        <div style="font-size: 6pt; font-family: 'JetBrains Mono', monospace; color: var(--mid-grey); text-transform: uppercase;">1st Working API</div>
+        <div style="font-size: 11pt; font-weight: 800; color: var(--black); margin: 2px 0;">Days 6–12</div>
+        <div style="font-size: 6pt; color: var(--dark-charcoal); font-weight: 600;">End-to-End Sandbox</div>
       </div>
-      <div class="card" style="text-align: center; border-top: 3px solid var(--accent-emerald);">
-        <div style="font-size: 6pt; font-mono; color: var(--text-muted); text-transform: uppercase;">1st Production MVP</div>
-        <div style="font-size: 11pt; font-weight: 800; color: var(--primary); margin: 2px 0;">Week 4</div>
-        <div style="font-size: 6pt; color: var(--accent-emerald); font-weight: 600;">Top 2–3 Pharmacies</div>
+      <div class="editorial-card-grey" style="text-align: center; border-top: 2px solid var(--black);">
+        <div style="font-size: 6pt; font-family: 'JetBrains Mono', monospace; color: var(--mid-grey); text-transform: uppercase;">1st Production MVP</div>
+        <div style="font-size: 11pt; font-weight: 800; color: var(--black); margin: 2px 0;">Week 4</div>
+        <div style="font-size: 6pt; color: var(--dark-charcoal); font-weight: 600;">Top 2–3 Pharmacies</div>
       </div>
-      <div class="card" style="text-align: center; border-top: 3px solid var(--accent-amber);">
-        <div style="font-size: 6pt; font-mono; color: var(--text-muted); text-transform: uppercase;">Full 20+ Rollout</div>
-        <div style="font-size: 11pt; font-weight: 800; color: var(--primary); margin: 2px 0;">Weeks 5–10</div>
-        <div style="font-size: 6pt; color: var(--accent-amber); font-weight: 600;">Pipeline Scale</div>
+      <div class="editorial-card-grey" style="text-align: center; border-top: 2px solid var(--black);">
+        <div style="font-size: 6pt; font-family: 'JetBrains Mono', monospace; color: var(--mid-grey); text-transform: uppercase;">Full 20+ Rollout</div>
+        <div style="font-size: 11pt; font-weight: 800; color: var(--black); margin: 2px 0;">Weeks 5–10</div>
+        <div style="font-size: 6pt; color: var(--dark-charcoal); font-weight: 600;">Pipeline Scale</div>
       </div>
     </div>
 
-    <h3 style="font-size: 8.5pt; margin: 5px 0 3px 0;">Phased Implementation Sprints</h3>
-    <table class="table-custom">
+    <div class="block-title">Phased Implementation Sprints</div>
+    <table class="editorial-table">
       <thead>
         <tr>
           <th style="width: 15%;">Sprint Phase</th>
@@ -1082,7 +1131,7 @@ interface PharmacyIntegrationPort {{
       </thead>
       <tbody>
         <tr>
-          <td><strong>Sprint 1</strong><br><span class="badge badge-blue">Audit &amp; Arch</span></td>
+          <td><strong>Sprint 1</strong><br><span class="badge badge-dark">Audit &amp; Arch</span></td>
           <td>
             Evaluate existing codebase on impacthealthrx.com; inspect database, auth, hosting, and API routes. Design normalized database schemas (Clinics, Prescribers, Formulations, Orders). Deploy Universal Adapter scaffolding.
           </td>
@@ -1090,7 +1139,7 @@ interface PharmacyIntegrationPort {{
           <td><strong>Days 1–5</strong></td>
         </tr>
         <tr>
-          <td><strong>Sprint 2</strong><br><span class="badge badge-teal">1st Connection</span></td>
+          <td><strong>Sprint 2</strong><br><span class="badge badge-dark">1st Connection</span></td>
           <td>
             Complete backend core and state machine. Integrate first flagship compounding pharmacy (e.g. Empower or Hallandale). Implement catalog mapping, patient intake validation, and sandbox order submission.
           </td>
@@ -1098,15 +1147,15 @@ interface PharmacyIntegrationPort {{
           <td><strong>Days 6–12</strong></td>
         </tr>
         <tr>
-          <td><strong>Sprint 3</strong><br><span class="badge badge-emerald">MVP Launch</span></td>
+          <td><strong>Sprint 3</strong><br><span class="badge badge-dark">MVP Launch</span></td>
           <td>
             Deploy dual workflows (Clinic Prescriber vs. 50-State Network). Wire $60 consult fee accounting and ledger engine. Connect second and third compounding pharmacies. Execute end-to-end payment and order dry runs.
           </td>
-          <td>Production Launch with 3 Live Connected Pharmacies.</td>
+          <td>Production MVP ready; dual workflows verified with live payments.</td>
           <td><strong>Weeks 3–4</strong></td>
         </tr>
         <tr>
-          <td><strong>Sprint 4</strong><br><span class="badge badge-amber">20+ Scale</span></td>
+          <td><strong>Sprint 4</strong><br><span class="badge badge-dark">20+ Scale</span></td>
           <td>
             Industrialize pharmacy onboarding pipeline. Connect 3–5 compounding pharmacies per sprint via the established adapter pattern. Deploy administrative exception dashboards and automated reconciliations.
           </td>
@@ -1116,16 +1165,16 @@ interface PharmacyIntegrationPort {{
       </tbody>
     </table>
 
-    <div class="card" style="background: #F8FAFC; border-left: 3px solid var(--accent); margin-top: 3px;">
-      <h4 style="font-size: 7.2pt; color: var(--primary); margin-bottom: 2px;">Assumptions &amp; External Pharmacy Dependencies</h4>
-      <p style="font-size: 6.5pt; color: var(--text-muted); line-height: 1.35;">
+    <div class="editorial-card-grey" style="border-left: 3px solid var(--black); margin-top: 3px;">
+      <div class="block-title">Assumptions &amp; External Pharmacy Dependencies</div>
+      <p style="font-size: 6.7pt; color: var(--dark-charcoal); line-height: 1.36; margin: 0;">
         Our timeline assumes timely client provision of pharmacy developer credentials, sandbox API keys, and business associate agreements (BAAs) with target pharmacies. Because pharmacy credentialing can have administrative lead times, we run integration development against our certified mock servers so backend engineering never stalls while awaiting external pharmacy portal approvals.
       </p>
     </div>
   </div>
 
   <div class="page-footer">
-    <div class="footer-left">IMPACT HEALTH RX &middot; COMPOUNDING PHARMACY API PROPOSAL &middot; AXIOM GLOBAL</div>
+    <div class="footer-left">AXIOM GLOBAL &middot; IMPACT HEALTH RX PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
     <div class="footer-page-num">Page 10 of 12</div>
   </div>
 </div>
@@ -1133,68 +1182,66 @@ interface PharmacyIntegrationPort {{
 <!-- ========================================== PAGE 11: QUESTION 7 & TEAM ========================================== -->
 <div class="page">
   <div class="page-header">
-    <div class="header-left"><span class="tag">SECTION 10</span> QUESTION 7 &middot; ENGINEERING TEAM &amp; CREDENTIALS</div>
+    <div class="header-left">SECTION 10 &middot; QUESTION 7 &middot; ENGINEERING TEAM &amp; CREDENTIALS</div>
     <div class="header-right">IDENTIFIED TECHNICAL LEAD</div>
   </div>
 
   <div>
-    <h2 style="font-size: 11.5pt; margin-bottom: 4px;">Question 7: Dedicated Engineering Squad &amp; Team Composition</h2>
+    <div class="section-tag">ENGINEERING SQUAD</div>
+    <h2 class="page-title">Question 7: Dedicated Engineering Squad &amp; Credentials</h2>
     <p class="lead-text">
       "Who will do the work, and when can you start? Include availability, team composition if applicable, and your proposed milestone pricing or hourly rate."
     </p>
 
-    <div class="card-dark" style="margin-bottom: 6px; padding: 7px 10px;">
+    <!-- Lead Engineer Box -->
+    <div class="editorial-card-black" style="margin-bottom: 6px; padding: 8px 12px;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-        <h3 style="font-size: 8.5pt; color: #2DD4BF;">Avishka Meddegoda &middot; Technical Lead &amp; Systems Architect</h3>
-        <span class="badge badge-teal">PRIMARY ASSIGNED ENGINEER</span>
+        <h3 class="serif-heading" style="font-size: 10pt; color: var(--white); margin: 0;">Avishka Meddegoda &middot; Technical Lead &amp; Systems Architect</h3>
+        <span class="badge badge-outline" style="border-color: #fff; color: #fff;">PRIMARY ASSIGNED LEAD</span>
       </div>
-      <p style="font-size: 6.8pt; line-height: 1.35; color: #E2E8F0; margin: 0;">
+      <p style="font-size: 6.9pt; line-height: 1.36; color: #E5E7EB; margin: 0;">
         <strong>6+ Years Experience:</strong> Senior Full-Stack &amp; Enterprise Systems Architect. Specialist in scalable API design, healthcare microservices, FHIR/HL7 messaging, Keycloak/Cognito authentication, and cloud infrastructure. Avishka will personally architect the Universal Pharmacy Adapter framework, write core integration adapters, and oversee backend security.
       </p>
     </div>
 
-    <div class="grid-2" style="margin-bottom: 5px;">
-      <!-- Team Member 2 -->
-      <div class="card">
-        <h4 style="font-size: 7.5pt; color: var(--primary); margin-bottom: 2px;">Viranga Lakshan &middot; Solutions Architect &amp; Delivery Lead</h4>
-        <div style="font-size: 6pt; color: var(--accent); font-weight: 600; margin-bottom: 2px;">2+ Years Experience &middot; Lead Solutions Architect</div>
-        <p style="font-size: 6.4pt; color: var(--text-muted); line-height: 1.32;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px;">
+      <div class="editorial-card">
+        <div class="block-title">Viranga Lakshan &middot; Solutions Architect &amp; Delivery Lead</div>
+        <div style="font-size: 6pt; color: var(--mid-grey); font-weight: 700; margin-bottom: 2px;">2+ Years Experience &middot; Lead Solutions Architect</div>
+        <p style="font-size: 6.5pt; color: var(--dark-charcoal); line-height: 1.32; margin: 0;">
           Expert in headless API architectures, database schema normalization, and client workflow coordination. Manages client communications, sprint velocity, and technical documentation.
         </p>
       </div>
 
-      <!-- Team Member 3 -->
-      <div class="card">
-        <h4 style="font-size: 7.5pt; color: var(--primary); margin-bottom: 2px;">Chamara Lahiru &middot; Senior Frontend Engineer</h4>
-        <div style="font-size: 6pt; color: var(--accent-teal); font-weight: 600; margin-bottom: 2px;">6+ Years Experience &middot; React / Next.js Specialist</div>
-        <p style="font-size: 6.4pt; color: var(--text-muted); line-height: 1.32;">
+      <div class="editorial-card">
+        <div class="block-title">Chamara Lahiru &middot; Senior Frontend Engineer</div>
+        <div style="font-size: 6pt; color: var(--mid-grey); font-weight: 700; margin-bottom: 2px;">6+ Years Experience &middot; React / Next.js Specialist</div>
+        <p style="font-size: 6.5pt; color: var(--dark-charcoal); line-height: 1.32; margin: 0;">
           Specialist in complex administrative dashboards, clinical workflow UI/UX, responsive multi-state forms, and high-performance frontend data caching.
         </p>
       </div>
     </div>
 
-    <div class="grid-2" style="margin-bottom: 6px;">
-      <!-- Team Member 4 -->
-      <div class="card">
-        <h4 style="font-size: 7.5pt; color: var(--primary); margin-bottom: 2px;">Janith Kavishka &middot; Full-Stack &amp; Integration Engineer</h4>
-        <div style="font-size: 6pt; color: var(--accent-emerald); font-weight: 600; margin-bottom: 2px;">2+ Years Experience &middot; Java Spring &amp; Node.js</div>
-        <p style="font-size: 6.4pt; color: var(--text-muted); line-height: 1.32;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px;">
+      <div class="editorial-card">
+        <div class="block-title">Janith Kavishka &middot; Full-Stack Integration Engineer</div>
+        <div style="font-size: 6pt; color: var(--mid-grey); font-weight: 700; margin-bottom: 2px;">2+ Years Experience &middot; Java Spring &amp; Node.js</div>
+        <p style="font-size: 6.5pt; color: var(--dark-charcoal); line-height: 1.32; margin: 0;">
           Focuses on secondary pharmacy adapter implementations, carrier webhook listeners (FedEx/UPS), and automated end-to-end integration test suites.
         </p>
       </div>
 
-      <!-- Team Member 5 -->
-      <div class="card">
-        <h4 style="font-size: 7.5pt; color: var(--primary); margin-bottom: 2px;">Lithumitha Ravikumar &middot; Project Manager &amp; QA Lead</h4>
-        <div style="font-size: 6pt; color: var(--accent-amber); font-weight: 600; margin-bottom: 2px;">2 Years Experience &middot; Agile Delivery &amp; Healthcare QA</div>
-        <p style="font-size: 6.4pt; color: var(--text-muted); line-height: 1.32;">
+      <div class="editorial-card">
+        <div class="block-title">Lithumitha Ravikumar &middot; Project Manager &amp; QA Lead</div>
+        <div style="font-size: 6pt; color: var(--mid-grey); font-weight: 700; margin-bottom: 2px;">2 Years Experience &middot; Agile Delivery &amp; Healthcare QA</div>
+        <p style="font-size: 6.5pt; color: var(--dark-charcoal); line-height: 1.32; margin: 0;">
           Coordinates sprint backlogs, acceptance criteria verification, pharmacy boundary testing, and client handover documentation.
         </p>
       </div>
     </div>
 
-    <h3 style="font-size: 8.5pt; margin: 4px 0 3px 0;">Proven Enterprise Track Record &amp; Live References</h3>
-    <table class="table-custom">
+    <div class="block-title">Proven Enterprise Track Record &amp; Live References</div>
+    <table class="editorial-table">
       <thead>
         <tr>
           <th>Project / Platform</th>
@@ -1208,32 +1255,32 @@ interface PharmacyIntegrationPort {{
           <td><strong>Al Ain Museum V2</strong></td>
           <td>Government Digital Platform &middot; UAE</td>
           <td>Next.js, TypeScript, Enterprise Headless CMS, Scalable APIs</td>
-          <td><a href="https://alainmuseum.ae" style="color:var(--accent); text-decoration:none;">alainmuseum.ae</a></td>
+          <td><a href="https://alainmuseum.ae" style="color:var(--black); text-decoration:underline;">alainmuseum.ae</a></td>
         </tr>
         <tr>
           <td><strong>Natural History Museum Abu Dhabi</strong></td>
           <td>Enterprise Digital Experience &middot; UAE</td>
           <td>C#/.NET, Sitecore, TypeScript, Multilingual Content</td>
-          <td><a href="https://nhmad.ae" style="color:var(--accent); text-decoration:none;">nhmad.ae</a></td>
+          <td><a href="https://nhmad.ae" style="color:var(--black); text-decoration:underline;">nhmad.ae</a></td>
         </tr>
         <tr>
           <td><strong>Holsten Arabia</strong></td>
           <td>Enterprise Platform &middot; Middle East</td>
           <td>Next.js, Umbraco Headless, .NET Core Microservices</td>
-          <td><a href="https://holstenarabia.me" style="color:var(--accent); text-decoration:none;">holstenarabia.me</a></td>
+          <td><a href="https://holstenarabia.me" style="color:var(--black); text-decoration:underline;">holstenarabia.me</a></td>
         </tr>
         <tr>
           <td><strong>Moolee Multi-Tenant Platform</strong></td>
           <td>Enterprise E-Commerce &amp; Logistics</td>
           <td>Node.js, Microservices, Order Routing, Payments, Keycloak</td>
-          <td><a href="https://moolee.mv" style="color:var(--accent); text-decoration:none;">moolee.mv</a></td>
+          <td><a href="https://moolee.mv" style="color:var(--black); text-decoration:underline;">moolee.mv</a></td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <div class="page-footer">
-    <div class="footer-left">IMPACT HEALTH RX &middot; COMPOUNDING PHARMACY API PROPOSAL &middot; AXIOM GLOBAL</div>
+    <div class="footer-left">AXIOM GLOBAL &middot; IMPACT HEALTH RX PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
     <div class="footer-page-num">Page 11 of 12</div>
   </div>
 </div>
@@ -1241,17 +1288,18 @@ interface PharmacyIntegrationPort {{
 <!-- ========================================== PAGE 12: INVESTMENT & MILESTONES ========================================== -->
 <div class="page">
   <div class="page-header">
-    <div class="header-left"><span class="tag">SECTION 11</span> PROJECT INVESTMENT &middot; MILESTONES &amp; CONTRACT TERMS</div>
+    <div class="header-left">SECTION 11 &middot; PROJECT INVESTMENT &middot; MILESTONES &amp; CONTRACT TERMS</div>
     <div class="header-right">COMMERCIAL AGREEMENT</div>
   </div>
 
   <div>
-    <h2 style="font-size: 11.5pt; margin-bottom: 4px;">Milestone Budget Breakdown ($5,000.00 Fixed Price)</h2>
+    <div class="section-tag">COMMERCIAL PROPOSAL</div>
+    <h2 class="page-title">Milestone Budget Breakdown ($5,000.00 Fixed Price)</h2>
     <p class="lead-text">
       Our proposed investment strictly honors your <strong>$5,000.00 fixed-price budget</strong>, structured across 4 deliverables tied to concrete, verifiable technical milestones.
     </p>
 
-    <table class="table-custom" style="margin-bottom: 6px;">
+    <table class="editorial-table" style="margin-bottom: 7px;">
       <thead>
         <tr>
           <th>Milestone</th>
@@ -1269,7 +1317,7 @@ interface PharmacyIntegrationPort {{
           </td>
           <td>Architecture Blueprint, ER diagrams, codebase audit report approved.</td>
           <td>Days 1–5</td>
-          <td><strong>$1,250.00</strong><br><span style="font-size:5.5pt; color:var(--text-muted);">(25%)</span></td>
+          <td><strong>$1,250.00</strong><br><span style="font-size:5.5pt; color:var(--mid-grey);">(25%)</span></td>
         </tr>
         <tr>
           <td><strong>Milestone 2</strong><br>1st Pharmacy Sandbox</td>
@@ -1278,7 +1326,7 @@ interface PharmacyIntegrationPort {{
           </td>
           <td>Successful end-to-end order test in pharmacy sandbox with webhook log.</td>
           <td>Days 6–12</td>
-          <td><strong>$1,250.00</strong><br><span style="font-size:5.5pt; color:var(--text-muted);">(25%)</span></td>
+          <td><strong>$1,250.00</strong><br><span style="font-size:5.5pt; color:var(--mid-grey);">(25%)</span></td>
         </tr>
         <tr>
           <td><strong>Milestone 3</strong><br>Dual Workflows &amp; MVP</td>
@@ -1287,7 +1335,7 @@ interface PharmacyIntegrationPort {{
           </td>
           <td>Production MVP ready; dual workflows verified with live payments.</td>
           <td>Weeks 3–4</td>
-          <td><strong>$1,500.00</strong><br><span style="font-size:5.5pt; color:var(--text-muted);">(30%)</span></td>
+          <td><strong>$1,500.00</strong><br><span style="font-size:5.5pt; color:var(--mid-grey);">(30%)</span></td>
         </tr>
         <tr>
           <td><strong>Milestone 4</strong><br>Expansion Pipeline &amp; QA</td>
@@ -1296,50 +1344,50 @@ interface PharmacyIntegrationPort {{
           </td>
           <td>Source code merged; deployment guide; 30-day warranty active.</td>
           <td>Weeks 5–6</td>
-          <td><strong>$1,000.00</strong><br><span style="font-size:5.5pt; color:var(--text-muted);">(20%)</span></td>
+          <td><strong>$1,000.00</strong><br><span style="font-size:5.5pt; color:var(--mid-grey);">(20%)</span></td>
         </tr>
         <tr style="background: #F1F5F9; font-weight: 700;">
           <td colspan="4" style="text-align: right; text-transform: uppercase;">Total Fixed-Price Investment:</td>
-          <td style="color: var(--accent-teal); font-size: 8pt;">$5,000.00 USD</td>
+          <td style="color: var(--black); font-size: 8.5pt;">$5,000.00 USD</td>
         </tr>
       </tbody>
     </table>
 
-    <div class="grid-2" style="margin-bottom: 6px;">
-      <div class="card" style="border-left: 3px solid var(--accent-teal);">
-        <h4 style="font-size: 7.2pt; color: var(--accent-teal); margin-bottom: 2px;">Contract-to-Hire &amp; Ongoing Scale</h4>
-        <p style="font-size: 6.4pt; color: var(--text-muted); line-height: 1.32;">
-          We enthusiastically welcome your <strong>Contract-to-Hire</strong> pathway. Following the initial launch, our team is available on a dedicated retainer or full-time arrangement ($40–$55/hr or fixed monthly squad rate) to continually onboard the full 20+ pharmacy pipeline and maintain production SLAs.
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 7px;">
+      <div class="editorial-card" style="border-left: 3px solid var(--black);">
+        <div class="block-title">Contract-to-Hire &amp; Ongoing Scale</div>
+        <p style="font-size: 6.5pt; color: var(--dark-charcoal); line-height: 1.34; margin: 0;">
+          We enthusiastically welcome your <strong>Contract-to-Hire</strong> pathway. Following the initial launch, our team is available on a dedicated retainer or full-time arrangement ($45–$55/hr or fixed monthly squad rate) to continually onboard the full 20+ pharmacy pipeline and maintain production SLAs.
         </p>
       </div>
 
-      <div class="card" style="border-left: 3px solid var(--accent);">
-        <h4 style="font-size: 7.2pt; color: var(--accent); margin-bottom: 2px;">HIPAA Compliance &amp; BAA Commitment</h4>
-        <p style="font-size: 6.4pt; color: var(--text-muted); line-height: 1.32;">
+      <div class="editorial-card" style="border-left: 3px solid var(--black);">
+        <div class="block-title">HIPAA Compliance &amp; BAA Commitment</div>
+        <p style="font-size: 6.5pt; color: var(--dark-charcoal); line-height: 1.34; margin: 0;">
           Axiom Global operates under strict healthcare compliance protocols. We execute standard Business Associate Agreements (BAAs), sign IP assignment contracts, and ensure zero PHI leakage across development environments.
         </p>
       </div>
     </div>
 
-    <div class="card-dark" style="padding: 8px 10px;">
+    <div class="editorial-card-black" style="padding: 9px 12px;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
         <div>
-          <span style="font-size: 6pt; font-family: 'JetBrains Mono', monospace; color: #2DD4BF; text-transform: uppercase;">Immediate Kickoff Readiness</span>
-          <h3 style="font-size: 9pt; color: #fff;">Ready to Commence Work Within 24–48 Hours</h3>
+          <span style="font-size: 6pt; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; color: #D1D5DB;">Immediate Kickoff Readiness</span>
+          <h3 class="serif-heading" style="font-size: 9.5pt; color: #fff; margin: 0;">Ready to Commence Work Within 24–48 Hours</h3>
         </div>
         <div style="text-align: right;">
-          <span style="font-size: 6pt; color: #94A3B8;">Lead Solutions Architect</span>
+          <span style="font-size: 6pt; color: #9CA3AF;">Lead Solutions Architect</span>
           <div style="font-size: 7.8pt; font-weight: 700; color: #fff;">Viranga Lakshan</div>
         </div>
       </div>
-      <p style="font-size: 6.5pt; line-height: 1.32; color: #CBD5E1; margin: 0;">
+      <p style="font-size: 6.7pt; line-height: 1.35; color: #D1D5DB; margin: 0;">
         We are prepared to sign mutual NDAs, review your repository, and begin Sprint 1 immediately. Let's schedule an introductory discovery session to align on codebase access and launch targets.
       </p>
     </div>
   </div>
 
   <div class="page-footer">
-    <div class="footer-left">IMPACT HEALTH RX &middot; COMPOUNDING PHARMACY API PROPOSAL &middot; AXIOM GLOBAL</div>
+    <div class="footer-left">AXIOM GLOBAL &middot; IMPACT HEALTH RX PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
     <div class="footer-page-num">Page 12 of 12</div>
   </div>
 </div>
