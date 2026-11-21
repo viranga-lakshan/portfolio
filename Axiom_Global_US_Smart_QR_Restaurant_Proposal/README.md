@@ -40,3 +40,4 @@ This commercial proposal has been updated specifically for **United States resta
 | **Python Playwright Generator Script** | Standalone script that compiles and verifies the exact 8-page PDF document. | [create_us_qr_proposal_pdf.py](file:///c:/Users/Viranga/Downloads/upwrok%20new/Axiom_Global_US_Smart_QR_Restaurant_Proposal/create_us_qr_proposal_pdf.py) |
 | **HTML Proposal Template** | Clean HTML template utilized for PDF rendering. | [us_proposal_template.html](file:///c:/Users/Viranga/Downloads/upwrok%20new/Axiom_Global_US_Smart_QR_Restaurant_Proposal/us_proposal_template.html) |
 | **High-Resolution Photography** | 8 curated US dining and hospitality images. | [images/](file:///c:/Users/Viranga/Downloads/upwrok%20new/Axiom_Global_US_Smart_QR_Restaurant_Proposal/images/) |
+
