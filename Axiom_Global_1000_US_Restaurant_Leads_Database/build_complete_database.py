@@ -677,3 +677,4 @@ ws_summary.write(18, 4, "Full Geographic Compliance with Task Brief", fmt_total)
 wb.close()
 print(f"Excel Workbook successfully created at: {excel_path}")
 print("ALL TASKS COMPLETED SUCCESSFULLY!")
+
