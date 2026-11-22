@@ -3,6 +3,7 @@
 **Client:** Reynolds Precision Engineering Ltd (Northern Ireland, UK)  
 **Budget:** £2,000 GBP / $2,600 USD Fixed-Price (Agreed & Accepted)  
 **Lead Candidate / Author:** Avishka Meddegoda (Technical Lead & Senior Software Engineer, 6+ Years Experience)  
+**Lead E-Commerce Marketplace Reference:** **Moolee — Your Favorite Marketplace** ([moolee.mv](https://www.moolee.mv/))  
 **Engineering Squad:** Avishka Meddegoda (Tech Lead), Janith Nadiranga (Senior Systems & DB Engineer), Viranga Lakshan (Senior Integration Engineer), Chamara Lahiru (Frontend/UI Architect), Lithumitha Ravikumar (Project Delivery Manager)  
 **Official Attached Document:** `Reynolds_Precision_Engineering_B2B_Ordering_Proposal.pdf` (10-Page Executive PDF)
 
@@ -19,55 +20,60 @@
 ---
 
 **2. Can you show examples of similar completed projects?**
-> **Yes, absolutely.** Below are our completed enterprise e-commerce, B2B purchasing, and industrial logistics platforms with live client website links:
+> **Yes, absolutely.** Below are our completed enterprise e-commerce marketplaces, B2B purchasing platforms, and industrial logistics systems with direct live client website links:
 >
-> 1. **SINGER Sri Lanka PLC — Retail E-Commerce & Nationwide Inventory Engine**
+> 1. **Moolee — Your Favorite Marketplace (Nationwide Multi-Vendor E-Commerce Platform)**
+>    - **Live Website:** https://www.moolee.mv/
+>    - **Lead Backend Architect:** Avishka Meddegoda (Technical Lead) & Arimac Digital / Ooredoo
+>    - **Technical Scope:** The nation's premier multi-tenant e-commerce marketplace platform. Engineered high-concurrency shopping cart checkout, customer-specific pricing & promotional rules, multi-vendor product catalogues, automated order routing & dispatch, payment gateway integrations, and real-time carrier delivery tracking. Directly proves our capability to handle Reynolds' multi-factory customer accounts, negotiated price tiering, and PO checkout workflows.
+>
+> 2. **SINGER Sri Lanka PLC — Retail E-Commerce & Nationwide Inventory Engine**
 >    - **Live Website:** https://www.singersl.com/
 >    - **Engineering House:** Data Management Systems (Pvt) Ltd (DMS) — https://dmssw.com/
 >    - **Lead Developer:** Janith Nadiranga (Programmer at DMS Software Division)
 >    - **Technical Scope:** Sri Lanka's largest consumer retailer (430+ showrooms, 1,200+ dealer networks, millions of active customer accounts). Built batch transaction tracking, mobile receipt generation, AWS RDS data migration, and multi-tier inventory distribution logistics.
 >
-> 2. **DIMO Lanka PLC — SAP ERP Integrated Industrial Machinery Parts Platform**
+> 3. **DIMO Lanka PLC — SAP ERP Integrated Industrial Machinery Parts Platform**
 >    - **Live Website:** https://www.dimolanka.com/
 >    - **Lead Architect:** Avishka Meddegoda (Tech Lead)
 >    - **Technical Scope:** Connected directly with **SAP ERP (MM/PM Modules)** to manage industrial replacement components, heavy machinery servicing gate-passes, equipment serial tracking, and multi-tier approval chains.
 >
-> 3. **Castle Renewables Australia — Custom WordPress B2B & Infrastructure**
+> 4. **Castle Renewables Australia — Custom WordPress B2B & Infrastructure**
 >    - **Live Website:** https://castlerenewables.com.au
 >    - **Lead Engineer:** Chamara Lahiru (Senior Full-Stack & UI Architect)
 >    - **Technical Scope:** Custom WordPress corporate build with Custom Post Types (CPTs) for renewable infrastructure assets, technical capability taxonomy, and dynamic case study filtering.
 >
-> 4. **LB Finance PLC & Corporate Sustainability Portal — Enterprise CMS**
+> 5. **LB Finance PLC & Corporate Sustainability Portal — Enterprise CMS**
 >    - **Live Websites:** https://www.lbfinance.com/ & https://sustainability.lbfinance.com/
 >    - **Technical Scope:** Enterprise financial publications, custom content modeling, governance disclosures, and structured multi-tier document distribution.
 >
-> 5. **McGrath Real Estate (Australia) — Premier Property Discovery Platform**
+> 6. **McGrath Real Estate (Australia) — Premier Property Discovery Platform**
 >    - **Live Website:** https://www.mcgrath.com.au/
 >    - **Lead Engineer:** Chamara Lahiru
 >    - **Technical Scope:** ASX-listed premier Australian real estate platform. Next.js, Node.js, and GraphQL high-concurrency property listings search and customer portal.
 >
-> 6. **Holsten Arabia (Carlsberg Group) — Multilingual Brand & Product Catalog**
+> 7. **Holsten Arabia (Carlsberg Group) — Multilingual Brand & Product Catalog**
 >    - **Live Website:** https://holstenarabia.me/en/
 >    - **Technical Scope:** Multilingual digital catalog platform for global beverage brand. Umbraco Headless CMS + Next.js frontend and C#/.NET REST APIs.
 >
-> 7. **Al Ain Museum V1/V2 (DCT Abu Dhabi Government)**
+> 8. **Al Ain Museum V1/V2 (DCT Abu Dhabi Government)**
 >    - **Live Website:** https://www.alainmuseum.ae/en
 >    - **Lead Integration Engineer:** Viranga Lakshan
 >    - **Technical Scope:** Department of Culture and Tourism Abu Dhabi. Next.js, React, Sitecore Headless CMS, and high-security public sector compliance.
 >
-> 8. **Natural History Museum Abu Dhabi (Abu Dhabi Government)**
+> 9. **Natural History Museum Abu Dhabi (Abu Dhabi Government)**
 >    - **Live Website:** https://www.nhmad.ae/
 >    - **Technical Scope:** Government digital experience platform built using Sitecore Helix architecture and C# .NET structured schema markup.
 >
-> 9. **Gravitee.io — Global Enterprise API Platform**
->    - **Live Website:** https://www.gravitee.io/
->    - **Technical Scope:** Global enterprise API management platform utilizing Storyblok headless CMS and Astro framework for ultra-fast, modular content management.
+> 10. **Gravitee.io — Global Enterprise API Platform**
+>     - **Live Website:** https://www.gravitee.io/
+>     - **Technical Scope:** Global enterprise API management platform utilizing Storyblok headless CMS and Astro framework for ultra-fast, modular content management.
 >
-> 10. **DU Telecom Greenfield Transformation (UAE)**
+> 11. **DU Telecom Greenfield Transformation (UAE)**
 >     - **Live Website:** https://www.du.ae/
 >     - **Technical Scope:** Emirates Integrated Telecommunications Company. React Native, Redux, and GraphQL micro-frontends supporting nationwide digital customer selfcare.
 >
-> 11. **Live Engineering Portfolio & Code Repositories:**
+> 12. **Live Engineering Portfolio & Code Repositories:**
 >     - **Live URL:** https://viranga-lakshan.github.io/portfolio/
 
 ---
@@ -121,6 +127,11 @@ Yes, extensively. We have architected multiple B2B platforms where separate corp
 
 2. Can you show examples of similar completed projects?
 Yes, our team has delivered enterprise e-commerce, B2B purchasing, and industrial logistics platforms:
+
+• Moolee - Your Favorite Marketplace (National E-Commerce Marketplace Platform)
+  Live Website: https://www.moolee.mv/
+  Lead Backend Architect: Avishka Meddegoda (Technical Lead) at Arimac Digital / Ooredoo.
+  Scope: The nation's premier multi-tenant e-commerce marketplace platform. Engineered dynamic shopping carts, customer-specific pricing & promotional rules, multi-vendor product catalogues, automated order routing & dispatch, and real-time carrier tracking.
 
 • SINGER Sri Lanka PLC (E-Commerce & Retail Logistics)
   Live Website: https://www.singersl.com/

@@ -1,7 +1,7 @@
 # WhatsApp Client Pitch & Meeting Scripts
 ## Reynolds Precision Engineering Ltd — B2B Online Ordering Website
 
-These WhatsApp messages are formatted with bolding, bullet points, and **direct clickable live links to our completed client platforms**, ready to send directly to the hiring manager or technical director at Reynolds Precision Engineering Ltd.
+These WhatsApp messages are formatted with bolding, bullet points, and **direct clickable live links to our completed client platforms (led by Moolee - Your Favorite Marketplace)**, ready to send directly to the hiring manager or technical director at Reynolds Precision Engineering Ltd.
 
 ---
 
@@ -17,24 +17,25 @@ I hope you are having a productive week. Reaching out regarding your *B2B Engine
 We have prepared a comprehensive *10-Page Technical Proposal & Architecture Blueprint* tailored specifically to your CNC replacement parts catalogue (attached below as PDF).
 
 🤝 *Our Core Engineering Squad:*
-• *Avishka Meddegoda* — Technical Lead & Senior Full-Stack Architect (6+ Years Exp · Arimac Digital & Web Choice Australia)
-• *Janith Nadiranga* — Senior Systems & Database Engineer (DMS Software Division · Architect of inventory & financial platforms for SINGER Sri Lanka PLC)
+• *Avishka Meddegoda* — Technical Lead & Senior Full-Stack Architect (6+ Years Exp · Lead Backend Developer of Moolee E-Commerce Marketplace & Web Choice Australia)
+• *Janith Nadiranga* — Senior Systems & Database Engineer (DMS Software Division · Architect of nationwide inventory & retail systems for SINGER Sri Lanka PLC)
 • *Viranga Lakshan* — Senior Integration Engineer (Arimac Digital · Live UK, Australian & UAE enterprise platforms)
 • *Chamara Lahiru* — Frontend & Mobile UI/UX Architect (McGrath Real Estate Australia & DU Telecom UAE)
 • *Lithumitha Ravikumar* — Project Delivery Manager (Agile / Sprint Governance)
 
 🌐 *Our Live Client Platforms for You to Explore:*
-1. *SINGER Sri Lanka PLC (E-Commerce & Retail Inventory)*: https://www.singersl.com/ (Engineered by Janith at DMS: https://dmssw.com/ across 430+ showrooms)
-2. *DIMO Lanka PLC (Industrial Machinery Parts & SAP ERP)*: https://www.dimolanka.com/
-3. *Castle Renewables Australia (Custom WordPress B2B)*: https://castlerenewables.com.au
-4. *LB Finance PLC & Sustainability (Enterprise CMS)*: https://www.lbfinance.com/ & https://sustainability.lbfinance.com/
-5. *McGrath Real Estate Australia (ASX-Listed)*: https://www.mcgrath.com.au/
-6. *Holsten Arabia (Carlsberg Group)*: https://holstenarabia.me/en/
-7. *Al Ain Museum V2 (DCT Abu Dhabi Govt)*: https://www.alainmuseum.ae/en
-8. *Natural History Museum Abu Dhabi*: https://www.nhmad.ae/
-9. *Gravitee.io (Global API Platform)*: https://www.gravitee.io/
-10. *DU Telecom Greenfield (UAE)*: https://www.du.ae/
-11. *Live Engineering Portfolio*: https://viranga-lakshan.github.io/portfolio/
+1. 🛒 *Moolee - Your Favorite Marketplace*: https://www.moolee.mv/ (Nationwide multi-vendor e-commerce platform architected by Avishka at Arimac / Ooredoo)
+2. 🏬 *SINGER Sri Lanka PLC (Retail & Inventory)*: https://www.singersl.com/ (Engineered by Janith at DMS: https://dmssw.com/ across 430+ showrooms)
+3. ⚙️ *DIMO Lanka PLC (Industrial Machinery Parts & SAP ERP)*: https://www.dimolanka.com/
+4. 🏗️ *Castle Renewables Australia (Custom WordPress B2B)*: https://castlerenewables.com.au
+5. 📊 *LB Finance PLC & Sustainability (Enterprise CMS)*: https://www.lbfinance.com/ & https://sustainability.lbfinance.com/
+6. 🏢 *McGrath Real Estate Australia (ASX-Listed)*: https://www.mcgrath.com.au/
+7. 🍻 *Holsten Arabia (Carlsberg Group)*: https://holstenarabia.me/en/
+8. 🏛️ *Al Ain Museum V2 (DCT Abu Dhabi Govt)*: https://www.alainmuseum.ae/en
+9. 🏛️ *Natural History Museum Abu Dhabi*: https://www.nhmad.ae/
+10. 🔌 *Gravitee.io (Global API Platform)*: https://www.gravitee.io/
+11. 📱 *DU Telecom Greenfield (UAE)*: https://www.du.ae/
+12. 💻 *Live Engineering Portfolio*: https://viranga-lakshan.github.io/portfolio/
 
 ⚙️ *Key Features Engineered for Reynolds:*
 ✅ *Secure Multi-Factory Logins:* Confidential contracted pricing visible only to authorized customer accounts.
@@ -73,7 +74,8 @@ Here is a quick summary of how we address your core priorities:
 
 1. *Agreed Customer Pricing:* We’ve built multi-tiered B2B portals where individual companies and factory locations see their confidential negotiated rates upon login.
 2. *Completed Examples with Live Links:*
-   • SINGER Sri Lanka PLC (E-Commerce): https://www.singersl.com/
+   • Moolee - Your Favorite Marketplace (Live E-Commerce): https://www.moolee.mv/
+   • SINGER Sri Lanka PLC (Retail & Inventory): https://www.singersl.com/
    • DIMO Lanka PLC (Industrial Machinery & SAP ERP): https://www.dimolanka.com/
    • Castle Renewables Australia (Custom WordPress B2B): https://castlerenewables.com.au
    • LB Finance PLC (Enterprise CMS): https://www.lbfinance.com/
@@ -109,7 +111,8 @@ Hi [Client Name]! 👋 Avishka here from Axiom Global regarding the *B2B Parts O
 We’ve reviewed your requirements for customer-specific pricing, downloadable PDF drawings, and PO checkout. We fully accept your *£2,000 GBP ($2,600 USD)* fixed price and are ready to *start before Christmas 2026*.
 
 Our team brings 6+ years of enterprise e-commerce and industrial systems experience:
-• SINGER Sri Lanka PLC (E-Commerce): https://www.singersl.com/
+• Moolee - Your Favorite Marketplace: https://www.moolee.mv/
+• SINGER Sri Lanka PLC: https://www.singersl.com/
 • DIMO Lanka PLC (Industrial Machinery & SAP ERP): https://www.dimolanka.com/
 • Castle Renewables Australia (WordPress B2B): https://castlerenewables.com.au
 • Live Engineering Portfolio: https://viranga-lakshan.github.io/portfolio/

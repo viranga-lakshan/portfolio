@@ -4,6 +4,7 @@
 **Specialization:** CNC machining, replacement industrial machinery components  
 **Commercial Model:** £2,000 GBP / $2,600 USD Fixed-Price (Agreed & Accepted)  
 **Technical Leadership:** Avishka Meddegoda (Technical Lead & Senior Software Engineer, 6+ Years Experience)  
+**Lead E-Commerce Marketplace Reference:** **Moolee — Your Favorite Marketplace** ([moolee.mv](https://www.moolee.mv/))  
 **Senior Systems Engineer:** Janith Nadiranga (DMS Software Division & SiteSolve)  
 **Engineering Squad:** Avishka Meddegoda, Janith Nadiranga, Viranga Lakshan, Chamara Lahiru, Lithumitha Ravikumar  
 
@@ -13,12 +14,12 @@
 
 | Deliverable File | Description | Verification Status |
 | :--- | :--- | :--- |
-| **[Reynolds_Precision_Engineering_B2B_Ordering_Proposal.pdf](file:///c:/Users/Viranga/Downloads/upwrok%20new/Reynolds_Precision_Engineering_B2B_Ordering_Proposal/Reynolds_Precision_Engineering_B2B_Ordering_Proposal.pdf)** | **10-Page Official Executive Proposal PDF** modeled on Faris Travel luxury monochrome layout with color imagery, full team squad, live client links, and B2B workflows. | **Strictly 10 Pages (Verified via pypdf)** |
-| **[UPWORK_PROPOSAL_COVER_LETTER.md](file:///c:/Users/Viranga/Downloads/upwrok%20new/Reynolds_Precision_Engineering_B2B_Ordering_Proposal/UPWORK_PROPOSAL_COVER_LETTER.md)** | Full Upwork proposal, cover letter text, direct answers to all 6 client review questions, and live client website links. | **Complete & Submission Ready** |
+| **[Reynolds_Precision_Engineering_B2B_Ordering_Proposal.pdf](file:///c:/Users/Viranga/Downloads/upwrok%20new/Reynolds_Precision_Engineering_B2B_Ordering_Proposal/Reynolds_Precision_Engineering_B2B_Ordering_Proposal.pdf)** | **10-Page Official Executive Proposal PDF** modeled on Faris Travel luxury monochrome layout with color imagery, Moolee live marketplace screenshot, full team squad, and B2B workflows. | **Strictly 10 Pages (Verified via pypdf)** |
+| **[UPWORK_PROPOSAL_COVER_LETTER.md](file:///c:/Users/Viranga/Downloads/upwrok%20new/Reynolds_Precision_Engineering_B2B_Ordering_Proposal/UPWORK_PROPOSAL_COVER_LETTER.md)** | Full Upwork proposal, cover letter text, direct answers to all 6 client review questions, and live client website links (led by Moolee.mv). | **Complete & Submission Ready** |
 | **[WHATSAPP_CLIENT_OUTREACH_SCRIPTS.md](file:///c:/Users/Viranga/Downloads/upwrok%20new/Reynolds_Precision_Engineering_B2B_Ordering_Proposal/WHATSAPP_CLIENT_OUTREACH_SCRIPTS.md)** | Direct WhatsApp pitch messages with bulleted live client links, milestone breakdown, and meeting scheduling prompts. | **Complete & Ready to Send** |
 | **[reynolds_b2b_proposal_template.html](file:///c:/Users/Viranga/Downloads/upwrok%20new/Reynolds_Precision_Engineering_B2B_Ordering_Proposal/reynolds_b2b_proposal_template.html)** | Master HTML5/CSS3 template styled in executive monochrome with high-contrast borders, live clickable badges, and full-color photography. | **Complete** |
 | **[build_reynolds_b2b_proposal_pdf.py](file:///c:/Users/Viranga/Downloads/upwrok%20new/Reynolds_Precision_Engineering_B2B_Ordering_Proposal/build_reynolds_b2b_proposal_pdf.py)** | Playwright PDF compiler script enforcing exact A4 page breaks, 0mm margins, and 10-page assertion. | **Passing (10 Pages)** |
-| **[images/](file:///c:/Users/Viranga/Downloads/upwrok%20new/Reynolds_Precision_Engineering_B2B_Ordering_Proposal/images/)** | High-resolution photography: Industrial engineering hero, CNC precision parts, DIMO SAP ERP, E-Commerce, and Axiom crest. | **High Resolution** |
+| **[images/](file:///c:/Users/Viranga/Downloads/upwrok%20new/Reynolds_Precision_Engineering_B2B_Ordering_Proposal/images/)** | High-resolution photography: Industrial engineering hero, CNC precision parts, Moolee live marketplace screenshot, DIMO SAP ERP, and Axiom crest. | **High Resolution** |
 
 ---
 
@@ -26,6 +27,7 @@
 
 | Client Name | Country / Market | Industry & Technical Scope | Live Website Link |
 | :--- | :--- | :--- | :--- |
+| **Moolee — Your Favorite Marketplace** | Maldives / Ooredoo | Premier Multi-Tenant E-Commerce Marketplace, Cart Checkout, Vendor Shells & Carrier Tracking (Avishka Meddegoda) | [moolee.mv](https://www.moolee.mv/) |
 | **SINGER Sri Lanka PLC** | Sri Lanka (National) | 430+ Showrooms Retail E-Commerce, RDS Data Migration & Distribution Engine (DMS Software Division) | [singersl.com](https://www.singersl.com/) |
 | **DIMO Lanka PLC** | Sri Lanka / International | Industrial Machinery Replacement Parts, Fleet Gate Pass & SAP ERP (MM/PM) Integration | [dimolanka.com](https://www.dimolanka.com/) |
 | **Castle Renewables Australia** | Australia | Custom WordPress B2B Corporate Architecture, Custom Post Types (CPTs) & Filtering | [castlerenewables.com.au](https://castlerenewables.com.au) |
@@ -45,11 +47,11 @@
 
 * **Page 01:** Executive Cover Page with Axiom Global logo, CNC industrial hero photography, and project metadata grid.
 * **Page 02:** Executive Architecture Summary & Main Requirements Alignment Matrix (all 7 core requirements mapped).
-* **Page 03:** **The Axiom Engineering Squad — Full Team Profiles** (Avishka Meddegoda, Janith Nadiranga, Viranga Lakshan, Chamara Lahiru, Lithumitha Ravikumar).
-* **Page 04:** **Answers to Client Review Questions 1, 2 & 3** (Customer-specific pricing experience, project examples with live links, WooCommerce B2B platform recommendation).
+* **Page 03:** **The Axiom Engineering Squad — Full Team Profiles** (Avishka Meddegoda as Lead Backend Architect of Moolee, Janith Nadiranga, Viranga Lakshan, Chamara Lahiru, Lithumitha Ravikumar).
+* **Page 04:** **Answers to Client Review Questions 1, 2 & 3** (Customer-specific pricing experience, project examples featuring **Moolee.mv** & **SINGER**, WooCommerce B2B platform recommendation).
 * **Page 05:** **Answers to Client Review Questions 4, 5 & 6** (£2,000 GBP fixed budget accepted, 4–5 week timeline with pre-Christmas 2026 start, 100% full ownership).
-* **Page 06:** Flagship Project Showcase 01 — **Multi-Tenant B2B E-Commerce** (Avishka Meddegoda) & **SINGER Sri Lanka PLC** (Janith Nadiranga, 430+ showrooms, millions of accounts, `https://www.singersl.com/`).
-* **Page 07:** Flagship Project Showcase 02 — **DIMO Lanka PLC (SAP ERP Logistics, `https://www.dimolanka.com/`)** & **Live International Clients Grid (8 Live Enterprise Portals)**.
+* **Page 06:** Flagship Project Showcase 01 — **Moolee: Nationwide Multi-Tenant E-Commerce Marketplace** ([moolee.mv](https://www.moolee.mv/), Avishka Meddegoda) & **SINGER Sri Lanka PLC** (Janith Nadiranga, 430+ showrooms, millions of accounts, [singersl.com](https://www.singersl.com/)).
+* **Page 07:** Flagship Project Showcase 02 — **DIMO Lanka PLC (SAP ERP Logistics, [dimolanka.com](https://www.dimolanka.com/))** & **Live International Clients Grid (8 Live Enterprise Portals)**.
 * **Page 08:** Deep Technical Architecture — B2B Customer Accounts, PDF Technical Drawings, Purchase Order Checkout & Made-to-Order Lead Times.
 * **Page 09:** Workshop Administration Dashboard Walkthrough & Transparent Breakdown of Ongoing Hosting/Maintenance Costs (£0 software fees).
 * **Page 10:** 4 Fixed-Price Milestones (£2,000 GBP / $2,600 USD), Pre-Christmas 2026 Kickoff Roadmap, Handover Runbook & Upwork Compliance.
