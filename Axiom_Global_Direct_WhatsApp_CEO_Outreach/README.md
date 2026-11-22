@@ -23,3 +23,4 @@ This folder contains the complete, dedicated direct WhatsApp sales outreach engi
 3. Send **Step 1 Hook Message** from [WHATSAPP_CEO_OUTREACH_STRATEGY_AND_TEMPLATES.md](file:///c:/Users/Viranga/Downloads/upwrok%20new/Axiom_Global_Direct_WhatsApp_CEO_Outreach/WHATSAPP_CEO_OUTREACH_STRATEGY_AND_TEMPLATES.md).
 4. When they reply, drag & drop `Smart_QR_Table_Ordering_Demo_Walkthrough.mp4` and `Axiom_Global_US_Smart_QR_Restaurant_Proposal.pdf` right into the chat.
 5. Offer a 10-minute live demo via Google Meet to close the 14-day free trial!
+

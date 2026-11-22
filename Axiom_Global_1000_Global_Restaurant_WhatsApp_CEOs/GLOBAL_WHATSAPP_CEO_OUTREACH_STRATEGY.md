@@ -122,3 +122,4 @@ In [AXIOM_GLOBAL_1000_WORLD_RESTAURANT_WHATSAPP_CEOS.xlsx](file:///c:/Users/Vira
 2. WhatsApp Web or your WhatsApp Desktop app will instantly launch with the CEO's chat window open **and the personalized greeting message already typed into your chat box**!
 3. Press **Enter / Send**.
 4. When they reply, drag & drop the video walkthrough and proposal PDF right into the chat.
+

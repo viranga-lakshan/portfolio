@@ -40,3 +40,4 @@ This directory contains the global WhatsApp sales outreach package targeting **1
 5. **`UK WhatsApp (200)`**: London, Manchester, and Edinburgh decision-makers.
 6. **`Australia & Singapore (175)`**: Sydney, Melbourne, and Singapore decision-makers.
 7. **`Spain, Mexico & SA (175)`**: Madrid, Barcelona, Mexico City, and Cape Town decision-makers.
+

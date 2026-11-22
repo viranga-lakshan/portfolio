@@ -2,11 +2,11 @@
 ## INOVA BENIN TECHNOLOGIES (Cotonou, République du Bénin)
 ### Civil Society Anonymous Secure Reporting Platform Tender
 
-These WhatsApp and direct messaging scripts are formatted with bolding, bullet points, and live links in both **French (Primary Language for Benin)** and **English**, ready to send directly to the directors at INOVA BENIN TECHNOLOGIES.
+These WhatsApp and direct messaging scripts are formatted with bolding, bullet points, and live client links in both **French (Primary Language for Benin)** and **English**, featuring **DU Telecom** and **Moolee Marketplace**.
 
 ---
 
-### 📱 OPTION 1: FRENCH HIGH-IMPACT TENDER BID PITCH (RECOMMENDED)
+### 📱 OPTION 1 : EN FRANÇAIS (RECOMMANDÉ POUR COTONOU / BÉNIN)
 
 *Attacher le PDF de 10 pages (`Inova_Benin_Secure_Reporting_Platform_Proposal.pdf`) et le CV d'Avishka Meddegoda, puis envoyer :*
 
@@ -15,21 +15,21 @@ Bonjour l'équipe d'INOVA BENIN TECHNOLOGIES ! 👋
 
 J'espère que vous allez très bien à Cotonou. Je vous contacte au sujet de votre appel d'offres pour l'organisation de la société civile béninoise (*Senior full-stack web & mobile developer, security focused*).
 
-Nous avons préparé notre *Dossier Technique & Proposition d'Exclusivité de 10 pages* (ci-joint en PDF), conçu sur mesure pour votre soumission.
+Nous avons préparé notre *Dossier Technique & Proposition d'Exclusivité de 10 pages* (ci-joint en PDF), conçu spécialement pour votre soumission.
 
 🤝 *Notre Équipe Technique Dédiée :*
 • *Avishka Meddegoda* — Développeur Principal Désigné (Named Lead Developer · 6+ ans d'expérience · Architecte Backend de Moolee E-Commerce & Web Choice Australie)
 • *Janith Nadiranga* — Ingénieur Systèmes & Bases de Données (DMS Software Division · Migration chiffrée RDS pour SINGER Sri Lanka PLC)
-• *Viranga Lakshan* — Ingénieur Intégration & Sécurité (Portails gouvernementaux : Al Ain Museum & NHM Abu Dhabi)
-• *Chamara Lahiru* — Architecte Frontend & Mobile (McGrath Australie & DU Telecom EAU)
+• *Viranga Lakshan* — Ingénieur Intégration & Sécurité (Portails gouvernementaux : Al Ain Museum & DU Telecom EAU)
+• *Chamara Lahiru* — Architecte Frontend & Mobile (DU Telecom EAU & McGrath Australie)
 • *Lithumitha Ravikumar* — Responsable Gestion de Projet & Assurance Qualité (Agile / Sprint Lead)
 
-🌐 *Nos Plateformes en Production à Découvrir :*
-1. *Moolee Marketplace* : https://www.moolee.mv/ (Plateforme e-commerce nationale hautement sécurisée conçue par Avishka)
-2. *SINGER Sri Lanka PLC* : https://www.singersl.com/ (430+ magasins, synchronisation et flux financiers)
-3. *DIMO Lanka PLC (Logistique Industrielle & SAP ERP)* : https://www.dimolanka.com/
-4. *Musée Al Ain V2 (Gouvernement EAU)* : https://www.alainmuseum.ae/en
-5. *Portfolio & Dépôts de Code* : https://viranga-lakshan.github.io/portfolio/
+🌐 *Nos Grands Projets d'Entreprise en Production (Liens Directs) :*
+1. 📱 *DU Telecom (EAU)* : https://www.du.ae/personal (Géant des télécoms aux Émirats, portail digital et micro-frontends pour des millions d'utilisateurs)
+2. 🛒 *Moolee Marketplace* : https://www.moolee.mv/ (Plateforme e-commerce nationale hautement sécurisée conçue par Avishka)
+3. 🏬 *SINGER Sri Lanka PLC* : https://www.singersl.com/ (430+ magasins, synchronisation et flux financiers via DMS : https://dmssw.com/)
+4. ⚙️ *DIMO Lanka PLC (Logistique Industrielle & SAP ERP)* : https://www.dimolanka.com/
+5. 🏛️ *Musée Al Ain V2 (Gouvernement EAU)* : https://www.alainmuseum.ae/en
 
 ⚙️ *Modules Spécialisés Pris en Charge :*
 ✅ *Chiffrement Zero-Knowledge (AES-256-GCM / X25519) :* Le serveur ne peut en aucun cas lire le contenu des signalements.
@@ -54,30 +54,28 @@ Axiom Global Cyber-Security Practice
 
 ---
 
-### 📱 OPTION 2: ENGLISH HIGH-IMPACT PITCH & MEETING INVITATION
-
-*Attach the 10-Page Proposal PDF and Avishka's CV, then send:*
+### 📱 OPTION 2 : IN ENGLISH
 
 ```text
 Hello INOVA BENIN TECHNOLOGIES Team! 👋
 
-Reaching out regarding your bid for the Beninese Civil Society Organisation (*Senior full-stack web & mobile developer, security focused*).
+Reaching out regarding your tender bid for the Beninese Civil Society Organisation (*Senior full-stack web & mobile developer, security focused*).
 
 We have prepared our comprehensive *10-Page Technical Proposal & Tender Exclusivity Commitment* (attached below as PDF).
 
 🤝 *Our Lead Developer & Engineering Squad:*
 • *Avishka Meddegoda* — Named Lead Developer for your Bid (6+ Years Exp · Lead Backend Architect of Moolee Marketplace & Web Choice Australia)
 • *Janith Nadiranga* — Senior Systems & Database Specialist (DMS Software Division · Encrypted RDS migrations for SINGER Sri Lanka PLC)
-• *Viranga Lakshan* — Integration & Security Lead (Al Ain Museum & NHM Abu Dhabi government platforms)
-• *Chamara Lahiru* — Mobile UI & Offline Architecture (McGrath Australia & DU Telecom UAE)
+• *Viranga Lakshan* — Integration & Security Lead (Al Ain Museum & DU Telecom UAE flagship platforms)
+• *Chamara Lahiru* — Mobile UI & Offline Architecture (DU Telecom UAE & McGrath Australia)
 • *Lithumitha Ravikumar* — Project Delivery & Security Compliance Lead
 
 🌐 *Live Production Client Links:*
-1. 🛒 *Moolee Marketplace*: https://www.moolee.mv/ (National multi-tenant marketplace platform)
-2. 🏬 *SINGER Sri Lanka PLC*: https://www.singersl.com/ (430+ showrooms retail engine & DMS: https://dmssw.com/)
-3. ⚙️ *DIMO Lanka PLC (Industrial Machinery & SAP ERP)*: https://www.dimolanka.com/
-4. 🏛️ *Al Ain Museum V2 (DCT Abu Dhabi)*: https://www.alainmuseum.ae/en
-5. 💻 *Live Engineering Portfolio*: https://viranga-lakshan.github.io/portfolio/
+1. 📱 *DU Telecom (UAE Flagship Platform)*: https://www.du.ae/personal (Emirates Integrated Telecommunications Company serving millions of subscribers)
+2. 🛒 *Moolee Marketplace*: https://www.moolee.mv/ (National multi-tenant marketplace platform)
+3. 🏬 *SINGER Sri Lanka PLC*: https://www.singersl.com/ (430+ showrooms retail engine & DMS: https://dmssw.com/)
+4. ⚙️ *DIMO Lanka PLC (Industrial Machinery & SAP ERP)*: https://www.dimolanka.com/
+5. 🏛️ *Al Ain Museum V2 (DCT Abu Dhabi)*: https://www.alainmuseum.ae/en
 
 🛡️ *Core Capabilities Delivered for INOVA BENIN:*
 ✅ *Zero-Knowledge E2E Encryption:* AES-256-GCM + X25519 hybrid cryptosystem with client-side key generation (untrusted server relay).
@@ -98,16 +96,19 @@ Axiom Global Cyber-Security Practice
 
 ---
 
-### 📱 OPTION 3: SHORT & PUNCHY DIRECT WHATSAPP MESSAGE (FRENCH)
+### 📱 OPTION 3 : MESSAGE COURT & DIRECT (FRANÇAIS)
 
 ```text
-Bonjour [Nom du Contact / Direction INOVA BENIN] ! 👋 Ici Avishka Meddegoda d'Axiom Global au sujet de l'appel d'offres pour l'organisation de la société civile béninoise.
+Bonjour l'équipe d'INOVA BENIN ! 👋 Ici Avishka Meddegoda d'Axiom Global concernant l'appel d'offres pour l'organisation de la société civile béninoise.
 
 Nous avons examiné en détail vos exigences : chiffrement E2E zero-knowledge (AES-256), suppression des métadonnées EXIF/GPS, fonctionnement offline-first sur réseaux instables, et tableau de bord FIDO2 avec bouton d'urgence.
 
 Nous acceptons pleinement votre budget forfaitaire de *$4,250 USD* et confirmons notre disponibilité totale de *décembre 2026 à février 2027* pour livrer la version bêta en janvier. Nous vous accordons l'exclusivité en tant que Lead Developer désigné.
 
-📎 Ci-joint notre *Dossier Technique de 10 pages en PDF* et mon CV complet.
+📎 Ci-joint notre *Dossier Technique de 10 pages en PDF* et mon CV complet :
+• DU Telecom (EAU) : https://www.du.ae/personal
+• Moolee E-Commerce : https://www.moolee.mv/
+• SINGER Sri Lanka : https://www.singersl.com/
 
 Seriez-vous disponibles pour un court échange vidéo de 10 minutes cette semaine afin d'aligner notre collaboration pour votre soumission ?
 ```

@@ -37,9 +37,8 @@
 | **Al Ain Museum V1/V2** | UAE (DCT Abu Dhabi) | Department of Culture and Tourism Government Portal, Sitecore Headless CMS & Next.js | [alainmuseum.ae](https://www.alainmuseum.ae/en) |
 | **Natural History Museum Abu Dhabi** | UAE (Abu Dhabi Govt) | Government Digital Experience Platform, Sitecore Helix Architecture & C# .NET | [nhmad.ae](https://www.nhmad.ae/) |
 | **Gravitee.io** | Global | Enterprise API Management Platform, Storyblok Headless CMS & Astro Framework | [gravitee.io](https://www.gravitee.io/) |
-| **DU Telecom Greenfield** | UAE | Emirates Integrated Telecommunications Company, React Native & Micro-Frontends | [du.ae](https://www.du.ae/) |
+| **DU Telecom (UAE Flagship Platform)** | UAE | Emirates Integrated Telecommunications Company, Selfcare, 5G Fiber & Micro-Frontends | [du.ae/personal](https://www.du.ae/personal) |
 | **Data Management Systems (DMS)** | Sri Lanka | Pioneer Software Engineering House (Janith Nadiranga's Division) | [dmssw.com](https://dmssw.com/) |
-| **Senior Engineering Portfolio** | Global | Live Demos, Code Repositories & Architecture Showcase | [viranga-lakshan.github.io/portfolio](https://viranga-lakshan.github.io/portfolio/) |
 
 ---
 

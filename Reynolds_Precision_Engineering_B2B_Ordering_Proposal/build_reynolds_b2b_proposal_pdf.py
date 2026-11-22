@@ -590,7 +590,7 @@ a {{
           <span class="badge badge-dark">FULL-STACK LEAD</span>
         </div>
         <p style="font-size: 7.2pt; line-height: 1.33; color: var(--dark-charcoal); margin: 0;">
-          Full-Stack Software Engineer at Arimac Digital (Coventry University UK). Lead integration engineer for UK, Australian, and UAE platforms: <strong>Al Ain Museum V2</strong> (<a href="https://www.alainmuseum.ae/en" class="live-link" target="_blank">alainmuseum.ae &nearr;</a>) and <strong>Natural History Museum Abu Dhabi</strong> (<a href="https://www.nhmad.ae/" class="live-link" target="_blank">nhmad.ae &nearr;</a>). Live Portfolio: <a href="https://viranga-lakshan.github.io/portfolio/" class="live-link" target="_blank">portfolio &nearr;</a>.
+          Full-Stack Software Engineer at Arimac Digital (Coventry University UK). Lead integration engineer for UK, Australian, and UAE platforms: <strong>Al Ain Museum V2</strong> (<a href="https://www.alainmuseum.ae/en" class="live-link" target="_blank">alainmuseum.ae &nearr;</a>) and <strong>Natural History Museum Abu Dhabi</strong> (<a href="https://www.nhmad.ae/" class="live-link" target="_blank">nhmad.ae &nearr;</a>). Live UAE Platform: <a href="https://www.du.ae/personal" class="live-link" target="_blank">du.ae/personal &nearr;</a>.
         </p>
       </div>
 
@@ -716,7 +716,7 @@ a {{
               <a href="https://castlerenewables.com.au" class="live-link" target="_blank">castlerenewables.com.au &nearr;</a>
             </div>
             <p style="font-size: 6.8pt; line-height: 1.28; color: var(--dark-charcoal); margin: 0;">
-              Custom WordPress B2B corporate build with Custom Post Types (CPTs) for infrastructure assets, dynamic project filtering, and technical taxonomy. Plus <a href="https://www.mcgrath.com.au/" style="color: #166534; font-weight: 700;">mcgrath.com.au</a> &amp; <a href="https://viranga-lakshan.github.io/portfolio/" style="color: #166534; font-weight: 700;">Portfolio</a>.
+              Custom WordPress B2B corporate build with Custom Post Types (CPTs) for infrastructure assets, dynamic project filtering, and technical taxonomy. Plus <a href="https://www.du.ae/personal" style="color: #166534; font-weight: 700;">du.ae/personal</a> &amp; <a href="https://www.mcgrath.com.au/" style="color: #166534; font-weight: 700;">mcgrath.com.au</a>.
             </p>
           </div>
         </div>
@@ -1071,19 +1071,19 @@ a {{
       </div>
       <div class="editorial-card-grey" style="padding: 4px 7px; margin-bottom: 0;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
-          <strong style="font-size: 7.4pt; color: var(--black);">Gravitee.io (Global API Platform)</strong>
-          <a href="https://www.gravitee.io/" class="live-link" target="_blank">gravitee.io &nearr;</a>
+          <strong style="font-size: 7.4pt; color: var(--black);">DU Telecom (UAE Flagship)</strong>
+          <a href="https://www.du.ae/personal" class="live-link" target="_blank">du.ae/personal &nearr;</a>
         </div>
         <p style="font-size: 6.8pt; line-height: 1.28; color: var(--dark-charcoal); margin: 0;">
-          Global enterprise API platform utilizing Storyblok headless CMS and Astro framework for ultra-fast, modular content management.
+          Emirates Integrated Telecommunications Company. Mobile plans, 5G home internet, eSIM ordering &amp; customer selfcare micro-frontends by our team.
         </p>
       </div>
     </div>
 
-    <!-- Live Engineering Portfolio Footer Strip -->
+    <!-- Live Engineering Flagship Project Footer Strip -->
     <div style="display: flex; justify-content: space-between; align-items: center; padding: 4px 8px; background: #0F1115; border-radius: 3px; color: #FFFFFF; font-size: 6.8pt;">
-      <span><strong>Explore Live Repositories &amp; Engineering Demos:</strong> Senior Engineering Portfolio</span>
-      <a href="https://viranga-lakshan.github.io/portfolio/" target="_blank" style="color: #4ADE80; font-family: 'JetBrains Mono', monospace; font-size: 6.6pt; font-weight: 700; text-decoration: none;">https://viranga-lakshan.github.io/portfolio/ &nearr;</a>
+      <span><strong>Premier Enterprise Flagship:</strong> DU Telecom Greenfield Transformation (UAE)</span>
+      <a href="https://www.du.ae/personal" target="_blank" style="color: #4ADE80; font-family: 'JetBrains Mono', monospace; font-size: 6.6pt; font-weight: 700; text-decoration: none;">https://www.du.ae/personal &nearr;</a>
     </div>
   </div>
 
@@ -1351,7 +1351,7 @@ a {{
         <div style="font-size: 6pt; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; color: var(--mid-grey);">Integration &amp; Full-Stack</div>
         <div style="font-size: 8.5pt; font-weight: 800; color: var(--black);">Viranga Lakshan</div>
         <div style="font-size: 6.8pt; color: var(--dark-charcoal); margin-top: 1px;">
-          Arimac Digital. Al Ain Museum (<a href="https://www.alainmuseum.ae/en" class="live-link" target="_blank">alainmuseum.ae &nearr;</a>) &amp; <a href="https://viranga-lakshan.github.io/portfolio/" class="live-link" target="_blank">Portfolio &nearr;</a>.
+          Arimac Digital. Al Ain Museum (<a href="https://www.alainmuseum.ae/en" class="live-link" target="_blank">alainmuseum.ae &nearr;</a>) &amp; DU Telecom (<a href="https://www.du.ae/personal" class="live-link" target="_blank">du.ae/personal &nearr;</a>).
         </div>
       </div>
     </div>

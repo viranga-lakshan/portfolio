@@ -14,16 +14,20 @@
 **1. Detailed CV of the Lead Developer:**
 > **Attached & Provided:** Full curriculum vitae of **Avishka Meddegoda** (Technical Lead & Senior Software Engineer, 6+ years experience, Arimac Digital / Web Choice Australia). Features extensive production delivery in applied cryptography, zero-knowledge microservices, OAuth2/OIDC security, high-concurrency Node.js/PHP backend engineering, and mobile architecture.
 
-**2. Two or Three Links to Recent Projects (with Exact Roles):**
+**2. Links to Recent Enterprise Projects (with Exact Roles):**
 > - **Project 1: Moolee — Your Favorite Marketplace**
 >   - **Live Website:** https://www.moolee.mv/
 >   - **Role:** Lead Backend Architect (Avishka Meddegoda &middot; Arimac Digital / Ooredoo).
 >   - **Architecture:** National multi-tenant e-commerce marketplace platform. Engineered high-concurrency order routing, dynamic shopping carts, customer-specific pricing & promotions, tokenized payment security, and real-time delivery logistics.
-> - **Project 2: DIMO Lanka PLC (SAP ERP Logistics Platform)**
+> - **Project 2: DU Telecom (UAE Flagship Digital Platform)**
+>   - **Live Website:** https://www.du.ae/personal
+>   - **Role:** Mobile & Frontend Engineering Pod (Chamara Lahiru & Viranga Lakshan &middot; Arimac Digital).
+>   - **Architecture:** Emirates Integrated Telecommunications Company. Mobile plans, 5G home internet, eSIM ordering, customer selfcare, and high-concurrency bill payment micro-frontends serving millions of active UAE subscribers.
+> - **Project 3: DIMO Lanka PLC (SAP ERP Logistics Platform)**
 >   - **Live Website:** https://www.dimolanka.com/
 >   - **Role:** Backend Architect (Avishka Meddegoda &middot; Arimac Digital).
 >   - **Architecture:** Enterprise platform integrated directly with **SAP ERP (MM/PM Modules)** managing industrial replacement machinery components, equipment tracking, and multi-tier approval chains.
-> - **Project 3: SINGER Sri Lanka PLC (Retail & Inventory Management Platform)**
+> - **Project 4: SINGER Sri Lanka PLC (Retail & Inventory Management Platform)**
 >   - **Live Website:** https://www.singersl.com/
 >   - **Role:** Systems & Database Specialist (Janith Nadiranga &middot; DMS Software Division: https://dmssw.com/).
 >   - **Architecture:** Encrypted batch-wise transaction tracking, mobile receipt workflows, and secure RDS data migrations across 430+ retail showrooms and millions of active customer accounts.
@@ -31,8 +35,8 @@
 >   - Al Ain Museum V2 (DCT Abu Dhabi Government): https://www.alainmuseum.ae/en
 >   - Natural History Museum Abu Dhabi: https://www.nhmad.ae/
 >   - McGrath Real Estate Australia (ASX-Listed): https://www.mcgrath.com.au/
->   - DU Telecom Greenfield UAE: https://www.du.ae/
->   - Senior Engineering Portfolio & Repositories: https://viranga-lakshan.github.io/portfolio/
+>   - Castle Renewables Australia (Custom WordPress B2B): https://castlerenewables.com.au
+>   - LB Finance PLC & Sustainability (Enterprise CMS): https://www.lbfinance.com/ & https://sustainability.lbfinance.com/
 
 **3. Fixed Price for Scope:**
 > **$4,250.00 USD Fixed Price.** We fully accept your fixed budget, structured into milestone payments released via Upwork escrow upon completion of agreed deliverables.
@@ -58,7 +62,7 @@
 > - **Key Management & Zero-Knowledge Guarantee:**
 >   - Caseworkers generate their X25519 keypairs locally within their secure device enclave (IndexedDB / Android KeyStore). Private keys are encrypted at rest using an Argon2id-derived key from a high-entropy passphrase.
 >   - **The central server never has access to the private keys or plaintext data.** It acts as an untrusted blind storage relay, storing only ciphertext blobs and blind SHA-256 hashes. Even if the server infrastructure is compromised or legally subpoenaed, the stored data remains cryptographically unreadable.
-> - **Public Reference Link:** Senior Engineering Portfolio & Live Architecture: https://viranga-lakshan.github.io/portfolio/ and Moolee Platform (https://www.moolee.mv/).
+> - **Public Reference Links:** DU Telecom Digital Platform (https://www.du.ae/personal) and Moolee Platform (https://www.moolee.mv/).
 
 ---
 
@@ -119,14 +123,15 @@ Below are the 5 required submission items, followed by direct answers to your te
 1. DETAILED CV:
 Attached to this proposal is my full CV (Avishka Meddegoda, Technical Lead), highlighting my 6+ years of experience architecting secure backend systems, zero-knowledge pipelines, and mobile applications at Arimac Digital and Web Choice Australia.
 
-2. RECENT PROJECT LINKS & EXACT ROLES:
+2. RECENT ENTERPRISE PROJECT LINKS & EXACT ROLES:
 • Moolee - Your Favorite Marketplace: https://www.moolee.mv/
   Role: Lead Backend Architect (Avishka Meddegoda). National multi-tenant e-commerce marketplace platform handling high-volume transactional ordering, dynamic cart logic, and tokenized payment security.
+• DU Telecom (UAE Flagship Platform): https://www.du.ae/personal
+  Role: Mobile & Frontend Engineering Pod (Chamara Lahiru & Viranga Lakshan). Emirates Integrated Telecommunications Company serving millions of active subscribers with mobile plans, 5G home internet, and selfcare micro-frontends.
 • DIMO Lanka PLC (SAP ERP Logistics Platform): https://www.dimolanka.com/
   Role: Backend Architect (Avishka Meddegoda). Enterprise gate-pass and replacement machinery components platform connected with SAP ERP (MM/PM).
 • SINGER Sri Lanka PLC: https://www.singersl.com/
   Role: Systems & Database Specialist (Janith Nadiranga, DMS Software Division: https://dmssw.com/). Encrypted batch-wise transaction tracking and RDS data migrations across 430+ showrooms.
-• Live Engineering Portfolio: https://viranga-lakshan.github.io/portfolio/
 
 3. FIXED PRICE FOR SCOPE:
 We confirm our fixed-price quote of exactly $4,250.00 USD, structured into milestones paid upon delivery of each module once the contract is awarded to INOVA BENIN TECHNOLOGIES.

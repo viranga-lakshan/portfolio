@@ -300,3 +300,4 @@ for col_idx, col_name in enumerate(cols):
 ws.freeze_panes(4, 2)
 wb.close()
 print("Saved verified real WhatsApp Excel workbook successfully.")
+

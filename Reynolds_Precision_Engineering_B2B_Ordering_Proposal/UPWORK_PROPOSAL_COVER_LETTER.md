@@ -27,54 +27,48 @@
 >    - **Lead Backend Architect:** Avishka Meddegoda (Technical Lead) & Arimac Digital / Ooredoo
 >    - **Technical Scope:** The nation's premier multi-tenant e-commerce marketplace platform. Engineered high-concurrency shopping cart checkout, customer-specific pricing & promotional rules, multi-vendor product catalogues, automated order routing & dispatch, payment gateway integrations, and real-time carrier delivery tracking. Directly proves our capability to handle Reynolds' multi-factory customer accounts, negotiated price tiering, and PO checkout workflows.
 >
-> 2. **SINGER Sri Lanka PLC — Retail E-Commerce & Nationwide Inventory Engine**
+> 2. **DU Telecom (UAE Flagship Digital Platform)**
+>    - **Live Website:** https://www.du.ae/personal
+>    - **Lead Engineers:** Chamara Lahiru & Viranga Lakshan (Arimac Digital)
+>    - **Technical Scope:** Emirates Integrated Telecommunications Company. Mobile plans, 5G home fiber, eSIM ordering, customer selfcare, and high-concurrency bill payment micro-frontends serving millions of active UAE subscribers.
+>
+> 3. **SINGER Sri Lanka PLC — Retail E-Commerce & Nationwide Inventory Engine**
 >    - **Live Website:** https://www.singersl.com/
 >    - **Engineering House:** Data Management Systems (Pvt) Ltd (DMS) — https://dmssw.com/
 >    - **Lead Developer:** Janith Nadiranga (Programmer at DMS Software Division)
 >    - **Technical Scope:** Sri Lanka's largest consumer retailer (430+ showrooms, 1,200+ dealer networks, millions of active customer accounts). Built batch transaction tracking, mobile receipt generation, AWS RDS data migration, and multi-tier inventory distribution logistics.
 >
-> 3. **DIMO Lanka PLC — SAP ERP Integrated Industrial Machinery Parts Platform**
+> 4. **DIMO Lanka PLC — SAP ERP Integrated Industrial Machinery Parts Platform**
 >    - **Live Website:** https://www.dimolanka.com/
 >    - **Lead Architect:** Avishka Meddegoda (Tech Lead)
 >    - **Technical Scope:** Connected directly with **SAP ERP (MM/PM Modules)** to manage industrial replacement components, heavy machinery servicing gate-passes, equipment serial tracking, and multi-tier approval chains.
 >
-> 4. **Castle Renewables Australia — Custom WordPress B2B & Infrastructure**
+> 5. **Castle Renewables Australia — Custom WordPress B2B & Infrastructure**
 >    - **Live Website:** https://castlerenewables.com.au
 >    - **Lead Engineer:** Chamara Lahiru (Senior Full-Stack & UI Architect)
 >    - **Technical Scope:** Custom WordPress corporate build with Custom Post Types (CPTs) for renewable infrastructure assets, technical capability taxonomy, and dynamic case study filtering.
 >
-> 5. **LB Finance PLC & Corporate Sustainability Portal — Enterprise CMS**
+> 6. **LB Finance PLC & Corporate Sustainability Portal — Enterprise CMS**
 >    - **Live Websites:** https://www.lbfinance.com/ & https://sustainability.lbfinance.com/
 >    - **Technical Scope:** Enterprise financial publications, custom content modeling, governance disclosures, and structured multi-tier document distribution.
 >
-> 6. **McGrath Real Estate (Australia) — Premier Property Discovery Platform**
+> 7. **McGrath Real Estate (Australia) — Premier Property Discovery Platform**
 >    - **Live Website:** https://www.mcgrath.com.au/
 >    - **Lead Engineer:** Chamara Lahiru
 >    - **Technical Scope:** ASX-listed premier Australian real estate platform. Next.js, Node.js, and GraphQL high-concurrency property listings search and customer portal.
 >
-> 7. **Holsten Arabia (Carlsberg Group) — Multilingual Brand & Product Catalog**
+> 8. **Holsten Arabia (Carlsberg Group) — Multilingual Brand & Product Catalog**
 >    - **Live Website:** https://holstenarabia.me/en/
 >    - **Technical Scope:** Multilingual digital catalog platform for global beverage brand. Umbraco Headless CMS + Next.js frontend and C#/.NET REST APIs.
 >
-> 8. **Al Ain Museum V1/V2 (DCT Abu Dhabi Government)**
+> 9. **Al Ain Museum V1/V2 (DCT Abu Dhabi Government)**
 >    - **Live Website:** https://www.alainmuseum.ae/en
 >    - **Lead Integration Engineer:** Viranga Lakshan
 >    - **Technical Scope:** Department of Culture and Tourism Abu Dhabi. Next.js, React, Sitecore Headless CMS, and high-security public sector compliance.
 >
-> 9. **Natural History Museum Abu Dhabi (Abu Dhabi Government)**
->    - **Live Website:** https://www.nhmad.ae/
->    - **Technical Scope:** Government digital experience platform built using Sitecore Helix architecture and C# .NET structured schema markup.
->
-> 10. **Gravitee.io — Global Enterprise API Platform**
->     - **Live Website:** https://www.gravitee.io/
->     - **Technical Scope:** Global enterprise API management platform utilizing Storyblok headless CMS and Astro framework for ultra-fast, modular content management.
->
-> 11. **DU Telecom Greenfield Transformation (UAE)**
->     - **Live Website:** https://www.du.ae/
->     - **Technical Scope:** Emirates Integrated Telecommunications Company. React Native, Redux, and GraphQL micro-frontends supporting nationwide digital customer selfcare.
->
-> 12. **Live Engineering Portfolio & Code Repositories:**
->     - **Live URL:** https://viranga-lakshan.github.io/portfolio/
+> 10. **Natural History Museum Abu Dhabi (Abu Dhabi Government)**
+>     - **Live Website:** https://www.nhmad.ae/
+>     - **Technical Scope:** Government digital experience platform built using Sitecore Helix architecture and C# .NET structured schema markup.
 
 ---
 
@@ -133,6 +127,10 @@ Yes, our team has delivered enterprise e-commerce, B2B purchasing, and industria
   Lead Backend Architect: Avishka Meddegoda (Technical Lead) at Arimac Digital / Ooredoo.
   Scope: The nation's premier multi-tenant e-commerce marketplace platform. Engineered dynamic shopping carts, customer-specific pricing & promotional rules, multi-vendor product catalogues, automated order routing & dispatch, and real-time carrier tracking.
 
+• DU Telecom (UAE Premier Flagship Platform)
+  Live Website: https://www.du.ae/personal
+  Emirates Integrated Telecommunications Company serving millions of subscribers with mobile plans, 5G home internet, eSIM ordering, and customer selfcare micro-frontends.
+
 • SINGER Sri Lanka PLC (E-Commerce & Retail Logistics)
   Live Website: https://www.singersl.com/
   Built by Janith Nadiranga at DMS Software Division (https://dmssw.com/). Manages nationwide retail e-commerce, batch transaction tracking, and inventory distribution across 430+ showrooms, 1,200+ dealer networks, and millions of accounts.
@@ -164,17 +162,6 @@ Yes, our team has delivered enterprise e-commerce, B2B purchasing, and industria
 • Natural History Museum Abu Dhabi (Abu Dhabi Government)
   Live Website: https://www.nhmad.ae/
   Government digital experience platform built using Sitecore Helix architecture and C# .NET structured schema markup.
-
-• Gravitee.io (Global Enterprise API Platform)
-  Live Website: https://www.gravitee.io/
-  Global enterprise API management platform utilizing Storyblok headless CMS and Astro framework for ultra-fast, modular content management.
-
-• DU Telecom Greenfield Transformation (UAE)
-  Live Website: https://www.du.ae/
-  Emirates Integrated Telecommunications Company. React Native, Redux, and GraphQL micro-frontends supporting nationwide digital customer selfcare.
-
-• Senior Engineering Portfolio & Code Repositories:
-  Live URL: https://viranga-lakshan.github.io/portfolio/
 
 3. Which platform would you recommend and why?
 We strongly recommend WordPress + WooCommerce with an Enterprise B2B Engine (B2BKing / Wholesale Suite):

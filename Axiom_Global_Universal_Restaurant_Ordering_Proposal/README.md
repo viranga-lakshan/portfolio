@@ -22,3 +22,4 @@ This package contains the official, worldwide commercial proposal and outreach t
 3. **Universal Problem Solved:** Eliminates 15%–30% delivery aggregator commission cuts, cuts 15 mins off table turnaround times, and prevents fake orders with a dynamic 4-digit code.
 4. **Universal Payment Compatibility:** Promotes Apple Pay, Google Pay, Visa, Mastercard, AMEX, and regional payment gateways.
 5. **Zero Risk:** Promotes the **14-Day Free Pilot** where restaurants can test it live in their dining room with zero financial commitment.
+

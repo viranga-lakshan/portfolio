@@ -24,18 +24,17 @@ We have prepared a comprehensive *10-Page Technical Proposal & Architecture Blue
 • *Lithumitha Ravikumar* — Project Delivery Manager (Agile / Sprint Governance)
 
 🌐 *Our Live Client Platforms for You to Explore:*
-1. 🛒 *Moolee - Your Favorite Marketplace*: https://www.moolee.mv/ (Nationwide multi-vendor e-commerce platform architected by Avishka at Arimac / Ooredoo)
-2. 🏬 *SINGER Sri Lanka PLC (Retail & Inventory)*: https://www.singersl.com/ (Engineered by Janith at DMS: https://dmssw.com/ across 430+ showrooms)
-3. ⚙️ *DIMO Lanka PLC (Industrial Machinery Parts & SAP ERP)*: https://www.dimolanka.com/
-4. 🏗️ *Castle Renewables Australia (Custom WordPress B2B)*: https://castlerenewables.com.au
-5. 📊 *LB Finance PLC & Sustainability (Enterprise CMS)*: https://www.lbfinance.com/ & https://sustainability.lbfinance.com/
-6. 🏢 *McGrath Real Estate Australia (ASX-Listed)*: https://www.mcgrath.com.au/
-7. 🍻 *Holsten Arabia (Carlsberg Group)*: https://holstenarabia.me/en/
-8. 🏛️ *Al Ain Museum V2 (DCT Abu Dhabi Govt)*: https://www.alainmuseum.ae/en
-9. 🏛️ *Natural History Museum Abu Dhabi*: https://www.nhmad.ae/
-10. 🔌 *Gravitee.io (Global API Platform)*: https://www.gravitee.io/
-11. 📱 *DU Telecom Greenfield (UAE)*: https://www.du.ae/
-12. 💻 *Live Engineering Portfolio*: https://viranga-lakshan.github.io/portfolio/
+1. 📱 *DU Telecom (UAE Flagship Platform)*: https://www.du.ae/personal (Emirates Integrated Telecommunications Company — Mobile, 5G Fiber & Enterprise Selfcare)
+2. 🛒 *Moolee - Your Favorite Marketplace*: https://www.moolee.mv/ (Nationwide multi-vendor e-commerce platform architected by Avishka at Arimac / Ooredoo)
+3. 🏬 *SINGER Sri Lanka PLC (Retail & Inventory)*: https://www.singersl.com/ (Engineered by Janith at DMS: https://dmssw.com/ across 430+ showrooms)
+4. ⚙️ *DIMO Lanka PLC (Industrial Machinery Parts & SAP ERP)*: https://www.dimolanka.com/
+5. 🏗️ *Castle Renewables Australia (Custom WordPress B2B)*: https://castlerenewables.com.au
+6. 📊 *LB Finance PLC & Sustainability (Enterprise CMS)*: https://www.lbfinance.com/ & https://sustainability.lbfinance.com/
+7. 🏢 *McGrath Real Estate Australia (ASX-Listed)*: https://www.mcgrath.com.au/
+8. 🍻 *Holsten Arabia (Carlsberg Group)*: https://holstenarabia.me/en/
+9. 🏛️ *Al Ain Museum V2 (DCT Abu Dhabi Govt)*: https://www.alainmuseum.ae/en
+10. 🏛️ *Natural History Museum Abu Dhabi*: https://www.nhmad.ae/
+11. 🔌 *Gravitee.io (Global API Platform)*: https://www.gravitee.io/
 
 ⚙️ *Key Features Engineered for Reynolds:*
 ✅ *Secure Multi-Factory Logins:* Confidential contracted pricing visible only to authorized customer accounts.
@@ -74,6 +73,7 @@ Here is a quick summary of how we address your core priorities:
 
 1. *Agreed Customer Pricing:* We’ve built multi-tiered B2B portals where individual companies and factory locations see their confidential negotiated rates upon login.
 2. *Completed Examples with Live Links:*
+   • DU Telecom (UAE Flagship Platform): https://www.du.ae/personal
    • Moolee - Your Favorite Marketplace (Live E-Commerce): https://www.moolee.mv/
    • SINGER Sri Lanka PLC (Retail & Inventory): https://www.singersl.com/
    • DIMO Lanka PLC (Industrial Machinery & SAP ERP): https://www.dimolanka.com/
@@ -83,7 +83,6 @@ Here is a quick summary of how we address your core priorities:
    • Holsten Arabia: https://holstenarabia.me/en/
    • Al Ain Museum V2: https://www.alainmuseum.ae/en
    • Gravitee.io: https://www.gravitee.io/
-   • Live Engineering Portfolio: https://viranga-lakshan.github.io/portfolio/
 3. *Recommended Platform:* *WordPress + WooCommerce B2B (B2BKing Suite)* — gives Reynolds *100% code ownership, £0 monthly software fees*, runs on standard UK cloud hosting (£15–£25/mo), and allows your workshop staff to easily upload CAD drawings and edit lead times.
 4. *Commercials:* Fully agreed at your budget of *£2,000 GBP ($2,600 USD Fixed Price)* across 4 milestone payments.
 5. *Timescale:* 4 to 5 weeks, ready to commence before Christmas 2026.
@@ -111,11 +110,11 @@ Hi [Client Name]! 👋 Avishka here from Axiom Global regarding the *B2B Parts O
 We’ve reviewed your requirements for customer-specific pricing, downloadable PDF drawings, and PO checkout. We fully accept your *£2,000 GBP ($2,600 USD)* fixed price and are ready to *start before Christmas 2026*.
 
 Our team brings 6+ years of enterprise e-commerce and industrial systems experience:
+• DU Telecom (UAE Flagship Platform): https://www.du.ae/personal
 • Moolee - Your Favorite Marketplace: https://www.moolee.mv/
 • SINGER Sri Lanka PLC: https://www.singersl.com/
 • DIMO Lanka PLC (Industrial Machinery & SAP ERP): https://www.dimolanka.com/
 • Castle Renewables Australia (WordPress B2B): https://castlerenewables.com.au
-• Live Engineering Portfolio: https://viranga-lakshan.github.io/portfolio/
 
 📎 Attached is our complete *10-Page Executive Proposal PDF* and team CVs.
 

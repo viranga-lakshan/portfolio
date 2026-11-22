@@ -16,7 +16,7 @@
 | :--- | :--- | :--- |
 | **[Inova_Benin_Secure_Reporting_Platform_Proposal.pdf](file:///c:/Users/Viranga/Downloads/upwrok%20new/Inova_Benin_Secure_Reporting_Platform_Proposal/Inova_Benin_Secure_Reporting_Platform_Proposal.pdf)** | **10-Page Official Executive Proposal PDF** modeled on Faris Travel luxury monochrome layout with color cybersecurity imagery, zero-knowledge sequence diagrams, French tender briefing, and full squad profiles. | **Strictly 10 Pages (Verified via pypdf)** |
 | **[UPWORK_PROPOSAL_COVER_LETTER.md](file:///c:/Users/Viranga/Downloads/upwrok%20new/Inova_Benin_Secure_Reporting_Platform_Proposal/UPWORK_PROPOSAL_COVER_LETTER.md)** | Full Upwork proposal, cover letter text, direct answers to all 3 mandatory screening questions, compliance with all 5 tender requirements, and French section. | **Complete & Submission Ready** |
-| **[WHATSAPP_CLIENT_OUTREACH_SCRIPTS.md](file:///c:/Users/Viranga/Downloads/upwrok%20new/Inova_Benin_Secure_Reporting_Platform_Proposal/WHATSAPP_CLIENT_OUTREACH_SCRIPTS.md)** | Direct WhatsApp pitch messages in French (Primary for Cotonou) and English with bulleted live client links and meeting scheduling prompts. | **Complete & Ready to Send** |
+| **[WHATSAPP_CLIENT_OUTREACH_SCRIPTS.md](file:///c:/Users/Viranga/Downloads/upwrok%20new/Inova_Benin_Secure_Reporting_Platform_Proposal/WHATSAPP_CLIENT_OUTREACH_SCRIPTS.md)** | Direct WhatsApp pitch messages in French (Primary for Cotonou) and English with bulleted live client links (DU Telecom, Moolee, SINGER) and meeting scheduling prompts. | **Complete & Ready to Send** |
 | **[Avishka_Meddegoda_Resume.pdf](file:///c:/Users/Viranga/Downloads/upwrok%20new/Inova_Benin_Secure_Reporting_Platform_Proposal/Avishka_Meddegoda_Resume.pdf)** | Official CV of Named Lead Developer Avishka Meddegoda, ready to attach directly to Upwork and WhatsApp. | **Verified & Attached** |
 | **[inova_benin_proposal_template.html](file:///c:/Users/Viranga/Downloads/upwrok%20new/Inova_Benin_Secure_Reporting_Platform_Proposal/inova_benin_proposal_template.html)** | Master HTML5/CSS3 template styled in executive monochrome with high-contrast borders, live clickable badges, and cybersecurity photography. | **Complete** |
 | **[build_inova_benin_proposal_pdf.py](file:///c:/Users/Viranga/Downloads/upwrok%20new/Inova_Benin_Secure_Reporting_Platform_Proposal/build_inova_benin_proposal_pdf.py)** | Playwright PDF compiler script enforcing exact A4 page breaks, 0mm margins, and 10-page assertion. | **Passing (10 Pages)** |
@@ -28,6 +28,7 @@
 
 | Client Name | Country / Market | Industry & Technical Scope | Live Website Link |
 | :--- | :--- | :--- | :--- |
+| **DU Telecom (Flagship Platform)** | UAE | Emirates Integrated Telecommunications Company, Mobile Plans, 5G Fiber, Selfcare & High-Scale Micro-Frontends | [du.ae/personal](https://www.du.ae/personal) |
 | **Moolee — Your Favorite Marketplace** | Maldives / Ooredoo | Premier Multi-Tenant E-Commerce Marketplace, Cart Checkout, Vendor Shells & Carrier Tracking (Avishka Meddegoda) | [moolee.mv](https://www.moolee.mv/) |
 | **SINGER Sri Lanka PLC** | Sri Lanka (National) | 430+ Showrooms Retail E-Commerce, RDS Data Migration & Distribution Engine (DMS Software Division) | [singersl.com](https://www.singersl.com/) |
 | **DIMO Lanka PLC** | Sri Lanka / International | Industrial Machinery Replacement Parts, Fleet Gate Pass & SAP ERP (MM/PM) Integration | [dimolanka.com](https://www.dimolanka.com/) |
@@ -38,9 +39,7 @@
 | **Al Ain Museum V1/V2** | UAE (DCT Abu Dhabi) | Department of Culture and Tourism Government Portal, Sitecore Headless CMS & Next.js | [alainmuseum.ae](https://www.alainmuseum.ae/en) |
 | **Natural History Museum Abu Dhabi** | UAE (Abu Dhabi Govt) | Government Digital Experience Platform, Sitecore Helix Architecture & C# .NET | [nhmad.ae](https://www.nhmad.ae/) |
 | **Gravitee.io** | Global | Enterprise API Management Platform, Storyblok Headless CMS & Astro Framework | [gravitee.io](https://www.gravitee.io/) |
-| **DU Telecom Greenfield** | UAE | Emirates Integrated Telecommunications Company, React Native & Micro-Frontends | [du.ae](https://www.du.ae/) |
 | **Data Management Systems (DMS)** | Sri Lanka | Pioneer Software Engineering House (Janith Nadiranga's Division) | [dmssw.com](https://dmssw.com/) |
-| **Senior Engineering Portfolio** | Global | Live Demos, Code Repositories & Architecture Showcase | [viranga-lakshan.github.io/portfolio](https://viranga-lakshan.github.io/portfolio/) |
 
 ---
 
@@ -52,7 +51,7 @@
 * **Page 04:** **Answers to Upwork Screening Questions 1 & 2** (Zero-Knowledge E2E Encryption Protocol & FIDO2/WebAuthn Hardware Protection with Emergency Lock).
 * **Page 05:** **Answer to Upwork Screening Question 3 & Bid Commitments** (Offline-First Storage, Deferred Sync on Intermittent Networks, EXIF/GPS Stripping, $4,250 Fixed Price, Dec 2026 - Feb 2027 Availability, Tender Exclusivity Agreement).
 * **Page 06:** **Cryptographic & Zero-Knowledge Architecture Deep Dive** (Sequence Diagram / Pipeline of Client-Side Asymmetric X25519 + AES-256-GCM, Blind Indexing, Libsodium implementation, and STRIDE Threat Model).
-* **Page 07:** **Proven Production Systems & Live Client Platforms** (Featuring **Moolee.mv**, SINGER Sri Lanka `singersl.com`, DIMO SAP ERP `dimolanka.com`, Castle Renewables, Al Ain Museum, McGrath Real Estate, DU Telecom, and Live Portfolio).
+* **Page 07:** **Proven Production Systems & Live Client Platforms** (Featuring **DU Telecom** `https://www.du.ae/personal`, **Moolee.mv**, SINGER Sri Lanka `singersl.com`, DIMO SAP ERP `dimolanka.com`, Castle Renewables, Al Ain Museum, McGrath Real Estate).
 * **Page 08:** **FIDO2 Hardware Authentication, Session Hardening & Emergency Lockdown Engine** (WebAuthn ceremony, Relying Party security, monotonic counter verification, Redis session purge, and RAM wipe `sodium_memzero`).
 * **Page 09:** **Résumé Exécutif en Français & Lettre d'Engagement Officielle pour l'Appel d'Offres** (Dedicated French section tailored to INOVA BENIN in Cotonou and the Beninese civil society NGO tender).
 * **Page 10:** **Milestone Delivery Roadmap, Handover Runbook & Formal Bid Tender Consent Agreement** ($4,250 USD across 4 milestones, Beta launch Jan 2027, sign-off).

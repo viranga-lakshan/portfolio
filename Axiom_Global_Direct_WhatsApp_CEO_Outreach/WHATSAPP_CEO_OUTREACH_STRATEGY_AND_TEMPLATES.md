@@ -122,3 +122,4 @@ Wishing you and the team continued success! 🥂
 2. **Spacing:** Wait **2 to 3 minutes** between sending messages to different contacts.
 3. **Use WhatsApp Business App:** Download the free **WhatsApp Business** app on your phone so your profile shows "Axiom Global Technologies - Business Account" with your logo and website `https://axiomglobal.tech`.
 4. **Voice Notes (Power Tip):** If a CEO replies with interest, sending a friendly 20-second WhatsApp Voice Note introducing yourself builds instant trust and converts 4x faster into a booked Google Meet demo!
+
