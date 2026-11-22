@@ -49,3 +49,4 @@
 
 ### Follow-Up Message (Once She Sends Email or WhatsApp)
 > "Thank you so much Chef Silvana! Just sent over the 60-second video walkthrough and the complete proposal PDF to your [Email/WhatsApp]. Please take a look whenever you have a moment, and let me know if you'd like to schedule a quick 10-minute live demo with our dev team!"
+
