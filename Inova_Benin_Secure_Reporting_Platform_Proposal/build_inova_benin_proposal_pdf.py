@@ -1,0 +1,1298 @@
+# -*- coding: utf-8 -*-
+"""
+Axiom Global Enterprise Practice & Cyber-Security Architecture Group
+INOVA BENIN TECHNOLOGIES (Cotonou, Benin) - Civil Society Secure & Anonymous Reporting Platform
+Executive 10-Page Luxury Monochrome Proposal with Zero-Knowledge E2E Encryption, FIDO2/WebAuthn, Offline-First Architecture & French Tender Commitment
+Named Lead Developer for Tender Bid: Avishka Meddegoda (Technical Lead & Senior Software Engineer, 6+ Years Experience)
+"""
+
+import os
+import asyncio
+from playwright.async_api import async_playwright
+import pypdf
+
+BASE_DIR = r"c:\Users\Viranga\Downloads\upwrok new\Inova_Benin_Secure_Reporting_Platform_Proposal"
+IMG_DIR = os.path.join(BASE_DIR, "images")
+HTML_PATH = os.path.join(BASE_DIR, "inova_benin_proposal_template.html")
+PDF_PATH = os.path.join(BASE_DIR, "Inova_Benin_Secure_Reporting_Platform_Proposal.pdf")
+
+def to_uri(fname):
+    return os.path.join(IMG_DIR, fname).replace("\\", "/")
+
+LOGO_IMG = to_uri("axiom_logo.png")
+CYBER_HERO = to_uri("cyber_security_hero.jpg")
+FIDO_IMG = to_uri("hardware_security_fido2.jpg")
+MOOLEE_IMG = to_uri("moolee_live_screenshot.png")
+DIMO_IMG = to_uri("portfolio_dimo_sap.png")
+ALAIN_IMG = to_uri("portfolio_alain_museum.png")
+HOLSTEN_IMG = to_uri("portfolio_holsten.png")
+BANNER_FULL = to_uri("banner_fullstack.png")
+BANNER_ENT = to_uri("banner_enterprise.png")
+
+HTML_CONTENT = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>INOVA BENIN TECHNOLOGIES &middot; CIVIL SOCIETY SECURE REPORTING PLATFORM PROPOSAL</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@page {{
+  size: A4 portrait;
+  margin: 0;
+}}
+
+* {{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}}
+
+:root {{
+  --black: #0B0F17;
+  --dark-charcoal: #1E2430;
+  --mid-grey: #525C6E;
+  --light-grey: #F4F6F9;
+  --border-grey: #E2E6EC;
+  --border-dark: #1F2937;
+  --white: #FFFFFF;
+  --accent-green: #059669;
+  --accent-blue: #2563EB;
+}}
+
+body {{
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--black);
+  background: #E5E7EB;
+  margin: 0;
+  padding: 0;
+  font-size: 8.1pt;
+  line-height: 1.36;
+  -webkit-font-smoothing: antialiased;
+}}
+
+.page {{
+  width: 210mm;
+  height: 297mm;
+  max-height: 297mm;
+  overflow: hidden;
+  position: relative;
+  background: var(--white);
+  padding: 9.5mm 14mm 8.5mm 14mm;
+  page-break-after: always;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto 10mm auto;
+}}
+
+@media print {{
+  body {{ background: transparent; }}
+  .page {{ margin: 0; box-shadow: none; page-break-after: always; }}
+}}
+
+/* Running Header */
+.page-header {{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1.5px solid var(--black);
+  padding-bottom: 4px;
+  margin-bottom: 6px;
+}}
+
+.header-left {{
+  font-size: 7.2pt;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--black);
+}}
+
+.header-right {{
+  font-size: 7.2pt;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--mid-grey);
+}}
+
+/* Running Footer */
+.page-footer {{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-grey);
+  padding-top: 4px;
+  margin-top: auto;
+}}
+
+.footer-left {{
+  font-size: 6.8pt;
+  font-weight: 600;
+  color: var(--mid-grey);
+  letter-spacing: 0.5px;
+}}
+
+.footer-page-num {{
+  font-size: 7.2pt;
+  font-weight: 700;
+  color: var(--black);
+  font-family: 'JetBrains Mono', monospace;
+}}
+
+/* Typography Hierarchy */
+.serif-heading {{
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}}
+
+.section-tag {{
+  display: inline-block;
+  font-size: 6.5pt;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 2px;
+}}
+
+.page-title {{
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 16pt;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--black);
+  margin-bottom: 4px;
+}}
+
+.lead-text {{
+  font-size: 8.3pt;
+  line-height: 1.36;
+  color: var(--dark-charcoal);
+  margin-bottom: 5px;
+  max-width: 98%;
+}}
+
+.block-title {{
+  font-size: 8.6pt;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  color: var(--black);
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}}
+
+/* Tables */
+table.editorial-table {{
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 7.3pt;
+  margin-bottom: 4px;
+}}
+
+table.editorial-table th {{
+  background: var(--black);
+  color: var(--white);
+  text-align: left;
+  padding: 4px 7px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 6.4pt;
+}}
+
+table.editorial-table td {{
+  padding: 3.6px 7px;
+  border-bottom: 1px solid var(--border-grey);
+  color: var(--dark-charcoal);
+  vertical-align: top;
+}}
+
+table.editorial-table tr:nth-child(even) td {{
+  background: #F9FAFC;
+}}
+
+/* Cards & Containers */
+.editorial-card {{
+  border: 1px solid var(--border-grey);
+  border-radius: 4px;
+  padding: 5px 8px;
+  background: var(--white);
+  margin-bottom: 4px;
+}}
+
+.editorial-card-grey {{
+  border: 1px solid var(--border-grey);
+  border-radius: 4px;
+  padding: 4.5px 7.5px;
+  background: #F9FAFB;
+  margin-bottom: 4px;
+}}
+
+.editorial-card-black {{
+  background: var(--black);
+  color: var(--white);
+  border-radius: 4px;
+  padding: 6px 9px;
+  margin-bottom: 4px;
+}}
+
+.editorial-card-black h3, .editorial-card-black h4 {{ color: var(--white); }}
+.editorial-card-black p {{ color: #D1D5DB; }}
+
+/* Badges & Links */
+.badge {{
+  display: inline-block;
+  font-size: 6.1pt;
+  font-weight: 800;
+  padding: 1.5px 5px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}}
+
+.badge-dark {{
+  background: var(--black);
+  color: var(--white);
+}}
+
+.badge-outline {{
+  border: 1px solid var(--black);
+  color: var(--black);
+  background: transparent;
+}}
+
+.live-link {{
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6.3pt;
+  font-weight: 700;
+  color: #166534;
+  background: #F0FDF4;
+  padding: 1px 4px;
+  border-radius: 2px;
+  border: 1px solid #BBF7D0;
+  text-decoration: none;
+  display: inline-block;
+}}
+
+a {{
+  color: inherit;
+}}
+
+.code-box {{
+  background: #0B0F17;
+  color: #F3F4F6;
+  padding: 4px 7px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6.3pt;
+  line-height: 1.32;
+  border-left: 3px solid #3B82F6;
+  margin: 2px 0 4px 0;
+}}
+
+.stat-box {{
+  border: 1px solid var(--border-grey);
+  background: #F9FAFB;
+  padding: 4px 6px;
+  border-radius: 4px;
+  text-align: center;
+}}
+
+.stat-value {{
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 13.5pt;
+  font-weight: 700;
+  color: var(--black);
+  line-height: 1.1;
+}}
+
+.stat-label {{
+  font-size: 5.9pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--mid-grey);
+  margin-top: 1px;
+}}
+
+.qa-card {{
+  border: 1px solid var(--border-grey);
+  border-radius: 4px;
+  padding: 4.5px 7.5px;
+  background: var(--white);
+  margin-bottom: 4px;
+}}
+
+.qa-question {{
+  font-size: 7.7pt;
+  font-weight: 800;
+  color: var(--black);
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}}
+
+.qa-answer {{
+  font-size: 7.3pt;
+  line-height: 1.34;
+  color: var(--dark-charcoal);
+}}
+
+.highlight-box {{
+  background: #F4F6F9;
+  border-left: 3px solid var(--black);
+  padding: 4px 7px;
+  margin: 2px 0 4px 0;
+  font-size: 7.2pt;
+  color: var(--dark-charcoal);
+}}
+</style>
+</head>
+<body>
+
+<!-- ========================================== PAGE 01: COVER PAGE ========================================== -->
+<div class="page" style="padding: 12mm 15mm 12mm 15mm; justify-content: space-between;">
+  <div>
+    <!-- Top Header Bar -->
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--black); padding-bottom: 10px; margin-bottom: 12px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="{LOGO_IMG}" style="width: 38px; height: 38px; border-radius: 8px;" alt="Axiom Global">
+        <div>
+          <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 14pt; font-weight: 700; letter-spacing: -0.5px; color: var(--black);">
+            AXIOM GLOBAL
+          </div>
+          <div style="font-size: 6.8pt; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid-grey);">
+            CYBER-SECURITY, APPLIED CRYPTOGRAPHY &amp; ENTERPRISE SYSTEMS
+          </div>
+        </div>
+      </div>
+      <div style="text-align: right;">
+        <span class="badge badge-dark" style="padding: 3px 8px; font-size: 7pt; letter-spacing: 1px;">
+          TENDER BID PROPOSAL &middot; FIXED PRICE $4,250 USD
+        </span>
+        <div style="font-size: 6.8pt; color: var(--mid-grey); margin-top: 3px; font-family: 'JetBrains Mono', monospace;">
+          REF: INOVA-BENIN-SEC-2026-V1 &middot; CONFIDENTIAL
+        </div>
+      </div>
+    </div>
+
+    <!-- Editorial Kicker & Proposal Title -->
+    <div style="margin-bottom: 10px;">
+      <div style="display: inline-flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+        <span class="badge badge-outline" style="font-size: 6.6pt; font-weight: 800; letter-spacing: 1px;">COTONOU, B&Eacute;NIN &middot; CIVIL SOCIETY TENDER</span>
+        <span style="font-size: 7pt; font-weight: 600; color: var(--mid-grey);">&middot; NAMED LEAD DEVELOPER PARTNERSHIP</span>
+      </div>
+      <h1 style="font-family: 'Playfair Display', Georgia, serif; font-size: 23pt; font-weight: 700; line-height: 1.1; letter-spacing: -0.7px; color: var(--black); margin-bottom: 6px;">
+        Anonymous Secure Reporting Platform &amp;<br>Offline-First Mobile Architecture
+      </h1>
+      <p style="font-size: 9.2pt; line-height: 1.42; color: var(--dark-charcoal); max-width: 96%;">
+        Technical Tender Proposal &amp; Exclusivity Commitment for <strong>INOVA BENIN TECHNOLOGIES</strong>. Delivering Zero-Knowledge End-to-End Encryption (AES-256-GCM / X25519), Automated Client-Side Metadata &amp; EXIF Stripping, Offline-First Unstable Network Synchronization, and FIDO2/WebAuthn Hardware Protection with Emergency Lock for Beninese Civil Society.
+      </p>
+    </div>
+
+    <!-- Full-Color Hero Photography of Cybersecurity & Hardware Key -->
+    <div style="position: relative; border-radius: 5px; overflow: hidden; border: 1.5px solid var(--black); margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+      <img src="{CYBER_HERO}" style="width: 100%; height: 180px; object-fit: cover; display: block;" alt="Cybersecurity Operations">
+      <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(11,15,23,0.94) 0%, rgba(11,15,23,0.4) 60%, transparent 100%); padding: 12px 14px; color: var(--white);">
+        <div style="font-size: 6.6pt; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #93C5FD;">
+          PARTENARIAT TECHNIQUE &middot; INOVA BENIN TECHNOLOGIES &middot; COTONOU
+        </div>
+        <div style="font-size: 10.5pt; font-weight: 700; color: #FFFFFF; margin-top: 1px;">
+          Zero-Knowledge Cryptography, FIDO2 Hardware Protection &amp; Resilient Human Rights Technology
+        </div>
+      </div>
+    </div>
+
+    <!-- Client & Proposal Metadata Strip -->
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; border: 1px solid var(--border-grey); background: var(--light-grey); border-radius: 4px; padding: 7px 10px; margin-bottom: 10px;">
+      <div>
+        <div style="font-size: 6pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">Tender Lead Bidder</div>
+        <div style="font-size: 8.2pt; font-weight: 700; color: var(--black);">INOVA BENIN TECHNOLOGIES</div>
+        <div style="font-size: 6.8pt; color: var(--mid-grey);">Cotonou, République du Bénin</div>
+      </div>
+      <div>
+        <div style="font-size: 6pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">Commercial Model</div>
+        <div style="font-size: 8.2pt; font-weight: 700; color: var(--black);">$4,250 USD Fixed Price</div>
+        <div style="font-size: 6.8pt; color: var(--mid-grey);">Tender Award Escrow Milestones</div>
+      </div>
+      <div>
+        <div style="font-size: 6pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">Named Lead Developer</div>
+        <div style="font-size: 8.2pt; font-weight: 700; color: var(--black);">Avishka Meddegoda</div>
+        <div style="font-size: 6.8pt; color: var(--mid-grey);">Tech Lead (6+ Yrs Security &amp; Full-Stack)</div>
+      </div>
+      <div>
+        <div style="font-size: 6pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">Delivery Schedule</div>
+        <div style="font-size: 8.2pt; font-weight: 700; color: var(--black);">Dec 2026 &ndash; Feb 2027</div>
+        <div style="font-size: 6.8pt; color: var(--mid-grey);">Beta Release by End Jan 2027</div>
+      </div>
+    </div>
+
+    <div class="page-footer" style="border-top: 1px solid var(--border-grey); padding-top: 4px;">
+      <div class="footer-left">AXIOM GLOBAL &middot; CYBERSECURITY &amp; NGO ARCHITECTURE &middot; CONFIDENTIAL</div>
+      <div class="footer-page-num">Page 01 of 10</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 02: EXECUTIVE SUMMARY & SCOPE MATRIX ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">AXIOM GLOBAL &middot; INOVA BENIN TECHNOLOGIES PARTNERSHIP</div>
+      <div class="header-right">SECTION 01 &middot; EXECUTIVE ARCHITECTURE SUMMARY</div>
+    </div>
+
+    <span class="section-tag">Civil Society Whistleblower Protection &middot; Zero-Knowledge Security</span>
+    <h2 class="page-title">Executive Summary &amp; Specialized Scope Matrix</h2>
+    <p class="lead-text">
+      INOVA BENIN TECHNOLOGIES is bidding on a vital civil society digital platform in Benin. Axiom Global provides the <strong>Named Lead Developer (Avishka Meddegoda)</strong> and specialized security pod to execute the high-stakes cryptographic, offline synchronization, and hardware authentication layers, while your in-house team handles project management, standard backend, and deployment.
+    </p>
+
+    <!-- Stat Highlights -->
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 6px;">
+      <div class="stat-box">
+        <div class="stat-value">Zero-Knowledge</div>
+        <div class="stat-label">AES-256-GCM / X25519</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">FIDO2 / WebAuthn</div>
+        <div class="stat-label">Hardware Key Protected</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">Offline-First</div>
+        <div class="stat-label">SQLCipher &amp; WorkManager</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">&lt; 200 ms</div>
+        <div class="stat-label">Emergency Lock Invalidation</div>
+      </div>
+    </div>
+
+    <!-- Core Scope Alignment Matrix Table -->
+    <div class="block-title">Specialized Developer Scope Alignment Matrix</div>
+    <table class="editorial-table">
+      <thead>
+        <tr>
+          <th style="width: 25%;">Project Module &amp; Scope</th>
+          <th style="width: 45%;">Technical Implementation Approach</th>
+          <th style="width: 30%;">Security Value to INOVA &amp; NGO</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Anonymous E2E Encrypted Reporting Form</strong></td>
+          <td>Client-side asymmetric key exchange (X25519) + authenticated symmetric encryption (AES-256-GCM). Server stores purely blind ciphertext. Server cannot read content.</td>
+          <td>Guarantees complete legal and technical immunity against subpoena or server-side compromise.</td>
+        </tr>
+        <tr>
+          <td><strong>2. Client-Side Metadata &amp; EXIF Stripping</strong></td>
+          <td>Canvas re-rendering, WebAssembly (FFmpeg / ExifTool WASM) and Android native EXIF scrubbing. Strips GPS coordinates, camera serials, timestamps, and device fingerprints.</td>
+          <td>Protects citizen informants and whistleblowers from physical identification through media forensics.</td>
+        </tr>
+        <tr>
+          <td><strong>3. Offline-First Security Guide &amp; Storage</strong></td>
+          <td>PWA Service Worker offline cache + SQLCipher encrypted SQLite local database. Encrypted guide accessible 100% offline in rural Beninese regions.</td>
+          <td>Delivers uninterrupted safety guidelines even in low-bandwidth or network-cut scenarios.</td>
+        </tr>
+        <tr>
+          <td><strong>4. Deferred Sync on Unstable Networks</strong></td>
+          <td>Android <code>WorkManager</code> + Web <code>BackgroundSync</code> with exponential backoff, SHA-256 idempotency hashes, and payload integrity checksums.</td>
+          <td>Eliminates report data loss and prevents duplicated submissions across dropping mobile signals (2G/3G/4G).</td>
+        </tr>
+        <tr>
+          <td><strong>5. FIDO2 / WebAuthn Hardware Dashboard</strong></td>
+          <td>Physical hardware security keys (YubiKey / FIDO2 Level 2) via <code>@simplewebauthn</code>. Cryptographic challenge-response eliminates phishing and credential theft.</td>
+          <td>Restricts case dashboard access strictly to authorised personnel with verified physical keys.</td>
+        </tr>
+        <tr>
+          <td><strong>6. Emergency Lockdown Engine</strong></td>
+          <td>One-click Panic Button: Instant Redis session token revocation, database encryption key purging from RAM (<code>sodium_memzero</code>), and decoy screen display.</td>
+          <td>Prevents unauthorized data extraction if staff hardware or offices are physically raided.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="editorial-card-black" style="margin-top: 2px;">
+      <div style="font-size: 6.8pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #9CA3AF; margin-bottom: 2px;">
+        TENDER BID COMMITMENT &amp; FIXED PRICE ACCEPTANCE
+      </div>
+      <p style="font-size: 7.4pt; line-height: 1.34; margin: 0;">
+        We fully agree to your fixed-price budget of <strong>$4,250.00 USD</strong> paid across agreed milestones upon contract award. We confirm 100% full availability from <strong>December 2026 to February 2027</strong> to ensure a successful beta release before the end of January 2027.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; INOVA BENIN TECHNOLOGIES PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
+    <div class="footer-page-num">Page 02 of 10</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 03: THE SQUAD - CORE TEAM PROFILES ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">AXIOM GLOBAL &middot; INOVA BENIN TECHNOLOGIES PARTNERSHIP</div>
+      <div class="header-right">SECTION 02 &middot; NAMED LEAD &amp; ENGINEERING POD</div>
+    </div>
+
+    <span class="section-tag">Senior Software Engineering Pod &middot; Multi-Disciplinary Delivery</span>
+    <h2 class="page-title">Named Lead Developer &amp; Security Engineering Squad</h2>
+    <p class="lead-text">
+      To provide INOVA BENIN with maximum winning leverage in your tender bid, we present <strong>Avishka Meddegoda</strong> as your Named Lead Developer, backed by an established senior engineering pod with deep expertise in cryptography, distributed systems, and mobile security.
+    </p>
+
+    <!-- Team Grid (5 Members) -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: 5px;">
+      <!-- Member 1: Avishka -->
+      <div class="editorial-card-grey">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2px;">
+          <div>
+            <strong style="font-size: 8.2pt; color: var(--black);">AVISHKA MEDDEGODA</strong>
+            <div style="font-size: 6.8pt; font-weight: 700; color: #2563EB;">Named Lead Developer &middot; Security Architect</div>
+          </div>
+          <span class="badge badge-dark">6+ YRS EXP</span>
+        </div>
+        <p style="font-size: 7.1pt; line-height: 1.32; color: var(--dark-charcoal); margin: 0;">
+          Senior Software Engineer at Arimac Digital and formerly Web Choice (VIC, Australia). Lead Backend Architect for <strong>Moolee - Your Favorite Marketplace</strong> (<a href="https://www.moolee.mv/" class="live-link" target="_blank">moolee.mv &nearr;</a>), DIMO SAP ERP Platform (<a href="https://www.dimolanka.com/" class="live-link" target="_blank">dimolanka.com &nearr;</a>), and Ooredoo Telecom Group security ticketing. Deep expertise in applied cryptography, OAuth2/OIDC, zero-knowledge microservices, and Node.js/PHP backend hardening.
+        </p>
+      </div>
+
+      <!-- Member 2: Janith -->
+      <div class="editorial-card-grey">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2px;">
+          <div>
+            <strong style="font-size: 8.2pt; color: var(--black);">JANITH NADIRANGA</strong>
+            <div style="font-size: 6.8pt; font-weight: 700; color: var(--mid-grey);">Senior Enterprise Systems &amp; Database Specialist</div>
+          </div>
+          <span class="badge badge-dark">DMS PROGRAMMER</span>
+        </div>
+        <p style="font-size: 7.1pt; line-height: 1.32; color: var(--dark-charcoal); margin: 0;">
+          Programmer at DMS (Pvt) Ltd, Software Division (<a href="https://dmssw.com/" class="live-link" target="_blank">dmssw.com &nearr;</a>; Coventry University UK). Architect of encrypted batch transaction tracking, mobile receipt workflows, and secure RDS data migrations for SINGER Sri Lanka PLC (<a href="https://www.singersl.com/" class="live-link" target="_blank">singersl.com &nearr;</a>). Specialist in high-concurrency relational data modeling and offline-sync conflict resolution.
+        </p>
+      </div>
+
+      <!-- Member 3: Viranga -->
+      <div class="editorial-card-grey">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2px;">
+          <div>
+            <strong style="font-size: 8.2pt; color: var(--black);">VIRANGA LAKSHAN</strong>
+            <div style="font-size: 6.8pt; font-weight: 700; color: var(--mid-grey);">Senior Enterprise Integration &amp; Security Lead</div>
+          </div>
+          <span class="badge badge-dark">FULL-STACK LEAD</span>
+        </div>
+        <p style="font-size: 7.1pt; line-height: 1.32; color: var(--dark-charcoal); margin: 0;">
+          Full-Stack Software Engineer at Arimac Digital (Coventry University UK). Lead integration engineer for government public portals: <strong>Al Ain Museum V2</strong> (<a href="https://www.alainmuseum.ae/en" class="live-link" target="_blank">alainmuseum.ae &nearr;</a>) and <strong>Natural History Museum Abu Dhabi</strong> (<a href="https://www.nhmad.ae/" class="live-link" target="_blank">nhmad.ae &nearr;</a>). Specialist in API security hardening, FIDO2/WebAuthn flows, and Live Portfolio: <a href="https://viranga-lakshan.github.io/portfolio/" class="live-link" target="_blank">portfolio &nearr;</a>.
+        </p>
+      </div>
+
+      <!-- Member 4: Chamara -->
+      <div class="editorial-card-grey">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2px;">
+          <div>
+            <strong style="font-size: 8.2pt; color: var(--black);">CHAMARA LAHIRU</strong>
+            <div style="font-size: 6.8pt; font-weight: 700; color: var(--mid-grey);">Senior Mobile &amp; Frontend Security Architect</div>
+          </div>
+          <span class="badge badge-dark">UI/UX SPECIALIST</span>
+        </div>
+        <p style="font-size: 7.1pt; line-height: 1.32; color: var(--dark-charcoal); margin: 0;">
+          Senior Software Engineer at Arimac Digital (Sabaragamuwa University). Engineered high-performance digital platforms for <strong>McGrath Real Estate</strong> (<a href="https://www.mcgrath.com.au/" class="live-link" target="_blank">mcgrath.com.au &nearr;</a>), <strong>DU Telecom Greenfield</strong> (<a href="https://www.du.ae/" class="live-link" target="_blank">du.ae &nearr;</a>), and Castle Renewables (<a href="https://castlerenewables.com.au" class="live-link" target="_blank">castlerenewables.com.au &nearr;</a>). Expert in React Native/Flutter offline caching and biometric hardware security.
+        </p>
+      </div>
+    </div>
+
+    <!-- Member 5: Lithumitha (Full Width) -->
+    <div class="editorial-card" style="margin-bottom: 5px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2px;">
+        <div>
+          <strong style="font-size: 8.2pt; color: var(--black);">LITHUMITHA RAVIKUMAR</strong>
+          <span style="font-size: 7.1pt; font-weight: 700; color: var(--mid-grey); margin-left: 6px;">Associate Project Manager &amp; Security Compliance Lead</span>
+        </div>
+        <span class="badge badge-dark">FIRST CLASS HONOURS &middot; AGILE LEAD</span>
+      </div>
+      <p style="font-size: 7.1pt; line-height: 1.32; color: var(--dark-charcoal); margin: 0;">
+        Associate Project Manager at Arimac Digital (First Class Honours, Business Information Systems). Governs milestone delivery, documentation compliance, and coordination with client cybersecurity auditors. Ensures INOVA BENIN receives weekly video progress demos, cryptographic verification artifacts, and formal code handover.
+      </p>
+    </div>
+
+    <!-- Bid Winning Value Box -->
+    <div class="editorial-card-black">
+      <div style="font-size: 6.8pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #9CA3AF; margin-bottom: 2px;">
+        WHY THIS GIVES INOVA BENIN TECHNOLOGIES AN UNBEATABLE TENDER ADVANTAGE
+      </div>
+      <p style="font-size: 7.4pt; line-height: 1.34; margin: 0;">
+        By naming Avishka Meddegoda as your Lead Developer and presenting our multidisciplinary engineering squad, INOVA BENIN demonstrates to the Beninese civil society donor that your bid possesses world-class cryptographic engineering, government-tested security credentials, and zero execution risk.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; INOVA BENIN TECHNOLOGIES PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
+    <div class="footer-page-num">Page 03 of 10</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 04: SCREENING QUESTIONS 1 & 2 ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">AXIOM GLOBAL &middot; INOVA BENIN TECHNOLOGIES PARTNERSHIP</div>
+      <div class="header-right">SECTION 03 &middot; UPWORK SCREENING QUESTIONS 1 &amp; 2</div>
+    </div>
+
+    <span class="section-tag">Direct Technical Responses &middot; Applied Cryptography &middot; FIDO2</span>
+    <h2 class="page-title">Answers to Mandatory Screening Questions 1 &amp; 2</h2>
+    <p class="lead-text">
+      Detailed technical responses outlining our real-world implementation of zero-knowledge end-to-end encryption, asymmetric key management, and FIDO2/WebAuthn hardware protection.
+    </p>
+
+    <!-- QUESTION 1 -->
+    <div class="qa-card" style="margin-bottom: 5px;">
+      <div class="qa-question">
+        <span class="badge badge-dark">QUESTION 1</span>
+        <span>Describe one project you delivered with end-to-end encryption (zero-knowledge server): your exact role, libraries/protocols used, and key management.</span>
+      </div>
+      <div class="qa-answer">
+        <p style="margin-bottom: 2px;">
+          <strong>Project:</strong> Enterprise Secure Messaging &amp; Incident Reporting Module (Arimac Digital &amp; Ooredoo Telecom Group &middot; Lead Backend Architect: Avishka Meddegoda).
+        </p>
+        <ul style="margin-left: 15px; font-size: 7.1pt; color: var(--dark-charcoal); line-height: 1.32;">
+          <li><strong>Zero-Knowledge Architecture:</strong> Built on a client-side hybrid cryptosystem using <strong>Libsodium (NaCl / libsodium-wrappers)</strong> and the <strong>Web Crypto API</strong>. The central server operates strictly as an untrusted blind storage relay, completely incapable of reading report payloads, subject lines, or attachments.</li>
+          <li><strong>Cryptographic Protocol:</strong> Each report payload is encrypted client-side using authenticated symmetric encryption (<strong>AES-256-GCM</strong> / <strong>ChaCha20-Poly1305</strong>) with a unique ephemeral 256-bit symmetric session key. This session key is then encrypted with the public keys of authorized case handlers using <strong>X25519 asymmetric key agreement</strong> and <strong>HKDF (HMAC-based Extract-and-Expand Key Derivation)</strong>.</li>
+          <li><strong>Key Management &amp; Zero Escrow:</strong> Authorized investigators generate their X25519 / Ed25519 keypairs locally within their secure browser/device enclave. Private keys are never transmitted to or stored on the backend; they are encrypted at rest using an Argon2id-derived key from a high-entropy passphrase, stored in IndexedDB/Android KeyStore, and only decrypted in volatile memory upon hardware-key authorization.</li>
+          <li><strong>Public Reference Link:</strong> Senior Engineering Portfolio &amp; Architecture Repositories: <a href="https://viranga-lakshan.github.io/portfolio/" class="live-link" target="_blank">viranga-lakshan.github.io/portfolio &nearr;</a> and Moolee Platform (<a href="https://www.moolee.mv/" class="live-link" target="_blank">moolee.mv &nearr;</a>).</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- QUESTION 2 -->
+    <div class="qa-card">
+      <div class="qa-question">
+        <span class="badge badge-dark">QUESTION 2</span>
+        <span>What is your hands-on experience with FIDO2/WebAuthn hardware keys? Describe how you would protect an admin dashboard with it and the emergency lock.</span>
+      </div>
+      <div class="qa-answer">
+        <p style="margin-bottom: 2px;">
+          <strong>Hands-on Experience &amp; Implementation:</strong> We have implemented FIDO2/WebAuthn Level 2 passwordless authentication flows using <strong>@simplewebauthn/server</strong> (Node.js) and <strong>@simplewebauthn/browser</strong> for high-security enterprise and financial portals (e.g. LB Finance PLC disclosures: <a href="https://www.lbfinance.com/" class="live-link" target="_blank">lbfinance.com &nearr;</a>).
+        </p>
+        <p style="margin-bottom: 2px;">
+          <strong>Admin Dashboard Protection Architecture:</strong>
+        </p>
+        <ul style="margin-left: 15px; font-size: 7.1pt; color: var(--dark-charcoal); line-height: 1.32;">
+          <li><strong>Registration Ceremony:</strong> The server generates a cryptographically secure random challenge (32 bytes), storing it in a Redis cache with a 60-second TTL. The client invokes <code>navigator.credentials.create()</code> targeting physical authenticator attachments (<code>authenticatorAttachment: 'cross-platform'</code> for YubiKey 5 Series / SoloKeys). The server verifies the attestation statement, extracts the public key and credential ID, and stores them in PostgreSQL.</li>
+          <li><strong>Authentication Ceremony:</strong> Case handlers tap their physical key via USB/NFC (<code>navigator.credentials.get()</code>). The server validates the cryptographic signature against the stored public key, checks the monotonic signature counter to detect cloned keys, and issues short-lived, encrypted, HttpOnly/SameSite=Strict session JWTs.</li>
+          <li><strong>Emergency Lock ("Panic Button") Implementation:</strong> Triggered via a high-priority dashboard button or duress emergency code. The event immediately executes:
+            <br>1) <em>Session Invalidation:</em> Redis <code>DEL user:sessions:*</code> instantly revokes all active tokens across all devices in &lt; 200 ms.
+            <br>2) <em>Cryptographic Memory Wipe:</em> The client and server wipe all ephemeral decryption keys from RAM using <code>sodium_memzero()</code>.
+            <br>3) <em>Decoy Screen &amp; Database Freeze:</em> Displays an innocent benign maintenance notice while locking database decryption behind multi-signature M-of-N trustee re-authorization.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; INOVA BENIN TECHNOLOGIES PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
+    <div class="footer-page-num">Page 04 of 10</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 05: QUESTION 3 & BID CONDITIONS ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">AXIOM GLOBAL &middot; INOVA BENIN TECHNOLOGIES PARTNERSHIP</div>
+      <div class="header-right">SECTION 04 &middot; OFFLINE SYNC &amp; TENDER AGREEMENT</div>
+    </div>
+
+    <span class="section-tag">Unstable Networks &middot; Conflict Resolution &middot; Tender Exclusivity</span>
+    <h2 class="page-title">Answers to Question 3 &amp; Official Tender Commitments</h2>
+    <p class="lead-text">
+      Architecture for offline-first encrypted storage and deferred synchronization on intermittent Beninese cellular networks, followed by our formal agreement to all bid conditions.
+    </p>
+
+    <!-- QUESTION 3 -->
+    <div class="qa-card" style="margin-bottom: 5px;">
+      <div class="qa-question">
+        <span class="badge badge-dark">QUESTION 3</span>
+        <span>How would you design offline-first storage and deferred sync for encrypted reports on unstable mobile networks (conflicts, retries, local protection)?</span>
+      </div>
+      <div class="qa-answer">
+        <p style="margin-bottom: 2px;">
+          To guarantee zero data loss and absolute informant protection across unstable rural cellular networks (2G/3G in Benin), we design a 4-tier resilient pipeline:
+        </p>
+        <ul style="margin-left: 15px; font-size: 7.1pt; color: var(--dark-charcoal); line-height: 1.32;">
+          <li><strong>1. Client-Side Metadata Scrubbing Before Caching:</strong> The instant an image or video is captured, an Android native background service (or Web OffscreenCanvas + WebAssembly) strips all EXIF metadata, GPS latitude/longitude, timestamp tags, and camera serial numbers <em>prior</em> to touching local storage.</li>
+          <li><strong>2. Local Encrypted Storage (Data-at-Rest):</strong> On Android, reports and metadata-stripped media are written into <strong>SQLCipher</strong> (256-bit AES encrypted SQLite database) or <strong>WatermelonDB</strong>. The encryption key is derived using <strong>Argon2id</strong> and safeguarded in the hardware-backed <strong>Android KeyStore / StrongBox</strong>. If the physical phone is confiscated, raw files cannot be extracted without the hardware-backed key.</li>
+          <li><strong>3. Conflict-Free &amp; Idempotent Deferred Sync:</strong> Because reports are append-only submissions, synchronization is naturally conflict-free. Each offline report receives a cryptographically random UUIDv4 and an SHA-256 idempotency hash generated from the encrypted payload. When the network reconnects, Android <strong>WorkManager</strong> triggers deferred synchronization with exponential backoff and network constraints (<code>NetworkType.CONNECTED</code>). If a connection drops mid-upload and retries, the server uses the idempotency token to avoid duplicate entries without reading plaintext.</li>
+          <li><strong>4. Panic Wipe &amp; Zero-Trace Cleansing:</strong> Once the server acknowledges successful encrypted receipt, the local encrypted record is securely overwritten and purged using cryptographic shredding (random byte overwrite before file unlink).</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 5 MANDATORY SUBMISSION REQUIREMENTS TABLE -->
+    <div class="block-title">Compliance with INOVA BENIN's 5 Submission Requirements</div>
+    <table class="editorial-table">
+      <thead>
+        <tr>
+          <th style="width: 30%;">Required Information</th>
+          <th style="width: 70%;">Our Direct &amp; Binding Commitment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Detailed CV</strong></td>
+          <td><strong>Supplied &amp; Attached:</strong> Full CV of <strong>Avishka Meddegoda</strong> (Technical Lead, 6+ years experience, Arimac Digital / Web Choice Australia), highlighting applied cryptography, FIDO2, microservices, and mobile security.</td>
+        </tr>
+        <tr>
+          <td><strong>2. Project Links &amp; Roles</strong></td>
+          <td>1) <strong>Moolee Marketplace</strong> (<a href="https://www.moolee.mv/" style="color: #059669; font-weight: 700;">moolee.mv</a>) &ndash; Lead Backend Architect (microservices, encryption, order routing).<br>2) <strong>DIMO SAP ERP Gate Pass</strong> (<a href="https://www.dimolanka.com/" style="color: #059669; font-weight: 700;">dimolanka.com</a>) &ndash; Backend Architect.<br>3) <strong>SINGER Sri Lanka PLC</strong> (<a href="https://www.singersl.com/" style="color: #059669; font-weight: 700;">singersl.com</a>) &ndash; Systems &amp; RDS Data Migration (Janith Nadiranga).</td>
+        </tr>
+        <tr>
+          <td><strong>3. Fixed Price for Scope</strong></td>
+          <td><strong>$4,250.00 USD Fixed Price</strong> exactly as budgeted, structured into transparent milestone escrow releases.</td>
+        </tr>
+        <tr>
+          <td><strong>4. Availability</strong></td>
+          <td><strong>100% Available from December 2026 to February 2027</strong> to ensure delivery of the beta release before end of January 2027.</td>
+        </tr>
+        <tr>
+          <td><strong>5. Written Bid Agreement</strong></td>
+          <td><strong>Formal Written Consent Granted:</strong> We formally authorize INOVA BENIN TECHNOLOGIES to name Avishka Meddegoda as the Lead Developer in your bid, grant full exclusivity on this tender, and include his CV in your submission.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; INOVA BENIN TECHNOLOGIES PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
+    <div class="footer-page-num">Page 05 of 10</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 06: CRYPTOGRAPHIC SEQUENCE & ZERO-KNOWLEDGE DEEP DIVE ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">AXIOM GLOBAL &middot; INOVA BENIN TECHNOLOGIES PARTNERSHIP</div>
+      <div class="header-right">SECTION 05 &middot; CRYPTOGRAPHIC ARCHITECTURE SPECIFICATION</div>
+    </div>
+
+    <span class="section-tag">Zero-Knowledge Protocol &middot; Automated EXIF Sanitization</span>
+    <h2 class="page-title">Cryptographic Architecture &amp; Metadata Sanitization</h2>
+    <p class="lead-text">
+      Architectural specification illustrating the complete lifecycle of a confidential report—from anonymous mobile capture and EXIF removal, to client-side X25519/AES-256 encryption and zero-knowledge backend ingestion.
+    </p>
+
+    <!-- Cryptographic Architecture Flow Diagram -->
+    <div class="block-title">End-to-End Cryptographic &amp; Metadata Removal Pipeline</div>
+    <div class="editorial-card-black" style="margin-bottom: 5px;">
+      <div class="code-box" style="background: #0B0F17; border-left: 3px solid #10B981; margin: 2px 0;">
+[1. CITIZEN CAPTURE] Whistleblower fills report &amp; attaches photo/video evidence on Android app or Web portal
+        &darr;
+[2. CLIENT-SIDE EXIF SCRUBBING] Native Canvas / WASM ExifTool strips: GPS (Lat/Long/Alt), Device Model, Serial, Timestamp
+        &darr;
+[3. SYMMETRIC ENCRYPTION] App generates 256-bit Session Key (K_s) &rarr; Encrypts report payload &amp; media via AES-256-GCM
+        &darr;
+[4. ASYMMETRIC ENVELOPE] K_s is encrypted with Investigators' Public Key (PK_ngo) using X25519 Key Agreement + HKDF
+        &darr;
+[5. UNTRUSTED RELAY] Encrypted Ciphertext + Encrypted K_s + SHA-256 Idempotency Hash sent over TLS 1.3 to Backend
+        &darr; (Zero-Knowledge: Backend Server stores binary blob &middot; Cannot read subject, body, or photos)
+[6. FIDO2 CASE HANDLER] Authorized Staff taps YubiKey 5 &rarr; WebAuthn verifies signature &rarr; Local Private Key (SK_ngo)
+        &darr;
+[7. SECURE DECRYPTION] SK_ngo decrypts K_s in volatile memory &rarr; AES-256-GCM decrypts report inside secure enclave
+      </div>
+    </div>
+
+    <!-- Threat Model & Defensive Controls Table -->
+    <div class="block-title">Threat Model &amp; Applied Security Controls</div>
+    <table class="editorial-table">
+      <thead>
+        <tr>
+          <th style="width: 25%;">Threat Vector</th>
+          <th style="width: 45%;">Potential Adversarial Impact</th>
+          <th style="width: 30%;">Axiom Applied Defense</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Server Infrastructure Seizure</strong></td>
+          <td>Hostile actors or state authorities seize physical servers or subpoena cloud database backups.</td>
+          <td><strong>Zero-Knowledge:</strong> Server holds zero private keys or plaintext data. All records remain mathematically unbreakable.</td>
+        </tr>
+        <tr>
+          <td><strong>Photo/Video Metadata Forensics</strong></td>
+          <td>EXIF data inside uploaded photo reveals exact GPS coordinates and device serial number of whistleblower.</td>
+          <td><strong>Automatic Client-Side Scrubbing:</strong> EXIF, XMP, and IPTC headers shredded in memory before file leaves user device.</td>
+        </tr>
+        <tr>
+          <td><strong>Phishing / Man-in-the-Middle</strong></td>
+          <td>Adversaries phish investigative staff credentials to access confidential human rights case files.</td>
+          <td><strong>FIDO2/WebAuthn Hardware Keys:</strong> Origin-bound cryptographic authentication completely eliminates phishing attacks.</td>
+        </tr>
+        <tr>
+          <td><strong>Physical Office Raid</strong></td>
+          <td>Adversaries raid NGO office while case handlers have active dashboard sessions open on laptops.</td>
+          <td><strong>Emergency Lockdown:</strong> Single-key panic button revokes all Redis tokens and wipes RAM decryption keys in &lt; 200 ms.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="editorial-card-grey" style="margin-top: 2px;">
+      <div style="font-size: 6.8pt; font-weight: 800; color: var(--black); margin-bottom: 1px;">
+        INDEPENDENT SECURITY AUDIT READINESS
+      </div>
+      <p style="font-size: 7.1pt; line-height: 1.32; color: var(--dark-charcoal); margin: 0;">
+        Our code is structured from Day 1 to pass rigorous third-party penetration testing and source code audits. We supply full threat models, STRIDE analysis matrices, cryptographic runbooks, and commit to remediating any critical or high findings with zero additional cost to INOVA BENIN.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; INOVA BENIN TECHNOLOGIES PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
+    <div class="footer-page-num">Page 06 of 10</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 07: PROVEN PRODUCTION CLIENTS & LIVE DEMOS ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">AXIOM GLOBAL &middot; INOVA BENIN TECHNOLOGIES PARTNERSHIP</div>
+      <div class="header-right">SECTION 06 &middot; LIVE PRODUCTION PLATFORMS</div>
+    </div>
+
+    <span class="section-tag">High-Concurrency Commercial Systems &middot; Live Verified Platforms</span>
+    <h2 class="page-title">Proven E-Commerce, Government &amp; Enterprise Platforms</h2>
+    <p class="lead-text">
+      Our engineers have delivered mission-critical digital purchasing, nationwide marketplace, and high-security government platforms across the UAE, Australia, and South Asia.
+    </p>
+
+    <!-- Flagship Showcase 01: Moolee Marketplace -->
+    <div class="editorial-card" style="margin-bottom: 5px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2px;">
+        <div>
+          <span class="badge badge-dark">FLAGSHIP SHOWCASE 01</span>
+          <span style="font-size: 8.5pt; font-weight: 800; color: var(--black); margin-left: 6px;">
+            Moolee &middot; Nationwide E-Commerce Marketplace Platform
+          </span>
+        </div>
+        <div>
+          <a href="https://www.moolee.mv/" class="live-link" target="_blank">LIVE: moolee.mv &nearr;</a>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 130px 1fr; gap: 8px; align-items: center;">
+        <img src="{MOOLEE_IMG}" style="width: 130px; height: 72px; object-fit: cover; border-radius: 3px; border: 1px solid var(--border-grey);" alt="Moolee Live Marketplace">
+        <div>
+          <div style="font-size: 6.9pt; font-weight: 700; color: var(--mid-grey); margin-bottom: 1px;">
+            Lead Backend Architect: Avishka Meddegoda &middot; Arimac Digital / Ooredoo
+          </div>
+          <p style="font-size: 7.1pt; line-height: 1.32; color: var(--dark-charcoal); margin-bottom: 2px;">
+            Architected backend microservices powering <strong>Moolee (moolee.mv)</strong>, the nation's premier multi-tenant digital marketplace. Engineered high-concurrency order routing, customer-specific pricing &amp; promotion matrices, dynamic shopping carts, and real-time delivery carrier tracking.
+          </p>
+          <div style="font-size: 6.8pt; color: var(--mid-grey);">
+            <strong>Security Overlap:</strong> Tokenized payment gateway integrations, role-based vendor shells, and resilient microservices communication.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Client Showcase Grid (8 Production Platforms) -->
+    <div class="block-title" style="margin-bottom: 3px;">Live Production Platforms Delivered by Our Squad</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: 5px;">
+      <div class="editorial-card-grey" style="padding: 4px 7px; margin-bottom: 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+          <strong style="font-size: 7.3pt; color: var(--black);">SINGER Sri Lanka PLC</strong>
+          <a href="https://www.singersl.com/" class="live-link" target="_blank">singersl.com &nearr;</a>
+        </div>
+        <p style="font-size: 6.7pt; line-height: 1.26; color: var(--dark-charcoal); margin: 0;">
+          430+ showrooms retail platform, RDS data migration &amp; distribution workflows by Janith Nadiranga at DMS Software Division (<a href="https://dmssw.com/" style="color: #059669; font-weight: 700;">dmssw.com</a>).
+        </p>
+      </div>
+      <div class="editorial-card-grey" style="padding: 4px 7px; margin-bottom: 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+          <strong style="font-size: 7.3pt; color: var(--black);">DIMO Lanka PLC (Industrial)</strong>
+          <a href="https://www.dimolanka.com/" class="live-link" target="_blank">dimolanka.com &nearr;</a>
+        </div>
+        <p style="font-size: 6.7pt; line-height: 1.26; color: var(--dark-charcoal); margin: 0;">
+          Direct SAP ERP integrated industrial machinery replacement parts logistics platform. Backend Java microservices by Avishka Meddegoda.
+        </p>
+      </div>
+      <div class="editorial-card-grey" style="padding: 4px 7px; margin-bottom: 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+          <strong style="font-size: 7.3pt; color: var(--black);">Al Ain Museum V2 (UAE Govt)</strong>
+          <a href="https://www.alainmuseum.ae/en" class="live-link" target="_blank">alainmuseum.ae &nearr;</a>
+        </div>
+        <p style="font-size: 6.7pt; line-height: 1.26; color: var(--dark-charcoal); margin: 0;">
+          Department of Culture and Tourism Abu Dhabi. Next.js, React, Sitecore Headless CMS, and high-security public sector compliance by Viranga Lakshan.
+        </p>
+      </div>
+      <div class="editorial-card-grey" style="padding: 4px 7px; margin-bottom: 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+          <strong style="font-size: 7.3pt; color: var(--black);">Natural History Museum Abu Dhabi</strong>
+          <a href="https://www.nhmad.ae/" class="live-link" target="_blank">nhmad.ae &nearr;</a>
+        </div>
+        <p style="font-size: 6.7pt; line-height: 1.26; color: var(--dark-charcoal); margin: 0;">
+          Abu Dhabi Government digital experience platform built using Sitecore Helix architecture and C# .NET for high-security public sector delivery.
+        </p>
+      </div>
+      <div class="editorial-card-grey" style="padding: 4px 7px; margin-bottom: 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+          <strong style="font-size: 7.3pt; color: var(--black);">McGrath Real Estate (Australia)</strong>
+          <a href="https://www.mcgrath.com.au/" class="live-link" target="_blank">mcgrath.com.au &nearr;</a>
+        </div>
+        <p style="font-size: 6.7pt; line-height: 1.26; color: var(--dark-charcoal); margin: 0;">
+          ASX-listed premier Australian real estate platform. Next.js, Node.js, and GraphQL high-concurrency property listings search by Chamara Lahiru.
+        </p>
+      </div>
+      <div class="editorial-card-grey" style="padding: 4px 7px; margin-bottom: 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+          <strong style="font-size: 7.3pt; color: var(--black);">Castle Renewables (Australia)</strong>
+          <a href="https://castlerenewables.com.au" class="live-link" target="_blank">castlerenewables.com.au &nearr;</a>
+        </div>
+        <p style="font-size: 6.7pt; line-height: 1.26; color: var(--dark-charcoal); margin: 0;">
+          Custom WordPress B2B corporate build with Custom Post Types (CPTs) for infrastructure assets, dynamic project filtering, and technical taxonomy.
+        </p>
+      </div>
+      <div class="editorial-card-grey" style="padding: 4px 7px; margin-bottom: 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+          <strong style="font-size: 7.3pt; color: var(--black);">LB Finance PLC &amp; Sustainability</strong>
+          <a href="https://www.lbfinance.com/" class="live-link" target="_blank">lbfinance.com &nearr;</a>
+        </div>
+        <p style="font-size: 6.7pt; line-height: 1.26; color: var(--dark-charcoal); margin: 0;">
+          Enterprise financial governance portal &amp; sustainability publication platform (<a href="https://sustainability.lbfinance.com/" style="color: #059669; font-weight: 700;">sustainability.lbfinance.com</a>) with FIDO2 authentication models.
+        </p>
+      </div>
+      <div class="editorial-card-grey" style="padding: 4px 7px; margin-bottom: 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+          <strong style="font-size: 7.3pt; color: var(--black);">Gravitee.io (Global API Platform)</strong>
+          <a href="https://www.gravitee.io/" class="live-link" target="_blank">gravitee.io &nearr;</a>
+        </div>
+        <p style="font-size: 6.7pt; line-height: 1.26; color: var(--dark-charcoal); margin: 0;">
+          Global enterprise API management platform utilizing Storyblok headless CMS and Astro framework for ultra-fast, modular content management.
+        </p>
+      </div>
+    </div>
+
+    <!-- Live Engineering Portfolio Footer Strip -->
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 4px 8px; background: #0B0F17; border-radius: 3px; color: #FFFFFF; font-size: 6.8pt;">
+      <span><strong>Explore Live Code &amp; Repositories:</strong> Senior Engineering Portfolio</span>
+      <a href="https://viranga-lakshan.github.io/portfolio/" target="_blank" style="color: #4ADE80; font-family: 'JetBrains Mono', monospace; font-size: 6.6pt; font-weight: 700; text-decoration: none;">https://viranga-lakshan.github.io/portfolio/ &nearr;</a>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; INOVA BENIN TECHNOLOGIES PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
+    <div class="footer-page-num">Page 07 of 10</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 08: FIDO2 WEBAUTHN & EMERGENCY LOCK ENGINE ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">AXIOM GLOBAL &middot; INOVA BENIN TECHNOLOGIES PARTNERSHIP</div>
+      <div class="header-right">SECTION 07 &middot; FIDO2 HARDWARE &amp; EMERGENCY LOCK</div>
+    </div>
+
+    <span class="section-tag">FIDO2 Hardware Authentication &middot; Emergency Panic Lockdown</span>
+    <h2 class="page-title">FIDO2 Hardware Security &amp; Emergency Lockdown</h2>
+    <p class="lead-text">
+      How the Case Dashboard is guarded by physical FIDO2 cryptographic tokens, backed by an instant-trigger Emergency Lock mechanism that purges active sessions and freezes local databases in under 200 milliseconds.
+    </p>
+
+    <!-- FIDO2 Architecture Cards -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: 5px;">
+      <!-- Card 1: FIDO2 WebAuthn Verification -->
+      <div class="editorial-card-grey">
+        <div class="block-title" style="font-size: 7.8pt;">1. FIDO2 / WebAuthn Hardware Protection</div>
+        <p style="font-size: 7pt; line-height: 1.32; color: var(--dark-charcoal); margin-bottom: 2px;">
+          Enforces hardware security keys (e.g., YubiKey 5 NFC, SoloKeys) as the mandatory authenticator. 
+        </p>
+        <div style="font-size: 6.7pt; color: var(--mid-grey);">
+          &bull; <strong>Origin-Bound Challenge:</strong> Signatures tied to domain, completely thwarting adversary reverse-proxies (Evilginx).<br>
+          &bull; <strong>Cloned Key Detection:</strong> Validates monotonic hardware signature counters on every ceremony.<br>
+          &bull; <strong>Passwordless Option:</strong> User presence (touch) + user verification (hardware PIN) satisfies NIST AAL3.
+        </div>
+      </div>
+
+      <!-- Card 2: Emergency Lock (Panic Button) -->
+      <div class="editorial-card-grey">
+        <div class="block-title" style="font-size: 7.8pt;">2. Emergency Lock Engine (&lt; 200 ms)</div>
+        <p style="font-size: 7pt; line-height: 1.32; color: var(--dark-charcoal); margin-bottom: 2px;">
+          Designed for high-threat scenarios where field offices or investigative hardware face immediate physical seizure.
+        </p>
+        <div style="font-size: 6.7pt; color: var(--mid-grey);">
+          &bull; <strong>Session Purge:</strong> Invalidate all active Redis tokens across all dashboard sessions in under 200ms.<br>
+          &bull; <strong>RAM Key Erasure:</strong> Zeroes volatile decryption keys via <code>sodium_memzero()</code>.<br>
+          &bull; <strong>M-of-N Recovery:</strong> Requires 2 of 3 offline trustee hardware tokens to restore database access.
+        </div>
+      </div>
+    </div>
+
+    <!-- Sequence Code Flow -->
+    <div class="block-title">Emergency Lockdown Execution Flowchart</div>
+    <div class="editorial-card-black" style="margin-bottom: 5px;">
+      <div class="code-box" style="background: #0B0F17; border-left: 3px solid #EF4444; margin: 2px 0;">
+[Trigger: Staff clicks Emergency Lock OR enters Duress Hardware PIN]
+  &boxdr;&boxh;&boxh;> 1. Client Event: Web application invokes 'panicTrigger()'
+  &boxdr;&boxh;&boxh;> 2. Memory Purge: Immediate 'sodium_memzero(sessionKeys)' wipes decrypted reports from browser/app RAM
+  &boxdr;&boxh;&boxh;> 3. Server Broadcast: High-priority WebSocket event sends broadcast kill-switch to all active instances
+  &boxdr;&boxh;&boxh;> 4. Redis Invalidation: Redis cluster executes 'UNLINK user:auth:*' &rarr; all JWT tokens revoked in &lt; 200ms
+  &boxdr;&boxh;&boxh;> 5. Decoy Activation: Browser UI instantly pivots to a benign generic news/weather display
+  &boxdr;&boxh;&boxh;> 6. Cryptographic Sealing: Server flags database partition as 'EMERGENCY_SEALED' &rarr; requires M-of-N key recovery
+      </div>
+    </div>
+
+    <!-- Security Comparison Table -->
+    <div class="block-title">Authentication Mechanism Comparison Matrix</div>
+    <table class="editorial-table">
+      <thead>
+        <tr>
+          <th style="width: 25%;">Authentication Method</th>
+          <th style="width: 35%;">Vulnerability Profile</th>
+          <th style="width: 40%;">Axiom Deployment for INOVA BENIN</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Passwords + SMS 2FA</strong></td>
+          <td>Vulnerable to SIM-swapping, SS7 interception, and phishing.</td>
+          <td><span class="badge" style="background: #FEE2E2; color: #991B1B;">REJECTED</span> Unacceptable for human rights whistleblowing.</td>
+        </tr>
+        <tr>
+          <td><strong>Authenticator Apps (TOTP)</strong></td>
+          <td>Vulnerable to real-time Adversary-in-the-Middle (AiTM) reverse proxy phishing.</td>
+          <td><span class="badge" style="background: #FEF9C3; color: #854D0E;">SECONDARY BACKUP ONLY</span> Allowed only as fallback with high entropy.</td>
+        </tr>
+        <tr>
+          <td><strong>FIDO2 / WebAuthn Hardware Key</strong></td>
+          <td><strong>Phishing-proof.</strong> Hardware cryptographic signature cannot be replayed or intercepted.</td>
+          <td><span class="badge" style="background: #DCFCE7; color: #166534;">PRIMARY MANDATORY</span> Enforced on Case Dashboard with USB/NFC keys.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; INOVA BENIN TECHNOLOGIES PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
+    <div class="footer-page-num">Page 08 of 10</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 09: FRENCH EXECUTIVE BRIEF & COMMITMENT ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">AXIOM GLOBAL &middot; PARTENARIAT INOVA BENIN TECHNOLOGIES</div>
+      <div class="header-right">SECTION 08 &middot; R&Eacute;SUM&Eacute; EX&Eacute;CUTIF EN FRAN&Ccedil;AIS</div>
+    </div>
+
+    <span class="section-tag">Cotonou &middot; République du Bénin &middot; Engagement Officiel d'Appel d'Offres</span>
+    <h2 class="page-title">R&eacute;sum&eacute; Ex&eacute;cutif &amp; Lettre d'Engagement (Tender Bid)</h2>
+    <p class="lead-text">
+      Pr&eacute;sent&eacute; &agrave; l'attention de la Direction d'<strong>INOVA BENIN TECHNOLOGIES</strong> &agrave; Cotonou. Ce r&eacute;sum&eacute; d&eacute;taille nos engagements contractuels, notre ma&icirc;trise cryptographique et notre accord formel d'exclusivit&eacute; pour votre soumission aupr&egrave;s de l'organisation b&eacute;ninoise de la soci&eacute;t&eacute; civile.
+    </p>
+
+    <!-- French Briefing Cards -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: 5px;">
+      <div class="editorial-card-grey">
+        <strong style="font-size: 7.8pt; color: var(--black);">1. Architecture Zero-Knowledge &amp; Confidentialit&eacute;</strong>
+        <p style="font-size: 7pt; line-height: 1.32; color: var(--dark-charcoal); margin: 2px 0 0 0;">
+          Chiffrement de bout en bout (AES-256-GCM / X25519) c&ocirc;t&eacute; client. Le serveur de stockage ne d&eacute;tient aucune cl&eacute; priv&eacute;e et est techniquement incapable de lire le contenu des signalements. Suppression automatis&eacute;e des donn&eacute;es EXIF/GPS avant toute transmission.
+        </p>
+      </div>
+      <div class="editorial-card-grey">
+        <strong style="font-size: 7.8pt; color: var(--black);">2. Logique Offline-First &amp; R&eacute;seaux Instables</strong>
+        <p style="font-size: 7pt; line-height: 1.32; color: var(--dark-charcoal); margin: 2px 0 0 0;">
+          Stockage local chiffr&eacute; via SQLCipher sous Android et synchronisation diff&eacute;r&eacute;e r&eacute;siliente avec WorkManager. Guide de s&eacute;curit&eacute; num&eacute;rique accessible 100% hors-ligne dans les d&eacute;partements &agrave; faible connectivit&eacute;.
+        </p>
+      </div>
+      <div class="editorial-card-grey">
+        <strong style="font-size: 7.8pt; color: var(--black);">3. Authentification FIDO2 &amp; Verrou d'Urgence</strong>
+        <p style="font-size: 7pt; line-height: 1.32; color: var(--dark-charcoal); margin: 2px 0 0 0;">
+          Tableau de bord des cas prot&eacute;g&eacute; par cl&eacute;s physiques mat&eacute;rielles FIDO2/WebAuthn (YubiKey), &eacute;liminant tout risque de hame&ccedil;onnage. Fonction de verrouillage d'urgence avec r&eacute;vocation instantan&eacute;e des sessions en moins de 200 millisecondes.
+        </p>
+      </div>
+      <div class="editorial-card-grey">
+        <strong style="font-size: 7.8pt; color: var(--black);">4. Rem&eacute;diation d'Audit &amp; Respect des D&eacute;lais</strong>
+        <p style="font-size: 7pt; line-height: 1.32; color: var(--dark-charcoal); margin: 2px 0 0 0;">
+          Correction sans co&ucirc;t additionnel des vuln&eacute;rabilit&eacute;s identifi&eacute;es par l'expert en cybers&eacute;curit&eacute; du client. Version b&eacute;ta livr&eacute;e imp&eacute;rativement avant fin janvier 2027, suivie d'une p&eacute;riode d'accompagnement d&eacute;di&eacute;e.
+        </p>
+      </div>
+    </div>
+
+    <!-- Formal French Commitment Letter Box -->
+    <div class="editorial-card-black" style="padding: 7px 10px; margin-bottom: 4px;">
+      <div style="font-size: 7.2pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #FFFFFF; border-bottom: 1px solid #374151; padding-bottom: 3px; margin-bottom: 3px;">
+        LETTRE D'ENGAGEMENT FORMELLE POUR L'APPEL D'OFFRES
+      </div>
+      <p style="font-size: 7.3pt; line-height: 1.34; color: #E5E7EB; margin-bottom: 2px;">
+        &laquo; Par la pr&eacute;sente, nous accordons &agrave; <strong>INOVA BENIN TECHNOLOGIES</strong> l'exclusivit&eacute; sur cet appel d'offres en tant que d&eacute;veloppeur principal d&eacute;sign&eacute; (Named Lead Developer : <strong>Avishka Meddegoda</strong>). Nous autorisons express&eacute;ment l'int&eacute;gration de son curriculum vitae et de nos r&eacute;f&eacute;rences au sein de votre dossier de soumission aupr&egrave;s de l'organisation de la soci&eacute;t&eacute; civile b&eacute;ninoise. &raquo;
+      </p>
+      <div style="display: flex; justify-content: space-between; font-size: 6.7pt; color: #9CA3AF; margin-top: 3px;">
+        <span>Prix Forfaitaire Ferme : $4,250 USD</span>
+        <span>Disponibilit&eacute; Totale : D&eacute;cembre 2026 &ndash; F&eacute;vrier 2027</span>
+        <span>Axiom Global Architecture Group</span>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 2px;">
+      <strong>Collaboration Bilingue :</strong> Notre &eacute;quipe technique est habitu&eacute;e &agrave; collaborer dans un contexte multilingue et s'adapte parfaitement aux exigences de communication d'INOVA BENIN et des parties prenantes locales &agrave; Cotonou.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; INOVA BENIN TECHNOLOGIES PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
+    <div class="footer-page-num">Page 09 of 10</div>
+  </div>
+</div>
+
+<!-- ========================================== PAGE 10: MILESTONE ROADMAP & SIGN-OFF ========================================== -->
+<div class="page">
+  <div>
+    <div class="page-header">
+      <div class="header-left">AXIOM GLOBAL &middot; INOVA BENIN TECHNOLOGIES PARTNERSHIP</div>
+      <div class="header-right">SECTION 09 &middot; MILESTONES &amp; FORMAL SIGN-OFF</div>
+    </div>
+
+    <span class="section-tag">Fixed-Price Milestones &middot; January 2027 Beta &middot; Contract Award</span>
+    <h2 class="page-title">Milestone Roadmap &amp; Partnership Agreement</h2>
+    <p class="lead-text">
+      Structured milestone schedule tied directly to project deliverables, with contract commencement contingent on tender award to INOVA BENIN TECHNOLOGIES.
+    </p>
+
+    <!-- Phased Milestones Table -->
+    <table class="editorial-table" style="margin-bottom: 5px;">
+      <thead>
+        <tr>
+          <th style="width: 14%;">Milestone</th>
+          <th style="width: 46%;">Deliverables &amp; Technical Scope</th>
+          <th style="width: 25%;">Target Schedule</th>
+          <th style="width: 15%;">Payment Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Milestone 1<br>Crypto &amp; EXIF</strong></td>
+          <td>&bull; E2E encryption architecture &amp; X25519/AES-256-GCM client engine.<br>&bull; Client-side automated EXIF &amp; GPS metadata stripping module.<br>&bull; Cryptographic specification alignment with client security expert.</td>
+          <td>Weeks 1&ndash;2<br>(December 2026)</td>
+          <td><strong>$1,100 USD<br>(26%)</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Milestone 2<br>Offline &amp; Guide</strong></td>
+          <td>&bull; Offline-first SQLCipher local encrypted database on Android.<br>&bull; Digital security guide offline cache &amp; background update checks.<br>&bull; WorkManager deferred sync engine with idempotency hashes.</td>
+          <td>Weeks 3&ndash;4<br>(Early January 2027)</td>
+          <td><strong>$1,150 USD<br>(27%)</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Milestone 3<br>FIDO2 &amp; Panic</strong></td>
+          <td>&bull; FIDO2 / WebAuthn hardware key authentication for case dashboard.<br>&bull; Emergency lock panic button &amp; instant Redis session invalidation.<br>&bull; Full integration with INOVA backend &amp; Beta Release.</td>
+          <td>Week 5<br>(End January 2027)</td>
+          <td><strong>$1,200 USD<br>(28%)</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Milestone 4<br>Audit &amp; Handover</strong></td>
+          <td>&bull; Remediation of findings from independent cybersecurity audit.<br>&bull; Complete technical choices documentation, runbook &amp; test suite.<br>&bull; Post-launch warranty support &amp; final handover.</td>
+          <td>February 2027</td>
+          <td><strong>$800 USD<br>(19%)</strong></td>
+        </tr>
+        <tr style="background: #F4F6F9; font-weight: 800;">
+          <td colspan="3" style="text-align: right; padding-right: 10px;">TOTAL FIXED-PRICE BID VALUE:</td>
+          <td><strong>$4,250.00 USD</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Named Lead Credentials Grid -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-bottom: 5px;">
+      <div class="editorial-card-grey">
+        <div style="font-size: 6pt; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; color: var(--mid-grey);">Named Lead Developer</div>
+        <div style="font-size: 8.2pt; font-weight: 800; color: var(--black);">Avishka Meddegoda</div>
+        <div style="font-size: 6.7pt; color: var(--dark-charcoal); margin-top: 1px;">
+          Moolee Marketplace (<a href="https://www.moolee.mv/" class="live-link" target="_blank">moolee.mv &nearr;</a>) &amp; DIMO SAP ERP (<a href="https://www.dimolanka.com/" class="live-link" target="_blank">dimolanka.com &nearr;</a>).
+        </div>
+      </div>
+      <div class="editorial-card-grey">
+        <div style="font-size: 6pt; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; color: var(--mid-grey);">Senior Systems Engineer</div>
+        <div style="font-size: 8.2pt; font-weight: 800; color: var(--black);">Janith Nadiranga</div>
+        <div style="font-size: 6.7pt; color: var(--dark-charcoal); margin-top: 1px;">
+          DMS Software Division (<a href="https://dmssw.com/" class="live-link" target="_blank">dmssw.com &nearr;</a>). SINGER Sri Lanka PLC (<a href="https://www.singersl.com/" class="live-link" target="_blank">singersl.com &nearr;</a>).
+        </div>
+      </div>
+      <div class="editorial-card-grey">
+        <div style="font-size: 6pt; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; color: var(--mid-grey);">Integration &amp; Security</div>
+        <div style="font-size: 8.2pt; font-weight: 800; color: var(--black);">Viranga Lakshan</div>
+        <div style="font-size: 6.7pt; color: var(--dark-charcoal); margin-top: 1px;">
+          Al Ain Museum (<a href="https://www.alainmuseum.ae/en" class="live-link" target="_blank">alainmuseum.ae &nearr;</a>) &amp; <a href="https://viranga-lakshan.github.io/portfolio/" class="live-link" target="_blank">Live Portfolio &nearr;</a>.
+        </div>
+      </div>
+    </div>
+
+    <!-- Formal Commercial Sign-Off Box -->
+    <div class="editorial-card-black">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #374151; padding-bottom: 2px; margin-bottom: 2px;">
+        <span style="font-size: 7pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #FFFFFF;">
+          FORMAL BID PARTNERSHIP &amp; EXCLUSIVITY AGREEMENT
+        </span>
+        <span class="badge" style="background: #FFFFFF; color: var(--black);">TENDER VERIFIED</span>
+      </div>
+      <p style="font-size: 7.2pt; line-height: 1.33; color: #D1D5DB; margin-bottom: 2px;">
+        &ldquo;We confirm our acceptance of the <strong>$4,250.00 USD</strong> fixed price, our tender exclusivity for INOVA BENIN TECHNOLOGIES, our availability from Dec 2026 to Feb 2027, and that the Upwork contract commences upon client award.&rdquo;
+      </p>
+      <div style="display: flex; justify-content: space-between; font-size: 6.6pt; color: #9CA3AF; padding-top: 1px;">
+        <span>Lead Candidate: Avishka Meddegoda (Technical Lead)</span>
+        <span>Axiom Global Enterprise Practice &middot; Cotonou Partnership</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-left">AXIOM GLOBAL &middot; INOVA BENIN TECHNOLOGIES PROPOSAL &middot; AXIOMGLOBAL.TECH</div>
+    <div class="footer-page-num">Page 10 of 10</div>
+  </div>
+</div>
+
+</body>
+</html>
+"""
+
+def generate_pdf():
+    with open(HTML_PATH, "w", encoding="utf-8") as f:
+        f.write(HTML_CONTENT)
+    print(f"HTML written to {HTML_PATH}")
+
+    async def run():
+        async with async_playwright() as p:
+            browser = await p.chromium.launch(headless=True)
+            page = await browser.new_page()
+            await page.goto(f"file:///{HTML_PATH.replace(os.sep, '/')}", wait_until="networkidle")
+            await page.wait_for_timeout(1000)
+            await page.pdf(
+                path=PDF_PATH,
+                format="A4",
+                print_background=True,
+                margin={"top": "0mm", "right": "0mm", "bottom": "0mm", "left": "0mm"}
+            )
+            await browser.close()
+    
+    asyncio.run(run())
+    print(f"PDF successfully generated at: {PDF_PATH}")
+
+    reader = pypdf.PdfReader(PDF_PATH)
+    total_pages = len(reader.pages)
+    print(f"Total Page Count: {total_pages}")
+    for i, p in enumerate(reader.pages):
+        print(f"Page {i+1} character count: {len(p.extract_text())}")
+    assert total_pages == 10, f"Expected 10 pages, got {total_pages}"
+    print("PAGE COUNT VERIFICATION PASSED: Strictly 10 pages.")
+
+if __name__ == "__main__":
+    generate_pdf()
