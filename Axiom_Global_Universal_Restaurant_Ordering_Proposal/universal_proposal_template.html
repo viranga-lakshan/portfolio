@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>A Smarter Way to Serve Every Table — Global Restaurant Proposal</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --black: #111111;
+    --dark: #222222;
+    --charcoal: #374151;
+    --muted: #6b7280;
+    --light-muted: #9ca3af;
+    --border: #e5e7eb;
+    --card-bg: #f9fafb;
+    --badge-bg: #f3f4f6;
+    --badge-text: #4b5563;
+    --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  body {
+    font-family: var(--font-main);
+    background: #ffffff;
+    color: var(--black);
+    font-size: 8.5pt;
+    line-height: 1.45;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    position: relative;
+    page-break-after: always;
+    overflow: hidden;
+    background: #ffffff;
+    padding: 18mm 20mm 18mm 20mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* HEADER & FOOTER */
+  .page-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 3.5mm;
+    margin-top: 4mm;
+    font-size: 7.2pt;
+    color: var(--light-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .page-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  /* COVER PAGE */
+  .cover-page {
+    padding: 20mm 20mm 20mm 20mm;
+  }
+
+  .cover-black-box {
+    background: #111111;
+    color: #ffffff;
+    padding: 30px 34px;
+    margin-bottom: 5mm;
+  }
+
+  .cover-kicker {
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 14px;
+  }
+
+  .cover-h1 {
+    font-size: 30pt;
+    line-height: 1.1;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+  }
+
+  .cover-subtitle {
+    font-size: 10.5pt;
+    line-height: 1.45;
+    color: #d1d5db;
+    max-width: 90%;
+    font-weight: 400;
+  }
+
+  .cover-photo {
+    width: 100%;
+    height: 110mm;
+    object-fit: cover;
+    margin-bottom: 5mm;
+  }
+
+  .cover-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 4mm;
+  }
+
+  .cover-proposal-line {
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 3px;
+  }
+
+  .cover-prepared-for {
+    font-size: 8pt;
+    color: var(--muted);
+  }
+
+  /* HEADINGS */
+  .page-title {
+    font-size: 20pt;
+    font-weight: 800;
+    color: var(--black);
+    letter-spacing: -0.02em;
+    margin-bottom: 3.5mm;
+  }
+
+  .section-h2 {
+    font-size: 16pt;
+    font-weight: 800;
+    color: var(--black);
+    letter-spacing: -0.02em;
+    margin-bottom: 3mm;
+  }
+
+  .lead-p {
+    font-size: 9pt;
+    line-height: 1.45;
+    color: var(--charcoal);
+    margin-bottom: 5mm;
+  }
+
+  /* PAGE 2 TOC */
+  .toc-list {
+    list-style: none;
+    margin-bottom: 6mm;
+  }
+
+  .toc-item {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: var(--black);
+    padding: 2.2mm 0;
+    border-bottom: 1px solid #f3f4f6;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: #d1d5db;
+  }
+
+  .divider-line {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin: 4mm 0 5mm 0;
+  }
+
+  .scope-note-title {
+    font-size: 11.5pt;
+    font-weight: 800;
+    color: var(--black);
+    margin-bottom: 2.5mm;
+  }
+
+  .scope-note-p {
+    font-size: 8.5pt;
+    line-height: 1.45;
+    color: var(--charcoal);
+  }
+
+  /* TWO COLUMN FEATURE SECTION */
+  .feature-block {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 6mm;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+
+  .feature-badge {
+    display: inline-block;
+    font-size: 6.8pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: var(--badge-bg);
+    color: var(--badge-text);
+    padding: 2px 7px;
+    margin-bottom: 2mm;
+  }
+
+  .feature-h3 {
+    font-size: 13pt;
+    font-weight: 800;
+    color: var(--black);
+    letter-spacing: -0.01em;
+    margin-bottom: 2mm;
+  }
+
+  .feature-desc {
+    font-size: 8.5pt;
+    color: var(--charcoal);
+    line-height: 1.4;
+    margin-bottom: 2.5mm;
+  }
+
+  .feature-bullets {
+    list-style: none;
+    margin-top: 1mm;
+  }
+
+  .feature-bullets li {
+    font-size: 8.2pt;
+    color: var(--charcoal);
+    padding-left: 12px;
+    position: relative;
+    margin-bottom: 1.5mm;
+    line-height: 1.35;
+  }
+
+  .feature-bullets li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--black);
+    font-weight: 800;
+  }
+
+  .feature-img {
+    width: 100%;
+    height: 65mm;
+    object-fit: cover;
+    border: 1px solid var(--border);
+  }
+
+  /* STEP CARDS (PAGE 3) */
+  .steps-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 4mm;
+  }
+
+  .step-card {
+    flex: 1;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 3.5mm;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .step-num {
+    font-size: 14pt;
+    font-weight: 800;
+    color: var(--black);
+    margin-bottom: 1.5mm;
+  }
+
+  .step-title {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 1.5mm;
+  }
+
+  .step-desc {
+    font-size: 7.5pt;
+    color: var(--muted);
+    line-height: 1.35;
+  }
+
+  /* PRICING CARDS (PAGE 7) */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: 4mm 0 5mm 0;
+  }
+
+  .price-card {
+    border: 1.5px solid var(--black);
+    background: #ffffff;
+    padding: 6mm 6mm 5mm 6mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .price-card.featured {
+    background: #111111;
+    color: #ffffff;
+  }
+
+  .price-tag {
+    font-size: 24pt;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin: 2mm 0;
+  }
+
+  .price-card.featured .price-tag {
+    color: #ffffff;
+  }
+
+  .price-title {
+    font-size: 11pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .price-sub {
+    font-size: 7.8pt;
+    color: var(--muted);
+    margin-bottom: 3.5mm;
+  }
+
+  .price-card.featured .price-sub {
+    color: #9ca3af;
+  }
+
+  .price-bullets {
+    list-style: none;
+    margin-top: 2mm;
+    border-top: 1px solid var(--border);
+    padding-top: 3mm;
+  }
+
+  .price-card.featured .price-bullets {
+    border-top-color: #374151;
+  }
+
+  .price-bullets li {
+    font-size: 8pt;
+    padding-left: 12px;
+    position: relative;
+    margin-bottom: 1.8mm;
+    color: var(--charcoal);
+  }
+
+  .price-card.featured .price-bullets li {
+    color: #d1d5db;
+  }
+
+  .price-bullets li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    font-weight: 800;
+    color: var(--black);
+  }
+
+  .price-card.featured .price-bullets li::before {
+    color: #ffffff;
+  }
+
+  /* ROADMAP (PAGE 8) */
+  .roadmap-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3mm;
+    margin-bottom: 5mm;
+  }
+
+  .roadmap-item {
+    display: flex;
+    gap: 12px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 3.5mm 4mm;
+    align-items: center;
+  }
+
+  .roadmap-day {
+    background: #111111;
+    color: #ffffff;
+    font-size: 8pt;
+    font-weight: 800;
+    padding: 3px 8px;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  .roadmap-info h4 {
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 0.5mm;
+  }
+
+  .roadmap-info p {
+    font-size: 7.8pt;
+    color: var(--muted);
+  }
+
+  /* CALLOUT BOX */
+  .callout-box {
+    background: #f9fafb;
+    border-left: 3px solid var(--black);
+    padding: 3.5mm 4.5mm;
+    margin-top: 3mm;
+    font-size: 8pt;
+    line-height: 1.4;
+    color: var(--charcoal);
+  }
+
+  .callout-box strong {
+    color: var(--black);
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: COVER PAGE -->
+<div class="page cover-page">
+  <div class="page-body">
+    <div class="cover-black-box">
+      <div class="cover-kicker">Axiom Global Technologies · Worldwide Commercial Proposal</div>
+      <h1 class="cover-h1">A Smarter Way to Serve Every Table</h1>
+      <p class="cover-subtitle">Next-Generation Smart QR Ordering, Real-Time Kitchen Display (KDS) & Multilingual Dining Architecture Designed for High-Volume Independent & Multi-Branch Restaurants Worldwide.</p>
+    </div>
+    <img src="file:///c:/Users/Viranga/Downloads/upwrok new/Axiom_Global_Universal_Restaurant_Ordering_Proposal/images/us_restaurant_cover.jpg" alt="Modern Dining Atmosphere" class="cover-photo">
+  </div>
+  <div class="cover-bottom">
+    <div class="cover-proposal-line">Commercial Rollout Proposal · Universal Edition (All Countries)</div>
+    <div class="cover-prepared-for">Prepared for: Restaurant Owners, Operators, General Managers & Food & Beverage Directors Worldwide</div>
+  </div>
+</div>
+
+<!-- PAGE 2: EXECUTIVE SUMMARY & PROBLEM -->
+<div class="page">
+  <div class="page-body">
+    <h2 class="page-title">Executive Summary & The Global Restaurant Dilemma</h2>
+    <p class="lead-p">Around the world—from New York, London, and Dubai to Sydney, Riyadh, and Madrid—high-volume restaurants face the exact same operational crises: escalating labor shortages, crushing delivery commission fees, and peak-hour ordering bottlenecks that leave seated guests frustrated.</p>
+    
+    <div class="divider-line"></div>
+    
+    <div class="scope-note-title">The Three Operational Crises Facing Dining Rooms Worldwide</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 6mm;">
+      <div style="background: var(--card-bg); border: 1px solid var(--border); padding: 4mm;">
+        <div style="font-size: 8.5pt; font-weight: 800; color: #b91c1c; margin-bottom: 1.5mm;">1. Aggregator Fee Trap</div>
+        <p style="font-size: 7.8pt; color: var(--charcoal); line-height: 1.4;">Delivery apps take 15%–30% of sales. Bringing third-party ordering inside the dining room eats your operational profits alive.</p>
+      </div>
+      <div style="background: var(--card-bg); border: 1px solid var(--border); padding: 4mm;">
+        <div style="font-size: 8.5pt; font-weight: 800; color: #b91c1c; margin-bottom: 1.5mm;">2. Floor Bottlenecks</div>
+        <p style="font-size: 7.8pt; color: var(--charcoal); line-height: 1.4;">During peak dinner rush, seated guests wait 15–20 minutes just to re-order drinks, desserts, or request paper bill checks from busy servers.</p>
+      </div>
+      <div style="background: var(--card-bg); border: 1px solid var(--border); padding: 4mm;">
+        <div style="font-size: 8.5pt; font-weight: 800; color: #b91c1c; margin-bottom: 1.5mm;">3. Language & Error Chaos</div>
+        <p style="font-size: 7.8pt; color: var(--charcoal); line-height: 1.4;">International guests, tourists, and dietary restrictions create communication errors, meal comp requests, and kitchen delays.</p>
+      </div>
+    </div>
+
+    <div class="divider-line"></div>
+
+    <div class="scope-note-title">Commercial Proposal Structure</div>
+    <ul class="toc-list">
+      <li class="toc-item">01. The Complete Seated Guest Journey (Scan to Table Payment)</li>
+      <li class="toc-item">02. Scam-Proof Table Security & Real-Time Kitchen Display (KDS) Integration</li>
+      <li class="toc-item">03. Dynamic Smart Menu, Allergen Filtering & Global Multilingual Architecture</li>
+      <li class="toc-item">04. Contactless Split Billing, Digital Payments & Multi-Branch Cloud Analytics</li>
+      <li class="toc-item">05. Commercial Investment: 14-Day Free Pilot & Transparent Flat Pricing ($2,000 / $667mo)</li>
+      <li class="toc-item">06. 4-Day Implementation Roadmap, Service Level Agreements & Verification</li>
+    </ul>
+
+    <div class="callout-box">
+      <strong>Universal Global Compatibility:</strong> This platform is pre-engineered for global deployment—supporting international currencies, local tax rules (VAT, Sales Tax, GST), multilingual translation engines, and universal payment rails (Apple Pay, Google Pay, Visa, Mastercard, AMEX, and regional gateways).
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Axiom Global Technologies</span>
+    <span>Commercial Proposal · Universal Global Edition</span>
+    <span>Page 02</span>
+  </div>
+</div>
+
+<!-- PAGE 3: GUEST JOURNEY -->
+<div class="page">
+  <div class="page-body">
+    <span class="feature-badge">Frictionless Flow</span>
+    <h2 class="section-h2">The Complete Seated Guest Journey</h2>
+    <p class="lead-p">Traditional dining technology forces diners to download proprietary mobile apps or create complex accounts. Axiom Global replaces this friction with an instant browser-native flow that turns table ordering into a delight.</p>
+
+    <img src="file:///c:/Users/Viranga/Downloads/upwrok new/Axiom_Global_Universal_Restaurant_Ordering_Proposal/images/customer_journey_table.jpg" alt="Guest Table Ordering Experience" style="width: 100%; height: 82mm; object-fit: cover; border: 1px solid var(--border); margin-bottom: 4mm;">
+
+    <div class="steps-row">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-title">Instant Camera Scan</div>
+        <div class="step-desc">Guest scans table QR code using their standard phone camera. Zero app download or registration required.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-title">4-Digit Table Verification</div>
+        <div class="step-desc">A dynamic 4-digit security code verifies physical presence at the table, completely blocking remote fake orders.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-title">Visual Multilingual Menu</div>
+        <div class="step-desc">Guests browse high-definition dish photography, select their preferred language, and filter dietary requirements.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <div class="step-title">Direct Kitchen Dispatch</div>
+        <div class="step-desc">1-tap order entry routes directly to the Kitchen Display System (KDS) and bar prep stations with zero delay.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">05</div>
+        <div class="step-title">Split Tab & Fast Pay</div>
+        <div class="step-desc">Guests view running bills, split checks by item or seat, and pay via Apple Pay, Google Pay, or card in seconds.</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Axiom Global Technologies</span>
+    <span>Guest Experience Architecture</span>
+    <span>Page 03</span>
+  </div>
+</div>
+
+<!-- PAGE 4: SECURITY & KITCHEN DISPLAY (KDS) -->
+<div class="page">
+  <div class="page-body">
+    <h2 class="page-title">Scam-Proof Security & Kitchen (KDS) Automation</h2>
+    <p class="lead-p">The greatest flaw of ordinary QR ordering systems is vulnerability: anyone can photograph a QR sticker and send prank orders from miles away. Axiom Global provides hardware-grade verification coupled with direct kitchen routing.</p>
+
+    <div class="feature-block">
+      <div class="feature-grid">
+        <div>
+          <span class="feature-badge">Proprietary Security</span>
+          <h3 class="feature-h3">Scam-Proof Dynamic Table Lock</h3>
+          <p class="feature-desc">Our intelligent session management ensures that only physically seated patrons can submit orders to your kitchen and bar:</p>
+          <ul class="feature-bullets">
+            <li><strong>Dynamic 4-Digit Table Code:</strong> Active tables require a randomized security code validated on-site.</li>
+            <li><strong>Anti-Prank Remote Protection:</strong> Photos, screenshots, or copied web links opened from outside the restaurant are automatically rejected.</li>
+            <li><strong>Automatic Check-Out Expiration:</strong> The instant the bill is paid, the table session securely self-terminates.</li>
+            <li><strong>Smart Waiter Call Button:</strong> Guests can alert staff for water, napkins, or assistance directly from the mobile UI.</li>
+          </ul>
+        </div>
+        <div>
+          <img src="file:///c:/Users/Viranga/Downloads/upwrok new/Axiom_Global_Universal_Restaurant_Ordering_Proposal/images/smart_waiter_call.jpg" alt="Smart Waiter Call & Security" class="feature-img">
+        </div>
+      </div>
+    </div>
+
+    <div class="divider-line"></div>
+
+    <div class="feature-block">
+      <div class="feature-grid">
+        <div>
+          <img src="file:///c:/Users/Viranga/Downloads/upwrok new/Axiom_Global_Universal_Restaurant_Ordering_Proposal/images/kitchen_display_kds.jpg" alt="Kitchen Display System KDS" class="feature-img">
+        </div>
+        <div>
+          <span class="feature-badge">Kitchen Automation</span>
+          <h3 class="feature-h3">Real-Time Kitchen Display System (KDS)</h3>
+          <p class="feature-desc">Eliminate lost paper tickets, illegible server handwriting, and kitchen order bottlenecks:</p>
+          <ul class="feature-bullets">
+            <li><strong>Split Station Routing:</strong> Cocktails and drinks route immediately to the bar; food items route to hot/cold kitchen prep stations.</li>
+            <li><strong>Course Timing Control:</strong> Kitchen expediter can fire appetizers, entrees, and desserts with automated pacing intervals.</li>
+            <li><strong>Color-Coded Aging Alerts:</strong> Visual timers alert chefs if a ticket exceeds standard preparation times.</li>
+            <li><strong>Zero Server Scribing Errors:</strong> Eliminates wrong modifiers, forgotten sides, and kitchen miscommunications.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Axiom Global Technologies</span>
+    <span>Operational Security & Kitchen Flow</span>
+    <span>Page 04</span>
+  </div>
+</div>
+
+<!-- PAGE 5: MULTILINGUAL & DYNAMIC SMART MENU -->
+<div class="page">
+  <div class="page-body">
+    <h2 class="page-title">Dynamic Smart Menu & Global Multilingual Architecture</h2>
+    <p class="lead-p">Whether serving international tourists in London, local families in Dubai, business executives in New York, or diners in Madrid, our multilingual architecture ensures zero language friction and maximum spend per table.</p>
+
+    <div class="feature-block">
+      <div class="feature-grid">
+        <div>
+          <span class="feature-badge">Global Architecture</span>
+          <h3 class="feature-h3">Universal Multilingual Engine</h3>
+          <p class="feature-desc">Never lose a high-value order to language confusion or foreign alphabet barriers:</p>
+          <ul class="feature-bullets">
+            <li><strong>Native Multi-Language Switcher:</strong> Instant 1-tap switching between English, Arabic (with native RTL rendering), Spanish, French, German, Italian, and Chinese.</li>
+            <li><strong>Dynamic Ingredient Translation:</strong> Detailed dish descriptions, preparation styles, and culinary notes translated with culinary accuracy.</li>
+            <li><strong>Server Independence:</strong> International guests and tourists browse comfortably without needing bilingual floor staff.</li>
+            <li><strong>Custom Currency Formatting:</strong> Automatically displays prices in USD, EUR, GBP, AED, SAR, AUD, or your preferred local currency.</li>
+          </ul>
+        </div>
+        <div>
+          <img src="file:///c:/Users/Viranga/Downloads/upwrok new/Axiom_Global_Universal_Restaurant_Ordering_Proposal/images/smart_menu_food.jpg" alt="Smart Multilingual Menu" class="feature-img">
+        </div>
+      </div>
+    </div>
+
+    <div class="divider-line"></div>
+
+    <div class="feature-block">
+      <div class="feature-grid">
+        <div>
+          <img src="file:///c:/Users/Viranga/Downloads/upwrok new/Axiom_Global_Universal_Restaurant_Ordering_Proposal/images/ai_upselling_pairing.jpg" alt="Dietary & Allergen Filtering" class="feature-img">
+        </div>
+        <div>
+          <span class="feature-badge">Dietary & Upsell Intelligence</span>
+          <h3 class="feature-h3">Smart Allergen Safety & AI Upselling</h3>
+          <p class="feature-desc">Protect your diners from allergen risks while boosting average check size by 22%:</p>
+          <ul class="feature-bullets">
+            <li><strong>One-Touch Dietary Filters:</strong> Instant toggles for Gluten-Free, Vegan, Vegetarian, Halal, Kosher, Nut-Free, and Dairy-Free.</li>
+            <li><strong>Real-Time 86-List Management:</strong> Sold out of an item? Kitchen staff toggle it off instantly across all active digital menus.</li>
+            <li><strong>Intelligent Beverage Pairing:</strong> Smart recommendations suggest craft beer, fine wine, or signature cocktails to match entrees.</li>
+            <li><strong>Automated Daypart Menus:</strong> Seamlessly transitions from Breakfast/Brunch to Lunch, Happy Hour, and Dinner pricing.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Axiom Global Technologies</span>
+    <span>Menu Engineering & Dietary Safety</span>
+    <span>Page 05</span>
+  </div>
+</div>
+
+<!-- PAGE 6: BILLING & ENTERPRISE ANALYTICS -->
+<div class="page">
+  <div class="page-body">
+    <h2 class="page-title">Digital Billing, Split Payments & Multi-Branch Cloud</h2>
+    <p class="lead-p">The final 10 minutes of dining are usually the most painful: waiting for the server, waiting for the split bill, and waiting for the credit card machine. Axiom Global turns checkout into a 20-second delight.</p>
+
+    <div class="feature-block">
+      <div class="feature-grid">
+        <div>
+          <span class="feature-badge">Fintech Integration</span>
+          <h3 class="feature-h3">Universal Contactless Split Billing</h3>
+          <p class="feature-desc">Keep 100% of your revenue with 0% commissions and lightning-fast checkout:</p>
+          <ul class="feature-bullets">
+            <li><strong>Live Table Tab:</strong> Seated diners can view running totals, taxes, and items ordered by all companions in real time.</li>
+            <li><strong>Frictionless Bill Splitting:</strong> Guests can split bills equally, pay by exact items consumed, or contribute custom amounts.</li>
+            <li><strong>Universal Payment Rails:</strong> Supports Apple Pay, Google Pay, Visa, Mastercard, American Express, and local regional debit networks.</li>
+            <li><strong>0% Platform Commission:</strong> Unlike third-party apps taking 15%–30%, you maintain full ownership of all processing revenue.</li>
+          </ul>
+        </div>
+        <div>
+          <img src="file:///c:/Users/Viranga/Downloads/upwrok new/Axiom_Global_Universal_Restaurant_Ordering_Proposal/images/digital_bill_payment.jpg" alt="Contactless Digital Payment" class="feature-img">
+        </div>
+      </div>
+    </div>
+
+    <div class="divider-line"></div>
+
+    <div class="feature-block">
+      <div class="feature-grid">
+        <div>
+          <img src="file:///c:/Users/Viranga/Downloads/upwrok new/Axiom_Global_Universal_Restaurant_Ordering_Proposal/images/restaurant_analytics_laptop.jpg" alt="Multi-Branch Cloud Analytics" class="feature-img">
+        </div>
+        <div>
+          <span class="feature-badge">Enterprise Management</span>
+          <h3 class="feature-h3">Multi-Branch Cloud Intelligence</h3>
+          <p class="feature-desc">Whether managing one high-traffic flagship or 25 multi-city locations, retain unified operational oversight:</p>
+          <ul class="feature-bullets">
+            <li><strong>Centralized Menu Syndication:</strong> Update pricing, dish descriptions, and seasonal menus across all branches with one click.</li>
+            <li><strong>Live Revenue & Velocity Dashboard:</strong> Track real-time table turnover speed, top-grossing items, and hourly dining volume.</li>
+            <li><strong>Kitchen Bottleneck Metrics:</strong> Identify prep station delays and monitor average ticket turnaround down to the second.</li>
+            <li><strong>Server Performance Auditing:</strong> Measure staff response times to guest waiter-call notifications.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Axiom Global Technologies</span>
+    <span>Payments & Cloud Intelligence</span>
+    <span>Page 06</span>
+  </div>
+</div>
+
+<!-- PAGE 7: COMMERCIAL INVESTMENT & PRICING -->
+<div class="page">
+  <div class="page-body">
+    <h2 class="page-title">Commercial Investment, 14-Day Free Pilot & Pricing</h2>
+    <p class="lead-p">We believe enterprise restaurant technology should be transparent, fair, and free of extortionate percentage-based commission fees. That is why we provide a 14-day zero-risk trial followed by a predictable flat investment.</p>
+
+    <div style="background: var(--card-bg); border: 1.5px solid var(--black); padding: 4mm 5mm; margin-bottom: 4mm;">
+      <div style="font-size: 10.5pt; font-weight: 800; color: var(--black); margin-bottom: 1.5mm;">⭐ The Axiom Global 14-Day Zero-Risk Free Pilot</div>
+      <p style="font-size: 8.2pt; color: var(--charcoal); line-height: 1.4;">We will digitalize your complete menu, generate your custom-branded table QR codes, configure your kitchen prep stations, and train your floor staff. You test the complete system live in your dining room for <strong>14 days at $0 cost and zero financial commitment</strong>. If your team does not experience faster table turns and higher average spend, you pay nothing.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="price-card featured">
+        <div>
+          <div class="price-title">Option A: Complete Full Investment</div>
+          <div class="price-tag">$2,000 <span style="font-size: 11pt; font-weight: 400; color: #9ca3af;">USD Flat</span></div>
+          <div class="price-sub">One-time comprehensive deployment · 0% commission fees forever</div>
+          <ul class="price-bullets">
+            <li>Complete custom dining room setup & table mapping</li>
+            <li>Full menu ingestion, allergen tagging & visual photography</li>
+            <li>Multilingual engine (English, Arabic, Spanish, French, etc.)</li>
+            <li>Kitchen Display System (KDS) & Bar station routing</li>
+            <li>Lifetime software license & continuous cloud updates</li>
+            <li>Dedicated 24/7 priority engineering support</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="price-card">
+        <div>
+          <div class="price-title">Option B: 3-Month Flexible Split</div>
+          <div class="price-tag">$667 <span style="font-size: 11pt; font-weight: 400; color: var(--muted);">USD / Month</span></div>
+          <div class="price-sub">Divided into 3 equal monthly payments (Total $2,001 USD)</div>
+          <ul class="price-bullets">
+            <li>Everything included in the complete Full Investment</li>
+            <li>Pay $667 on month 1 (after 14-day trial), month 2, and month 3</li>
+            <li>Zero interest, zero hidden setup fees, zero finance charges</li>
+            <li>Full ownership and 0% commission fees maintained forever</li>
+            <li>Includes full hardware routing and staff training support</li>
+            <li>Cancel anytime during the 14-day free pilot period</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider-line"></div>
+
+    <div class="scope-note-title">Comparative Monthly ROI: Third-Party Apps vs. Axiom Global</div>
+    <div style="font-size: 8pt; color: var(--charcoal); line-height: 1.45;">
+      A restaurant averaging <strong>$45,000 USD</strong> in monthly dine-in volume pays <strong>$6,750 – $11,250 USD every single month</strong> if ordering runs through 15%–25% third-party commission platforms. With Axiom Global, your commission is <strong>0.0%</strong>. Your entire system pays for itself in less than 14 days of operations.
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Axiom Global Technologies</span>
+    <span>Commercial Investment & Free Pilot</span>
+    <span>Page 07</span>
+  </div>
+</div>
+
+<!-- PAGE 8: ROADMAP & NEXT STEPS -->
+<div class="page">
+  <div class="page-body">
+    <h2 class="page-title">4-Day Rapid Deployment Roadmap & Next Steps</h2>
+    <p class="lead-p">Our implementation methodology is engineered for zero disruption to your active dining service. We handle menu digitization, table QR mapping, and staff onboarding in four rapid phases.</p>
+
+    <div class="roadmap-list">
+      <div class="roadmap-item">
+        <div class="roadmap-day">Day 01</div>
+        <div class="roadmap-info">
+          <h4>Menu Ingestion & Currency Architecture</h4>
+          <p>Digitalization of your full food, beverage, and specials menu. Ingestion of high-res dish photos, allergen tagging, modifier trees, and local tax/currency configuration.</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-day">Day 02</div>
+        <div class="roadmap-info">
+          <h4>Table Mapping & Kitchen (KDS) Routing</h4>
+          <p>Generation of custom-branded QR codes with dynamic 4-digit security logic. Configuration of kitchen prep stations, bar monitors, and printer hardware routing.</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-day">Day 03</div>
+        <div class="roadmap-info">
+          <h4>Staff Onboarding & Dry-Run Simulations</h4>
+          <p>Hands-on 30-minute training session with managers, servers, and kitchen expediters. Simulated test orders, bill splitting, and item 86-ing dry runs.</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-day">Day 04</div>
+        <div class="roadmap-info">
+          <h4>Live Dining Room Launch & 14-Day Free Pilot Activation</h4>
+          <p>Placement of table QR stands and public launch. Initiation of your 14-day zero-risk trial with active real-time monitoring and support from our team.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider-line"></div>
+
+    <div class="scope-note-title">Next Steps: Schedule Your 10-Minute Google Meet Live Demo</div>
+    <p class="lead-p" style="margin-bottom: 3.5mm;">Experience the guest table verification and kitchen flow live from your own smartphone. Contact our executive team to arrange an interactive demonstration or activate your 14-day zero-risk free pilot:</p>
+
+    <div style="background: #111111; color: #ffffff; padding: 4.5mm 6mm; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <div style="font-size: 11pt; font-weight: 800; color: #ffffff; margin-bottom: 1mm;">Axiom Global Technologies</div>
+        <div style="font-size: 8pt; color: #d1d5db; line-height: 1.4;">
+          Direct Contact: Founder & CEO<br>
+          Email: contact@axiomglobal.tech · info@axiomglobal.tech<br>
+          Website: https://axiomglobal.tech
+        </div>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-size: 8pt; font-weight: 700; color: #9ca3af; text-transform: uppercase; margin-bottom: 1mm;">Global Deployment Support</div>
+        <div style="font-size: 10pt; font-weight: 800; color: #ffffff;">99.98% Cloud SLA Guarantee</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Axiom Global Technologies</span>
+    <span>Implementation Roadmap & SLA Guarantees</span>
+    <span>Page 08</span>
+  </div>
+</div>
+
+</body>
+</html>
