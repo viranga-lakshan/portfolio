@@ -32,3 +32,4 @@
    - **SINGER Sri Lanka PLC (Lead: Janith Nadiranga at DMS Software Division):** Nationwide Oracle Database transaction and receipt management system serving millions of consumers across Sri Lanka with batch-wise tracking, Oracle SQL / PL/SQL, and BIRT reporting.
    - **DIMO Lanka Gate Pass (SAP ERP Integration):** Enterprise dispatch and asset authorization workflows connected directly to SAP ERP.
    - **Middle East Experience:** Al Ain Museum (UAE) & Natural History Museum Abu Dhabi (UAE) enterprise implementations.
+

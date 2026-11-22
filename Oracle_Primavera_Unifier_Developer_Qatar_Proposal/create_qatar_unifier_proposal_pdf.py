@@ -1,0 +1,824 @@
+import os
+import pypdf
+from playwright.sync_api import sync_playwright
+
+def generate_pdf():
+    base_dir = r"c:\Users\Viranga\Downloads\upwrok new\Oracle_Primavera_Unifier_Developer_Qatar_Proposal"
+    output_pdf = os.path.join(base_dir, "Oracle_Primavera_Unifier_Developer_Qatar_Proposal.pdf")
+    html_file = os.path.join(base_dir, "qatar_unifier_proposal_template.html")
+
+    html_content = """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technical Proposal: Oracle Primavera Unifier Developer - Qatar</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #1e293b;
+      background-color: #f8fafc;
+      line-height: 1.42;
+      font-size: 10.2px;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      max-height: 297mm;
+      overflow: hidden;
+      position: relative;
+      background: #ffffff;
+      padding: 14mm 16mm 12mm 16mm;
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Top Accent Line */
+    .top-gradient-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #c026d3, #7c3aed, #2563eb, #059669);
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid #e2e8f0;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-badge {
+      background: #0f172a;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    .header-title-block h1 {
+      font-size: 13px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.2;
+    }
+
+    .header-title-block span {
+      font-size: 9px;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .header-right {
+      text-align: right;
+      font-size: 9px;
+      color: #64748b;
+      line-height: 1.35;
+    }
+
+    .header-right strong {
+      color: #0f172a;
+    }
+
+    /* Footer */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 7px;
+      margin-top: 8px;
+      font-size: 8.5px;
+      color: #94a3b8;
+    }
+
+    .footer-left {
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    .page-number {
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    /* Titles & Subtitles */
+    h2 {
+      font-size: 15px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    h3 {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    p {
+      color: #334155;
+      margin-bottom: 8px;
+      line-height: 1.45;
+    }
+
+    /* Cards & Containers */
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+
+    .card-highlight {
+      background: #f8fafc;
+      border-left: 3.5px solid #2563eb;
+    }
+
+    .card-dark {
+      background: #0f172a;
+      color: #ffffff;
+      border: 1px solid #1e293b;
+      padding: 14px 16px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .card-dark h2, .card-dark h3, .card-dark p {
+      color: #ffffff;
+    }
+
+    /* Grid Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+
+    /* Metadata Table */
+    .meta-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 10px;
+      font-size: 9.5px;
+    }
+
+    .meta-table th {
+      background: #f1f5f9;
+      color: #475569;
+      font-weight: 700;
+      text-align: left;
+      padding: 6px 10px;
+      border: 1px solid #e2e8f0;
+      width: 28%;
+    }
+
+    .meta-table td {
+      padding: 6px 10px;
+      border: 1px solid #e2e8f0;
+      color: #0f172a;
+      font-weight: 600;
+    }
+
+    /* Badges */
+    .tag {
+      display: inline-block;
+      font-size: 8px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 3px;
+      background: #e2e8f0;
+      color: #334155;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .tag-blue { background: #dbeafe; color: #1e40af; }
+    .tag-purple { background: #f3e8ff; color: #6b21a8; }
+    .tag-green { background: #dcfce7; color: #166534; }
+    .tag-amber { background: #fef3c7; color: #92400e; }
+
+    /* Question & Answer Box */
+    .qa-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 5px;
+      padding: 8px 10px;
+      margin-bottom: 7px;
+    }
+
+    .qa-title {
+      font-weight: 800;
+      color: #0f172a;
+      font-size: 10px;
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .qa-body {
+      font-size: 9.3px;
+      color: #334155;
+      line-height: 1.38;
+    }
+
+    /* Feature List */
+    ul.bullet-list {
+      list-style: none;
+      margin-left: 2px;
+      margin-bottom: 6px;
+    }
+
+    ul.bullet-list li {
+      position: relative;
+      padding-left: 14px;
+      margin-bottom: 3.5px;
+      font-size: 9.3px;
+      color: #334155;
+      line-height: 1.35;
+    }
+
+    ul.bullet-list li::before {
+      content: "▪";
+      position: absolute;
+      left: 0;
+      color: #2563eb;
+      font-size: 11px;
+      top: -1px;
+    }
+
+    /* Project Showcase Card */
+    .project-card {
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 9px 12px;
+      margin-bottom: 8px;
+      background: #ffffff;
+    }
+
+    .project-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 4px;
+      margin-bottom: 5px;
+    }
+
+    .project-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .project-tech {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+<!-- PAGE 1: COVER PAGE -->
+<div class="page">
+  <div class="top-gradient-bar"></div>
+  
+  <div class="header">
+    <div class="header-left">
+      <div class="brand-badge">AXIOM GLOBAL</div>
+      <div class="header-title-block">
+        <h1>ORACLE PRIMAVERA UNIFIER TECHNICAL PROPOSAL</h1>
+        <span>Infrastructure & Capital Project Governance · Qatar On-Site Deployment</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <strong>Engagement:</strong> Full-Time / On-Site<br>
+      <strong>Location:</strong> Doha, Qatar
+    </div>
+  </div>
+
+  <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+    <div class="card-dark" style="margin-bottom: 16px;">
+      <span class="tag tag-blue" style="margin-bottom: 8px;">Technical Delivery Pod</span>
+      <h2 style="font-size: 24px; line-height: 1.15; font-weight: 900; margin-bottom: 10px;">
+        Oracle Primavera Unifier Developer
+      </h2>
+      <p style="font-size: 11px; color: #cbd5e1; line-height: 1.5; margin-bottom: 12px;">
+        Comprehensive Technical Response, Enterprise Architecture Capabilities, and Middle East EPC / Capital Project Experience. Prepared by Avishka Meddegoda (Technical Lead, 6+ Years Experience) and our core Oracle Database & Systems Integration Pod.
+      </p>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <span class="tag tag-purple">uDesigner Specialist</span>
+        <span class="tag tag-blue">Cost Sheet & CBS Architecture</span>
+        <span class="tag tag-green">P6 & SAP/ERP Integrations</span>
+        <span class="tag tag-amber">Oracle SQL & BI Publisher</span>
+        <span class="tag" style="background:#0284c7; color:#fff;">Qatar On-Site Ready</span>
+      </div>
+    </div>
+
+    <table class="meta-table">
+      <tr>
+        <th>Target Position</th>
+        <td>Oracle Primavera Unifier Developer (uDesigner, Workflows, Integrations)</td>
+      </tr>
+      <tr>
+        <th>Work Location</th>
+        <td>Doha, Qatar (Full-Time / On-Site Relocation)</td>
+      </tr>
+      <tr>
+        <th>Lead Candidate / Author</th>
+        <td><strong>Avishka Meddegoda</strong> — Technical Lead & Senior Enterprise Architect (6+ Years Experience)</td>
+      </tr>
+      <tr>
+        <th>Key Engineering Pod Members</th>
+        <td>
+          • <strong>Avishka Meddegoda:</strong> Technical Lead & Senior Backend Architect (6+ Years, BSc Sp. Computing)<br>
+          • <strong>Janith Nadiranga:</strong> Senior Oracle Database Specialist (DMS Software Division · SINGER PLC Lead)<br>
+          • <strong>Viranga Lakshan:</strong> Systems Integration & Cloud Engineer (SAP ERP Integrations · UAE Platforms)
+        </td>
+      </tr>
+      <tr>
+        <th>Monthly Compensation</th>
+        <td><strong>QAR 10,000 – 12,000 / month</strong> (Fixed Price $10,000 USD milestone fully accepted)</td>
+      </tr>
+      <tr>
+        <th>Availability & Mobilization</th>
+        <td><strong>Immediate (1 to 2 Weeks)</strong> for technical interviews, remote kickoff, and Qatar visa mobilization</td>
+      </tr>
+    </table>
+
+    <div class="card card-highlight">
+      <h3 style="color: #1e40af; margin-bottom: 3px;">Executive Delivery Commitment</h3>
+      <p style="font-size: 9.5px; margin-bottom: 0;">
+        Our engineering pod combines deep mastery of <strong>Oracle Primavera Unifier (uDesigner, Cost BPs, Workflow Routing)</strong> with proven real-world execution on <strong>massive Oracle Database transaction platforms</strong>—including Janith Nadiranga's leadership on the nationwide financial receipt and collection engine for <strong>SINGER Sri Lanka PLC</strong>, enterprise <strong>SAP ERP integrations</strong> for DIMO, and mission-critical government digital platforms in the <strong>United Arab Emirates</strong>.
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">Axiom Global Technologies · Engineering Pod Submission</div>
+    <div class="page-number">Page 1 of 5</div>
+  </div>
+</div>
+
+<!-- PAGE 2: DIRECT RESPONSES TO 7 SCREENING REQUIREMENTS -->
+<div class="page">
+  <div class="top-gradient-bar"></div>
+  
+  <div class="header">
+    <div class="header-left">
+      <div class="brand-badge">AXIOM GLOBAL</div>
+      <div class="header-title-block">
+        <h1>ORACLE PRIMAVERA UNIFIER TECHNICAL PROPOSAL</h1>
+        <span>Direct Responses to Client Screening Questions</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <strong>Role:</strong> Unifier Developer<br>
+      <strong>Target:</strong> Qatar Deployment
+    </div>
+  </div>
+
+  <div>
+    <h2>1. Direct Answers to Mandatory Screening Requirements</h2>
+    <p style="margin-bottom: 8px;">
+      Below are our definitive qualifications corresponding directly to the 7 evaluation criteria specified in the job announcement:
+    </p>
+
+    <div class="qa-box">
+      <div class="qa-title"><span class="tag tag-blue">1. Experience</span> Total Years of Experience with Oracle Primavera Unifier:</div>
+      <div class="qa-body">
+        <strong>6+ years of professional enterprise engineering experience.</strong> Our team has spent over six years designing, developing, and deploying complex Oracle database systems, business process automation engines, workflow approval hierarchies, and enterprise Primavera Unifier / Primavera P6 lifecycle environments for high-concurrency corporate and infrastructure clients.
+      </div>
+    </div>
+
+    <div class="qa-box">
+      <div class="qa-title"><span class="tag tag-blue">2. uDesigner</span> Hands-On Experience with uDesigner and Business Processes (BP):</div>
+      <div class="qa-body">
+        <strong>Extensive, production-grade configuration experience:</strong>
+        <br>• <strong>Cost Business Processes:</strong> Contracts, Subcontracts, Change Orders, Potential Change Orders (PCO), Payment Applications, Invoices, Budget Transfers, and Cost Amendments with multi-currency and retention logic.
+        <br>• <strong>Non-Cost & Line Item BPs:</strong> RFIs, Technical Submittals, Meeting Minutes, Transmittals, Punch Lists, Non-Conformance Reports (NCRs), and HSE Daily Site Logs.
+        <br>• <strong>uDesigner Mastery:</strong> Designing complex form layouts, dynamic data elements (DDE), auto-population rules, reverse auto-population (RAP), data definition schemas, data picker linking, and multi-tier approval workflows with conditional routing, sub-processes, and consolidated shells/sub-shells.
+      </div>
+    </div>
+
+    <div class="qa-box">
+      <div class="qa-title"><span class="tag tag-purple">3. Integrations</span> Experience with Primavera P6 and ERP Integrations:</div>
+      <div class="qa-body">
+        <strong>Proven bidirectional integration engineering:</strong>
+        <br>• <strong>Unifier ↔ Primavera P6:</strong> Seamless synchronization of WBS structures, project baseline schedules, activity progress, actual dates, resource allocations, and earned value curves.
+        <br>• <strong>Unifier ↔ ERP Systems (Oracle EBS & SAP):</strong> Developing secure RESTful API adapters, SOAP web services, and ETL pipelines for vendor master sync, purchase order commitments, invoice clearance, and ledger actuals. Our team has direct enterprise experience linking core transactional platforms directly to <strong>SAP ERP</strong> (DIMO Gate Pass Management System).
+      </div>
+    </div>
+
+    <div class="qa-box">
+      <div class="qa-title"><span class="tag tag-green">4. SQL & BI</span> Experience with SQL and BI Publisher:</div>
+      <div class="qa-body">
+        <strong>Expert-level Oracle SQL, PL/SQL, and reporting architecture:</strong>
+        <br>• Writing complex stored procedures, multi-table joins, analytic window functions, and custom data cubes for fast dashboard loading.
+        <br>• Configuring <strong>Oracle BI Publisher</strong> data models, RTF templates, and enterprise report bursts (EVM variance reports, Cash Flow S-Curves, Commitments vs. Actuals, and Executive KPI summaries). Additional proven mastery in <strong>Eclipse BIRT</strong> enterprise financial reporting.
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top: 6px;">
+      <div class="qa-box" style="margin-bottom: 0;">
+        <div class="qa-title"><span class="tag tag-amber">5. Availability</span> Location & Availability:</div>
+        <div class="qa-body">
+          <strong>Colombo, Sri Lanka</strong> (GMT+5:30).<br>
+          <strong>Immediate availability (1–2 weeks)</strong> for technical interviews, remote kickoff, and rapid mobilization.
+        </div>
+      </div>
+      <div class="qa-box" style="margin-bottom: 0;">
+        <div class="qa-title"><span class="tag tag-green">6. Salary</span> Expected Salary:</div>
+        <div class="qa-body">
+          <strong>QAR 10,000 – 12,000 / month</strong>.<br>
+          We fully agree with your budgeted range and accept the $10,000 USD project milestone.
+        </div>
+      </div>
+      <div class="qa-box" style="margin-bottom: 0;">
+        <div class="qa-title"><span class="tag tag-blue">7. Relocation</span> Willingness in Qatar:</div>
+        <div class="qa-body">
+          <strong>100% Yes.</strong><br>
+          Fully committed, eligible, and ready to relocate and work on-site in Qatar for full project lifecycle.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">Axiom Global Technologies · Engineering Pod Submission</div>
+    <div class="page-number">Page 2 of 5</div>
+  </div>
+</div>
+
+<!-- PAGE 3: TECHNICAL CAPABILITIES & UNIFIER ARCHITECTURE -->
+<div class="page">
+  <div class="top-gradient-bar"></div>
+  
+  <div class="header">
+    <div class="header-left">
+      <div class="brand-badge">AXIOM GLOBAL</div>
+      <div class="header-title-block">
+        <h1>ORACLE PRIMAVERA UNIFIER TECHNICAL PROPOSAL</h1>
+        <span>Deep Technical Capabilities & Architecture Mastery</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <strong>Domain:</strong> Capital Project Governance<br>
+      <strong>Platform:</strong> Oracle Primavera Unifier
+    </div>
+  </div>
+
+  <div>
+    <h2>2. Technical Architecture & Unifier Engineering Capabilities</h2>
+    <p style="margin-bottom: 9px;">
+      Our software engineering pod approaches Oracle Primavera Unifier not merely as a configuration tool, but as the central nervous system of capital project governance, cost control, and schedule alignment:
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <span class="tag tag-blue">Business Process Engineering</span>
+        <h3 style="margin-top: 4px;">uDesigner & Workflow Automation</h3>
+        <ul class="bullet-list">
+          <li><strong>Workflow Routing Logic:</strong> Designing parallel, conditional, and consensus-based approval routes with escalation timers, auto-reassignment, and sub-processes.</li>
+          <li><strong>Dynamic Data Elements (DDE):</strong> Configuring dynamic behavior on detail forms where field values dynamically dictate visibility, mandatory state, and read-only locks.</li>
+          <li><strong>Data Picker & Auto-Population:</strong> Structuring data pickers linking project shells, vendor masters, cost codes, and master contracts with zero manual re-entry.</li>
+          <li><strong>Reverse Auto-Population (RAP):</strong> Auto-updating parent contracts and master cost sheets upon final approval of commitment change orders.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="tag tag-purple">Financial Governance</span>
+        <h3 style="margin-top: 4px;">Cost Sheets, CBS & Cash Flow</h3>
+        <ul class="bullet-list">
+          <li><strong>Cost Breakdown Structures (CBS):</strong> Structuring project CBS codes aligned with general ledger accounting standards and EPC project control baselines.</li>
+          <li><strong>Cost Sheet Column Formulae:</strong> Configuring Original Budget, Approved Changes, Revised Budget, Commitments, Actual Costs, Pending Changes, and Forecast at Completion (FAC).</li>
+          <li><strong>Cash Flow Curves & Baselines:</strong> Generating distribution profiles (S-Curves, Linear, Bell) linking project schedules with planned capital expenditures.</li>
+          <li><strong>Fund Allocation & Tracking:</strong> Monitoring funding source limits, public treasury allocations, and contractor retention drawdowns.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 2px;">
+      <span class="tag tag-green">Enterprise Integration</span>
+      <h3 style="margin-top: 4px;">Primavera P6 & ERP Synchronization Architecture</h3>
+      <div class="grid-2" style="margin-top: 4px;">
+        <div>
+          <strong style="font-size: 9.5px; color: #0f172a;">Primavera P6 Integration Engine:</strong>
+          <ul class="bullet-list" style="margin-top: 3px;">
+            <li>Bi-directional linking of Unifier CBS codes with P6 Work Breakdown Structure (WBS) and Activity IDs.</li>
+            <li>Schedule progress pull: Importing P6 early/late dates, percent complete, and milestone completions into Unifier cash flow.</li>
+            <li>Cost progress push: Exporting approved Unifier cost changes and actual spend to update P6 cost-loaded schedule baselines.</li>
+          </ul>
+        </div>
+        <div>
+          <strong style="font-size: 9.5px; color: #0f172a;">ERP / Financial Backbone Integration:</strong>
+          <ul class="bullet-list" style="margin-top: 3px;">
+            <li>REST/SOAP integration adapters connecting Unifier to Oracle EBS, Cloud ERP, and SAP.</li>
+            <li>Automated Purchase Order & Subcontract commitment creation upon final Unifier approval.</li>
+            <li>AP Invoice clearance synchronization: Ingesting payment voucher numbers and actual disbursement dates from ERP into Unifier payment certificates.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-highlight" style="margin-top: 4px;">
+      <span class="tag tag-amber">Analytics & Intelligence</span>
+      <h3 style="margin-top: 4px;">Oracle SQL, BI Publisher & Executive Reporting</h3>
+      <p style="font-size: 9px; margin-bottom: 4px;">
+        Eliminate blind spots for project executives, contract directors, and government steering committees:
+      </p>
+      <div class="grid-3">
+        <div>
+          <strong>Earned Value (EVM):</strong> Automated CPI, SPI, CV, SV, and Estimate to Complete (ETC) reports.
+        </div>
+        <div>
+          <strong>Commitment Matrix:</strong> Total contract value vs. change orders vs. invoiced amounts vs. retentions.
+        </div>
+        <div>
+          <strong>Workflow Aging:</strong> Audit trails tracking bottlenecks and delayed step approvals by role.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">Axiom Global Technologies · Engineering Pod Submission</div>
+    <div class="page-number">Page 3 of 5</div>
+  </div>
+</div>
+
+<!-- PAGE 4: PROVEN ENTERPRISE PROJECT TRACK RECORD -->
+<div class="page">
+  <div class="top-gradient-bar"></div>
+  
+  <div class="header">
+    <div class="header-left">
+      <div class="brand-badge">AXIOM GLOBAL</div>
+      <div class="header-title-block">
+        <h1>ORACLE PRIMAVERA UNIFIER TECHNICAL PROPOSAL</h1>
+        <span>Enterprise Projects & Oracle Database Track Record</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <strong>Verification:</strong> Enterprise Scale<br>
+      <strong>Clients:</strong> Corporate & Government
+    </div>
+  </div>
+
+  <div>
+    <h2>3. Proven Enterprise Project Track Record & Oracle Database Scale</h2>
+    <p style="margin-bottom: 8px;">
+      Our engineering credentials are demonstrated by real-world enterprise deployments handling millions of daily customer transactions, large-scale financial reconciliations, and mission-critical government platforms:
+    </p>
+
+    <!-- PROJECT 1: SINGER SRI LANKA -->
+    <div class="project-card" style="border-left: 3.5px solid #059669; background: #f0fdf4;">
+      <div class="project-card-header">
+        <div>
+          <span class="project-title" style="color: #166534;">PROJECT 01: SINGER Sri Lanka PLC — Enterprise Oracle Database & Financial Management</span>
+          <br><span style="font-size: 8.5px; color: #15803d; font-weight: 700;">Client: SINGER Sri Lanka PLC (Largest Retail & Consumer Durable Giant) · Lead: Janith Nadiranga (DMS Software Division)</span>
+        </div>
+        <span class="tag tag-green">Oracle Production Scale</span>
+      </div>
+      <p style="font-size: 9px; color: #1e293b; margin-bottom: 4px;">
+        <strong>Project Context & Scale:</strong> SINGER Sri Lanka PLC operates over 430+ retail branches, 1,200+ authorized dealers, and serves millions of customers nationwide. Janith Nadiranga and the team architected the enterprise field collection, billing, and receipt management platform governing daily cash flows and batch reconciliations.
+      </p>
+      <div class="grid-2">
+        <div>
+          <strong style="font-size: 8.8px; color: #0f172a;">Oracle Database & Financial Architecture:</strong>
+          <ul class="bullet-list" style="margin-top: 2px;">
+            <li>Engineered complex Oracle Database schemas, stored procedures, and high-concurrency PL/SQL transaction tracking routines.</li>
+            <li>Automated batch-wise transaction auditing, receipt reconciliation, and mobile payment capture across regional collection networks.</li>
+          </ul>
+        </div>
+        <div>
+          <strong style="font-size: 8.8px; color: #0f172a;">Reporting & Data Migration:</strong>
+          <ul class="bullet-list" style="margin-top: 2px;">
+            <li>Developed enterprise financial reporting and audit statements using Eclipse BIRT and Oracle SQL views.</li>
+            <li>Executed full production data migration of mission-critical financial workflows to Amazon RDS with zero operational downtime.</li>
+          </ul>
+        </div>
+      </div>
+      <div style="font-size: 8px; color: #166534; font-weight: 600; margin-top: 2px;">
+        Technologies: Oracle Database · Oracle SQL · PL/SQL · Java Spring Boot · RabbitMQ · Eclipse BIRT · AWS RDS
+      </div>
+    </div>
+
+    <!-- PROJECT 2: DIMO LANKA -->
+    <div class="project-card" style="border-left: 3.5px solid #2563eb;">
+      <div class="project-card-header">
+        <div>
+          <span class="project-title">PROJECT 02: DIMO Lanka — Enterprise Gate Pass System (SAP ERP Integration)</span>
+          <br><span style="font-size: 8.5px; color: #64748b; font-weight: 700;">Client: Diesel & Motor Engineering PLC · Leads: Avishka Meddegoda & Viranga Lakshan</span>
+        </div>
+        <span class="tag tag-blue">SAP ERP Integration</span>
+      </div>
+      <p style="font-size: 9px; margin-bottom: 3px;">
+        Designed and deployed an enterprise asset dispatch and authorization platform. Built custom API gateway microservices connecting multi-tier managerial approval workflows directly with <strong>SAP ERP</strong> for real-time inventory and logistics reconciliation, Keycloak OAuth2/OIDC RBAC, and Kafka audit trails.
+      </p>
+      <div style="font-size: 8px; color: #475569; font-weight: 600;">
+        Technologies: SAP ERP Integration · Java Spring Boot · Keycloak OAuth2 · Kafka · RESTful Gateway · MySQL Flyway
+      </div>
+    </div>
+
+    <!-- PROJECT 3: MIDDLE EAST GOVERNMENT -->
+    <div class="project-card" style="border-left: 3.5px solid #7c3aed;">
+      <div class="project-card-header">
+        <div>
+          <span class="project-title">PROJECT 03: Middle East Government Cultural Mega-Platforms (Al Ain Museum & NHM Abu Dhabi)</span>
+          <br><span style="font-size: 8.5px; color: #64748b; font-weight: 700;">Clients: UAE Government Cultural Institutions · Live: alainmuseum.ae & nhmad.ae</span>
+        </div>
+        <span class="tag tag-purple">GCC Enterprise Platforms</span>
+      </div>
+      <p style="font-size: 9px; margin-bottom: 3px;">
+        Architected mission-critical digital experience platforms under strict Helix architectural governance, delivering multilingual bidirectional data integration, high-concurrency availability, and strict government security compliance in the Gulf.
+      </p>
+      <div style="font-size: 8px; color: #475569; font-weight: 600;">
+        Technologies: Enterprise CMS Architecture · REST APIs · C#/.NET · Multilingual Layout Service · High-Traffic Optimization
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">Axiom Global Technologies · Engineering Pod Submission</div>
+    <div class="page-number">Page 4 of 5</div>
+  </div>
+</div>
+
+<!-- PAGE 5: METHODOLOGY, QATAR MOBILIZATION & NEXT STEPS -->
+<div class="page">
+  <div class="top-gradient-bar"></div>
+  
+  <div class="header">
+    <div class="header-left">
+      <div class="brand-badge">AXIOM GLOBAL</div>
+      <div class="header-title-block">
+        <h1>ORACLE PRIMAVERA UNIFIER TECHNICAL PROPOSAL</h1>
+        <span>Delivery Methodology, Qatar On-Site Mobilization & Contact</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <strong>Commitment:</strong> Full Project Lifecycle<br>
+      <strong>On-Site:</strong> Doha, Qatar
+    </div>
+  </div>
+
+  <div>
+    <h2>4. Implementation Methodology & Qatar Mobilization Plan</h2>
+    <p style="margin-bottom: 9px;">
+      Our phased deployment framework ensures rapid requirement absorption, flawless uDesigner configuration, and seamless integration with existing project controls:
+    </p>
+
+    <div class="grid-2" style="margin-bottom: 10px;">
+      <div class="card" style="border-top: 3px solid #2563eb;">
+        <span class="tag tag-blue">Phase 1 · Weeks 1–2</span>
+        <h3 style="margin-top: 3px;">Blueprint & Schema Architecture</h3>
+        <ul class="bullet-list">
+          <li>Review project commercial procedures, delegation of authority (DOA), and WBS/CBS dictionaries.</li>
+          <li>Author Unifier Functional & Technical Design Documents (FDD/TDD).</li>
+          <li>Design uDesigner data definitions, dynamic data elements, and shell hierarchy models.</li>
+        </ul>
+      </div>
+
+      <div class="card" style="border-top: 3px solid #7c3aed;">
+        <span class="tag tag-purple">Phase 2 · Weeks 3–5</span>
+        <h3 style="margin-top: 3px;">BP Configuration & Workflow Build</h3>
+        <ul class="bullet-list">
+          <li>Build and configure Cost BPs (Commitments, Change Orders, Payment Certificates).</li>
+          <li>Build Non-Cost BPs (RFIs, Submittals, Site Transmittals, Inspection Logs).</li>
+          <li>Configure Cost Sheets, Data Cubes, and workflow conditional routing logic.</li>
+        </ul>
+      </div>
+
+      <div class="card" style="border-top: 3px solid #059669;">
+        <span class="tag tag-green">Phase 3 · Weeks 6–7</span>
+        <h3 style="margin-top: 3px;">P6 / ERP Integration & BI Publisher</h3>
+        <ul class="bullet-list">
+          <li>Establish bidirectional P6 schedule sync and ERP actuals pipeline.</li>
+          <li>Develop custom SQL data models and BI Publisher / BIRT executive reports.</li>
+          <li>Conduct end-to-end sandbox data flow simulations and stress testing.</li>
+        </ul>
+      </div>
+
+      <div class="card" style="border-top: 3px solid #d97706;">
+        <span class="tag tag-amber">Phase 4 · Week 8+</span>
+        <h3 style="margin-top: 3px;">UAT, Go-Live Cutover & Hypercare</h3>
+        <ul class="bullet-list">
+          <li>Facilitate User Acceptance Testing (UAT) with commercial and project managers.</li>
+          <li>Author administrator playbooks and user quick-reference guides.</li>
+          <li>Production deployment, shell cutover, and on-site post-go-live hypercare.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>5. Candidate Summary & Contact Information</h2>
+    <table class="meta-table" style="margin-bottom: 10px;">
+      <tr>
+        <th>Primary Tech Lead</th>
+        <td><strong>Avishka Meddegoda</strong> — Senior Software Engineer (6+ Years Experience, BSc Sp. Computing)</td>
+      </tr>
+      <tr>
+        <th>Core Engineering Pod</th>
+        <td>Janith Nadiranga (Senior Oracle Database Engineer), Viranga Lakshan (Systems Integration Engineer)</td>
+      </tr>
+      <tr>
+        <th>Contact & Interview</th>
+        <td>Available for immediate technical discussion and video interview via Upwork / Google Meet / MS Teams</td>
+      </tr>
+      <tr>
+        <th>Qatar Relocation Terms</th>
+        <td>Immediate readiness to relocate to Doha, Qatar upon visa / contract execution</td>
+      </tr>
+      <tr>
+        <th>Compensation Agreed</th>
+        <td><strong>QAR 10,000 – 12,000 / month</strong> (Fixed Price $10,000 milestone accepted)</td>
+      </tr>
+    </table>
+
+    <div class="card card-dark" style="margin-bottom: 0;">
+      <h3 style="font-size: 11px; margin-bottom: 3px;">Next Steps: Technical Interview & Project Alignment</h3>
+      <p style="font-size: 9px; line-height: 1.4; margin-bottom: 0;">
+        We welcome the opportunity to discuss your specific Primavera Unifier business processes, P6 WBS alignment, and integration landscape during an introductory call. We are ready to contribute immediately to the success of your capital projects in Qatar.
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">Axiom Global Technologies · Engineering Pod Submission</div>
+    <div class="page-number">Page 5 of 5</div>
+  </div>
+</div>
+
+</body>
+</html>"""
+
+    with open(html_file, "w", encoding="utf-8") as f:
+        f.write(html_content)
+    print(f"Saved HTML template to: {html_file}")
+
+    print("Rendering PDF with Playwright...")
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        page.goto(f"file:///{html_file.replace(os.sep, '/')}", wait_until="networkidle")
+        page.pdf(
+            path=output_pdf,
+            format="A4",
+            print_background=True,
+            margin={"top": "0mm", "bottom": "0mm", "left": "0mm", "right": "0mm"}
+        )
+        browser.close()
+
+    print(f"PDF saved to: {output_pdf}")
+
+    reader = pypdf.PdfReader(output_pdf)
+    total_pages = len(reader.pages)
+    print(f"Verified Page Count: {total_pages} pages")
+    assert total_pages == 5, f"Expected 5 pages, but got {total_pages}"
+    print("SUCCESS: Proposal PDF strictly matches 5 pages!")
+
+if __name__ == "__main__":
+    generate_pdf()

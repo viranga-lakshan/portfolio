@@ -139,3 +139,4 @@ Representing: Avishka Meddegoda, Janith Nadiranga & Viranga Lakshan
 2. **Oracle Database Proven Scale:** The proposal prominently details **Janith Nadiranga's work for SINGER Sri Lanka PLC** at DMS Software Division, demonstrating to the Qatar client that our team already builds and supports massive Oracle SQL transaction engines serving millions of end users.
 3. **ERP & Workflow Credibility:** The **DIMO SAP ERP integration** and **Middle East government experience (UAE)** directly demonstrate that our team knows how enterprise EPC/corporate systems operate in the GCC region.
 4. **Relocation & Onboarding:** Confirms **100% willingness to relocate to Qatar** and availability within 1–2 weeks.
+
