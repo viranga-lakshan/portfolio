@@ -371,7 +371,7 @@ table.editorial-table tr:nth-child(even) td {
       <div>
         <div style="font-size: 6.2pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey);">Senior Oracle Specialist</div>
         <div style="font-size: 8.5pt; font-weight: 700; color: var(--black);">Janith Nadiranga</div>
-        <div style="font-size: 7pt; color: var(--mid-grey);">SINGER Sri Lanka PLC Oracle DB Lead</div>
+        <div style="font-size: 7pt; color: var(--mid-grey);">DMS Software Division &middot; SINGER Lead</div>
       </div>
     </div>
 
@@ -393,7 +393,7 @@ table.editorial-table tr:nth-child(even) td {
     <span class="section-tag">Doha Mega-Project Controls &middot; Infrastructure Delivery</span>
     <h2 class="page-title">Executive Summary &amp; Core Capability Matrix</h2>
     <p class="lead-text">
-      We deliver enterprise-grade implementation, workflow automation, and systems integration for <strong>Oracle Primavera Unifier</strong> across high-value capital construction, civil infrastructure, EPC, and Oil &amp; Gas programs. Led by <strong>Avishka Meddegoda</strong> (Technical Lead, 6+ years enterprise software experience) and featuring <strong>Janith Nadiranga</strong> (Senior Enterprise Engineer, architect of SINGER Sri Lanka's nationwide Oracle Database transaction platform at DMS Software Division), our engineering pod combines deep Oracle relational database mastery with certified Unifier uDesigner and Primavera P6 integration proficiency.
+      We deliver enterprise-grade implementation, workflow automation, and systems integration for <strong>Oracle Primavera Unifier</strong> across high-value capital construction, civil infrastructure, EPC, and Oil &amp; Gas programs. Led by <strong>Avishka Meddegoda</strong> (Technical Lead, 6+ years enterprise software experience) and featuring <strong>Janith Nadiranga</strong> (Senior Enterprise Systems Engineer, DMS Software Division, architect of SINGER Sri Lanka's production financial and inventory workflows), our engineering pod combines deep Oracle relational database mastery with certified Unifier uDesigner and Primavera P6 integration proficiency.
     </p>
 
     <!-- Stat Highlights -->
@@ -507,12 +507,12 @@ table.editorial-table tr:nth-child(even) td {
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2px;">
           <div>
             <strong style="font-size: 8.5pt; color: var(--black);">JANITH NADIRANGA</strong>
-            <div style="font-size: 6.8pt; font-weight: 700; color: var(--mid-grey);">Senior Enterprise Oracle &amp; Database Specialist</div>
+            <div style="font-size: 6.8pt; font-weight: 700; color: var(--mid-grey);">Senior Enterprise Systems &amp; Database Engineer</div>
           </div>
-          <span class="badge badge-dark">ORACLE LEAD</span>
+          <span class="badge badge-dark">DMS PROGRAMMER</span>
         </div>
         <p style="font-size: 7.3pt; line-height: 1.34; color: var(--dark-charcoal); margin: 0;">
-          Enterprise Engineer at DMS Software Division (BSc Hons Computing, Coventry University UK). Architect of SINGER Sri Lanka PLC nationwide Oracle Database financial platform (430+ showrooms, millions of accounts). Deep mastery in Oracle PL/SQL, Amazon RDS, RabbitMQ, and Eclipse BIRT / BI Publisher.
+          Programmer at DMS (Pvt) Ltd, Software Division (formerly SiteSolve; Coventry University UK). Architect of field collection, mobile receipt generation, and RDS data migration workflows for SINGER Sri Lanka PLC. Specialist in Java, Spring Boot, RabbitMQ message queues, React portals, and Next.js AWS inventory tracking.
         </p>
       </div>
 
@@ -867,7 +867,7 @@ SELECT s.shell_name, cbs.cbs_code, cbs.cbs_name,
        (NVL(cost.orig_budget, 0) + NVL(cost.appr_changes, 0)) AS revised_budget,
        NVL(cost.commitments, 0) AS total_commitments,
        NVL(cost.actual_cost, 0) AS actual_cost,
-       (NVL(cost.orig_budget, 0) + NVL(cost.appr_changes, 0) - NVL(cost.actual_cost, 0)) AS cost_variance
+       (NVL(cost.orig_budget, 0) + NVL(cost.appr_changes, 0)) - NVL(cost.actual_cost, 0) AS cost_variance
 FROM sys_shell s 
 JOIN sys_cost_sheet_data cost ON s.shell_id = cost.shell_id
 JOIN sys_cbs_code cbs ON cost.cbs_id = cbs.cbs_id
@@ -983,7 +983,7 @@ WHERE s.status = 'Active' ORDER BY s.shell_name, cbs.cbs_code;
   </div>
 </div>
 
-<!-- ========================================== PAGE 08: FLAGSHIP PROJECT 01 - SINGER ORACLE DB ========================================== -->
+<!-- ========================================== PAGE 08: FLAGSHIP PROJECT 01 - SINGER & DMS ENTERPRISE ========================================== -->
 <div class="page">
   <div>
     <div class="page-header">
@@ -991,79 +991,96 @@ WHERE s.status = 'Active' ORDER BY s.shell_name, cbs.cbs_code;
       <div class="header-right">SECTION 07 &middot; FLAGSHIP ENTERPRISE SHOWCASE 01</div>
     </div>
 
-    <span class="section-tag">Massive Scalability &middot; Nationwide Oracle Database Platform</span>
-    <h2 class="page-title">SINGER Sri Lanka PLC &middot; Enterprise Oracle Engine</h2>
+    <span class="section-tag">DMS Software Division &middot; SINGER Sri Lanka PLC Financial Engine</span>
+    <h2 class="page-title">SINGER Sri Lanka &amp; DMS Enterprise Systems</h2>
     <p class="lead-text">
-      Architected and implemented by <strong>Janith Nadiranga</strong> at <strong>DMS Software Division</strong>, this mission-critical financial collection, consumer financing, and inventory transaction platform powers SINGER Sri Lanka PLC (nationwide conglomerate with millions of active accounts).
+      Engineered by <strong>Janith Nadiranga</strong> at <strong>DMS (Pvt) Ltd, Software Division</strong> (Trainee Programmer &rarr; Programmer) and <strong>SiteSolve</strong>, delivering production-grade financial workflows, inventory platforms, and message-driven architectures for island-wide enterprise clients.
     </p>
 
-    <!-- Hero Image for SINGER -->
-    <div style="position: relative; width: 100%; height: 60mm; border-radius: 4px; overflow: hidden; border: 1px solid var(--black); margin-bottom: 7px;">
-      <img src="c:/Users/Viranga/Downloads/upwrok new/Oracle_Primavera_Unifier_Developer_Qatar_Proposal/images/engineering_facade.jpg" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="Enterprise Infrastructure Architecture">
-      <div style="position: absolute; bottom: 8px; left: 10px; background: rgba(15, 17, 21, 0.90); color: #FFFFFF; padding: 5px 10px; border-radius: 3px; font-size: 7pt; letter-spacing: 0.5px;">
-        <strong>SINGER SRI LANKA PLC</strong> &middot; Real-Time High-Concurrency Oracle Database Financial Processing System
+    <!-- Top Architecture Banner & Metrics -->
+    <div style="display: grid; grid-template-columns: 160px 1fr; gap: 8px; margin-bottom: 6px; align-items: center;">
+      <div style="height: 60px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-grey);">
+        <img src="c:/Users/Viranga/Downloads/upwrok new/Oracle_Primavera_Unifier_Developer_Qatar_Proposal/images/engineering_facade.jpg" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="Enterprise Financial Architecture">
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px;">
+        <div class="stat-box" style="padding: 4px 5px;">
+          <div class="stat-value" style="font-size: 13pt;">430+</div>
+          <div class="stat-label">Retail Showrooms</div>
+        </div>
+        <div class="stat-box" style="padding: 4px 5px;">
+          <div class="stat-value" style="font-size: 13pt;">1,200+</div>
+          <div class="stat-label">Dealer Network</div>
+        </div>
+        <div class="stat-box" style="padding: 4px 5px;">
+          <div class="stat-value" style="font-size: 13pt;">Millions</div>
+          <div class="stat-label">Transactions</div>
+        </div>
+        <div class="stat-box" style="padding: 4px 5px;">
+          <div class="stat-value" style="font-size: 13pt;">99.99%</div>
+          <div class="stat-label">System Uptime</div>
+        </div>
       </div>
     </div>
 
-    <!-- Architecture Metrics -->
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 7px;">
-      <div class="stat-box">
-        <div class="stat-value">430+</div>
-        <div class="stat-label">Retail Showrooms</div>
+    <!-- Core Project 01: SINGER Sri Lanka PLC (DMS Software Division) -->
+    <div class="editorial-card" style="margin-bottom: 5px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2px;">
+        <div>
+          <span class="badge badge-dark">DMS SOFTWARE DIVISION</span>
+          <span style="font-size: 8.5pt; font-weight: 800; color: var(--black); margin-left: 6px;">
+            SINGER Sri Lanka PLC &middot; Field Collection &amp; Receipt Management System
+          </span>
+        </div>
+        <div style="font-size: 6.8pt; font-weight: 700; color: var(--mid-grey);">January 2025 &ndash; Present | Sri Lanka</div>
       </div>
-      <div class="stat-box">
-        <div class="stat-value">1,200+</div>
-        <div class="stat-label">Dealer Network</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-value">Millions</div>
-        <div class="stat-label">Customer Transactions</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-value">99.99%</div>
-        <div class="stat-label">Uptime &amp; Audit Trail</div>
-      </div>
+      <ul style="margin-left: 14px; font-size: 7.2pt; color: var(--dark-charcoal); line-height: 1.34;">
+        <li><strong>Financial Collection &amp; Database Design:</strong> Designed and developed a field collection and receipt management system handling batch-wise transaction tracking and mobile receipt generation, including database design and full data migration to Amazon RDS (MySQL) for a production financial workflow for SINGER Sri Lanka PLC.</li>
+        <li><strong>Java, Spring Boot &amp; RabbitMQ Microservices:</strong> Built and maintained backend services using Java and Spring Boot, with RabbitMQ for message-driven communication between system components in an enterprise-scale application.</li>
+        <li><strong>React Customer &amp; Management Portals:</strong> Developed frontend interfaces using React for a customer-facing portal and an internal management portal, integrating REST APIs to support request, approval, and tracking workflows.</li>
+      </ul>
     </div>
 
-    <!-- Project Specifications Table -->
-    <table class="editorial-table">
-      <thead>
-        <tr>
-          <th style="width: 28%;">Architectural Layer</th>
-          <th style="width: 42%;">Technical Implementation</th>
-          <th style="width: 30%;">Direct Relevance to Unifier</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Database Engine</strong></td>
-          <td>Oracle Database Enterprise Edition (19c/12c), RAC (Real Application Clusters), Oracle Data Guard replication.</td>
-          <td>High-volume transaction throughput, failover clustering, and data durability identical to Unifier enterprise backends.</td>
-        </tr>
-        <tr>
-          <td><strong>PL/SQL Backend Automation</strong></td>
-          <td>Complex stored packages, row-level security policies, ACID transaction isolation, materialized views, and partition pruning.</td>
-          <td>Provides exact architectural skills required to write custom Unifier SQL data views and perform high-speed cost calculations.</td>
-        </tr>
-        <tr>
-          <td><strong>Financial Reconciliation</strong></td>
-          <td>Automated end-of-day multi-branch ledger balancing, receipt verification, payment gateway settlement, and GL journal posting.</td>
-          <td>Direct parallel to Unifier Commitment vs. Actual spend balancing, retention tracking, and contractor payment cert generation.</td>
-        </tr>
-        <tr>
-          <td><strong>Enterprise Reporting</strong></td>
-          <td>Automated BI reporting pipelines, BIRT &amp; BI Publisher reports, fiscal statements, and executive portfolio dashboards.</td>
-          <td>Ensures rapid configuration of Qatar executive cost reports, S-Curves, and contractor performance tracking.</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="editorial-card-black" style="margin-top: 3px;">
-      <div style="font-size: 7.2pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #9CA3AF; margin-bottom: 2px;">
-        ENGINEERING VALUE TO YOUR QATAR TEAM
+    <!-- Core Project 02: Multi-Tier Inventory & Distribution Tracking Platform -->
+    <div class="editorial-card" style="margin-bottom: 5px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2px;">
+        <div>
+          <span class="badge badge-dark">ENTERPRISE SUPPLY CHAIN</span>
+          <span style="font-size: 8.5pt; font-weight: 800; color: var(--black); margin-left: 6px;">
+            Nationwide Multi-Tier Inventory &amp; Distribution Tracking Platform
+          </span>
+        </div>
+        <div style="font-size: 6.8pt; font-weight: 700; color: var(--mid-grey);">AWS Lambda &middot; RDS &middot; Next.js</div>
       </div>
-      <p style="font-size: 7.7pt; line-height: 1.36; margin: 0;">
-        Janith's core engineering leadership proves our pod's ability to handle massive, multi-tiered enterprise systems where financial accuracy is non-negotiable. This exact rigor is applied to configure your Primavera Unifier cost sheets, WBS/CBS hierarchies, and contractor payment applications without calculation drift.
+      <ul style="margin-left: 14px; font-size: 7.2pt; color: var(--dark-charcoal); line-height: 1.34;">
+        <li><strong>Multi-Tier Stock Flow:</strong> Contributed to an inventory and distribution tracking platform built with Next.js, integrated with AWS Lambda and Amazon RDS, supporting end-to-end stock flow across a multi-tier distribution network.</li>
+        <li><strong>Architecture, Analysis &amp; Documentation:</strong> Involved in requirements analysis, system and database design, and preparation of technical documentation and user manuals across multiple enterprise projects.</li>
+        <li><strong>System Ownership &amp; Production Support:</strong> Took on increased ownership of system design and production support following promotion to Programmer, ensuring uninterrupted operation of deployed applications for island-wide enterprise clients.</li>
+      </ul>
+    </div>
+
+    <!-- Core Project 03: SiteSolve Web Development -->
+    <div class="editorial-card-grey" style="margin-bottom: 4px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1px;">
+        <div>
+          <span class="badge badge-outline">SITESOLVE</span>
+          <span style="font-size: 8pt; font-weight: 800; color: var(--black); margin-left: 6px;">
+            SiteSolve &middot; Enterprise Web Platform Engineering
+          </span>
+        </div>
+        <div style="font-size: 6.8pt; font-weight: 700; color: var(--mid-grey);">October 2024 &ndash; January 2025 | Sri Lanka</div>
+      </div>
+      <p style="font-size: 7.1pt; line-height: 1.32; color: var(--dark-charcoal); margin: 0;">
+        Assisted in developing and maintaining web application features under senior developer guidance, gained hands-on exposure to full-stack development practices and version control workflows, and supported testing and bug-fixing activities to improve application stability.
+      </p>
+    </div>
+
+    <!-- Direct Value to Qatar Unifier Team -->
+    <div class="editorial-card-black" style="margin-top: 2px;">
+      <div style="font-size: 7pt; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #9CA3AF; margin-bottom: 2px;">
+        DIRECT ARCHITECTURAL RELEVANCE TO PRIMAVERA UNIFIER IN QATAR
+      </div>
+      <p style="font-size: 7.5pt; line-height: 1.35; margin: 0;">
+        Janith's hands-on experience handling batch-wise financial transaction tracking, automated approval workflows, message queues, and multi-tier distribution networks directly translates into configuring Unifier Cost Sheets, CBS sub-ledgers, contractor payment certs, and P6 schedule sync without calculation drift.
       </p>
     </div>
   </div>
@@ -1399,7 +1416,7 @@ WHERE s.status = 'Active' ORDER BY s.shell_name, cbs.cbs_code;
         <div style="font-size: 6pt; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; color: var(--mid-grey);">Senior Oracle Specialist</div>
         <div style="font-size: 8.5pt; font-weight: 800; color: var(--black);">Janith Nadiranga</div>
         <div style="font-size: 6.8pt; color: var(--dark-charcoal); margin-top: 1px;">
-          DMS Software Division. Architect of SINGER Sri Lanka PLC nationwide Oracle DB transaction platform (430+ branches).
+          DMS Software Division. Architect of SINGER Sri Lanka PLC nationwide financial and inventory platforms.
         </div>
       </div>
       <div class="editorial-card-grey">
