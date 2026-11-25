@@ -2,33 +2,50 @@ import React from "react";
 import { useCurrentFrame, useVideoConfig, interpolate, spring, staticFile } from "remotion";
 import { Audio } from "@remotion/media";
 import { THEME, fontFamily } from "../theme";
-import { ReadyIcon, ToInspectIcon, CheckSquareIcon, AssignedIcon } from "../icons";
+import { MousePointerIcon } from "../icons";
 
 export const Scene5Inspection: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const voSrc = staticFile("assets/scene5_vo.mp3");
 
-  // Entrance spring for split view
+  const voSrc = staticFile("assets/scene5_vo.mp3");
+  const clickSrc = staticFile("assets/sfx_click.wav");
+  const chimeSrc = staticFile("assets/sfx_chime.wav");
+
+  // Entrance spring
   const enterSpring = spring({
-    frame: frame - 5,
+    frame: frame - 6,
     fps,
-    config: { damping: 16, mass: 0.8, stiffness: 100 },
+    config: { damping: 22, mass: 0.9, stiffness: 85 },
   });
-  const enterY = interpolate(enterSpring, [0, 1], [40, 0]);
+  const enterY = interpolate(enterSpring, [0, 1], [30, 0]);
   const enterOpacity = interpolate(frame, [0, 20], [0, 1]);
 
-  // Tap "Pass" at frame 50
-  const isTappingPass = frame >= 46 && frame <= 60;
+  // Tap "Pass" at frame 45
+  const isTappingPass = frame >= 40 && frame <= 52;
   const passScale = isTappingPass
-    ? interpolate(frame, [46, 52, 60], [1, 0.9, 1])
+    ? interpolate(frame, [40, 46, 52], [1, 0.9, 1])
     : 1.0;
-  const isPassed = frame >= 52;
+  const isPassed = frame >= 46;
 
   // Green glow ripple on Room 203
-  const passedGlow = isPassed ? Math.sin((frame - 52) * 0.2) * 10 + 25 : 0;
+  const passedGlow = isPassed ? Math.sin((frame - 46) * 0.15) * 12 + 25 : 0;
 
-  // Exit transition
+  // Cursor coordinates gliding to Pass button (around 450, 680)
+  const cursorX = interpolate(
+    frame,
+    [10, 44, 60, 120],
+    [700, 360, 360, 600],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+  const cursorY = interpolate(
+    frame,
+    [10, 44, 60, 120],
+    [500, 680, 680, 500],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+
+  // Exit transition (last 15 frames)
   const exitOpacity = interpolate(frame, [225, 240], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -47,17 +64,19 @@ export const Scene5Inspection: React.FC = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "40px 100px",
+        padding: "30px 100px",
         opacity: exitOpacity,
       }}
     >
       <Audio src={voSrc} volume={1.0} />
+      {frame === 46 && <Audio src={clickSrc} volume={0.4} />}
+      {frame === 47 && <Audio src={chimeSrc} volume={0.5} />}
 
       {/* Top Header */}
       <div
         style={{
           textAlign: "center",
-          marginBottom: 36,
+          marginBottom: 32,
           transform: `translateY(${enterY}px)`,
           opacity: enterOpacity,
         }}
@@ -67,27 +86,37 @@ export const Scene5Inspection: React.FC = () => {
             display: "inline-flex",
             alignItems: "center",
             gap: 10,
-            padding: "8px 22px",
+            padding: "6px 22px",
             borderRadius: 30,
             backgroundColor: "rgba(168, 85, 247, 0.15)",
-            border: `1px solid ${THEME.status.toInspect.color}`,
+            border: `1.5px solid ${THEME.status.toInspect.color}`,
             color: THEME.status.toInspect.color,
-            fontSize: 22,
+            fontSize: 18,
             fontWeight: 700,
             textTransform: "uppercase",
             letterSpacing: "0.08em",
-            marginBottom: 16,
+            marginBottom: 12,
           }}
         >
+          <span
+            style={{
+              width: 9,
+              height: 9,
+              borderRadius: "50%",
+              backgroundColor: THEME.status.toInspect.color,
+              boxShadow: "0 0 10px #A855F7",
+            }}
+          />
           Supervisor Quality Control
         </div>
 
         <h2
           style={{
             ...THEME.typography.headline,
-            fontSize: 66,
+            fontSize: 60,
             color: THEME.textPrimary,
             margin: 0,
+            letterSpacing: "-0.03em",
           }}
         >
           Inspected. Ready to sell. <br />
@@ -95,259 +124,269 @@ export const Scene5Inspection: React.FC = () => {
         </h2>
       </div>
 
-      {/* Interactive Split View: Left (Supervisor Pass Screen) & Right (Live Board Update) */}
+      {/* Interactive Split View */}
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          gap: 60,
+          gap: 50,
           width: "100%",
           maxWidth: 1600,
           transform: `translateY(${enterY}px)`,
           opacity: enterOpacity,
+          position: "relative",
         }}
       >
-        {/* Left Card: Supervisor Inspection Card */}
+        {/* Left: Supervisor Inspection Card matching Proposal Page 3 */}
         <div
           style={{
             flex: 1,
-            backgroundColor: THEME.surface,
-            borderRadius: 28,
-            border: `2px solid ${isPassed ? THEME.status.ready.color : THEME.border}`,
-            padding: 36,
+            backgroundColor: "#FFFFFF",
+            borderRadius: 26,
+            border: `2px solid ${isPassed ? THEME.status.ready.color : "#E2E8F0"}`,
+            padding: 34,
             boxShadow: isPassed
-              ? `0 20px 60px rgba(34, 197, 94, 0.35)`
-              : "0 20px 50px rgba(0,0,0,0.5)",
+              ? `0 25px 60px rgba(34, 197, 94, 0.35)`
+              : "0 25px 50px rgba(0,0,0,0.35)",
             position: "relative",
+            color: "#0F172A",
           }}
         >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <div>
-              <div style={{ fontSize: 18, color: THEME.textSecondary, fontWeight: 600 }}>
-                Inspection Queue
+              <div style={{ fontSize: 14, color: "#64748B", fontWeight: 700, letterSpacing: "0.05em", textTransform: "uppercase" }}>
+                Supervisor · Inspection
               </div>
-              <div style={{ fontSize: 44, fontWeight: 800, color: THEME.textPrimary }}>
+              <div style={{ fontSize: 38, fontWeight: 800, color: "#0F172A", marginTop: 2 }}>
                 Room 203
               </div>
             </div>
+
             <div
               style={{
-                backgroundColor: isPassed ? THEME.status.ready.bg : THEME.status.toInspect.bg,
-                border: `2px solid ${isPassed ? THEME.status.ready.color : THEME.status.toInspect.color}`,
-                color: isPassed ? THEME.status.ready.color : THEME.status.toInspect.color,
-                padding: "8px 20px",
-                borderRadius: 20,
-                fontSize: 20,
-                fontWeight: 800,
+                backgroundColor: isPassed ? THEME.status.ready.bgPastel : THEME.status.toInspect.bgPastel,
+                border: `1.5px solid ${isPassed ? THEME.status.ready.borderPastel : THEME.status.toInspect.borderPastel}`,
+                color: isPassed ? THEME.status.ready.textDark : THEME.status.toInspect.textDark,
+                padding: "8px 18px",
+                borderRadius: 16,
+                fontSize: 18,
+                fontWeight: 700,
                 display: "flex",
                 alignItems: "center",
                 gap: 8,
               }}
             >
-              {isPassed ? <ReadyIcon size={22} color="#22C55E" /> : <ToInspectIcon size={22} color="#A855F7" />}
-              {isPassed ? "Ready to Sell" : "Waiting Inspection"}
+              <span
+                style={{
+                  width: 9,
+                  height: 9,
+                  borderRadius: "50%",
+                  backgroundColor: isPassed ? THEME.status.ready.dot : THEME.status.toInspect.dot,
+                }}
+              />
+              {isPassed ? "PASSED (100% Score)" : "Waiting Inspection"}
             </div>
           </div>
 
-          {/* Housekeeper metadata & score */}
-          <div
-            style={{
-              margin: "24px 0",
-              padding: 20,
-              borderRadius: 18,
-              backgroundColor: "#0F172A",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <div>
-              <div style={{ fontSize: 14, color: THEME.textMuted }}>Cleaned By</div>
-              <div style={{ fontSize: 22, fontWeight: 700, color: THEME.textPrimary }}>
-                Sara Perera (Housekeeper #4)
-              </div>
+          {/* Photo Verification Pills matching Proposal Page 3 */}
+          <div style={{ marginTop: 24 }}>
+            <div style={{ fontSize: 15, fontWeight: 600, color: "#475569", marginBottom: 12 }}>
+              Housekeeper Photo Proof:
             </div>
-
-            <div style={{ textAlign: "right" }}>
-              <div style={{ fontSize: 14, color: THEME.textMuted }}>Inspection Score</div>
-              <div style={{ fontSize: 26, fontWeight: 800, color: THEME.status.ready.color }}>
-                100% (All Items Passed)
+            <div style={{ display: "flex", gap: 16 }}>
+              <div
+                style={{
+                  flex: 1,
+                  height: 140,
+                  backgroundColor: "#F8FAFC",
+                  border: "1.5px solid #E2E8F0",
+                  borderRadius: 16,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 8,
+                }}
+              >
+                <div style={{ fontSize: 32 }}>🛏️</div>
+                <div style={{ fontSize: 16, fontWeight: 700, color: "#1E293B" }}>Bed photo</div>
+                <div style={{ fontSize: 12, color: "#10B981", fontWeight: 600 }}>Verified sharp</div>
+              </div>
+              <div
+                style={{
+                  flex: 1,
+                  height: 140,
+                  backgroundColor: "#F8FAFC",
+                  border: "1.5px solid #E2E8F0",
+                  borderRadius: 16,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 8,
+                }}
+              >
+                <div style={{ fontSize: 32 }}>🚿</div>
+                <div style={{ fontSize: 16, fontWeight: 700, color: "#1E293B" }}>Bathroom photo</div>
+                <div style={{ fontSize: 12, color: "#10B981", fontWeight: 600 }}>Verified clean</div>
               </div>
             </div>
           </div>
 
-          {/* Action Buttons: Pass vs Send Back */}
-          <div style={{ display: "flex", gap: 18 }}>
+          {/* Action Buttons matching Proposal Page 3 */}
+          <div style={{ display: "flex", gap: 16, marginTop: 28 }}>
+            <div
+              style={{
+                flex: 1.2,
+                backgroundColor: "#10B981",
+                color: "#FFFFFF",
+                textAlign: "center",
+                padding: "16px 0",
+                borderRadius: 16,
+                fontWeight: 800,
+                fontSize: 20,
+                transform: `scale(${passScale})`,
+                boxShadow: isPassed ? "0 10px 30px rgba(16, 185, 129, 0.45)" : "none",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+              }}
+            >
+              <span>{isPassed ? "Passed ✓" : "Pass Room"}</span>
+            </div>
+
             <div
               style={{
                 flex: 1,
-                transform: `scale(${passScale})`,
-                backgroundColor: isPassed ? THEME.status.ready.color : "#16A34A",
-                color: "#FFFFFF",
-                borderRadius: 18,
-                padding: "18px 0",
-                textAlign: "center",
-                fontSize: 24,
-                fontWeight: 800,
-                cursor: "pointer",
-                boxShadow: isPassed
-                  ? `0 0 ${passedGlow}px rgba(34, 197, 94, 0.8)`
-                  : "0 10px 25px rgba(22, 163, 74, 0.4)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 12,
-              }}
-            >
-              <CheckSquareIcon size={28} color="#FFFFFF" />
-              {isPassed ? "PASSED & APPROVED ✓" : "Tap to PASS"}
-            </div>
-
-            <div
-              style={{
-                width: 170,
-                backgroundColor: "rgba(239, 68, 68, 0.12)",
-                border: "2px solid rgba(239, 68, 68, 0.4)",
+                backgroundColor: "#FFFFFF",
                 color: "#EF4444",
-                borderRadius: 18,
-                padding: "18px 0",
+                border: "2px solid #FECACA",
                 textAlign: "center",
-                fontSize: 20,
+                padding: "16px 0",
+                borderRadius: 16,
                 fontWeight: 700,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                opacity: isPassed ? 0.35 : 1,
+                fontSize: 18,
               }}
             >
-              Send Back
+              Send back
             </div>
           </div>
         </div>
 
-        {/* Right Card: Front Desk Live Board Immediate Sync */}
+        {/* Right: Instant Front Desk Live Board Update */}
         <div
           style={{
             flex: 1,
-            backgroundColor: THEME.surface,
-            borderRadius: 28,
-            border: `2px solid ${THEME.border}`,
-            padding: 36,
-            boxShadow: "0 20px 50px rgba(0,0,0,0.5)",
+            backgroundColor: "#FFFFFF",
+            borderRadius: 26,
+            border: "1.5px solid #E2E8F0",
+            padding: 34,
+            boxShadow: "0 25px 50px rgba(0,0,0,0.35)",
+            color: "#0F172A",
           }}
         >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
             <div>
-              <div style={{ fontSize: 18, color: THEME.textSecondary, fontWeight: 600 }}>
-                Front Desk Terminal
+              <div style={{ fontSize: 14, color: "#64748B", fontWeight: 700, textTransform: "uppercase" }}>
+                Front Desk Live Sync
               </div>
-              <div style={{ fontSize: 32, fontWeight: 800, color: THEME.textPrimary }}>
-                Instant Board Sync (0ms delay)
+              <div style={{ fontSize: 26, fontWeight: 800, color: "#0F172A", marginTop: 2 }}>
+                Instant Board Reflection
               </div>
             </div>
             <div
               style={{
+                backgroundColor: isPassed ? "#ECFDF5" : "#F1F5F9",
+                color: isPassed ? "#059669" : "#64748B",
+                fontWeight: 700,
+                fontSize: 15,
                 padding: "6px 14px",
                 borderRadius: 20,
-                backgroundColor: "rgba(34, 197, 94, 0.15)",
-                color: THEME.status.ready.color,
-                fontSize: 16,
-                fontWeight: 700,
               }}
             >
-              Live Socket Connected
+              {isPassed ? "SYNCED INSTANTLY" : "LISTENING..."}
             </div>
           </div>
 
-          {/* Mini Room Grid Highlight */}
+          {/* Room 203 Focused Live Tile */}
           <div
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 16,
-              marginBottom: 24,
+              backgroundColor: isPassed ? THEME.status.ready.bgPastel : THEME.status.toInspect.bgPastel,
+              border: `2.5px solid ${isPassed ? THEME.status.ready.color : THEME.status.toInspect.color}`,
+              borderRadius: 22,
+              padding: "28px 32px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              boxShadow: isPassed ? `0 15px ${passedGlow}px rgba(34, 197, 94, 0.4)` : "none",
+              transition: "all 0.3s ease",
             }}
           >
-            {/* Room 201 */}
-            <div
-              style={{
-                backgroundColor: THEME.status.ready.bg,
-                border: `2px solid ${THEME.status.ready.color}`,
-                borderRadius: 16,
-                padding: 16,
-              }}
-            >
-              <div style={{ fontSize: 24, fontWeight: 800, color: THEME.textPrimary }}>201</div>
-              <div style={{ display: "flex", alignItems: "center", gap: 6, color: THEME.status.ready.color, fontSize: 15, fontWeight: 700 }}>
-                <ReadyIcon size={18} color={THEME.status.ready.color} /> Ready
+            <div>
+              <div style={{ fontSize: 44, fontWeight: 900, color: "#1E293B" }}>
+                Room 203
+              </div>
+              <div style={{ fontSize: 18, color: "#64748B", fontWeight: 600, marginTop: 4 }}>
+                Floor 2 · King Suite
               </div>
             </div>
 
-            {/* Room 202 */}
-            <div
-              style={{
-                backgroundColor: THEME.status.assigned.bg,
-                border: `2px solid ${THEME.status.assigned.color}`,
-                borderRadius: 16,
-                padding: 16,
-              }}
-            >
-              <div style={{ fontSize: 24, fontWeight: 800, color: THEME.textPrimary }}>202</div>
-              <div style={{ display: "flex", alignItems: "center", gap: 6, color: THEME.status.assigned.color, fontSize: 15, fontWeight: 700 }}>
-                <AssignedIcon size={18} color={THEME.status.assigned.color} /> Assigned
-              </div>
-            </div>
-
-            {/* Room 203 — The Hero Room that turns Green! */}
-            <div
-              style={{
-                backgroundColor: isPassed ? THEME.status.ready.bg : THEME.status.toInspect.bg,
-                border: `3px solid ${isPassed ? THEME.status.ready.color : THEME.status.toInspect.color}`,
-                borderRadius: 16,
-                padding: 16,
-                boxShadow: isPassed ? `0 0 30px rgba(34, 197, 94, 0.7)` : "none",
-                transform: isPassed ? "scale(1.05)" : "scale(1.0)",
-              }}
-            >
-              <div style={{ fontSize: 24, fontWeight: 800, color: THEME.textPrimary }}>203</div>
+            <div style={{ textAlign: "right" }}>
               <div
                 style={{
-                  display: "flex",
+                  display: "inline-flex",
                   alignItems: "center",
-                  gap: 6,
-                  color: isPassed ? THEME.status.ready.color : THEME.status.toInspect.color,
-                  fontSize: 15,
-                  fontWeight: 700,
+                  gap: 8,
+                  fontSize: 24,
+                  fontWeight: 800,
+                  color: isPassed ? THEME.status.ready.textDark : THEME.status.toInspect.textDark,
                 }}
               >
-                {isPassed ? <ReadyIcon size={18} color="#22C55E" /> : <ToInspectIcon size={18} color="#A855F7" />}
-                {isPassed ? "Ready to Sell" : "To Inspect"}
+                <span
+                  style={{
+                    width: 12,
+                    height: 12,
+                    borderRadius: "50%",
+                    backgroundColor: isPassed ? THEME.status.ready.dot : THEME.status.toInspect.dot,
+                  }}
+                />
+                {isPassed ? "Ready to sell" : "To inspect"}
+              </div>
+              <div style={{ fontSize: 15, color: isPassed ? "#059669" : "#64748B", fontWeight: 600, marginTop: 4 }}>
+                {isPassed ? "Guest Check-in Unlocked ✓" : "Supervisor in room"}
               </div>
             </div>
           </div>
 
-          {/* Front Desk Notification Banner */}
-          <div
-            style={{
-              padding: "16px 20px",
-              borderRadius: 16,
-              backgroundColor: isPassed ? "rgba(34, 197, 94, 0.2)" : "rgba(255,255,255,0.05)",
-              border: `1px solid ${isPassed ? THEME.status.ready.color : THEME.border}`,
-              display: "flex",
-              alignItems: "center",
-              gap: 16,
-            }}
-          >
-            <ReadyIcon size={28} color={isPassed ? "#22C55E" : THEME.textMuted} />
-            <div>
-              <div style={{ fontSize: 18, fontWeight: 700, color: THEME.textPrimary }}>
-                {isPassed ? "Notification: Room 203 Ready for Guest Check-in" : "Listening for supervisor approvals..."}
-              </div>
-              <div style={{ fontSize: 14, color: THEME.textSecondary }}>
-                {isPassed ? "Front desk staff can assign guest keycard immediately." : "Updates broadcast live across all screens."}
-              </div>
+          {/* Surrounding Context Tiles (201, 202, 204) */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14, marginTop: 18 }}>
+            <div style={{ backgroundColor: THEME.status.cleaning.bgPastel, padding: "14px 16px", borderRadius: 14, border: `1px solid ${THEME.status.cleaning.borderPastel}` }}>
+              <div style={{ fontSize: 20, fontWeight: 800, color: "#1E293B" }}>201</div>
+              <div style={{ fontSize: 13, color: THEME.status.cleaning.textDark, fontWeight: 700 }}>● Cleaning</div>
+            </div>
+            <div style={{ backgroundColor: THEME.status.ready.bgPastel, padding: "14px 16px", borderRadius: 14, border: `1px solid ${THEME.status.ready.borderPastel}` }}>
+              <div style={{ fontSize: 20, fontWeight: 800, color: "#1E293B" }}>202</div>
+              <div style={{ fontSize: 13, color: THEME.status.ready.textDark, fontWeight: 700 }}>● Ready</div>
+            </div>
+            <div style={{ backgroundColor: THEME.status.assigned.bgPastel, padding: "14px 16px", borderRadius: 14, border: `1px solid ${THEME.status.assigned.borderPastel}` }}>
+              <div style={{ fontSize: 20, fontWeight: 800, color: "#1E293B" }}>204</div>
+              <div style={{ fontSize: 13, color: THEME.status.assigned.textDark, fontWeight: 700 }}>● Assigned</div>
             </div>
           </div>
+        </div>
+
+        {/* Mouse Pointer */}
+        <div
+          style={{
+            position: "absolute",
+            left: cursorX,
+            top: cursorY,
+            pointerEvents: "none",
+            zIndex: 100,
+          }}
+        >
+          <MousePointerIcon size={34} color={THEME.accentTeal} />
         </div>
       </div>
     </div>

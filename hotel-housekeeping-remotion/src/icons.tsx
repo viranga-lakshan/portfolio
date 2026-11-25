@@ -121,3 +121,18 @@ export const BedIcon: React.FC<IconProps> = ({ size = 24, color = "#14B8A6" }) =
   </svg>
 );
 
+export const MousePointerIcon: React.FC<IconProps> = ({ size = 28, color = "#14B8A6" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.5))" }}>
+    <path d="m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z" />
+    <path d="m13 13 6 6" />
+  </svg>
+);
+
+export const CheckCircleSolidIcon: React.FC<IconProps> = ({ size = 24, color = "#10B981" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <circle cx="12" cy="12" r="10" fill={color} />
+    <path d="m8.5 12 2.5 2.5 5-5" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+

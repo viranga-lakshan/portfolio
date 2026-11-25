@@ -2,43 +2,31 @@ import React from "react";
 import { useCurrentFrame, useVideoConfig, interpolate, spring, staticFile } from "remotion";
 import { Audio } from "@remotion/media";
 import { THEME, fontFamily } from "../theme";
-import { WrenchIcon, BellIcon, ReadyIcon, DirtyIcon } from "../icons";
+import { BellIcon, WrenchIcon, CheckCircleSolidIcon } from "../icons";
 
 export const Scene6Maintenance: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const voSrc = staticFile("assets/scene6_vo.mp3");
 
-  // Entrance
+  const voSrc = staticFile("assets/scene6_vo.mp3");
+  const popSrc = staticFile("assets/sfx_pop.wav");
+
   const enterOpacity = interpolate(frame, [0, 20], [0, 1]);
 
-  // Ticket status transition (Open -> In Progress -> Fixed)
+  // Stepper state: Open (frame 0-60) -> In progress (frame 60-110) -> Fixed (frame 110+)
+  const isInProgress = frame >= 60 && frame < 110;
   const isFixed = frame >= 110;
-  const isInProgress = frame >= 50 && frame < 110;
 
-  let statusLabel = "OPEN (Urgent)";
-  let statusColor = "#EF4444";
-  let statusBg = "rgba(239, 68, 68, 0.15)";
-  if (isFixed) {
-    statusLabel = "FIXED & VERIFIED ✓";
-    statusColor = "#22C55E";
-    statusBg = "rgba(34, 197, 94, 0.15)";
-  } else if (isInProgress) {
-    statusLabel = "IN PROGRESS (Engineering)";
-    statusColor = "#F59E0B";
-    statusBg = "rgba(245, 158, 11, 0.15)";
-  }
+  // Push notifications slide-ins
+  const notif1 = spring({ frame: frame - 25, fps, config: THEME.springs.gentle });
+  const notif2 = spring({ frame: frame - 65, fps, config: THEME.springs.gentle });
+  const notif3 = spring({ frame: frame - 110, fps, config: THEME.springs.gentle });
 
-  // Notification slide-in springs
-  const notif1Spring = spring({ frame: frame - 25, fps, config: THEME.springs.bouncy });
-  const notif2Spring = spring({ frame: frame - 65, fps, config: THEME.springs.bouncy });
-  const notif3Spring = spring({ frame: frame - 110, fps, config: THEME.springs.bouncy });
+  const n1X = interpolate(notif1, [0, 1], [300, 0]);
+  const n2X = interpolate(notif2, [0, 1], [300, 0]);
+  const n3X = interpolate(notif3, [0, 1], [300, 0]);
 
-  const n1X = interpolate(notif1Spring, [0, 1], [400, 0]);
-  const n2X = interpolate(notif2Spring, [0, 1], [400, 0]);
-  const n3X = interpolate(notif3Spring, [0, 1], [400, 0]);
-
-  // Exit transition
+  // Exit transition (last 15 frames)
   const exitOpacity = interpolate(frame, [165, 180], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -57,17 +45,20 @@ export const Scene6Maintenance: React.FC = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "40px 100px",
+        padding: "30px 100px",
         opacity: exitOpacity,
       }}
     >
       <Audio src={voSrc} volume={1.0} />
+      {(frame === 25 || frame === 65 || frame === 110) && (
+        <Audio src={popSrc} volume={0.35} />
+      )}
 
       {/* Top Header */}
       <div
         style={{
           textAlign: "center",
-          marginBottom: 40,
+          marginBottom: 36,
           opacity: enterOpacity,
         }}
       >
@@ -76,57 +67,68 @@ export const Scene6Maintenance: React.FC = () => {
             display: "inline-flex",
             alignItems: "center",
             gap: 10,
-            padding: "8px 22px",
+            padding: "6px 22px",
             borderRadius: 30,
             backgroundColor: "rgba(245, 158, 11, 0.15)",
-            border: `1px solid ${THEME.status.cleaning.color}`,
+            border: `1.5px solid ${THEME.status.cleaning.color}`,
             color: THEME.status.cleaning.color,
-            fontSize: 22,
+            fontSize: 18,
             fontWeight: 700,
             textTransform: "uppercase",
             letterSpacing: "0.08em",
-            marginBottom: 16,
+            marginBottom: 12,
           }}
         >
+          <span
+            style={{
+              width: 9,
+              height: 9,
+              borderRadius: "50%",
+              backgroundColor: THEME.status.cleaning.color,
+              boxShadow: "0 0 10px #F59E0B",
+            }}
+          />
           Engineering & Smart Alerts
         </div>
 
         <h2
           style={{
             ...THEME.typography.headline,
-            fontSize: 66,
+            fontSize: 60,
             color: THEME.textPrimary,
             margin: 0,
+            letterSpacing: "-0.03em",
           }}
         >
           Repairs tracked. <span style={{ color: THEME.accentTeal }}>Nothing forgotten.</span>
         </h2>
       </div>
 
-      {/* Split Content: Left (Maintenance Issue Card) & Right (Notification Feed) */}
+      {/* Split View: Left (Maintenance Request Card) & Right (Push Notifications) */}
       <div
         style={{
           display: "flex",
-          gap: 60,
+          gap: 50,
           width: "100%",
           maxWidth: 1600,
           opacity: enterOpacity,
         }}
       >
-        {/* Left: Maintenance Ticket */}
+        {/* Left: Maintenance Ticket matching Proposal Page 3 */}
         <div
           style={{
             flex: 1.1,
-            backgroundColor: THEME.surface,
-            borderRadius: 28,
-            border: `2px solid ${isFixed ? THEME.status.ready.color : THEME.border}`,
-            padding: 36,
+            backgroundColor: "#FFFFFF",
+            borderRadius: 26,
+            border: `2px solid ${isFixed ? "#10B981" : "#E2E8F0"}`,
+            padding: 34,
             boxShadow: isFixed
-              ? "0 20px 60px rgba(34, 197, 94, 0.3)"
-              : "0 20px 50px rgba(0,0,0,0.5)",
+              ? "0 25px 60px rgba(16, 185, 129, 0.3)"
+              : "0 25px 50px rgba(0,0,0,0.35)",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
+            color: "#0F172A",
           }}
         >
           <div>
@@ -134,117 +136,121 @@ export const Scene6Maintenance: React.FC = () => {
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                 <div
                   style={{
-                    backgroundColor: "rgba(245, 158, 11, 0.2)",
-                    padding: 12,
-                    borderRadius: 16,
+                    backgroundColor: "rgba(245, 158, 11, 0.15)",
+                    padding: 10,
+                    borderRadius: 14,
                   }}
                 >
-                  <WrenchIcon size={28} color="#F59E0B" />
+                  <WrenchIcon size={28} color="#D97706" />
                 </div>
                 <div>
-                  <div style={{ fontSize: 16, color: THEME.textSecondary, fontWeight: 600 }}>
-                    Maintenance Ticket #1042
+                  <div style={{ fontSize: 13, color: "#64748B", fontWeight: 700, textTransform: "uppercase" }}>
+                    Maintenance Request
                   </div>
-                  <div style={{ fontSize: 32, fontWeight: 800, color: THEME.textPrimary }}>
-                    AC Not Cooling – Room 305
+                  <div style={{ fontSize: 32, fontWeight: 800, color: "#0F172A" }}>
+                    AC not cooling · Room 305
                   </div>
                 </div>
               </div>
 
-              {/* Status Badge */}
               <div
                 style={{
-                  backgroundColor: statusBg,
-                  border: `2px solid ${statusColor}`,
-                  color: statusColor,
-                  padding: "8px 18px",
-                  borderRadius: 20,
-                  fontSize: 18,
-                  fontWeight: 800,
+                  backgroundColor: isFixed ? "#ECFDF5" : "#FEF2F2",
+                  color: isFixed ? "#065F46" : "#991B1B",
+                  fontWeight: 700,
+                  fontSize: 16,
+                  padding: "6px 16px",
+                  borderRadius: 16,
                 }}
               >
-                {statusLabel}
+                {isFixed ? "RESOLVED ✓" : "URGENT"}
               </div>
             </div>
 
-            {/* Photo Attachment & Details */}
-            <div
-              style={{
-                marginTop: 24,
-                padding: 20,
-                borderRadius: 20,
-                backgroundColor: "#0F172A",
-                display: "flex",
-                gap: 20,
-                alignItems: "center",
-              }}
-            >
-              {/* Photo Thumbnail representation */}
-              <div
-                style={{
-                  width: 130,
-                  height: 100,
-                  borderRadius: 14,
-                  backgroundColor: "#1E293B",
-                  border: "2px dashed #475569",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 6,
-                }}
-              >
-                <span style={{ fontSize: 26 }}>📷</span>
-                <span style={{ fontSize: 12, color: THEME.textSecondary, fontWeight: 600 }}>
-                  Photo Attached
-                </span>
-              </div>
+            <div style={{ fontSize: 16, color: "#475569", fontWeight: 500, marginTop: 14 }}>
+              Reported by Sara with photo · Urgent · Engineering Team
+            </div>
 
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 18, fontWeight: 700, color: THEME.textPrimary }}>
-                  Reported by Housekeeper Nimal
+            {/* Stepper matching Proposal Page 3 */}
+            <div style={{ marginTop: 28 }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: "#64748B", textTransform: "uppercase", marginBottom: 12 }}>
+                Resolution Progress:
+              </div>
+              <div style={{ display: "flex", gap: 12 }}>
+                {/* Step 1: Open */}
+                <div
+                  style={{
+                    flex: 1,
+                    padding: "12px",
+                    borderRadius: 14,
+                    textAlign: "center",
+                    backgroundColor: "#F1F5F9",
+                    color: "#475569",
+                    fontWeight: 700,
+                    fontSize: 16,
+                    border: "1.5px solid #CBD5E1",
+                  }}
+                >
+                  1. Open
                 </div>
-                <div style={{ fontSize: 15, color: THEME.textSecondary, marginTop: 4 }}>
-                  "Thermostat error code E4. Room automatically set to Out of Order."
+
+                {/* Step 2: In Progress */}
+                <div
+                  style={{
+                    flex: 1,
+                    padding: "12px",
+                    borderRadius: 14,
+                    textAlign: "center",
+                    backgroundColor: isInProgress ? "#FFFBEB" : isFixed ? "#ECFDF5" : "#F8FAFC",
+                    color: isInProgress ? "#92400E" : isFixed ? "#065F46" : "#94A3B8",
+                    fontWeight: 700,
+                    fontSize: 16,
+                    border: `1.5px solid ${isInProgress ? "#FDE68A" : isFixed ? "#A7F3D0" : "#E2E8F0"}`,
+                  }}
+                >
+                  2. In progress
                 </div>
-                <div style={{ fontSize: 14, color: THEME.accentTeal, marginTop: 8, fontWeight: 600 }}>
-                  Assigned to: Senior HVAC Technician (Kasun)
+
+                {/* Step 3: Fixed */}
+                <div
+                  style={{
+                    flex: 1,
+                    padding: "12px",
+                    borderRadius: 14,
+                    textAlign: "center",
+                    backgroundColor: isFixed ? "#ECFDF5" : "#F8FAFC",
+                    color: isFixed ? "#065F46" : "#94A3B8",
+                    fontWeight: 700,
+                    fontSize: 16,
+                    border: `1.5px solid ${isFixed ? "#A7F3D0" : "#E2E8F0"}`,
+                  }}
+                >
+                  3. Fixed ✓
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Bottom Auto Status Bar */}
+          {/* Proposal Bottom Notice */}
           <div
             style={{
               marginTop: 24,
-              padding: "14px 20px",
+              padding: "14px 18px",
               borderRadius: 14,
-              backgroundColor: isFixed ? "rgba(34, 197, 94, 0.15)" : "rgba(255,255,255,0.05)",
-              border: `1px solid ${isFixed ? THEME.status.ready.border : THEME.border}`,
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              backgroundColor: isFixed ? "#ECFDF5" : "#F8FAFC",
+              border: `1px solid ${isFixed ? "#A7F3D0" : "#E2E8F0"}`,
+              fontSize: 15,
+              color: isFixed ? "#065F46" : "#64748B",
+              fontWeight: 600,
             }}
           >
-            <span style={{ fontSize: 16, color: THEME.textPrimary, fontWeight: 600 }}>
-              {isFixed
-                ? "Room 305 automatically restored to Available pool"
-                : "Preventing double-booking while engineering repairs"}
-            </span>
-            <span
-              style={{
-                fontSize: 14,
-                color: isFixed ? THEME.status.ready.color : THEME.status.dirty.color,
-                fontWeight: 700,
-              }}
-            >
-              {isFixed ? "Auto-Unlocked" : "Locked Out of Order"}
-            </span>
+            {isFixed
+              ? "✓ Room 305 automatically returned to service & ready to sell!"
+              : "Room set Out of Order automatically until fixed, then returned to service."}
           </div>
         </div>
 
-        {/* Right: Live Notification Pop-up Stream */}
+        {/* Right: Instant Push Alerts Feed */}
         <div
           style={{
             flex: 0.9,
@@ -254,101 +260,125 @@ export const Scene6Maintenance: React.FC = () => {
             justifyContent: "center",
           }}
         >
-          {/* Notification 1 */}
+          {/* Alert 1 */}
           <div
             style={{
               transform: `translateX(${n1X}px)`,
-              backgroundColor: THEME.surface,
+              opacity: notif1,
+              backgroundColor: "#1E293B",
               borderRadius: 20,
-              border: `2px solid ${THEME.status.ready.color}`,
-              padding: "20px 24px",
+              padding: "18px 24px",
+              border: "1.5px solid #334155",
+              boxShadow: "0 15px 35px rgba(0,0,0,0.4)",
               display: "flex",
               alignItems: "center",
-              gap: 16,
-              boxShadow: "0 15px 35px rgba(0,0,0,0.4)",
+              gap: 18,
             }}
           >
             <div
               style={{
-                backgroundColor: THEME.status.ready.bg,
-                padding: 12,
+                width: 48,
+                height: 48,
                 borderRadius: 14,
+                backgroundColor: "rgba(16, 185, 129, 0.2)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              <ReadyIcon size={28} color="#22C55E" />
+              <CheckCircleSolidIcon size={28} color="#10B981" />
             </div>
             <div>
-              <div style={{ fontSize: 20, fontWeight: 800, color: THEME.textPrimary }}>
-                Room 204 is ready
+              <div style={{ fontSize: 13, color: THEME.accentTeal, fontWeight: 700, textTransform: "uppercase" }}>
+                Front Desk Notification
               </div>
-              <div style={{ fontSize: 15, color: THEME.textSecondary }}>
-                Cleaned by Sara • Approved by Supervisor
+              <div style={{ fontSize: 18, fontWeight: 700, color: "#FFFFFF", marginTop: 2 }}>
+                Room 204 is Ready to sell
+              </div>
+              <div style={{ fontSize: 13, color: "#94A3B8", marginTop: 2 }}>
+                Passed inspection · Floor 2 unlocked
               </div>
             </div>
           </div>
 
-          {/* Notification 2 */}
+          {/* Alert 2 */}
           <div
             style={{
               transform: `translateX(${n2X}px)`,
-              backgroundColor: THEME.surface,
+              opacity: notif2,
+              backgroundColor: "#1E293B",
               borderRadius: 20,
-              border: `2px solid ${THEME.status.dirty.color}`,
-              padding: "20px 24px",
+              padding: "18px 24px",
+              border: "1.5px solid #334155",
+              boxShadow: "0 15px 35px rgba(0,0,0,0.4)",
               display: "flex",
               alignItems: "center",
-              gap: 16,
-              boxShadow: "0 15px 35px rgba(0,0,0,0.4)",
+              gap: 18,
             }}
           >
             <div
               style={{
-                backgroundColor: THEME.status.dirty.bg,
-                padding: 12,
+                width: 48,
+                height: 48,
                 borderRadius: 14,
+                backgroundColor: "rgba(239, 68, 68, 0.2)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              <DirtyIcon size={28} color="#EF4444" />
+              <BellIcon size={26} color="#EF4444" />
             </div>
             <div>
-              <div style={{ fontSize: 20, fontWeight: 800, color: THEME.textPrimary }}>
-                Room 310 sent back
+              <div style={{ fontSize: 13, color: "#F87171", fontWeight: 700, textTransform: "uppercase" }}>
+                Supervisor Alert
               </div>
-              <div style={{ fontSize: 15, color: THEME.textSecondary }}>
-                Reason: Balcony glass needs wiping
+              <div style={{ fontSize: 18, fontWeight: 700, color: "#FFFFFF", marginTop: 2 }}>
+                Room 310 Failed Inspection
+              </div>
+              <div style={{ fontSize: 13, color: "#94A3B8", marginTop: 2 }}>
+                Returned to housekeeper: Extra bath towels required
               </div>
             </div>
           </div>
 
-          {/* Notification 3 */}
+          {/* Alert 3 */}
           <div
             style={{
               transform: `translateX(${n3X}px)`,
-              backgroundColor: THEME.surface,
+              opacity: notif3,
+              backgroundColor: "#1E293B",
               borderRadius: 20,
-              border: `2px solid ${THEME.accentTeal}`,
-              padding: "20px 24px",
+              padding: "18px 24px",
+              border: "1.5px solid #334155",
+              boxShadow: "0 15px 35px rgba(0,0,0,0.4)",
               display: "flex",
               alignItems: "center",
-              gap: 16,
-              boxShadow: "0 15px 35px rgba(0,0,0,0.4)",
+              gap: 18,
             }}
           >
             <div
               style={{
-                backgroundColor: "rgba(20, 184, 166, 0.2)",
-                padding: 12,
+                width: 48,
+                height: 48,
                 borderRadius: 14,
+                backgroundColor: "rgba(20, 184, 166, 0.2)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              <BellIcon size={28} color={THEME.accentTeal} />
+              <WrenchIcon size={26} color="#14B8A6" />
             </div>
             <div>
-              <div style={{ fontSize: 20, fontWeight: 800, color: THEME.textPrimary }}>
-                AC fixed in 305
+              <div style={{ fontSize: 13, color: THEME.accentTeal, fontWeight: 700, textTransform: "uppercase" }}>
+                Maintenance Alert
               </div>
-              <div style={{ fontSize: 15, color: THEME.textSecondary }}>
-                Repaired by Kasun • Ready for guest check-in
+              <div style={{ fontSize: 18, fontWeight: 700, color: "#FFFFFF", marginTop: 2 }}>
+                New Repair: Shower Leak · Room 112
+              </div>
+              <div style={{ fontSize: 13, color: "#94A3B8", marginTop: 2 }}>
+                Assigned to Engineering · Normal Priority
               </div>
             </div>
           </div>
@@ -357,4 +387,3 @@ export const Scene6Maintenance: React.FC = () => {
     </div>
   );
 };
-
